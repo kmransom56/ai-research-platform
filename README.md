@@ -1,8 +1,42 @@
-**NOTE**: This is a **sample** application to help you understand how Semantic Kernel and AI can work in Web Applications. This sample is **NOT FOR PRODUCTION** deployments.
+**NOTE**: This repository has been **transformed** into a comprehensive **AI Research Platform** with Tailscale network integration. This extends the original Chat Copilot sample with multi-agent capabilities, local LLMs, and advanced AI research tools.
 
-# Chat Copilot Sample Application
+# 🤖 AI Research Platform (Based on Chat Copilot)
 
-This sample allows you to build your own integrated large language model (LLM) chat copilot. The sample is built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kernel) and has three components:
+This platform provides a complete AI research environment accessible via Tailscale mesh network. Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kernel), it now includes:
+
+## 🚀 Platform Components
+
+### Core AI Services
+1. **Chat Copilot** - [.NET web API service](./webapi/) + [React web app](./webapp/)
+2. **AutoGen Studio** - Multi-agent conversation platform with Ollama integration
+3. **OpenWebUI** - Advanced LLM interface with multiple model support
+4. **Perplexica** - AI-powered search with real-time internet access
+5. **SearchNG** - Privacy-focused search engine
+
+### Research & Development Tools
+6. **VS Code Online** - Browser-based development environment
+7. **Port Scanner** - Network discovery and monitoring
+8. **Material-UI Control Panel** - Centralized system management
+9. **GitHub Webhook System** - Automated deployment pipeline
+
+### Multi-Agent AI Capabilities
+- **Code Review Teams** - Multi-agent code analysis with specialized roles
+- **Research Analysis** - Collaborative research with fact-checking
+- **Problem Solving** - Complex problem decomposition and solution design
+- **Local LLM Integration** - 7+ Ollama models including llama3.2, mistral, deepseek-coder
+
+## 🌐 Network Access
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
 
 1. A frontend application [React web app](./webapp/)
 2. A backend REST API [.NET web API service](./webapi/)
@@ -17,6 +51,39 @@ To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/de
 > **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
 
 ![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 📚 Documentation
+
+- **[Application Directory](./APPLICATIONS_DIRECTORY.md)** - Complete service catalog
+- **[AutoGen Studio Setup](./AUTOGEN_STUDIO_SETUP.md)** - Multi-agent platform guide
+- **[Webhook Deployment](./WEBHOOK_SETUP.md)** - Automated deployment system
+- **[Control Panel Guide](./webapp/public/control-panel.html)** - System management interface
 
 # Requirements
 
