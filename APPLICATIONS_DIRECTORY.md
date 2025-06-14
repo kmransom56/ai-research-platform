@@ -11,7 +11,7 @@
 | **OpenWebUI** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net) | Advanced LLM Chat Interface with Multiple Models | ✅ Active |
 | **Chat Copilot** | [http://100.123.10.72:10500](http://100.123.10.72:10500) | Microsoft Semantic Kernel AI Chat Platform | ✅ Active |
 | **Chat Copilot API** | [https://100.123.10.72:40443](https://100.123.10.72:40443) | Backend REST API for AI Chat | ✅ Active |
-| **Perplexica** | [http://100.123.10.72:3999](http://100.123.10.72:3999) | AI Search with Real-time Internet Access | ✅ Active |
+| **Perplexica** | [http://100.123.10.72:3999/perplexica](http://100.123.10.72:3999/perplexica) | AI Search with Real-time Internet Access | ✅ Active |
 | **SearchNG** | [http://100.123.10.72:4000](http://100.123.10.72:4000) | Privacy-focused Search Engine | ✅ Active |
 
 ### AI Research URLs
