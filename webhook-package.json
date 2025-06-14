@@ -1,0 +1,26 @@
+{
+  "name": "ai-research-platform-webhook",
+  "version": "1.0.0",
+  "description": "GitHub webhook server for automatic deployment",
+  "main": "webhook-server.js",
+  "scripts": {
+    "start": "node webhook-server.js",
+    "dev": "nodemon webhook-server.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "webhook",
+    "github",
+    "deployment",
+    "automation"
+  ],
+  "author": "AI Research Platform",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
