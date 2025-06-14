@@ -1,8 +1,14 @@
 {
   "recommendations": [
-    "ms-dotnettools.csharp",
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "ms-semantic-kernel.semantic-kernel",
+    "ms-python.python",
+    "ms-vscode.vscode-typescript-next",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.hexeditor",
+    "ms-vscode.vscode-github-issue-prs",
+    "github.copilot",
+    "ms-vscode-remote.remote-containers",
+    "ms-toolsai.jupyter",
+    "bradlc.vscode-tailwindcss"
   ]
 }

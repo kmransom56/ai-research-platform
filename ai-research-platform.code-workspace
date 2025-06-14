@@ -1,0 +1,107 @@
+{
+  "folders": [
+    {
+      "name": "AI Research Platform",
+      "path": "/home/keith/chat-copilot"
+    },
+    {
+      "name": "AutoGen Environment",
+      "path": "/home/keith/chat-copilot/autogen-env"
+    },
+    {
+      "name": "Documentation",
+      "path": "/home/keith/chat-copilot/docs"
+    }
+  ],
+  "settings": {
+    "python.pythonPath": "/home/keith/chat-copilot/autogen-env/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "files.autoSave": "afterDelay",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "git.autofetch": true,
+    "workbench.colorTheme": "Default Dark+",
+    "editor.fontSize": 14,
+    "editor.tabSize": 4,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "jupyter.askForKernelRestart": false
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-vscode.vscode-typescript-next",
+      "ms-vscode.vscode-json",
+      "redhat.vscode-yaml",
+      "ms-vscode.hexeditor",
+      "ms-vscode.vscode-github-issue-prs",
+      "github.copilot",
+      "ms-vscode-remote.remote-containers",
+      "ms-toolsai.jupyter",
+      "bradlc.vscode-tailwindcss"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Start AutoGen Studio",
+        "type": "shell",
+        "command": "source autogen-env/bin/activate && autogenstudio ui --port 8085 --host 0.0.0.0",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Run Magentic-One Demo",
+        "type": "shell",
+        "command": "source autogen-env/bin/activate && python magentic_one_simple.py",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Test Ollama Models",
+        "type": "shell",
+        "command": "ollama list",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always"
+        }
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: AutoGen Examples",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/autogen_examples.py",
+        "console": "integratedTerminal",
+        "python": "/home/keith/chat-copilot/autogen-env/bin/python"
+      },
+      {
+        "name": "Python: Magentic-One Platform",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/magentic_one_simple.py",
+        "console": "integratedTerminal",
+        "python": "/home/keith/chat-copilot/autogen-env/bin/python"
+      }
+    ]
+  }
+}

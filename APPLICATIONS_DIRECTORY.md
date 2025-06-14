@@ -29,7 +29,7 @@
 | Application | URL | Description | Status |
 |-------------|-----|-------------|---------|
 | **Material-UI Control Panel** | [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html) | Interactive System Management Dashboard | ✅ Active |
-| **VS Code Online** | [http://100.123.10.72:57081](http://100.123.10.72:57081) | Browser-based Code Editor | ✅ Active |
+| **VS Code Web (Enhanced)** | [http://100.123.10.72:57081](http://100.123.10.72:57081) | Full VS Code Server with AI Development Workspace | ✅ Active |
 | **Port Scanner Dashboard** | [http://100.123.10.72:10200](http://100.123.10.72:10200) | Network Discovery & Monitoring | ✅ Active |
 | **AutoGen Studio** | [http://100.123.10.72:8085](http://100.123.10.72:8085) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
 | **Magentic-One Platform** | [http://100.123.10.72:8086](http://100.123.10.72:8086) | Advanced Multi-Agent Task Solving System | 🟡 Configured |
