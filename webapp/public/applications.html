@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Platform - Application Directory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #444;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .app-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .app-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .app-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .app-link:hover {
+            background: #5a6fd8;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.ready {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .quick-access {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .quick-access h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .quick-link {
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+        
+        .quick-link:hover {
+            background: #218838;
+        }
+        
+        .network-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .ai-category { border-left-color: #ff6b6b; }
+        .dev-category { border-left-color: #4ecdc4; }
+        .network-category { border-left-color: #45b7d1; }
+        .api-category { border-left-color: #96ceb4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 AI Research Platform</h1>
+        <p class="subtitle">Distributed Applications on Tailscale Network</p>
+        
+        <div class="network-info">
+            <strong>Tailscale IP:</strong> 100.123.10.72 | 
+            <strong>Access:</strong> Available from any device on your Tailscale network | 
+            <strong>Last Updated:</strong> June 14, 2025
+        </div>
+
+        <div class="section">
+            <h2>🤖 AI & Research Applications</h2>
+            <div class="app-grid">
+                <div class="app-card ai-category">
+                    <h3>OpenWebUI <span class="status active">✅ Active</span></h3>
+                    <p>Advanced LLM Chat Interface with Multiple Models - Primary AI Platform for research and development</p>
+                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net" class="app-link" target="_blank">Launch OpenWebUI</a>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>Chat Copilot <span class="status active">✅ Active</span></h3>
+                    <p>Microsoft Semantic Kernel AI Chat Platform with document processing and memory capabilities</p>
+                    <a href="http://100.123.10.72:10500" class="app-link" target="_blank">Launch Chat Interface</a>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>Perplexica <span class="status active">✅ Active</span></h3>
+                    <p>AI Search with Real-time Internet Access - Chat with the web using advanced AI</p>
+                    <a href="http://100.123.10.72:3999" class="app-link" target="_blank">Launch AI Search</a>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>SearchNG <span class="status active">✅ Active</span></h3>
+                    <p>Privacy-focused Search Engine for secure web searches</p>
+                    <a href="http://100.123.10.72:4000" class="app-link" target="_blank">Launch Search Engine</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Development & Management Tools</h2>
+            <div class="app-grid">
+                <div class="app-card dev-category">
+                    <h3>VS Code Online <span class="status active">✅ Active</span></h3>
+                    <p>Full-featured browser-based Visual Studio Code editor for development</p>
+                    <a href="http://100.123.10.72:57081" class="app-link" target="_blank">Launch Code Editor</a>
+                </div>
+                
+                <div class="app-card network-category">
+                    <h3>Port Scanner Dashboard <span class="status active">✅ Active</span></h3>
+                    <p>Network Discovery & Monitoring tool for service management</p>
+                    <a href="http://100.123.10.72:10200" class="app-link" target="_blank">Launch Scanner</a>
+                </div>
+                
+                <div class="app-card network-category">
+                    <h3>Fortinet Manager <span class="status active">✅ Active</span></h3>
+                    <p>Network Security Management UI for infrastructure control</p>
+                    <a href="http://100.123.10.72:3001" class="app-link" target="_blank">Launch Manager</a>
+                </div>
+                
+                <div class="app-card network-category">
+                    <h3>Nginx Gateway <span class="status active">✅ Active</span></h3>
+                    <p>Web Services Proxy and Gateway for application routing</p>
+                    <a href="http://100.123.10.72:8082" class="app-link" target="_blank">Launch Gateway</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Backend Services & APIs</h2>
+            <div class="app-grid">
+                <div class="app-card api-category">
+                    <h3>Chat Copilot API <span class="status active">✅ Active</span></h3>
+                    <p>Semantic Kernel REST API for AI chat functionality</p>
+                    <a href="https://100.123.10.72:40443/healthz" class="app-link" target="_blank">Health Check</a>
+                </div>
+                
+                <div class="app-card api-category">
+                    <h3>Fortinet API <span class="status active">✅ Active</span></h3>
+                    <p>Network Management REST API for automation</p>
+                    <a href="http://100.123.10.72:5000" class="app-link" target="_blank">API Endpoint</a>
+                </div>
+                
+                <div class="app-card api-category">
+                    <h3>Ollama (Local LLM) <span class="status ready">🟡 Ready</span></h3>
+                    <p>Local Language Models server with phi3 and nomic-embed models</p>
+                    <a href="http://localhost:11434" class="app-link" target="_blank">Local Access</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-access">
+            <h3>🚀 Quick Access Links</h3>
+            <div class="quick-links">
+                <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net" class="quick-link" target="_blank">OpenWebUI</a>
+                <a href="http://100.123.10.72:10500" class="quick-link" target="_blank">AI Chat</a>
+                <a href="http://100.123.10.72:3999" class="quick-link" target="_blank">AI Search</a>
+                <a href="http://100.123.10.72:57081" class="quick-link" target="_blank">Code Editor</a>
+                <a href="http://100.123.10.72:10200" class="quick-link" target="_blank">Port Scanner</a>
+                <a href="http://100.123.10.72:3001" class="quick-link" target="_blank">Network Mgmt</a>
+                <a href="https://100.123.10.72:40443/healthz" class="quick-link" target="_blank">Health Check</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Available Features</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">AI Capabilities</h4>
+                    <ul style="color: #666; line-height: 1.6;">
+                        <li>✅ OpenAI GPT-4 Integration</li>
+                        <li>✅ Internet-connected AI Search</li>
+                        <li>✅ Document Processing</li>
+                        <li>✅ Multi-modal Chat</li>
+                        <li>🟡 Local LLM Support (Ready)</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Development Tools</h4>
+                    <ul style="color: #666; line-height: 1.6;">
+                        <li>✅ Cloud-based Code Editor</li>
+                        <li>✅ Network Discovery</li>
+                        <li>✅ Container Management</li>
+                        <li>✅ API Development</li>
+                        <li>✅ Real-time Collaboration</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Research Tools</h4>
+                    <ul style="color: #666; line-height: 1.6;">
+                        <li>✅ AI-powered Search</li>
+                        <li>✅ Knowledge Management</li>
+                        <li>✅ Multi-source Research</li>
+                        <li>✅ Real-time Web Access</li>
+                        <li>✅ Privacy-focused Search</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #e9ecef; border-radius: 10px;">
+            <h3>🎉 Your AI Research Platform is Ready!</h3>
+            <p style="color: #666; margin: 10px 0;">All applications are accessible across your Tailscale network from any device.</p>
+            <p style="color: #666; font-size: 0.9em;">For technical support or additional configuration, refer to the APPLICATIONS_DIRECTORY.md file.</p>
+        </div>
+    </div>
+</body>
+</html>
