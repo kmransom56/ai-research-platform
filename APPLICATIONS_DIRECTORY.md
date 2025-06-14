@@ -32,6 +32,7 @@
 | **VS Code Online** | [http://100.123.10.72:57081](http://100.123.10.72:57081) | Browser-based Code Editor | ✅ Active |
 | **Port Scanner Dashboard** | [http://100.123.10.72:10200](http://100.123.10.72:10200) | Network Discovery & Monitoring | ✅ Active |
 | **AutoGen Studio** | [http://100.123.10.72:8085](http://100.123.10.72:8085) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
+| **Magentic-One Platform** | [http://100.123.10.72:8086](http://100.123.10.72:8086) | Advanced Multi-Agent Task Solving System | 🟡 Configured |
 
 ### Network Management
 | Application | URL | Description | Status |
