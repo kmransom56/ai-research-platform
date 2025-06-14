@@ -10,9 +10,15 @@
 |-------------|-----|-------------|---------|
 | **OpenWebUI** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net) | Advanced LLM Chat Interface with Multiple Models | ✅ Active |
 | **Chat Copilot** | [http://100.123.10.72:10500](http://100.123.10.72:10500) | Microsoft Semantic Kernel AI Chat Platform | ✅ Active |
-| **Chat Copilot API** | [https://100.123.10.72:40443](https://100.123.10.72:40443) | Backend REST API for AI Chat | ✅ Active |
+| **Chat Copilot API** | [http://100.123.10.72:40444](http://100.123.10.72:40444) | Backend REST API for AI Chat (HTTP) | ✅ Active |
 | **Perplexica** | [http://100.123.10.72:3999/perplexica](http://100.123.10.72:3999/perplexica) | AI Search with Real-time Internet Access | ✅ Active |
 | **SearchNG** | [http://100.123.10.72:4000](http://100.123.10.72:4000) | Privacy-focused Search Engine | ✅ Active |
+
+### Multi-Agent AI Platforms
+| Application | URL | Description | Status |
+|-------------|-----|-------------|---------|
+| **AutoGen Studio** | [http://100.123.10.72:8085](http://100.123.10.72:8085) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
+| **Magentic-One** | [http://100.123.10.72:8086](http://100.123.10.72:8086) | Microsoft's Multi-Agent Orchestration System | ✅ Active |
 
 ### AI Research URLs
 - **OpenWebUI (Primary)**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
@@ -20,6 +26,11 @@
 - **AI Web Search**: [http://100.123.10.72:3999/perplexica](http://100.123.10.72:3999/perplexica)
 - **Search Discovery**: [http://100.123.10.72:3999/perplexica/discover](http://100.123.10.72:3999/perplexica/discover)
 - **Research Library**: [http://100.123.10.72:3999/perplexica/library](http://100.123.10.72:3999/perplexica/library)
+
+### Multi-Agent Platform URLs
+- **AutoGen Studio**: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- **Magentic-One Dashboard**: [http://100.123.10.72:8086](http://100.123.10.72:8086)
+- **Magentic-One API**: [http://100.123.10.72:8086/api/chat](http://100.123.10.72:8086/api/chat)
 
 ---
 
