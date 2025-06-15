@@ -208,7 +208,7 @@ if (Test-Path $webappEnvFilePath) {
     Get-Content $webappEnvFilePath | Write-Host
 } else {
     Write-Host "Creating new .env file..."
-    Set-Content -Path $webappEnvFilePath -Value "REACT_APP_BACKEND_URI=http://100.123.10.72:40443/"
+    Set-Content -Path $webappEnvFilePath -Value "REACT_APP_BACKEND_URI=http://100.123.10.72:11000/"
 }
 
 Write-Host "($webappEnvFilePath)"

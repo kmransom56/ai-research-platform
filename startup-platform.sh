@@ -103,21 +103,23 @@ sleep 5
 
 # Test endpoints
 echo "🧪 Testing service endpoints..."
-wait_for_service "AutoGen Studio" "http://100.123.10.72:8085" 10
-wait_for_service "Webhook Server" "http://100.123.10.72:9001/health" 10
-wait_for_service "Magentic-One" "http://100.123.10.72:8086/health" 10
-wait_for_service "Port Scanner" "http://100.123.10.72:10201" 10
+wait_for_service "AutoGen Studio" "http://100.123.10.72:11001" 10
+wait_for_service "Webhook Server" "http://100.123.10.72:11002/health" 10
+wait_for_service "Magentic-One" "http://100.123.10.72:11003/health" 10
+wait_for_service "Port Scanner" "http://100.123.10.72:11010" 10
 wait_for_service "Fortinet Manager Frontend" "http://100.123.10.72:3001" 10
 wait_for_service "Fortinet Manager Backend" "http://100.123.10.72:5000" 10
 
 echo "🎉 AI Research Platform startup complete!"
 echo "📊 Platform Status:"
-echo "   🌐 Control Panel: http://100.123.10.72:40443/control-panel.html"
-echo "   🤖 AutoGen Studio: http://100.123.10.72:8085"
-echo "   🌟 Magentic-One: http://100.123.10.72:8086"
+echo "   🌐 Control Panel: http://100.123.10.72:11000/control-panel.html"
+echo "   🔧 Nginx Proxy Manager: http://100.123.10.72:11080 (admin@example.com / changeme)"
+echo "   🔗 Proxy Gateway HTTP: http://100.123.10.72:11081/"
+echo "   🤖 AutoGen Studio: http://100.123.10.72:11001"
+echo "   🌟 Magentic-One: http://100.123.10.72:11003"
 echo "   💻 VS Code Web: http://100.123.10.72:57081"
-echo "   🔗 Webhook Server: http://100.123.10.72:9001/health"
-echo "   🔍 Port Scanner: http://100.123.10.72:10201"
+echo "   🔗 Webhook Server: http://100.123.10.72:11002/health"
+echo "   🔍 Port Scanner: http://100.123.10.72:11010"
 echo "   🛡️ Fortinet Manager: http://100.123.10.72:3001"
 
 # Create status file
@@ -126,11 +128,12 @@ cat > /home/keith/chat-copilot/platform-status.json << EOF
     "startup_time": "$(date -Iseconds)",
     "services": {
         "ollama": "$(curl -s http://localhost:11434/api/version &> /dev/null && echo 'running' || echo 'stopped')",
-        "autogen_studio": "$(curl -s http://100.123.10.72:8085 &> /dev/null && echo 'running' || echo 'stopped')",
-        "magentic_one": "$(curl -s http://100.123.10.72:8086/health &> /dev/null && echo 'running' || echo 'stopped')",
-        "webhook_server": "$(curl -s http://100.123.10.72:9001/health &> /dev/null && echo 'running' || echo 'stopped')",
+        "autogen_studio": "$(curl -s http://100.123.10.72:11001 &> /dev/null && echo 'running' || echo 'stopped')",
+        "magentic_one": "$(curl -s http://100.123.10.72:11003/health &> /dev/null && echo 'running' || echo 'stopped')",
+        "webhook_server": "$(curl -s http://100.123.10.72:11002/health &> /dev/null && echo 'running' || echo 'stopped')",
+        "nginx_proxy_manager": "$(curl -s http://100.123.10.72:11080 &> /dev/null && echo 'running' || echo 'stopped')",
         "vscode_web": "$(curl -s http://100.123.10.72:57081 &> /dev/null && echo 'running' || echo 'stopped')",
-        "port_scanner": "$(curl -s http://100.123.10.72:10201 &> /dev/null && echo 'running' || echo 'stopped')",
+        "port_scanner": "$(curl -s http://100.123.10.72:11010 &> /dev/null && echo 'running' || echo 'stopped')",
         "fortinet_manager": "$(curl -s http://100.123.10.72:3001 &> /dev/null && echo 'running' || echo 'stopped')"
     }
 }

@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      # Web UI
+      - '11080:81'
+      # HTTP
+      - '11081:80'
+      # HTTPS
+      - '11082:443'
+    volumes:
+      - nginx-proxy-manager-data:/data
+      - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
+    environment:
+      # Optional: Increase upload size limit
+      - DISABLE_IPV6=true
+    networks:
+      - proxy-network
+
+  # Database for Nginx Proxy Manager
+  nginx-proxy-manager-db:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: nginx-proxy-manager-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm-root-password'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm-password'
+    volumes:
+      - nginx-proxy-manager-db:/var/lib/mysql
+    networks:
+      - proxy-network
+
+volumes:
+  nginx-proxy-manager-data:
+  nginx-proxy-manager-letsencrypt:
+  nginx-proxy-manager-db:
+
+networks:
+  proxy-network:
+    driver: bridge

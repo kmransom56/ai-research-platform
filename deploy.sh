@@ -85,21 +85,21 @@ docker-compose up -d --remove-orphans 2>/dev/null || log "⚠️ Docker services
 log "🧪 Testing critical services..."
 
 # Test Chat Copilot API
-if curl -k -s -f "https://100.123.10.72:40443/healthz" > /dev/null; then
+if curl -k -s -f "http://100.123.10.72:11000/healthz" > /dev/null; then
     log "✅ Chat Copilot API: Healthy"
 else
     log "⚠️ Chat Copilot API: Not responding"
 fi
 
 # Test frontend
-if curl -s -f "http://100.123.10.72:10500" > /dev/null; then
+if curl -s -f "http://100.123.10.72:11000" > /dev/null; then
     log "✅ Frontend: Accessible"
 else
     log "⚠️ Frontend: Not responding"
 fi
 
 # Test control panel
-if curl -s -f "http://100.123.10.72:10500/control-panel.html" > /dev/null; then
+if curl -s -f "http://100.123.10.72:11000/control-panel.html" > /dev/null; then
     log "✅ Control Panel: Accessible"
 else
     log "⚠️ Control Panel: Not responding"
@@ -125,9 +125,10 @@ fi
 
 log "🎉 Deployment completed successfully!"
 log "📊 Services available at:"
-log "   - Control Panel: http://100.123.10.72:10500/control-panel.html"
-log "   - Chat Copilot: http://100.123.10.72:10500"
-log "   - OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net"
-log "   - API Health: https://100.123.10.72:40443/healthz"
+log "   - Control Panel: http://100.123.10.72:11000/control-panel.html"
+log "   - Chat Copilot: http://100.123.10.72:11000"
+log "   - Nginx Proxy Manager: http://100.123.10.72:11080"
+log "   - Port Scanner: http://100.123.10.72:11010"
+log "   - API Health: http://100.123.10.72:11000/healthz"
 
 exit 0

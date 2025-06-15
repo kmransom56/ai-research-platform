@@ -222,7 +222,7 @@ if [ -f "$WEBAPP_ENV_FILEPATH" ]; then
     cat "$WEBAPP_ENV_FILEPATH"
 else
     echo "Creating new .env file..."
-    echo "REACT_APP_BACKEND_URI=http://100.123.10.72:40443/" >$WEBAPP_ENV_FILEPATH
+    echo "REACT_APP_BACKEND_URI=http://100.123.10.72:11000/" >$WEBAPP_ENV_FILEPATH
 fi
 
 echo "($WEBAPP_ENV_FILEPATH)"

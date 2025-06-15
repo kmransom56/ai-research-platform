@@ -13,7 +13,7 @@ const path = require('path');
 
 // Configuration
 const CONFIG = {
-    port: process.env.WEBHOOK_PORT || 9001,
+    port: process.env.WEBHOOK_PORT || 11002,
     secret: process.env.WEBHOOK_SECRET || 'ai-research-platform-webhook-secret',
     repositoryPath: '/home/keith/chat-copilot',
     branch: 'main',
@@ -99,7 +99,7 @@ async function deploy() {
             
             // Start backend in background
             log('Starting backend server...');
-            const backend = spawn('dotnet', ['run', '--urls', 'https://100.123.10.72:40443'], {
+            const backend = spawn('dotnet', ['run', '--urls', 'http://0.0.0.0:11000'], {
                 cwd: path.join(CONFIG.repositoryPath, 'webapi'),
                 detached: true,
                 stdio: 'ignore'

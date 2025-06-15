@@ -19,9 +19,9 @@
 5. Standardized service startup configuration
 
 **Current Configuration:**
-- Backend: http://0.0.0.0:40443 (configured in webapi/appsettings.json)
+- Backend: http://0.0.0.0:11000 (configured in webapi/appsettings.json)
 - Frontend Development: http://0.0.0.0:3000 (npm start)
-- Frontend Production: Served from backend at :40443
+- Frontend Production: Served from backend at :11000
 - Authentication: None (for development)
 - AI Provider: OpenAI via Ollama (localhost:11434)
 
@@ -32,11 +32,15 @@
 - All logs in `/home/keith/chat-copilot/logs/`
 
 **Port Configuration:**
-- Backend API: 40443
+- Backend API: 11000
+- AutoGen Studio: 11001
+- Webhook Server: 11002
+- Magentic-One: 11003
+- Port Scanner: 11010
+- Nginx Proxy Manager Web UI: 11080
+- Nginx Proxy Manager HTTP: 11081
+- Nginx Proxy Manager HTTPS: 11082
 - Ollama: 11434
-- AutoGen Studio: 8085
-- Webhook Server: 9001
-- Magentic-One: 8086
 - Frontend Dev: 3000
 
 ## Commands to Run After Fixing Configuration Drift:
@@ -63,9 +67,11 @@ cd ../webapi && dotnet run
 **ROOT CAUSE:** The `/home/keith/chat-copilot/scripts/configure.sh` script was forcibly overwriting `webapp/.env` on every reboot via cron job.
 
 **PERMANENT FIXES APPLIED:**
-1. **Modified configure.sh** to preserve existing .env files instead of overwriting them
-2. **Modified Configure.ps1** to preserve existing .env files instead of overwriting them
-3. **Fixed hostname** in default .env creation (now uses `100.123.10.72` instead of `localhost`)
+1. **Modified configure.sh** to preserve existing .env files and use correct port (11000)
+2. **Modified Configure.ps1** to preserve existing .env files and use correct port (11000)
+3. **Updated startup-platform.sh** to use new port configuration (11000-11003 range)
+4. **Updated auto_startup_manager.py** with correct port assignments
+5. **Fixed hostname** in default .env creation (now uses `100.123.10.72:11000`)
 
 **Configuration Backup System:**
 - **Local Backups:** Run `./backup-configs.sh` to create timestamped backups
@@ -102,3 +108,15 @@ config-backups/config_backup_[latest]/restore.sh
 - `cd webapp && yarn lint:fix` - Fix ESLint errors  
 - `cd webapp && yarn build` - TypeScript compile check
 - `cd webapi && dotnet build` - Backend build check
+
+## Configuration Drift Troubleshooting
+
+**Memory:** How can we be sure that config drift won't happen on the next reboot, it hasn't been successful in a couple days now
+- Recommendation: Implement strict configuration validation in startup scripts
+- Add explicit configuration checks before service startup
+- Create a pre-flight configuration verification script that:
+  1. Validates .env file integrity
+  2. Checks port configurations
+  3. Verifies file permissions
+  4. Logs any inconsistencies before allowing services to start
+- Consider adding a failsafe mechanism that prevents startup if critical configuration parameters are incorrect
