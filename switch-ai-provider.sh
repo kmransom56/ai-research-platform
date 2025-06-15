@@ -62,11 +62,11 @@ function test_connection() {
     echo "🧪 Testing Chat Copilot backend..."
     
     # Check if backend is running
-    if curl -k -s -f "https://100.123.10.72:40443/healthz" > /dev/null; then
+    if curl -s -f "http://100.123.10.72:11000/healthz" > /dev/null; then
         echo "✅ Backend is healthy"
     else
         echo "❌ Backend not responding - restart required"
-        echo "Run: cd $WEBAPI_DIR && dotnet run --urls 'https://100.123.10.72:40443'"
+        echo "Run: cd $WEBAPI_DIR && dotnet run --urls 'http://0.0.0.0:11000'"
     fi
 }
 

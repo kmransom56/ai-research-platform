@@ -1,0 +1,11 @@
+{
+    "timestamp": "2025-06-15T13:20:20-04:00",
+    "running_services": 6,
+    "total_services": 6,
+    "platform_health": "healthy",
+    "main_endpoints": {
+        "control_panel": "http://100.123.10.72:11000/control-panel.html",
+        "autogen_studio": "http://100.123.10.72:11001",
+        "magentic_one": "http://100.123.10.72:11003"
+    }
+}

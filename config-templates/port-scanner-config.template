@@ -1,0 +1,5 @@
+# Port Scanner Configuration Template
+# API endpoints should use localhost:11010
+# Replace any instances of:
+# - localhost:10200 -> localhost:11010  
+# - localhost:4500 -> localhost:11010

@@ -11,7 +11,7 @@ import sys
 AUTOGEN_CONFIG = {
     "server": {
         "host": "0.0.0.0",
-        "port": 8081,
+        "port": 11001,
         "enable_cors": True
     },
     "models": {
@@ -140,7 +140,7 @@ def start_autogen_studio():
     # Activate virtual environment and start server
     cmd = [
         "bash", "-c", 
-        "source autogen-env/bin/activate && autogenstudio ui --port 8081 --host 0.0.0.0"
+        "source autogen-env/bin/activate && autogenstudio ui --port 11001 --host 0.0.0.0"
     ]
     
     try:
@@ -150,7 +150,7 @@ def start_autogen_studio():
                                  stderr=subprocess.PIPE)
         
         print(f"✅ AutoGen Studio started with PID: {process.pid}")
-        print("🌐 Access at: http://100.123.10.72:8081")
+        print("🌐 Access at: http://100.123.10.72:11001")
         print("📊 Ollama models available: llama3.2:3b, mistral:latest, deepseek-coder:6.7b")
         
         return process

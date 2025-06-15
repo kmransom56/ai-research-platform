@@ -393,7 +393,7 @@ if __name__ == "__main__":
     uvicorn.run(
         "magentic_one_server:app",
         host="0.0.0.0",
-        port=8086,
+        port=11003,
         reload=False,
         log_level="info"
     )

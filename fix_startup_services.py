@@ -48,7 +48,7 @@ Wants=ollama-ai-platform.service
 
 [Service]
 Type=simple
-ExecStart={self.platform_dir}/autogen-env/bin/python -m autogenstudio.ui --port 8085 --host 0.0.0.0
+ExecStart=uv run python -m autogenstudio.ui --port 11001 --host 0.0.0.0
 WorkingDirectory={self.platform_dir}
 Environment=PATH={self.platform_dir}/autogen-env/bin:/usr/local/bin:/usr/bin:/bin
 Environment=VIRTUAL_ENV={self.platform_dir}/autogen-env
@@ -72,7 +72,7 @@ Type=simple
 ExecStart=/usr/bin/node {self.platform_dir}/webhook-server.js
 WorkingDirectory={self.platform_dir}
 Environment=NODE_ENV=production
-Environment=WEBHOOK_PORT=9001
+Environment=WEBHOOK_PORT=11002
 Environment=WEBHOOK_SECRET=ai-research-platform-webhook-secret
 Restart=always
 RestartSec=5
@@ -192,7 +192,7 @@ wait_for_service "Ollama" "http://localhost:11434/api/version" 30
 
 # Start AutoGen Studio
 start_service "AutoGen Studio" \\
-    "source {self.platform_dir}/autogen-env/bin/activate && {self.platform_dir}/autogen-env/bin/python -m autogenstudio.ui --port 8085 --host 0.0.0.0" \\
+    "uv run python -m autogenstudio.ui --port 11001 --host 0.0.0.0" \\
     "{self.platform_dir}/pids/autogen-studio.pid"
 
 # Start Webhook Server
@@ -205,15 +205,15 @@ sleep 5
 
 # Test endpoints
 echo "🧪 Testing service endpoints..."
-wait_for_service "AutoGen Studio" "http://100.123.10.72:8085" 10
-wait_for_service "Webhook Server" "http://100.123.10.72:9001/health" 10
+wait_for_service "AutoGen Studio" "http://100.123.10.72:11001" 10
+wait_for_service "Webhook Server" "http://100.123.10.72:11002/health" 10
 
 echo "🎉 AI Research Platform startup complete!"
 echo "📊 Platform Status:"
-echo "   🌐 Control Panel: http://100.123.10.72:10500/control-panel.html"
-echo "   🤖 AutoGen Studio: http://100.123.10.72:8085"
+echo "   🌐 Control Panel: http://100.123.10.72:11000/control-panel.html"
+echo "   🤖 AutoGen Studio: http://100.123.10.72:11001"
 echo "   💻 VS Code Web: http://100.123.10.72:57081"
-echo "   🔗 Webhook Server: http://100.123.10.72:9001/health"
+echo "   🔗 Webhook Server: http://100.123.10.72:11002/health"
 
 # Create status file
 cat > {self.platform_dir}/platform-status.json << EOF
@@ -221,8 +221,8 @@ cat > {self.platform_dir}/platform-status.json << EOF
     "startup_time": "$(date -Iseconds)",
     "services": {{
         "ollama": "$(curl -s http://localhost:11434/api/version &> /dev/null && echo 'running' || echo 'stopped')",
-        "autogen_studio": "$(curl -s http://100.123.10.72:8085 &> /dev/null && echo 'running' || echo 'stopped')",
-        "webhook_server": "$(curl -s http://100.123.10.72:9001/health &> /dev/null && echo 'running' || echo 'stopped')",
+        "autogen_studio": "$(curl -s http://100.123.10.72:11001 &> /dev/null && echo 'running' || echo 'stopped')",
+        "webhook_server": "$(curl -s http://100.123.10.72:11002/health &> /dev/null && echo 'running' || echo 'stopped')",
         "vscode_web": "$(curl -s http://100.123.10.72:57081 &> /dev/null && echo 'running' || echo 'stopped')"
     }}
 }}
@@ -363,10 +363,10 @@ check_service() {{
 }}
 
 check_service "Ollama" "http://localhost:11434/api/version"
-check_service "AutoGen Studio" "http://100.123.10.72:8085"
-check_service "Webhook Server" "http://100.123.10.72:9001/health"
+check_service "AutoGen Studio" "http://100.123.10.72:11001"
+check_service "Webhook Server" "http://100.123.10.72:11002/health"
 check_service "VS Code Web" "http://100.123.10.72:57081"
-check_service "Chat Copilot" "http://100.123.10.72:10500"
+check_service "Chat Copilot" "http://100.123.10.72:11000"
 
 echo ""
 echo "📋 Process Information:"

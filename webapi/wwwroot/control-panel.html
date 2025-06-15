@@ -263,7 +263,7 @@
                         <span class="material-icons">psychology</span>
                         OpenWebUI
                     </a>
-                    <a href="http://100.123.10.72:10500" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11000" target="_blank" class="control-button">
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
@@ -275,11 +275,11 @@
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
-                    <a href="http://100.123.10.72:8085" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11001" target="_blank" class="control-button">
                         <span class="material-icons">groups</span>
                         AutoGen Studio
                     </a>
-                    <a href="http://100.123.10.72:8086" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11003" target="_blank" class="control-button">
                         <span class="material-icons">hub</span>
                         Magentic-One
                     </a>
@@ -317,11 +317,11 @@
                         <span class="material-icons">code</span>
                         VS Code Web
                     </a>
-                    <a href="http://100.123.10.72:10200" target="_blank" class="control-button info">
+                    <a href="http://100.123.10.72:11010" target="_blank" class="control-button info">
                         <span class="material-icons">network_ping</span>
                         Port Scanner
                     </a>
-                    <a href="https://100.123.10.72:40443/healthz" target="_blank" class="control-button info">
+                    <a href="http://100.123.10.72:11000/healthz" target="_blank" class="control-button info">
                         <span class="material-icons">health_and_safety</span>
                         Health Check
                     </a>
@@ -340,7 +340,7 @@
                         <span class="material-icons">security</span>
                         Fortinet Mgmt
                     </a>
-                    <a href="http://100.123.10.72:8082" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11080" target="_blank" class="control-button">
                         <span class="material-icons">dns</span>
                         Nginx Gateway
                     </a>
@@ -438,7 +438,7 @@
             <h3>🚀 Frequently Used</h3>
             <div class="quick-buttons">
                 <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net', '_blank')">🤖 OpenWebUI</button>
-                <button class="quick-button" onclick="window.open('http://100.123.10.72:10500', '_blank')">💬 Chat Copilot</button>
+                <button class="quick-button" onclick="window.open('http://100.123.10.72:11000', '_blank')">💬 Chat Copilot</button>
                 <button class="quick-button" onclick="window.open('http://100.123.10.72:3999/perplexica', '_blank')">🔍 Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
@@ -502,7 +502,7 @@
             
             try {
                 if (action === 'status') {
-                    const response = await fetch('https://100.123.10.72:40443/api/systemcontrol/status', {
+                    const response = await fetch('http://100.123.10.72:11000/api/systemcontrol/status', {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
@@ -524,7 +524,7 @@
                         logOutput('❌ Failed to get status from backend', 'error');
                     }
                 } else {
-                    const response = await fetch('https://100.123.10.72:40443/api/systemcontrol/switch-provider', {
+                    const response = await fetch('http://100.123.10.72:11000/api/systemcontrol/switch-provider', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ provider: action })
@@ -571,7 +571,7 @@
             logOutput(messages[action] || 'Unknown Docker action', 'info');
             
             try {
-                const response = await fetch('https://100.123.10.72:40443/api/systemcontrol/docker', {
+                const response = await fetch('http://100.123.10.72:11000/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: action === 'ps' ? 'status' : action })
@@ -624,7 +624,7 @@
             logOutput('🧪 Testing all AI Research Platform services...', 'info');
             
             try {
-                const response = await fetch('https://100.123.10.72:40443/api/systemcontrol/test-services', {
+                const response = await fetch('http://100.123.10.72:11000/api/systemcontrol/test-services', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -655,10 +655,10 @@
                 // Fallback to simulation
                 const services = [
                     { name: 'OpenWebUI', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net' },
-                    { name: 'Chat Copilot', url: 'http://100.123.10.72:10500' },
+                    { name: 'Chat Copilot', url: 'http://100.123.10.72:11000' },
                     { name: 'Perplexica', url: 'http://100.123.10.72:3999/perplexica' },
                     { name: 'SearchNG', url: 'http://100.123.10.72:4000' },
-                    { name: 'Health Check', url: 'https://100.123.10.72:40443/healthz' }
+                    { name: 'Health Check', url: 'http://100.123.10.72:11000/healthz' }
                 ];
                 
                 for (let i = 0; i < services.length; i++) {
@@ -724,7 +724,7 @@
                 timestamp: new Date().toISOString(),
                 endpoints: {
                     openwebui: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net',
-                    chatcopilot: 'http://100.123.10.72:10500',
+                    chatcopilot: 'http://100.123.10.72:11000',
                     perplexica: 'http://100.123.10.72:3999/perplexica',
                     searchng: 'http://100.123.10.72:4000'
                 }
@@ -749,7 +749,7 @@
         
         // Open full dashboard
         function openDashboard() {
-            window.open('http://100.123.10.72:10500/applications.html', '_blank');
+            window.open('http://100.123.10.72:11000/applications.html', '_blank');
             logOutput('🚀 Opening full applications dashboard...', 'info');
         }
         
@@ -758,7 +758,7 @@
             logOutput('🔍 Checking webhook server status...', 'info');
             
             try {
-                const response = await fetch('http://100.123.10.72:9001/health', {
+                const response = await fetch('http://100.123.10.72:11002/health', {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -770,7 +770,7 @@
                     logOutput(`🕐 Status check: ${data.timestamp}`, 'info');
                     
                     // Get detailed status
-                    const statusResponse = await fetch('http://100.123.10.72:9001/status');
+                    const statusResponse = await fetch('http://100.123.10.72:11002/status');
                     if (statusResponse.ok) {
                         const statusData = await statusResponse.json();
                         logOutput(`📋 Recent webhook activity:`, 'info');
@@ -791,7 +791,7 @@
             logOutput('🚀 Triggering manual deployment...', 'info');
             
             try {
-                const response = await fetch('http://100.123.10.72:9001/deploy', {
+                const response = await fetch('http://100.123.10.72:11002/deploy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -818,14 +818,14 @@
             
             try {
                 // First check if it's already running
-                const healthCheck = await fetch('http://100.123.10.72:9001/health').catch(() => null);
+                const healthCheck = await fetch('http://100.123.10.72:11002/health').catch(() => null);
                 if (healthCheck && healthCheck.ok) {
                     logOutput('⚠️ Webhook server is already running', 'warning');
                     return;
                 }
                 
                 // Start the webhook server
-                const response = await fetch('https://100.123.10.72:40443/api/systemcontrol/docker', {
+                const response = await fetch('http://100.123.10.72:11000/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -851,7 +851,7 @@
             logOutput('🛑 Stopping webhook server...', 'info');
             
             try {
-                const response = await fetch('https://100.123.10.72:40443/api/systemcontrol/docker', {
+                const response = await fetch('http://100.123.10.72:11000/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -864,7 +864,7 @@
                     logOutput('✅ Webhook server stop command sent', 'success');
                     logOutput('🔄 Verifying shutdown...', 'info');
                     setTimeout(() => {
-                        fetch('http://100.123.10.72:9001/health')
+                        fetch('http://100.123.10.72:11002/health')
                             .then(() => logOutput('⚠️ Server may still be running', 'warning'))
                             .catch(() => logOutput('✅ Webhook server stopped successfully', 'success'));
                     }, 2000);
@@ -878,7 +878,7 @@
         
         async function checkDeploymentStatus() {
             try {
-                const response = await fetch('http://100.123.10.72:9001/status');
+                const response = await fetch('http://100.123.10.72:11002/status');
                 if (response.ok) {
                     const data = await response.json();
                     const recentLogs = data.recentLogs.slice(-2);

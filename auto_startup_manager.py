@@ -38,7 +38,7 @@ class AutoStartupManager:
                 "name": "autogen-studio-ai-platform",
                 "description": "AutoGen Studio Multi-Agent Platform",
                 "type": "user",
-                "exec_start": f"{self.platform_dir}/autogen-env/bin/autogenstudio ui --port 8085 --host 0.0.0.0",
+                "exec_start": f"{self.platform_dir}/autogen-env/bin/autogenstudio ui --port 11001 --host 0.0.0.0",
                 "working_directory": self.platform_dir,
                 "user": "keith",
                 "environment": {
@@ -58,7 +58,7 @@ class AutoStartupManager:
                 "user": "keith",
                 "environment": {
                     "NODE_ENV": "production",
-                    "WEBHOOK_PORT": "9001",
+                    "WEBHOOK_PORT": "11002",
                     "WEBHOOK_SECRET": "ai-research-platform-webhook-secret"
                 },
                 "restart": "always",
@@ -69,12 +69,12 @@ class AutoStartupManager:
                 "name": "chat-copilot-backend",
                 "description": "Chat Copilot Backend API Server",
                 "type": "user",
-                "exec_start": f"/usr/bin/dotnet run --urls https://100.123.10.72:40443",
+                "exec_start": f"/usr/bin/dotnet run --urls http://0.0.0.0:11000",
                 "working_directory": f"{self.platform_dir}/webapi",
                 "user": "keith",
                 "environment": {
                     "ASPNETCORE_ENVIRONMENT": "Development",
-                    "ASPNETCORE_URLS": "https://100.123.10.72:40443"
+                    "ASPNETCORE_URLS": "http://0.0.0.0:11000"
                 },
                 "restart": "always",
                 "restart_sec": 15,
@@ -88,7 +88,7 @@ class AutoStartupManager:
                 "working_directory": f"{self.platform_dir}/webapp",
                 "user": "keith",
                 "environment": {
-                    "PORT": "10500",
+                    "PORT": "3000",
                     "HOST": "0.0.0.0",
                     "NODE_ENV": "production"
                 },
@@ -312,16 +312,16 @@ test_endpoint() {{
 }}
 
 test_endpoint "Ollama" "http://localhost:11434/api/version"
-test_endpoint "AutoGen Studio" "http://100.123.10.72:8085"
-test_endpoint "Webhook Server" "http://100.123.10.72:9001/health"
-test_endpoint "Chat Copilot Backend" "https://100.123.10.72:40443/healthz"
-test_endpoint "Chat Copilot Frontend" "http://100.123.10.72:10500"
+test_endpoint "AutoGen Studio" "http://100.123.10.72:11001"
+test_endpoint "Webhook Server" "http://100.123.10.72:11002/health"
+test_endpoint "Chat Copilot Backend" "http://100.123.10.72:11000/healthz"
+test_endpoint "Chat Copilot Frontend" "http://100.123.10.72:3000"
 
 echo ""
 echo "🎉 AI Research Platform startup complete!"
 echo "📊 Access the platform at:"
-echo "   🌐 Control Panel: http://100.123.10.72:10500/control-panel.html"
-echo "   🤖 AutoGen Studio: http://100.123.10.72:8085"
+echo "   🌐 Control Panel: http://100.123.10.72:11000/control-panel.html"
+echo "   🤖 AutoGen Studio: http://100.123.10.72:11001"
 echo "   💻 VS Code Web: http://100.123.10.72:57081"
 echo "   🔍 OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net"
 """
@@ -459,10 +459,10 @@ check_systemd_service "chat-copilot-frontend" "user"
 echo ""
 echo "🌐 Service Endpoints:"
 check_endpoint "Ollama API" "http://localhost:11434/api/version"
-check_endpoint "AutoGen Studio" "http://100.123.10.72:8085"
-check_endpoint "Webhook Server" "http://100.123.10.72:9001/health"
-check_endpoint "Chat Copilot API" "https://100.123.10.72:40443/healthz"
-check_endpoint "Chat Copilot Web" "http://100.123.10.72:10500"
+check_endpoint "AutoGen Studio" "http://100.123.10.72:11001"
+check_endpoint "Webhook Server" "http://100.123.10.72:11002/health"
+check_endpoint "Chat Copilot API" "http://100.123.10.72:11000/healthz"
+check_endpoint "Chat Copilot Web" "http://100.123.10.72:11000"
 check_endpoint "VS Code Web" "http://100.123.10.72:57081"
 
 echo ""

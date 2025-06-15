@@ -10,7 +10,7 @@ interface ServiceStatus {
 const ControlPanel: React.FC = () => {
   const [services] = useState<ServiceStatus[]>([
     { name: 'OpenWebUI', status: 'active', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net', description: 'Primary AI Interface' },
-    { name: 'Chat Copilot', status: 'active', url: 'http://100.123.10.72:10500', description: 'Microsoft Semantic Kernel' },
+    { name: 'Chat Copilot', status: 'active', url: 'http://100.123.10.72:11000', description: 'Microsoft Semantic Kernel' },
     { name: 'Perplexica', status: 'active', url: 'http://100.123.10.72:3999/perplexica', description: 'AI Search with Internet' },
     { name: 'SearchNG', status: 'active', url: 'http://100.123.10.72:4000', description: 'Privacy-focused Search' },
   ]);
@@ -103,7 +103,7 @@ const ControlPanel: React.FC = () => {
             VS Code Online
           </button>
           <button
-            onClick={() => openService('https://100.123.10.72:40443/healthz')}
+            onClick={() => openService('http://100.123.10.72:11000/healthz')}
             style={{
               display: 'block',
               width: '100%',
@@ -145,7 +145,7 @@ const ControlPanel: React.FC = () => {
             Fortinet Manager
           </button>
           <button
-            onClick={() => openService('http://100.123.10.72:8082')}
+            onClick={() => openService('http://100.123.10.72:11082')}
             style={{
               display: 'block',
               width: '100%',

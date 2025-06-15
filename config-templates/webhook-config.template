@@ -1,0 +1,4 @@
+# Webhook Server Configuration
+# Port: 11002
+# Health endpoint: /health
+# Deploy endpoint: /deploy

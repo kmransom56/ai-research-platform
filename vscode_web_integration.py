@@ -369,7 +369,7 @@ class VSCodeWebIntegration:
                     "services = {",
                     "    \"AutoGen Studio\": \"http://100.123.10.72:8085\",",
                     "    \"OpenWebUI\": \"https://ubuntuaicodeserver-1.tail5137b4.ts.net\",",
-                    "    \"Chat Copilot\": \"http://100.123.10.72:10500\",",
+                    "    \"Chat Copilot\": \"http://100.123.10.72:11000\",",
                     "    \"Perplexica\": \"http://100.123.10.72:3999/perplexica\"",
                     "}",
                     "",
@@ -411,7 +411,7 @@ class VSCodeWebIntegration:
             "platform_integration": {
                 "autogen_studio": "http://100.123.10.72:8085",
                 "magentic_one": "http://100.123.10.72:8086", 
-                "control_panel": "http://100.123.10.72:10500/control-panel.html"
+                "control_panel": "http://100.123.10.72:11000/control-panel.html"
             }
         }
         

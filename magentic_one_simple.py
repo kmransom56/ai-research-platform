@@ -457,7 +457,7 @@ def main():
     print(f"\n🎉 Magentic-One Platform Ready!")
     print(f"\n🔧 Integration Steps:")
     print(f"1. Add to AI Research Platform dashboard")
-    print(f"2. Create web interface on port 8086")
+    print(f"2. Create web interface on port 11003")
     print(f"3. Integrate with AutoGen Studio")
     print(f"4. Test complex multi-agent workflows")
     print(f"5. Connect with Ollama for actual AI responses")
