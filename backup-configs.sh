@@ -2,6 +2,26 @@
 
 # Chat Copilot Configuration Backup Script
 # This script creates local backups of critical configuration files
+# Usage: ./backup-configs.sh [--test]
+
+# Handle test mode
+if [ "$1" = "--test" ]; then
+    echo "Running backup script test mode..."
+    echo "This would backup the following files:"
+    echo "- webapp/.env"
+    echo "- webapi/appsettings.json"
+    echo "- webapi/appsettings.Azure.json"
+    echo "- webapi/appsettings.Development.json"
+    echo "- scripts/ directory"
+    echo "- startup scripts"
+    echo "- Docker configuration"
+    echo "- CLAUDE.md"
+    echo "- cron configuration"
+    echo "- systemd services"
+    echo ""
+    echo "Use './backup-configs.sh' to run actual backup."
+    exit 0
+fi
 
 BACKUP_DIR="/home/keith/chat-copilot/config-backups"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
@@ -25,6 +45,9 @@ cp -p /home/keith/chat-copilot/webapi/appsettings.json "$BACKUP_PATH/"
 
 echo "Backing up webapi/appsettings.Azure.json..."
 cp -p /home/keith/chat-copilot/webapi/appsettings.Azure.json "$BACKUP_PATH/" 2>/dev/null || echo "Warning: appsettings.Azure.json not found"
+
+echo "Backing up webapi/appsettings.Development.json..."
+cp -p /home/keith/chat-copilot/webapi/appsettings.Development.json "$BACKUP_PATH/" 2>/dev/null || echo "Warning: appsettings.Development.json not found"
 
 echo "Backing up scripts directory..."
 cp -rp /home/keith/chat-copilot/scripts/ "$BACKUP_PATH/"
@@ -76,6 +99,12 @@ fi
 if [ -f "$BACKUP_DIR/appsettings.Azure.json" ]; then
     echo "Restoring webapi/appsettings.Azure.json..."
     cp -p "$BACKUP_DIR/appsettings.Azure.json" "$CHAT_COPILOT_DIR/webapi/"
+fi
+
+# Restore webapi/appsettings.Development.json
+if [ -f "$BACKUP_DIR/appsettings.Development.json" ]; then
+    echo "Restoring webapi/appsettings.Development.json..."
+    cp -p "$BACKUP_DIR/appsettings.Development.json" "$CHAT_COPILOT_DIR/webapi/"
 fi
 
 # Restore scripts directory
