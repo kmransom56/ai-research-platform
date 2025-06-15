@@ -507,3 +507,10 @@ tmp/*
 # Custom plugins in default directories
 */Skills/NativePlugins
 */Skills/SemanticPlugins
+
+# Platform runtime files
+autogen-env/
+pids/
+platform-status.json
+config-backups/
+logs/
