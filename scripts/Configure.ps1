@@ -202,7 +202,14 @@ $webappProjectPath = Join-Path "$PSScriptRoot" '../webapp'
 $webappEnvFilePath = Join-Path "$webappProjectPath" '/.env'
 
 Write-Host "Setting up '.env'..."
-Set-Content -Path $webappEnvFilePath -Value "REACT_APP_BACKEND_URI=https://localhost:40443/"
+if (Test-Path $webappEnvFilePath) {
+    Write-Host "Preserving existing .env file at $webappEnvFilePath"
+    Write-Host "Existing configuration:"
+    Get-Content $webappEnvFilePath | Write-Host
+} else {
+    Write-Host "Creating new .env file..."
+    Set-Content -Path $webappEnvFilePath -Value "REACT_APP_BACKEND_URI=http://100.123.10.72:40443/"
+}
 
 Write-Host "($webappEnvFilePath)"
 Write-Host "========"

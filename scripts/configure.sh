@@ -216,7 +216,14 @@ WEBAPP_PROJECT_PATH="${SCRIPT_DIRECTORY}/../webapp"
 WEBAPP_ENV_FILEPATH="${WEBAPP_PROJECT_PATH}/.env"
 
 echo "Setting up '.env' for webapp..."
-echo "REACT_APP_BACKEND_URI=https://localhost:40443/" >$WEBAPP_ENV_FILEPATH
+if [ -f "$WEBAPP_ENV_FILEPATH" ]; then
+    echo "Preserving existing .env file at $WEBAPP_ENV_FILEPATH"
+    echo "Existing configuration:"
+    cat "$WEBAPP_ENV_FILEPATH"
+else
+    echo "Creating new .env file..."
+    echo "REACT_APP_BACKEND_URI=http://100.123.10.72:40443/" >$WEBAPP_ENV_FILEPATH
+fi
 
 echo "($WEBAPP_ENV_FILEPATH)"
 echo "========"
