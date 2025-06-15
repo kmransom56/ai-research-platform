@@ -535,7 +535,7 @@ def main():
     print(f"\n🎯 Next Steps:")
     print(f"1. Reboot your system to test auto-startup")
     print(f"2. Run ./check-platform-status.sh to verify services")
-    print(f"3. Access Control Panel: http://100.123.10.72:10500/control-panel.html")
+    print(f"3. Access Control Panel: http://100.123.10.72:11000/control-panel.html")
 
 if __name__ == "__main__":
     main()
