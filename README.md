@@ -108,14 +108,14 @@ You will need the following items to run the sample:
    > NOTE: Ensure that you have [PowerShell Core 6+](https://github.com/PowerShell/PowerShell) installed. This is different from the default PowerShell installed on Windows.
 1. Clone this repository
    ```powershell
-   git clone https://github.com/microsoft/chat-copilot
+   git clone [https://github.com/kmransom56/ai-research-platform]
    ```
 1. Setup your environment.
 
    The following is a script to help you install the dependencies required. Feel free to install `dotnet`, `nodejs`, and `yarn` with your method of choice or use this script.
 
    ```powershell
-   cd <path to chat-copilot>\scripts\
+   cd ai-research-platform\scripts\
    .\Install.ps1
    ```
 
@@ -162,14 +162,14 @@ You will need the following items to run the sample:
 1. Open Bash as an Administrator.
 1. Clone this repository
    ```bash
-   git clone https://github.com/microsoft/chat-copilot
+   git clone [https://github.com/kmransom56/ai-research-platform]
    ```
 1. Configure environment.
 
    The following is a script to help you install the dependencies required. Feel free to install `dotnet`, `nodejs`, and `yarn` with your method of choice or use this script.
 
    ```bash
-   cd <path to chat-copilot>/scripts/
+   cd ai-research-platform/scripts/
    ```
 
    **Ubuntu/Debian Linux**
