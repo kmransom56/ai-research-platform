@@ -267,11 +267,11 @@
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="http://100.123.10.72:3999/perplexica" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11020/perplexica" target="_blank" class="control-button">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="http://100.123.10.72:4000" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11021" target="_blank" class="control-button">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
@@ -439,7 +439,7 @@
             <div class="quick-buttons">
                 <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net', '_blank')">🤖 OpenWebUI</button>
                 <button class="quick-button" onclick="window.open('http://100.123.10.72:11000', '_blank')">💬 Chat Copilot</button>
-                <button class="quick-button" onclick="window.open('http://100.123.10.72:3999/perplexica', '_blank')">🔍 Perplexica</button>
+                <button class="quick-button" onclick="window.open('http://100.123.10.72:11020/perplexica', '_blank')">🔍 Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
                 <button class="quick-button" onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚 GitHub</button>
@@ -656,8 +656,8 @@
                 const services = [
                     { name: 'OpenWebUI', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net' },
                     { name: 'Chat Copilot', url: 'http://100.123.10.72:11000' },
-                    { name: 'Perplexica', url: 'http://100.123.10.72:3999/perplexica' },
-                    { name: 'SearchNG', url: 'http://100.123.10.72:4000' },
+                    { name: 'Perplexica', url: 'http://100.123.10.72:11020/perplexica' },
+                    { name: 'SearchXNG', url: 'http://100.123.10.72:11021' },
                     { name: 'Health Check', url: 'http://100.123.10.72:11000/healthz' }
                 ];
                 
@@ -725,8 +725,8 @@
                 endpoints: {
                     openwebui: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net',
                     chatcopilot: 'http://100.123.10.72:11000',
-                    perplexica: 'http://100.123.10.72:3999/perplexica',
-                    searchng: 'http://100.123.10.72:4000'
+                    perplexica: 'http://100.123.10.72:11020/perplexica',
+                    searchng: 'http://100.123.10.72:11021'
                 }
             };
             

@@ -71,7 +71,7 @@ wait_for_service "Ollama" "http://localhost:11434/api/version" 30
 
 # Start AutoGen Studio
 start_service "AutoGen Studio" \
-    "source /home/keith/chat-copilot/autogen-env/bin/activate && /home/keith/chat-copilot/autogen-env/bin/python -m autogenstudio.ui --port 8085 --host 0.0.0.0" \
+    "source /home/keith/chat-copilot/autogen-env/bin/activate && /home/keith/chat-copilot/autogen-env/bin/python -m autogenstudio.ui --port 11001 --host 0.0.0.0" \
     "/home/keith/chat-copilot/pids/autogen-studio.pid"
 
 # Start Webhook Server
@@ -103,7 +103,7 @@ sleep 5
 
 # Test endpoints
 echo "🧪 Testing service endpoints..."
-wait_for_service "AutoGen Studio" "http://100.123.10.72:8085" 10
+wait_for_service "AutoGen Studio" "http://100.123.10.72:11001" 10
 wait_for_service "Webhook Server" "http://100.123.10.72:11002/health" 10
 wait_for_service "Magentic-One" "http://100.123.10.72:11003/health" 10
 wait_for_service "Port Scanner" "http://100.123.10.72:11010/nmap-status" 10
@@ -115,7 +115,7 @@ echo "📊 Platform Status:"
 echo "   🌐 Control Panel: http://100.123.10.72:11000/control-panel.html"
 echo "   🔧 Nginx Proxy Manager: http://100.123.10.72:11080 (admin@example.com / changeme)"
 echo "   🔗 Proxy Gateway HTTP: http://100.123.10.72:11081/"
-echo "   🤖 AutoGen Studio: http://100.123.10.72:8085"
+echo "   🤖 AutoGen Studio: http://100.123.10.72:11001"
 echo "   🌟 Magentic-One: http://100.123.10.72:11003"
 echo "   💻 VS Code Web: http://100.123.10.72:57081"
 echo "   🔗 Webhook Server: http://100.123.10.72:11002/health"
@@ -128,7 +128,7 @@ cat > /home/keith/chat-copilot/platform-status.json << EOF
     "startup_time": "$(date -Iseconds)",
     "services": {
         "ollama": "$(curl -s http://localhost:11434/api/version &> /dev/null && echo 'running' || echo 'stopped')",
-        "autogen_studio": "$(curl -s http://100.123.10.72:8085 &> /dev/null && echo 'running' || echo 'stopped')",
+        "autogen_studio": "$(curl -s http://100.123.10.72:11001 &> /dev/null && echo 'running' || echo 'stopped')",
         "magentic_one": "$(curl -s http://100.123.10.72:11003/health &> /dev/null && echo 'running' || echo 'stopped')",
         "webhook_server": "$(curl -s http://100.123.10.72:11002/health &> /dev/null && echo 'running' || echo 'stopped')",
         "nginx_proxy_manager": "$(curl -s http://100.123.10.72:11080 &> /dev/null && echo 'running' || echo 'stopped')",

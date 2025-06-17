@@ -1,0 +1,194 @@
+#!/bin/bash
+# Comprehensive Port Fix Script - Find and fix ALL old port references
+# This script ensures NO old ports remain anywhere in the system
+
+SCRIPT_DIR="/home/keith/chat-copilot"
+cd "$SCRIPT_DIR"
+
+echo "🔍 COMPREHENSIVE PORT FIX SCRIPT"
+echo "================================="
+echo "Finding and fixing ALL old port references..."
+
+# Define old and new ports
+declare -A PORT_MAP=(
+    ["10500"]="11000"  # Chat Copilot Frontend -> Backend
+    ["40443"]="11000"  # Old backend -> New backend
+    ["8085"]="11001"   # Old AutoGen -> New AutoGen
+    ["8086"]="11003"   # Old Magentic-One -> New Magentic-One
+    ["9001"]="11002"   # Old webhook -> New webhook
+    ["10200"]="11010"  # Old port scanner -> New port scanner
+    ["8082"]="11080"   # Old nginx -> New nginx
+)
+
+OLD_PORTS=(10500 40443 8085 8086 9001 10200 8082)
+CRITICAL_EXTENSIONS=("*.json" "*.js" "*.ts" "*.tsx" "*.html" "*.sh" "*.py" "*.service" "*.env" "*.conf" "*.config")
+
+# Function to check if file should be processed
+should_process_file() {
+    local file=$1
+    
+    # Skip certain directories
+    if [[ "$file" =~ (node_modules|\.git|\.venv|autogen-env|config-backups|scripts-archive) ]]; then
+        return 1
+    fi
+    
+    # Skip binary files
+    if [[ "$file" =~ \.(png|jpg|jpeg|gif|ico|zip|tar|gz|exe|dll|so)$ ]]; then
+        return 1
+    fi
+    
+    return 0
+}
+
+# Function to fix ports in a file
+fix_ports_in_file() {
+    local file=$1
+    local changed=false
+    
+    if ! should_process_file "$file"; then
+        return 0
+    fi
+    
+    # Check if file contains any old ports
+    local has_old_ports=false
+    for old_port in "${OLD_PORTS[@]}"; do
+        if grep -q "$old_port" "$file" 2>/dev/null; then
+            has_old_ports=true
+            break
+        fi
+    done
+    
+    if [ "$has_old_ports" = false ]; then
+        return 0
+    fi
+    
+    echo "🔧 Fixing ports in: $file"
+    
+    # Create backup
+    cp "$file" "$file.backup.$(date +%s)"
+    
+    # Apply port fixes
+    for old_port in "${!PORT_MAP[@]}"; do
+        local new_port="${PORT_MAP[$old_port]}"
+        
+        # More intelligent replacement to avoid false positives
+        case "$file" in
+            *.json)
+                # JSON files - be more specific with port replacements
+                sed -i "s/:$old_port\"/:$new_port\"/g" "$file"
+                sed -i "s/:$old_port\//:$new_port\//g" "$file"
+                sed -i "s/\"$old_port\"/\"$new_port\"/g" "$file"
+                ;;
+            *.html|*.js|*.ts|*.tsx)
+                # Web files - replace port in URLs
+                sed -i "s/:$old_port\//:$new_port\//g" "$file"
+                sed -i "s/:$old_port'/:$new_port'/g" "$file"
+                sed -i "s/:$old_port\"/:$new_port\"/g" "$file"
+                sed -i "s/:$old_port\b/:$new_port/g" "$file"
+                ;;
+            *.service)
+                # Systemd service files
+                sed -i "s/:$old_port/:$new_port/g" "$file"
+                sed -i "s/Port $old_port/Port $new_port/g" "$file"
+                ;;
+            *.py|*.sh)
+                # Script files
+                sed -i "s/:$old_port/:$new_port/g" "$file"
+                sed -i "s/$old_port/$new_port/g" "$file"
+                ;;
+            *)
+                # Generic files
+                sed -i "s/:$old_port/:$new_port/g" "$file"
+                ;;
+        esac
+        
+        # Check if changes were made
+        if ! diff -q "$file" "$file.backup."* >/dev/null 2>&1; then
+            changed=true
+        fi
+    done
+    
+    if [ "$changed" = true ]; then
+        echo "✅ Fixed ports in: $file"
+        return 1
+    else
+        # Remove backup if no changes
+        rm -f "$file.backup."*
+        return 0
+    fi
+}
+
+# Function to find all files with old ports
+find_all_port_files() {
+    echo "🔍 Scanning for files with old ports..."
+    
+    local found_files=()
+    
+    # Search through all relevant files
+    for ext in "${CRITICAL_EXTENSIONS[@]}"; do
+        while IFS= read -r -d '' file; do
+            if should_process_file "$file"; then
+                for old_port in "${OLD_PORTS[@]}"; do
+                    if grep -q "$old_port" "$file" 2>/dev/null; then
+                        found_files+=("$file")
+                        break
+                    fi
+                done
+            fi
+        done < <(find . -name "$ext" -type f -print0 2>/dev/null)
+    done
+    
+    # Remove duplicates
+    printf '%s\n' "${found_files[@]}" | sort -u
+}
+
+# Main execution
+echo "📋 Searching for files with old ports..."
+files_with_old_ports=($(find_all_port_files))
+
+if [ ${#files_with_old_ports[@]} -eq 0 ]; then
+    echo "✅ No files found with old ports!"
+    exit 0
+fi
+
+echo "📁 Found ${#files_with_old_ports[@]} files with old ports:"
+printf '   %s\n' "${files_with_old_ports[@]}"
+echo ""
+
+read -p "🤔 Do you want to fix all these files automatically? (y/N): " -n 1 -r
+echo ""
+
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "❌ Operation cancelled. Files not modified."
+    exit 1
+fi
+
+echo "🔧 Fixing ports in all found files..."
+fixed_count=0
+
+for file in "${files_with_old_ports[@]}"; do
+    if fix_ports_in_file "$file"; then
+        ((fixed_count++))
+    fi
+done
+
+echo ""
+echo "📊 SUMMARY:"
+echo "   Files scanned: ${#files_with_old_ports[@]}"
+echo "   Files fixed: $fixed_count"
+echo ""
+
+# Clean up build directories and rebuild
+echo "🧹 Cleaning and rebuilding..."
+rm -rf webapp/build/* webapi/bin/Debug webapi/bin/Release
+cd webapp
+yarn build >/dev/null 2>&1
+cp -r build/* ../webapi/wwwroot/
+cd ..
+
+echo "✅ Port fix complete!"
+echo ""
+echo "🔄 Next steps:"
+echo "   1. Test the application: http://100.123.10.72:11000"
+echo "   2. Restart services if needed: ./startup-platform.sh"
+echo "   3. Check status: ./check-platform-status.sh"

@@ -169,10 +169,10 @@ def test_autogen_studio():
     import requests
     
     try:
-        response = requests.get("http://100.123.10.72:8085", timeout=5)
+        response = requests.get("http://100.123.10.72:11001", timeout=5)
         if response.status_code == 200:
             print("🤖 AutoGen Studio: ✅ Running")
-            print("🌐 URL: http://100.123.10.72:8085")
+            print("🌐 URL: http://100.123.10.72:11001")
             return True
         else:
             print(f"❌ AutoGen Studio error: {response.status_code}")
@@ -201,7 +201,7 @@ def main():
         create_autogen_workflows()
         
         print("📋 Next Steps:")
-        print("1. Open AutoGen Studio: http://100.123.10.72:8085")
+        print("1. Open AutoGen Studio: http://100.123.10.72:11001")
         print("2. Create a new team in Team Builder")
         print("3. Add agents with Ollama models:")
         print("   • llama3.2:3b (General assistant)")

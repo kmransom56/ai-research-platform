@@ -30,12 +30,12 @@ class PortConfigValidator:
         
         # Old ports that should be replaced
         self.deprecated_ports = {
-            8085: "autogen_studio",
-            8086: "magentic_one", 
+            11001: "autogen_studio",
+            11003: "magentic_one", 
             8081: "autogen_studio",
-            9001: "webhook_server",
-            40443: "chat_copilot_backend",
-            10500: "chat_copilot_backend"
+            11002: "webhook_server",
+            11000: "chat_copilot_backend",
+            11000: "chat_copilot_backend"
         }
     
     def scan_files_for_ports(self) -> Dict[str, List[Tuple[int, str]]]:

@@ -379,7 +379,7 @@ def create_magentic_one_demo():
         "created_at": datetime.now().isoformat(),
         "models": platform.config["models"],
         "safety": platform.config["safety"],
-        "access_url": "http://100.123.10.72:8086",
+        "access_url": "http://100.123.10.72:11003",
         "capabilities": [
             "Multi-agent task coordination",
             "Web research and data gathering",
@@ -423,7 +423,7 @@ def main():
     print(f"2. Add to AI Research Platform interface")
     print(f"3. Test multi-agent workflows")
     print(f"4. Create custom team configurations")
-    print(f"5. Deploy as service on port 8086")
+    print(f"5. Deploy as service on port 11003")
     
     # Optionally run demo
     print(f"\n💡 To test a workflow, run:")

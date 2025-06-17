@@ -8,7 +8,7 @@ Summary: Checks if the server is running and healthy
 */
 export async function serverHealth(page) {
     // Make sure the server is running.
-    await page.goto('https://localhost:40443/healthz');
+    await page.goto('https://localhost:11000/healthz');
     await expect(page.getByText('Healthy')).toBeDefined();
 }
 

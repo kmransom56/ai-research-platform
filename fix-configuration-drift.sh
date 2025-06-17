@@ -22,7 +22,7 @@ log() {
 log "🔧 Starting comprehensive configuration drift fix..."
 
 echo "✅ ISSUE ANALYSIS COMPLETED:"
-echo "   1. ❌ Systemd services using OLD ports (8085, 40443, 9001)"
+echo "   1. ❌ Systemd services using OLD ports (11001, 11000, 11002)"
 echo "   2. ❌ Multiple startup systems conflicting (cron + systemd)"
 echo "   3. ❌ HTTPS vs HTTP configuration mismatch"
 echo "   4. ❌ Old virtual environment paths in systemd"
@@ -244,7 +244,7 @@ echo "   6. ✅ Boot priority management implemented"
 
 echo ""
 echo "🔧 WHAT WAS THE PROBLEM:"
-echo "   • Systemd services were using old ports (8085, 40443) while"
+echo "   • Systemd services were using old ports (11001, 11000) while"
 echo "   • Cron startup used new ports (11001, 11000)"
 echo "   • This created port conflicts and configuration drift"
 echo "   • Multiple startup systems were competing"

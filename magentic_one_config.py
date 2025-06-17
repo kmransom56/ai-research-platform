@@ -31,7 +31,7 @@ except ImportError as e:
 MAGENTIC_ONE_CONFIG = {
     "server": {
         "host": "0.0.0.0",
-        "port": 8086,
+        "port": 11003,
         "cors_enabled": True
     },
     "models": {
@@ -393,7 +393,7 @@ def main():
         print(f"   • {agent['name']}: {agent['description']}")
     
     print(f"\n🔧 Next Steps:")
-    print(f"1. Access platform: http://100.123.10.72:8086 (when server runs)")
+    print(f"1. Access platform: http://100.123.10.72:11003 (when server runs)")
     print(f"2. Review workflow examples in config directory")
     print(f"3. Test web browsing and file operations")
     print(f"4. Create custom multi-agent workflows")

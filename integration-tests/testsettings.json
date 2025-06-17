@@ -1,5 +1,5 @@
 ﻿{
-  "BaseServerUrl": "https://localhost:40443/",
+  "BaseServerUrl": "https://localhost:11000/",
   "ClientID": "YOUR_FRONTEND_CLIEND_ID",
   "Authority": "https://login.microsoftonline.com/YOUR_TENANT_ID",
   "TestUsername": "YOUR_TEST_USERNAME",

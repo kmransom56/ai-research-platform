@@ -128,9 +128,9 @@ check_config_drift() {
     # Check port scanner configuration
     local port_scanner_html="/home/keith/port-scanner-material-ui/src/index.html"
     if [ -f "$port_scanner_html" ]; then
-        if grep -q "localhost:10200\|localhost:4500" "$port_scanner_html"; then
+        if grep -q "localhost:11010\|localhost:4500" "$port_scanner_html"; then
             log "❌ Configuration drift detected in port scanner frontend"
-            sed -i 's/localhost:10200/localhost:11010/g' "$port_scanner_html"
+            sed -i 's/localhost:11010/localhost:11010/g' "$port_scanner_html"
             sed -i 's/localhost:4500/localhost:11010/g' "$port_scanner_html"
             log "✅ Fixed port scanner frontend configuration"
         fi

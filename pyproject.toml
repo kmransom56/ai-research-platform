@@ -1,0 +1,10 @@
+[project]
+name = "chat-copilot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "autogenstudio[ui]>=0.4.2.2",
+    "pyautogen>=0.9",
+]

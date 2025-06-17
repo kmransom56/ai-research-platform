@@ -4,7 +4,7 @@
     {
       "label": "Start AutoGen Studio",
       "type": "shell",
-      "command": "source autogen-env/bin/activate && autogenstudio ui --port 8085 --host 0.0.0.0",
+      "command": "source autogen-env/bin/activate && autogenstudio ui --port 11001 --host 0.0.0.0",
       "group": "build",
       "presentation": {
         "echo": true,

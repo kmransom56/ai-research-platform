@@ -255,6 +255,15 @@
         </div>
         
         <div class="control-grid">
+            <!-- Service Status Notice -->
+            <div class="control-section" style="grid-column: 1 / -1;">
+                <div style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                    <h4 style="margin: 0 0 10px 0;">🔍 External Services Status</h4>
+                    <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS Code Web are independent applications that need to be started separately.</p>
+                    <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat Copilot, Webhook Server, Port Scanner, Nginx Gateway, Fortinet Manager</p>
+                </div>
+            </div>
+
             <!-- AI Services Section -->
             <div class="control-section">
                 <h3><span class="material-icons">smart_toy</span>AI Services</h3>
@@ -267,11 +276,11 @@
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="http://100.123.10.72:3999/perplexica" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11020/perplexica" target="_blank" class="control-button" id="perplexica-btn">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="http://100.123.10.72:4000" target="_blank" class="control-button">
+                    <a href="http://100.123.10.72:11021" target="_blank" class="control-button" id="searxng-btn">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
@@ -313,7 +322,7 @@
             <div class="control-section">
                 <h3><span class="material-icons">code</span>Development Tools</h3>
                 <div class="button-grid">
-                    <a href="http://100.123.10.72:57081" target="_blank" class="control-button info">
+                    <a href="http://100.123.10.72:57081" target="_blank" class="control-button info" id="vscode-btn">
                         <span class="material-icons">code</span>
                         VS Code Web
                     </a>
@@ -439,7 +448,7 @@
             <div class="quick-buttons">
                 <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net', '_blank')">🤖 OpenWebUI</button>
                 <button class="quick-button" onclick="window.open('http://100.123.10.72:11000', '_blank')">💬 Chat Copilot</button>
-                <button class="quick-button" onclick="window.open('http://100.123.10.72:3999/perplexica', '_blank')">🔍 Perplexica</button>
+                <button class="quick-button" onclick="window.open('http://100.123.10.72:11020/perplexica', '_blank')">🔍 Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
                 <button class="quick-button" onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚 GitHub</button>
@@ -656,8 +665,8 @@
                 const services = [
                     { name: 'OpenWebUI', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net' },
                     { name: 'Chat Copilot', url: 'http://100.123.10.72:11000' },
-                    { name: 'Perplexica', url: 'http://100.123.10.72:3999/perplexica' },
-                    { name: 'SearchNG', url: 'http://100.123.10.72:4000' },
+                    { name: 'Perplexica', url: 'http://100.123.10.72:11020/perplexica' },
+                    { name: 'SearchNG', url: 'http://100.123.10.72:11021' },
                     { name: 'Health Check', url: 'http://100.123.10.72:11000/healthz' }
                 ];
                 
@@ -725,8 +734,8 @@
                 endpoints: {
                     openwebui: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net',
                     chatcopilot: 'http://100.123.10.72:11000',
-                    perplexica: 'http://100.123.10.72:3999/perplexica',
-                    searchng: 'http://100.123.10.72:4000'
+                    perplexica: 'http://100.123.10.72:11020/perplexica',
+                    searchng: 'http://100.123.10.72:11021'
                 }
             };
             
@@ -746,6 +755,41 @@
                 logOutput('🗓️ Timestamp: ' + new Date().toLocaleString(), 'info');
             }, 1200);
         }
+        
+        // Check external services status
+        async function checkExternalServices() {
+            const services = [
+                { id: 'perplexica-btn', url: 'http://100.123.10.72:11020/perplexica', name: 'Perplexica' },
+                { id: 'searxng-btn', url: 'http://100.123.10.72:11021', name: 'SearXNG' },
+                { id: 'vscode-btn', url: 'http://100.123.10.72:57081', name: 'VS Code Web' }
+            ];
+            
+            for (const service of services) {
+                try {
+                    const response = await fetch(service.url, { 
+                        method: 'HEAD',
+                        mode: 'no-cors',
+                        timeout: 3000 
+                    });
+                    // If we get here without error, service is likely up
+                    document.getElementById(service.id).style.opacity = '1.0';
+                    document.getElementById(service.id).title = `${service.name} - Available`;
+                } catch (error) {
+                    // Service is likely down
+                    document.getElementById(service.id).style.opacity = '0.5';
+                    document.getElementById(service.id).title = `${service.name} - Not Available (External Service)`;
+                    const icon = document.getElementById(service.id).querySelector('.material-icons');
+                    if (icon) {
+                        icon.style.color = '#ccc';
+                    }
+                }
+            }
+        }
+        
+        // Run status check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkExternalServices, 1000);
+        });
         
         // Open full dashboard
         function openDashboard() {

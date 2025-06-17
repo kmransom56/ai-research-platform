@@ -11,16 +11,15 @@
       "nginx_proxy_manager_web": 11080,
       "nginx_proxy_manager_http": 11081,
       "nginx_proxy_manager_https": 11082,
+      "perplexica": 11020,
+      "searxng": 11021,
       "ollama": 11434,
       "frontend_dev": 3000
     },
     "deprecated_ports": {
-      "8085": "autogen_studio",
-      "8086": "magentic_one",
-      "8081": "autogen_studio",
-      "9001": "webhook_server",
-      "40443": "chat_copilot_backend",
-      "10500": "chat_copilot_backend"
+      "3999": "perplexica_old",
+      "4000": "searxng_old",
+      "8081": "autogen_studio_old"
     },
     "port_ranges": {
       "ai_services": "11000-11099",

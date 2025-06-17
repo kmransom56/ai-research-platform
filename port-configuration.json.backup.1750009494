@@ -1,0 +1,38 @@
+{
+  "ai_research_platform_ports": {
+    "version": "2.0",
+    "last_updated": "2025-06-15",
+    "standard_ports": {
+      "chat_copilot_backend": 11000,
+      "autogen_studio": 11001,
+      "webhook_server": 11002,
+      "magentic_one": 11003,
+      "port_scanner": 11010,
+      "nginx_proxy_manager_web": 11080,
+      "nginx_proxy_manager_http": 11081,
+      "nginx_proxy_manager_https": 11082,
+      "ollama": 11434,
+      "frontend_dev": 3000
+    },
+    "deprecated_ports": {
+      "8085": "autogen_studio",
+      "8086": "magentic_one",
+      "8081": "autogen_studio",
+      "9001": "webhook_server",
+      "40443": "chat_copilot_backend",
+      "10500": "chat_copilot_backend"
+    },
+    "port_ranges": {
+      "ai_services": "11000-11099",
+      "network_tools": "11100-11199",
+      "development": "3000, 57081",
+      "system": "11434"
+    },
+    "validation_rules": [
+      "All AI services must use ports 11000-11099",
+      "Network tools use ports 11100-11199",
+      "No services on deprecated ports",
+      "Use UV for Python environment management"
+    ]
+  }
+}

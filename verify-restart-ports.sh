@@ -26,7 +26,7 @@ check_restart_mechanism() {
     fi
     
     # Check for old ports
-    local old_ports=$(grep -n "8085\|40443\|9001\|10500" "$script_name" 2>/dev/null | grep -v "fix-configuration-drift" || true)
+    local old_ports=$(grep -n "11001\|11000\|11002\|11000" "$script_name" 2>/dev/null | grep -v "fix-configuration-drift" || true)
     if [ -n "$old_ports" ]; then
         echo -e "   ${RED}❌ OLD PORTS FOUND:${NC}"
         echo "$old_ports" | while read line; do

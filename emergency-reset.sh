@@ -29,7 +29,7 @@ echo "🔄 Resetting configurations..."
 echo "REACT_APP_BACKEND_URI=http://100.123.10.72:11000/" > "/home/keith/chat-copilot/webapp/.env"
 
 # Reset port scanner frontend
-sed -i 's/localhost:10200/localhost:11010/g' "/home/keith/port-scanner-material-ui/src/index.html"
+sed -i 's/localhost:11010/localhost:11010/g' "/home/keith/port-scanner-material-ui/src/index.html"
 sed -i 's/localhost:4500/localhost:11010/g' "/home/keith/port-scanner-material-ui/src/index.html"
 
 echo "🚀 Restarting platform..."

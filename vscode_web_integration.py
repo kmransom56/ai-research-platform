@@ -200,7 +200,7 @@ class VSCodeWebIntegration:
                     {
                         "label": "Start AutoGen Studio",
                         "type": "shell",
-                        "command": "source autogen-env/bin/activate && autogenstudio ui --port 8085 --host 0.0.0.0",
+                        "command": "source autogen-env/bin/activate && autogenstudio ui --port 11001 --host 0.0.0.0",
                         "group": "build",
                         "presentation": {
                             "echo": True,
@@ -367,7 +367,7 @@ class VSCodeWebIntegration:
                     "",
                     "# Test AI Research Platform services",
                     "services = {",
-                    "    \"AutoGen Studio\": \"http://100.123.10.72:8085\",",
+                    "    \"AutoGen Studio\": \"http://100.123.10.72:11001\",",
                     "    \"OpenWebUI\": \"https://ubuntuaicodeserver-1.tail5137b4.ts.net\",",
                     "    \"Chat Copilot\": \"http://100.123.10.72:11000\",",
                     "    \"Perplexica\": \"http://100.123.10.72:3999/perplexica\"",
@@ -409,8 +409,8 @@ class VSCodeWebIntegration:
             "recommended_extensions": len(self.platform_config["recommended_extensions"]),
             "ai_snippets_available": os.path.exists("/home/keith/chat-copilot/.vscode/ai-development.code-snippets"),
             "platform_integration": {
-                "autogen_studio": "http://100.123.10.72:8085",
-                "magentic_one": "http://100.123.10.72:8086", 
+                "autogen_studio": "http://100.123.10.72:11001",
+                "magentic_one": "http://100.123.10.72:11003", 
                 "control_panel": "http://100.123.10.72:11000/control-panel.html"
             }
         }
