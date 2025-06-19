@@ -49,9 +49,9 @@ def run_import_test(file_path):
     """Test if the file can be imported"""
     print(f"🧪 Testing imports for {file_path}...")
     
+    # Change to the directory containing the file
+    original_dir = os.getcwd()
     try:
-        # Change to the directory containing the file
-        original_dir = os.getcwd()
         file_dir = os.path.dirname(file_path)
         if file_dir:
             os.chdir(file_dir)
