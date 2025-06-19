@@ -1,0 +1,94 @@
+{
+  "directories": {
+    "config-backups": {
+      "path": "/home/keith/chat-copilot/config-backups",
+      "retention_days": 90,
+      "size_limit_mb": 500,
+      "file_patterns": [
+        "*.conf",
+        "*.cfg",
+        "*.backup",
+        "*.json"
+      ],
+      "enabled": true,
+      "description": "Main FortiGate configuration backups",
+      "max_age_days": 30,
+      "max_files": 100
+    },
+    "config-backups-auto": {
+      "path": "/home/keith/chat-copilot/config-backups-auto",
+      "retention_days": 30,
+      "size_limit_mb": 200,
+      "file_patterns": [
+        "*.conf",
+        "*.cfg",
+        "*.backup"
+      ],
+      "enabled": true,
+      "description": "Automated FortiGate backups",
+      "max_age_days": 30,
+      "max_files": 100
+    },
+    "config-snapshots": {
+      "path": "/home/keith/chat-copilot/config-snapshots",
+      "retention_days": 60,
+      "size_limit_mb": 300,
+      "file_patterns": [
+        "*.snapshot",
+        "*.json",
+        "*.xml"
+      ],
+      "enabled": true,
+      "description": "Configuration snapshots and comparisons",
+      "max_age_days": 30,
+      "max_files": 100
+    },
+    "fortimanager-backups": {
+      "path": "/home/keith/chat-copilot/fortimanager-backups",
+      "retention_days": 120,
+      "size_limit_mb": 1000,
+      "file_patterns": [
+        "*.backup",
+        "*.json",
+        "*.conf"
+      ],
+      "enabled": true,
+      "description": "FortiManager database backups",
+      "max_age_days": 30,
+      "max_files": 100
+    },
+    "network-configs": {
+      "path": "/home/keith/chat-copilot/network-configs",
+      "retention_days": 45,
+      "size_limit_mb": 100,
+      "file_patterns": [
+        "*.conf",
+        "*.cfg",
+        "*.running",
+        "*.startup"
+      ],
+      "enabled": true,
+      "description": "General network device configurations",
+      "max_age_days": 30,
+      "max_files": 100
+    },
+    "temp-configs": {
+      "path": "/home/keith/chat-copilot/temp-configs",
+      "retention_days": 7,
+      "size_limit_mb": 50,
+      "file_patterns": [
+        "*.tmp",
+        "*.temp",
+        "*.conf"
+      ],
+      "enabled": true,
+      "description": "Temporary configuration files",
+      "max_age_days": 30,
+      "max_files": 100
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "/home/keith/chat-copilot/logs/cleanup.log"
+  }
+}
