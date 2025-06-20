@@ -44,7 +44,7 @@ declare -A CORE_SERVICES=(
     ["magentic-one"]="11003|python $PLATFORM_DIR/magentic_one_server.py|/health"
 )
 
-# Infrastructure Services  
+# Infrastructure Services
 declare -A INFRA_SERVICES=(
     ["port-scanner"]="11010|cd /home/keith/port-scanner-material-ui && node backend/server.js|/nmap-status"
 )
@@ -73,31 +73,31 @@ log() {
     shift
     local message="$*"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    
+
     case $level in
-        INFO)  echo -e "${GREEN}✅ [$timestamp] $message${NC}" ;;
-        WARN)  echo -e "${YELLOW}⚠️  [$timestamp] $message${NC}" ;;
-        ERROR) echo -e "${RED}❌ [$timestamp] $message${NC}" ;;
-        DEBUG) echo -e "${BLUE}🔍 [$timestamp] $message${NC}" ;;
-        TITLE) echo -e "\n${BLUE}🚀 $message${NC}" ;;
+    INFO) echo -e "${GREEN}✅ [$timestamp] $message${NC}" ;;
+    WARN) echo -e "${YELLOW}⚠️  [$timestamp] $message${NC}" ;;
+    ERROR) echo -e "${RED}❌ [$timestamp] $message${NC}" ;;
+    DEBUG) echo -e "${BLUE}🔍 [$timestamp] $message${NC}" ;;
+    TITLE) echo -e "\n${BLUE}🚀 $message${NC}" ;;
     esac
 }
 
 check_dependencies() {
     log TITLE "Checking System Dependencies"
-    
+
     local deps=("curl" "docker" "docker-compose" "node" "python3" "dotnet")
     local missing=()
-    
+
     for dep in "${deps[@]}"; do
-        if ! command -v "$dep" &> /dev/null; then
+        if ! command -v "$dep" &>/dev/null; then
             missing+=("$dep")
             log WARN "$dep not found"
         else
             log INFO "$dep available"
         fi
     done
-    
+
     if [ ${#missing[@]} -gt 0 ]; then
         log ERROR "Missing dependencies: ${missing[*]}"
         log INFO "Some services may not start properly"
@@ -106,7 +106,7 @@ check_dependencies() {
 
 setup_directories() {
     log TITLE "Setting Up Directory Structure"
-    
+
     local dirs=("$LOGS_DIR" "$PIDS_DIR" "$CONFIG_DIR")
     for dir in "${dirs[@]}"; do
         if [[ ! -d "$dir" ]]; then
@@ -118,11 +118,11 @@ setup_directories() {
 
 wait_for_network() {
     log TITLE "Checking Network Connectivity"
-    
+
     local timeout=60
     local count=0
-    
-    while ! ping -c 1 8.8.8.8 &> /dev/null; do
+
+    while ! ping -c 1 8.8.8.8 &>/dev/null; do
         if [ $count -ge $timeout ]; then
             log ERROR "Network timeout after ${timeout}s"
             exit 1
@@ -131,26 +131,26 @@ wait_for_network() {
         sleep $SLEEP_INTERVAL
         ((count += SLEEP_INTERVAL))
     done
-    
+
     log INFO "Network connectivity confirmed"
 }
 
 check_tailscale() {
     log TITLE "Checking Tailscale Status"
-    
-    if ! command -v tailscale &> /dev/null; then
+
+    if ! command -v tailscale &>/dev/null; then
         log WARN "Tailscale not installed"
         return 1
     fi
-    
-    if ! tailscale status &> /dev/null; then
+
+    if ! tailscale status &>/dev/null; then
         log WARN "Tailscale not connected - run 'tailscale up'"
         return 1
     fi
-    
+
     local tailscale_ip=$(tailscale ip -4 2>/dev/null || echo "Unknown")
     log INFO "Tailscale connected - IP: $tailscale_ip"
-    
+
     if tailscale status | grep -q "$TAILSCALE_DOMAIN"; then
         log INFO "Tailscale domain available: $TAILSCALE_DOMAIN"
         return 0
@@ -162,19 +162,19 @@ check_tailscale() {
 
 setup_uv_environment() {
     log TITLE "Setting Up UV Python Environment"
-    
-    if ! command -v uv &> /dev/null; then
+
+    if ! command -v uv &>/dev/null; then
         log WARN "UV not found - installing..."
         curl -LsSf https://astral.sh/uv/install.sh | sh
         source ~/.bashrc
     fi
-    
+
     cd "$PLATFORM_DIR"
     if [[ ! -d ".venv" ]]; then
         uv venv --python 3.11
         log INFO "Created UV virtual environment"
     fi
-    
+
     source .venv/bin/activate
     log INFO "UV environment activated"
 }
@@ -185,9 +185,9 @@ is_port_in_use() {
     # `ss` is shipped with iproute2 on most modern Linux distributions
     # We look for exact matches to ":<port>" at the end of the local address column.
     if ss -ltn | awk '{print $4}' | grep -q "[:.]$port$"; then
-        return 0  # port is in use
+        return 0 # port is in use
     else
-        return 1  # port is free
+        return 1 # port is free
     fi
 }
 
@@ -209,21 +209,21 @@ wait_for_service() {
     local name=$1
     local url=$2
     local max_attempts=${3:-$SERVICE_TIMEOUT}
-    
+
     log DEBUG "Waiting for $name to be ready..."
-    
-    for ((i=1; i<=max_attempts; i++)); do
-        if curl -s --max-time 5 "$url" &> /dev/null; then
+
+    for ((i = 1; i <= max_attempts; i++)); do
+        if curl -s --max-time 5 "$url" &>/dev/null; then
             log INFO "$name is ready (attempt $i/$max_attempts)"
             return 0
         fi
-        
+
         if [ $i -lt $max_attempts ]; then
             log DEBUG "Attempt $i/$max_attempts - waiting for $name..."
             sleep $SLEEP_INTERVAL
         fi
     done
-    
+
     log WARN "$name not ready after $max_attempts attempts"
     return 1
 }
@@ -234,7 +234,7 @@ start_process_service() {
     local command=$3
     local health_path=$4
     local use_uv=${5:-false}
-    
+
     # Health-check URL used in several places below
     local health_url="http://100.123.10.72:${port}${health_path}"
 
@@ -251,10 +251,10 @@ start_process_service() {
     fi
 
     log DEBUG "Starting $name..."
-    
+
     local pidfile="$PIDS_DIR/${name}.pid"
     local logfile="$LOGS_DIR/${name}.log"
-    
+
     # Stop existing process
     if [[ -f "$pidfile" ]]; then
         local old_pid=$(cat "$pidfile" 2>/dev/null || echo "")
@@ -265,19 +265,19 @@ start_process_service() {
         fi
         rm -f "$pidfile"
     fi
-    
+
     # Prepare command
     if [ "$use_uv" = "true" ]; then
         command="cd $PLATFORM_DIR && source .venv/bin/activate && $command"
     fi
-    
+
     # Start new process
-    nohup bash -c "$command" > "$logfile" 2>&1 &
+    nohup bash -c "$command" >"$logfile" 2>&1 &
     local new_pid=$!
-    echo $new_pid > "$pidfile"
-    
+    echo $new_pid >"$pidfile"
+
     log INFO "Started $name (PID: $new_pid, Port: $port)"
-    
+
     # Health check
     if wait_for_service "$name" "$health_url" 20; then
         log INFO "$name is healthy"
@@ -299,16 +299,16 @@ start_docker_service() {
     fi
 
     log DEBUG "Starting Docker service: $name"
-    
+
     if [[ ! -f "$compose_file" ]]; then
         log ERROR "Docker compose file not found: $compose_file"
         return 1
     fi
-    
+
     # Check if services are already running
     if docker-compose -f "$compose_file" ps --services --filter "status=running" 2>/dev/null | grep -q .; then
         log INFO "$name stack already has running services"
-        
+
         # For Perplexica specifically, check both services
         if [[ "$name" == "perplexica-stack" ]]; then
             log INFO "Checking Perplexica services..."
@@ -327,12 +327,12 @@ start_docker_service() {
         fi
         return 0
     fi
-    
+
     # Start the stack
     log INFO "Starting $name Docker stack..."
     if docker-compose -f "$compose_file" up -d; then
         log INFO "$name Docker stack started"
-        
+
         # For Perplexica specifically, check both services
         if [[ "$name" == "perplexica-stack" ]]; then
             log INFO "Checking Perplexica services..."
@@ -359,10 +359,10 @@ check_external_service() {
     local port=$2
     local host=$3
     local health_path=$4
-    
+
     local url="http://${host}:${port}${health_path}"
-    
-    if curl -s --max-time 5 "$url" &> /dev/null; then
+
+    if curl -s --max-time 5 "$url" &>/dev/null; then
         log INFO "$name is running (Port: $port)"
     else
         log WARN "$name not responding ($url)"
@@ -375,43 +375,43 @@ check_external_service() {
 
 start_core_services() {
     log TITLE "Starting Core AI Services"
-    
+
     for service_name in "${!CORE_SERVICES[@]}"; do
-        IFS='|' read -r port command health_path <<< "${CORE_SERVICES[$service_name]}"
-        
+        IFS='|' read -r port command health_path <<<"${CORE_SERVICES[$service_name]}"
+
         # Determine if service needs UV environment
         local use_uv=false
         case $service_name in
-            "autogen-studio"|"magentic-one") use_uv=true ;;
+        "autogen-studio" | "magentic-one") use_uv=true ;;
         esac
-        
+
         start_process_service "$service_name" "$port" "$command" "$health_path" "$use_uv"
     done
 }
 
 start_infrastructure_services() {
     log TITLE "Starting Infrastructure Services"
-    
+
     for service_name in "${!INFRA_SERVICES[@]}"; do
-        IFS='|' read -r port command health_path <<< "${INFRA_SERVICES[$service_name]}"
+        IFS='|' read -r port command health_path <<<"${INFRA_SERVICES[$service_name]}"
         start_process_service "$service_name" "$port" "$command" "$health_path"
     done
 }
 
 start_docker_services() {
     log TITLE "Starting Docker Services"
-    
+
     for service_name in "${!DOCKER_SERVICES[@]}"; do
-        IFS='|' read -r port compose_file health_path <<< "${DOCKER_SERVICES[$service_name]}"
+        IFS='|' read -r port compose_file health_path <<<"${DOCKER_SERVICES[$service_name]}"
         start_docker_service "$service_name" "$port" "$compose_file" "$health_path"
     done
 }
 
 check_external_services() {
     log TITLE "Checking External Services"
-    
+
     for service_name in "${!EXTERNAL_SERVICES[@]}"; do
-        IFS='|' read -r port host health_path <<< "${EXTERNAL_SERVICES[$service_name]}"
+        IFS='|' read -r port host health_path <<<"${EXTERNAL_SERVICES[$service_name]}"
         check_external_service "$service_name" "$port" "$host" "$health_path"
     done
 }
@@ -422,17 +422,17 @@ check_external_services() {
 
 generate_status_report() {
     log TITLE "Generating Platform Status Report"
-    
+
     local status_file="$PLATFORM_DIR/platform-status.json"
     local tailscale_available=false
     local tailscale_ip="N/A"
-    
+
     if check_tailscale; then
         tailscale_available=true
         tailscale_ip=$(tailscale ip -4 2>/dev/null || echo "N/A")
     fi
-    
-    cat > "$status_file" << EOF
+
+    cat >"$status_file" <<EOF
 {
     "platform": {
         "name": "AI Research Platform",
@@ -452,36 +452,36 @@ EOF
     local first=true
     for category in "CORE_SERVICES" "INFRA_SERVICES" "DOCKER_SERVICES" "EXTERNAL_SERVICES"; do
         declare -n services_ref=$category
-        
+
         if [ "$first" = true ]; then
             first=false
         else
-            echo "," >> "$status_file"
+            echo "," >>"$status_file"
         fi
-        
-        echo "        \"${category,,}\": {" >> "$status_file"
-        
+
+        echo "        \"${category,,}\": {" >>"$status_file"
+
         local service_first=true
         for service_name in "${!services_ref[@]}"; do
-            IFS='|' read -r port _ health_path <<< "${services_ref[$service_name]}"
-            
+            IFS='|' read -r port _ health_path <<<"${services_ref[$service_name]}"
+
             if [ "$service_first" = true ]; then
                 service_first=false
             else
-                echo "," >> "$status_file"
+                echo "," >>"$status_file"
             fi
-            
+
             local host="100.123.10.72"
             if [[ "$category" == "EXTERNAL_SERVICES" ]]; then
-                IFS='|' read -r port host health_path <<< "${services_ref[$service_name]}"
+                IFS='|' read -r port host health_path <<<"${services_ref[$service_name]}"
             fi
-            
+
             local status="stopped"
-            if curl -s --max-time 5 "http://${host}:${port}${health_path}" &> /dev/null; then
+            if curl -s --max-time 5 "http://${host}:${port}${health_path}" &>/dev/null; then
                 status="running"
             fi
-            
-            cat >> "$status_file" << EOF
+
+            cat >>"$status_file" <<EOF
             "$service_name": {
                 "port": $port,
                 "status": "$status",
@@ -490,11 +490,11 @@ EOF
             }
 EOF
         done
-        
-        echo "        }" >> "$status_file"
+
+        echo "        }" >>"$status_file"
     done
-    
-    cat >> "$status_file" << EOF
+
+    cat >>"$status_file" <<EOF
     }
 }
 EOF
@@ -505,24 +505,24 @@ EOF
 # FIXED FUNCTION DEFINITION
 display_access_information() {
     log TITLE "Platform Access Information"
-    
+
     echo -e "\n${GREEN}🏠 LOCAL ACCESS:${NC}"
     echo "   🤖 Chat Copilot: http://100.123.10.72:11000"
     echo "   🌟 AutoGen Studio: http://100.123.10.72:11001"
     echo "   💫 Magentic-One: http://100.123.10.72:11003"
     echo "   🔗 Webhook Server: http://100.123.10.72:11002"
     echo "   🔍 Port Scanner: http://100.123.10.72:11010"
-    
+
     echo -e "\n${GREEN}🔍 SEARCH & AI:${NC}"
     echo "   🧠 Perplexica: http://100.123.10.72:11020"
     echo "   🔎 SearXNG: http://100.123.10.72:11021"
     echo "   🌐 OpenWebUI: http://100.123.10.72:11880"
-    
+
     echo -e "\n${BLUE}🛠️ INFRASTRUCTURE:${NC}"
     echo "   🔧 Nginx Proxy: http://100.123.10.72:11080"
     echo "   🦙 Ollama LLM: http://localhost:11434"
     echo "   💻 VS Code Web: http://100.123.10.72:57081"
-    
+
     if check_tailscale; then
         echo -e "\n${GREEN}📱 TAILSCALE ACCESS:${NC}"
         echo "   🌐 Main Hub: https://$TAILSCALE_DOMAIN/"
@@ -536,7 +536,7 @@ display_access_information() {
         echo "   Install: curl -fsSL https://tailscale.com/install.sh | sh"
         echo "   Connect: sudo tailscale up"
     fi
-    
+
     echo -e "\n${GREEN}📁 MANAGEMENT:${NC}"
     echo "   📝 Logs: $LOGS_DIR"
     echo "   🔢 PIDs: $PIDS_DIR"
@@ -554,31 +554,31 @@ cleanup() {
 
 main() {
     trap cleanup EXIT
-    
+
     log TITLE "AI Research Platform Startup v3.1"
     log INFO "Timestamp: $(date)"
     log INFO "User: $(whoami)"
     log INFO "Platform Directory: $PLATFORM_DIR"
-    
+
     # Phase 1: Prerequisites
     check_dependencies
     setup_directories
     wait_for_network
     setup_uv_environment
-    
+
     # Phase 2: Service Startup
     start_core_services
     start_infrastructure_services
     start_docker_services
-    
+
     # Phase 3: Health Checks
-    sleep 5  # Allow services to initialize
+    sleep 5 # Allow services to initialize
     check_external_services
-    
+
     # Phase 4: Reporting
     generate_status_report
     display_access_information
-    
+
     log INFO "✅ AI Research Platform startup complete!"
 }
 
