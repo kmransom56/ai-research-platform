@@ -54,14 +54,18 @@ declare -A DOCKER_SERVICES=(
     ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
     ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-compose.caddy.yml|/config/"
-    ["perplexica-stack"]="11020|/home/keith/perplexcia/compose.yaml|/"
+    ["perplexica-stack"]="11020|$PLATFORM_DIR/perplexica/compose.yaml|/"
+    ["searxng"]="11021|$PLATFORM_DIR/searxng/docker-compose.yml|/"
+    ["openwebui"]="11880|$PLATFORM_DIR/openwebui/docker-compose.yml|/"
 )
 
 # External Services (for health checks only)
 declare -A EXTERNAL_SERVICES=(
     ["ollama"]="11434|localhost|/api/version"
-    ["openwebui"]="11880|100.123.10.72|/api/config"
-    ["vscode-web"]="57081|100.123.10.72|/"
+    ["openwebui"]="11880|localhost|/api/config"
+    ["vscode-web"]="57081|localhost|/"
+    ["searxng"]="11021|localhost|/search"
+    ["perplexica"]="11020|localhost|/api/config"
 )
 # =============================================================================
 # ENHANCED DOCKER SERVICE FUNCTION (Optional improvement)
@@ -579,6 +583,30 @@ display_access_information() {
     echo "   📝 Logs: $LOGS_DIR"
     echo "   🔢 PIDs: $PIDS_DIR"
     echo "   📊 Status: $PLATFORM_DIR/platform-status.json"
+}
+
+display_service_credentials() {
+    log INFO "📋 Service Access Information"
+
+    # VS Code Server password
+    if [[ -f "$CONFIG_DIR/vscode-password.txt" ]]; then
+        local vscode_password=$(cat "$CONFIG_DIR/vscode-password.txt")
+        echo -e "\n${YELLOW}🔑 VS Code Server Credentials:${NC}"
+        echo "   URL: https://vscode.$TAILSCALE_DOMAIN"
+        echo "   Password: $vscode_password"
+    fi
+
+    # Perplexica info
+    echo -e "\n${GREEN}🔍 AI Search Services:${NC}"
+    echo "   🧠 Perplexica: https://perplexica.$TAILSCALE_DOMAIN"
+    echo "   🔎 SearXNG: https://searxng.$TAILSCALE_DOMAIN"
+    echo "   💬 OpenWebUI: https://openwebui.$TAILSCALE_DOMAIN"
+
+    # Service status
+    echo -e "\n${BLUE}📊 Service Status:${NC}"
+    echo "   Check all services: ./check-installation.sh"
+    echo "   GPU monitoring: watch -n 1 nvidia-smi"
+    echo "   Platform logs: tail -f logs/platform.log"
 }
 # =============================================================================
 # MAIN EXECUTION
