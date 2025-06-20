@@ -10,17 +10,19 @@ import asyncio
 import json
 import logging
 import os
-import shutil
 import sys
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Any, TYPE_CHECKING
 import subprocess
-import aiohttp
-import psutil
+
+# Type checking imports
+if TYPE_CHECKING:
+    import aiohttp
+    import psutil
 
 
 class ServiceType(Enum):
@@ -70,7 +72,7 @@ class ServiceConfig:
     host: str = "100.123.10.72"
     service_type: ServiceType = ServiceType.CORE
     use_uv: bool = False
-    depends_on: List[str] = None
+    depends_on: Optional[List[str]] = None
     timeout: int = 30
     power_automate_monitor: bool = False
 
@@ -246,6 +248,12 @@ class PlatformConfig:
             health_path="/",
             service_type=ServiceType.EXTERNAL
         ),
+        "openwebui": ServiceConfig(
+            name="openwebui",
+            port=11880,
+            health_path="/api/config",
+            service_type=ServiceType.EXTERNAL
+        ),
     }
 
 
@@ -311,13 +319,17 @@ class PowerAutomateIntegration:
     def __init__(self, config: PowerAutomateConfig, logger: PlatformLogger):
         self.config = config
         self.logger = logger
-        self.session: Optional[aiohttp.ClientSession] = None
+        self.session = None
     
     async def __aenter__(self):
         if self.config.enabled and self.config.webhook_url:
-            self.session = aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=self.config.timeout)
-            )
+            try:
+                import aiohttp
+                self.session = aiohttp.ClientSession(
+                    timeout=aiohttp.ClientTimeout(total=self.config.timeout)
+                )
+            except ImportError:
+                self.logger.warn("aiohttp not available - Power Automate integration disabled")
         return self
     
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -480,6 +492,7 @@ class DirectoryCleanupManager:
                     file_mtime = datetime.fromtimestamp(file_path.stat().st_mtime)
                     file_size_mb = file_path.stat().st_size / (1024 * 1024)
                     should_delete = False
+                    reason = ""
                     
                     # Check age-based deletion
                     if file_mtime < cutoff_date:
@@ -551,7 +564,46 @@ class ServiceManager:
         self.process: Optional[subprocess.Popen] = None
         self.pid_file = platform_config.PIDS_DIR / f"{config.name}.pid"
         self.log_file = platform_config.LOGS_DIR / f"{config.name}.log"
+        self._port_check_cache: Optional[bool] = None  # cache result within single start attempt
     
+    # ------------------------------------------------------------------
+    # Helper utilities
+    # ------------------------------------------------------------------
+    def _is_port_in_use(self) -> bool:
+        """Return True if something is already listening on self.config.port"""
+        if self._port_check_cache is not None:
+            return self._port_check_cache
+
+        import socket
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(1)
+            result = sock.connect_ex(("127.0.0.1", self.config.port))
+            in_use = result == 0
+
+        # Fallback to ss if socket approach fails to detect (covers IPv6 / 0.0.0.0 bindings)
+        if not in_use:
+            try:
+                out = subprocess.check_output(["ss", "-ltn"], text=True)
+                if any(f":{self.config.port} " in line or f":{self.config.port}\n" in line for line in out.splitlines()):
+                    in_use = True
+            except Exception:
+                pass
+
+        self._port_check_cache = in_use
+        return in_use
+
+    def _is_docker_port_published(self) -> bool:
+        """Return True if any running container is publishing the target host port"""
+        try:
+            out = subprocess.check_output(["docker", "ps", "--format", "{{.Ports}}"], text=True)
+            for line in out.splitlines():
+                # line examples: '0.0.0.0:2019->2019/tcp', ':::2019->2019/tcp'
+                if f":{self.config.port}->" in line:
+                    return True
+        except Exception:
+            pass
+        return False
+
     async def start(self) -> bool:
         """Start the service with Power Automate monitoring"""
         try:
@@ -597,6 +649,15 @@ class ServiceManager:
             self.logger.error(f"No command specified for {self.config.name}")
             return False
         
+        # If port already in use and healthy, skip starting
+        if self._is_port_in_use():
+            if await self._wait_for_health():
+                self.logger.info(f"{self.config.name} already running on port {self.config.port}; skipping start")
+                return True
+            else:
+                self.logger.warn(f"Port {self.config.port} is busy but {self.config.name} health check failed; not attempting restart to avoid conflict")
+                return False
+        
         # Format command with platform directory
         command = self.config.command.format(platform_dir=self.platform_config.PLATFORM_DIR)
         
@@ -637,23 +698,16 @@ class ServiceManager:
             self.logger.error(f"No compose file specified for {self.config.name}")
             return False
         
+        # Skip if port already bound by any process or container
+        if self._is_port_in_use() or self._is_docker_port_published():
+            self.logger.info(f"{self.config.name} port {self.config.port} already in use; assuming service is running and skipping docker-compose up")
+            return True
+        
         compose_file = self.config.compose_file.format(platform_dir=self.platform_config.PLATFORM_DIR)
         
         if not Path(compose_file).exists():
             self.logger.error(f"Docker compose file not found: {compose_file}")
             return False
-        
-        # Check if already running
-        result = subprocess.run(
-            f"docker-compose -f {compose_file} ps",
-            shell=True,
-            capture_output=True,
-            text=True
-        )
-        
-        if "Up" in result.stdout:
-            self.logger.info(f"{self.config.name} already running")
-            return True
         
         # Start the service
         result = subprocess.run(
@@ -667,7 +721,11 @@ class ServiceManager:
             self.logger.info(f"{self.config.name} Docker stack started")
             return await self._wait_for_health()
         else:
-            self.logger.error(f"Failed to start {self.config.name}: {result.stderr}")
+            # If failure relates to port allocation, assume stack already running elsewhere
+            if "port is already allocated" in result.stderr.lower() or self._is_port_in_use():
+                self.logger.info(f"{self.config.name} appears to be already running (port {self.config.port} bound). Skipping.")
+                return True
+            self.logger.error(f"Failed to start {self.config.name}: {result.stderr.strip()}")
             return False
     
     async def _check_external_service(self) -> bool:
@@ -683,13 +741,31 @@ class ServiceManager:
         """Wait for service to become healthy"""
         url = f"http://{self.config.host}:{self.config.port}{self.config.health_path}"
         
-        async with aiohttp.ClientSession() as session:
+        try:
+            import aiohttp
+            async with aiohttp.ClientSession() as session:
+                for attempt in range(1, self.config.timeout + 1):
+                    try:
+                        async with session.get(url, timeout=aiohttp.ClientTimeout(total=5)) as response:
+                            if response.status < 400:
+                                return True
+                    except Exception:
+                        pass
+                    
+                    if attempt < self.config.timeout:
+                        await asyncio.sleep(2)
+        except ImportError:
+            # Fallback to subprocess curl if aiohttp not available
             for attempt in range(1, self.config.timeout + 1):
                 try:
-                    async with session.get(url, timeout=aiohttp.ClientTimeout(total=5)) as response:
-                        if response.status < 400:
-                            return True
-                except Exception:
+                    result = subprocess.run(
+                        ["curl", "-s", "--max-time", "5", url],
+                        capture_output=True,
+                        timeout=10
+                    )
+                    if result.returncode == 0:
+                        return True
+                except (subprocess.TimeoutExpired, FileNotFoundError):
                     pass
                 
                 if attempt < self.config.timeout:
@@ -704,17 +780,42 @@ class ServiceManager:
                 with open(self.pid_file, 'r') as f:
                     old_pid = int(f.read().strip())
                 
-                if psutil.pid_exists(old_pid):
-                    self.logger.debug(f"Stopping existing {self.config.name} process (PID: {old_pid})")
-                    process = psutil.Process(old_pid)
-                    process.terminate()
+                # Try to use psutil for better process management
+                try:
+                    import psutil
+                    if psutil.pid_exists(old_pid):
+                        self.logger.debug(f"Stopping existing {self.config.name} process (PID: {old_pid})")
+                        process = psutil.Process(old_pid)
+                        process.terminate()
+                        try:
+                            process.wait(timeout=5)
+                        except psutil.TimeoutExpired:
+                            process.kill()
+                except ImportError:
+                    # Fallback to basic kill if psutil not available
                     try:
-                        process.wait(timeout=5)
-                    except psutil.TimeoutExpired:
-                        process.kill()
+                        os.kill(old_pid, 15)  # SIGTERM
+                        await asyncio.sleep(2)
+                        try:
+                            os.kill(old_pid, 9)  # SIGKILL (if still running)
+                        except (OSError, ProcessLookupError):
+                            pass
+                    except (OSError, ProcessLookupError):
+                        pass
+                except Exception:
+                    # Fallback if psutil fails
+                    try:
+                        os.kill(old_pid, 15)
+                        await asyncio.sleep(2)
+                        try:
+                            os.kill(old_pid, 9)
+                        except (OSError, ProcessLookupError):
+                            pass
+                    except (OSError, ProcessLookupError):
+                        pass
                 
                 self.pid_file.unlink()
-            except (ValueError, FileNotFoundError, psutil.NoSuchProcess):
+            except (ValueError, FileNotFoundError):
                 pass
 
 
@@ -746,7 +847,7 @@ class PlatformManager:
                 # Phase 1: Prerequisites and cleanup
                 await self._setup_prerequisites()
                 cleanup_results = await self.cleanup_manager.cleanup_all_directories(self.config.CLEANUP_CONFIGS)
-                await power_automate.send_cleanup_report(cleanup_results)
+                await power_automate.send_cleanup_report(cleanup_results.get("directory_results", {}))
                 
                 # Phase 2: Service startup
                 await self._start_services_by_type()
@@ -796,7 +897,7 @@ class PlatformManager:
         """Wait for network connectivity"""
         self.logger.info("Checking network connectivity...")
         
-        for attempt in range(30):
+        for _ in range(30):
             try:
                 result = subprocess.run(
                     ["ping", "-c", "1", "8.8.8.8"],
@@ -808,6 +909,8 @@ class PlatformManager:
                     return
             except subprocess.TimeoutExpired:
                 pass
+            
+            await asyncio.sleep(2)
             
             await asyncio.sleep(2)
         
@@ -884,11 +987,12 @@ class PlatformManager:
     
     async def _verify_all_services(self):
         """Verify health of all services"""
-        for name, service in self.services.items():
+        for name, _ in self.services.items():
             config = self.config.SERVICES[name]
             if config.service_type == ServiceType.EXTERNAL:
                 url = f"http://{config.host}:{config.port}{config.health_path}"
                 try:
+                    import aiohttp
                     async with aiohttp.ClientSession() as session:
                         async with session.get(url, timeout=aiohttp.ClientTimeout(total=5)) as response:
                             if response.status < 400:
@@ -897,6 +1001,23 @@ class PlatformManager:
                             else:
                                 self.logger.warn(f"{name} responded with status {response.status}")
                                 self.service_status[name] = False
+                except ImportError:
+                    # Fallback to curl if aiohttp not available
+                    try:
+                        result = subprocess.run(
+                            ["curl", "-s", "--max-time", "5", url],
+                            capture_output=True,
+                            timeout=10
+                        )
+                        if result.returncode == 0:
+                            self.logger.info(f"{name} is healthy")
+                            self.service_status[name] = True
+                        else:
+                            self.logger.warn(f"{name} not responding")
+                            self.service_status[name] = False
+                    except (subprocess.TimeoutExpired, FileNotFoundError):
+                        self.logger.warn(f"{name} health check failed")
+                        self.service_status[name] = False
                 except Exception:
                     self.logger.warn(f"{name} not responding")
                     self.service_status[name] = False
@@ -929,7 +1050,7 @@ class PlatformManager:
                         "port": config.port,
                         "status": "running" if self.service_status.get(name, False) else "stopped",
                         "local_url": f"http://{config.host}:{config.port}",
-                        "tailscale_url": f"https://{self.config.TAILSCALE_DOMAIN}/{name}/",
+                        "tailscale_url": f"https://{name}.{self.config.TAILSCALE_DOMAIN}/",
                         "power_automate_monitor": config.power_automate_monitor
                     }
             
@@ -1001,12 +1122,10 @@ if __name__ == "__main__":
     
     # Install required packages if needed
     try:
-        import aiohttp
-        import psutil
+        import aiohttp  # Test if aiohttp is available
+        del aiohttp  # Clean up to avoid unused warning
     except ImportError:
         print("📦 Installing required packages...")
         subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp", "psutil"])
-        import aiohttp
-        import psutil
     
     asyncio.run(main())

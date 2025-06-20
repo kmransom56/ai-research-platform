@@ -54,16 +54,75 @@ declare -A DOCKER_SERVICES=(
     ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
     ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-compose.caddy.yml|/config/"
+    ["perplexica-stack"]="11020|/home/keith/perplexcia/compose.yaml|/"
 )
 
 # External Services (for health checks only)
 declare -A EXTERNAL_SERVICES=(
     ["ollama"]="11434|localhost|/api/version"
-    ["perplexica"]="11020|100.123.10.72|/"
-    ["searxng"]="11021|100.123.10.72|/"
-    ["openwebui"]="8080|100.123.10.72|/api/config"
+    ["openwebui"]="11880|100.123.10.72|/api/config"
     ["vscode-web"]="57081|100.123.10.72|/"
 )
+# =============================================================================
+# ENHANCED DOCKER SERVICE FUNCTION (Optional improvement)
+# =============================================================================
+
+start_docker_service_enhanced() {
+    local name=$1
+    local port=$2
+    local compose_file=$3
+    local health_path=$4
+
+    # If port already bound on host OR another container is publishing it, assume service is up/managed elsewhere
+    if is_port_in_use "$port" || is_docker_port_published "$port"; then
+        log INFO "$name port $port already in use by another process or container – skipping docker-compose up."
+        return 0
+    fi
+
+    log DEBUG "Starting Docker service: $name"
+    
+    if [[ ! -f "$compose_file" ]]; then
+        log ERROR "Docker compose file not found: $compose_file"
+        return 1
+    fi
+    
+    # Check if services are already running
+    if docker-compose -f "$compose_file" ps --services --filter "status=running" | grep -q .; then
+        log INFO "$name stack already has running services"
+        
+        # Still do health check
+        local health_url="http://100.123.10.72:${port}${health_path}"
+        if wait_for_service "$name" "$health_url" 10; then
+            log INFO "$name is healthy"
+            return 0
+        fi
+    fi
+    
+    # Start the stack
+    log INFO "Starting $name Docker stack..."
+    if docker-compose -f "$compose_file" up -d; then
+        log INFO "$name Docker stack started"
+        
+        # For Perplexica specifically, check both services
+        if [[ "$name" == "perplexica-stack" ]]; then
+            log INFO "Checking Perplexica services..."
+            wait_for_service "SearXNG" "http://100.123.10.72:11021/searxng" 30
+            wait_for_service "Perplexica" "http://100.123.10.72:11020/" 30
+        else
+            # Standard health check
+            local health_url="http://100.123.10.72:${port}${health_path}"
+            wait_for_service "$name" "$health_url" 30
+        fi
+    else
+        # If failure due to port already allocated, assume service is already running
+        if is_port_in_use "$port" || is_docker_port_published "$port"; then
+            log INFO "$name appears to be already running (port $port bound). Skipping."
+            return 0
+        fi
+        log ERROR "Failed to start $name"
+        return 1
+    fi
+}
 
 # =============================================================================
 # UTILITY FUNCTIONS
@@ -180,6 +239,28 @@ setup_uv_environment() {
     log INFO "UV environment activated"
 }
 
+# Utility: Check if a TCP port is already bound (LISTEN state)
+is_port_in_use() {
+    local port=$1
+    # `ss` is shipped with iproute2 on most modern Linux distributions
+    # We look for exact matches to ":<port>" at the end of the local address column.
+    if ss -ltn | awk '{print $4}' | grep -q "[:.]$port$"; then
+        return 0  # port is in use
+    else
+        return 1  # port is free
+    fi
+}
+
+# Returns 0 if a Docker container is already publishing the given host TCP port
+is_docker_port_published() {
+    local port=$1
+    if docker ps --format '{{.Ports}}' | grep -E "[:.]${port}->" >/dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # =============================================================================
 # SERVICE MANAGEMENT
 # =============================================================================
@@ -214,6 +295,21 @@ start_process_service() {
     local health_path=$4
     local use_uv=${5:-false}
     
+    # Health-check URL used in several places below
+    local health_url="http://100.123.10.72:${port}${health_path}"
+
+    # Skip start if something is already listening on the desired port *and* looks healthy
+    if is_port_in_use "$port"; then
+        log INFO "$name appears to be running already on port $port"
+        if wait_for_service "$name" "$health_url" 5; then
+            log INFO "$name is healthy – skipping start"
+            return 0
+        else
+            log WARN "$name port $port is busy but health-check failed. Will not attempt automatic restart to avoid conflicts."
+            return 1
+        fi
+    fi
+
     log DEBUG "Starting $name..."
     
     local pidfile="$PIDS_DIR/${name}.pid"
@@ -243,7 +339,6 @@ start_process_service() {
     log INFO "Started $name (PID: $new_pid, Port: $port)"
     
     # Health check
-    local health_url="http://100.123.10.72:${port}${health_path}"
     if wait_for_service "$name" "$health_url" 20; then
         log INFO "$name is healthy"
     else
@@ -256,7 +351,13 @@ start_docker_service() {
     local port=$2
     local compose_file=$3
     local health_path=$4
-    
+
+    # If port already bound on host OR another container is publishing it, assume service is up/managed elsewhere
+    if is_port_in_use "$port" || is_docker_port_published "$port"; then
+        log INFO "$name port $port already in use by another process or container – skipping docker-compose up."
+        return 0
+    fi
+
     log DEBUG "Starting Docker service: $name"
     
     if [[ ! -f "$compose_file" ]]; then
@@ -273,6 +374,11 @@ start_docker_service() {
             local health_url="http://100.123.10.72:${port}${health_path}"
             wait_for_service "$name" "$health_url" 30
         else
+            # If failure due to port already allocated, assume service is already running
+            if is_port_in_use "$port" || is_docker_port_published "$port"; then
+                log INFO "$name appears to be already running (port $port bound). Skipping."
+                return 0
+            fi
             log ERROR "Failed to start $name"
             return 1
         fi
@@ -411,7 +517,7 @@ EOF
                 "port": $port,
                 "status": "$status",
                 "local_url": "http://${host}:${port}",
-                "tailscale_url": "https://$TAILSCALE_DOMAIN/${service_name}/"
+                "tailscale_url": "https://${service_name}.${TAILSCALE_DOMAIN}/"
             }
 EOF
         done
@@ -426,21 +532,29 @@ EOF
 
     log INFO "Status report generated: $status_file"
 }
+# =============================================================================
+# UPDATED ACCESS INFORMATION DISPLAY
+# =============================================================================
 
-display_access_information() {
+display_access_information_updated() {
     log TITLE "Platform Access Information"
     
     echo -e "\n${GREEN}🏠 LOCAL ACCESS:${NC}"
-    echo "   🤖 Chat Copilot: http://100.123.10.72:11000"
-    echo "   🌟 AutoGen Studio: http://100.123.10.72:11001"
-    echo "   💫 Magentic-One: http://100.123.10.72:11003"
-    echo "   🔗 Webhook Server: http://100.123.10.72:11002"
-    echo "   🔍 Port Scanner: http://100.123.10.72:11010"
+    echo "   🤖 Chat Copilot: http://$TAILSCALE_DOMAIN:11000"
+    echo "   🌟 AutoGen Studio: http://$TAILSCALE_DOMAIN:11001"
+    echo "   💫 Magentic-One: http://$TAILSCALE_DOMAIN:11003"
+    echo "   🔗 Webhook Server: http://$TAILSCALE_DOMAIN:11002"
+    echo "   🔍 Port Scanner: http://$TAILSCALE_DOMAIN:11010"
     
     echo -e "\n${BLUE}🛠️ INFRASTRUCTURE:${NC}"
-    echo "   🔧 Nginx Proxy: http://100.123.10.72:11080"
+    echo "   🔧 Nginx Proxy: http://$TAILSCALE_DOMAIN11080"
     echo "   🦙 Ollama LLM: http://localhost:11434"
-    echo "   💻 VS Code Web: http://100.123.10.72:57081"
+    echo "   💻 VS Code Web: http://$TAILSCALE_DOMAIN:57081"
+    
+    echo -e "\n${GREEN}🔍 SEARCH & AI:${NC}"
+    echo "   🧠 Perplexica: http://$TAILSCALE_DOMAIN:11020"
+    echo "   🔎 SearXNG: http://$TAILSCALE_DOMAIN:11021"
+    echo "   🌐 OpenWebUI: http://$TAILSCALE_DOMAIN:11880"
     
     if check_tailscale; then
         echo -e "\n${GREEN}📱 TAILSCALE ACCESS:${NC}"
@@ -461,7 +575,6 @@ display_access_information() {
     echo "   🔢 PIDs: $PIDS_DIR"
     echo "   📊 Status: $PLATFORM_DIR/platform-status.json"
 }
-
 # =============================================================================
 # MAIN EXECUTION
 # =============================================================================

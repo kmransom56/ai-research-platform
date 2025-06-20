@@ -8,7 +8,8 @@ using System.Linq;
 namespace CopilotChat.WebApi.Controllers
 {
     [ApiController]
-    [Route("healthz")]
+    // Summary of downstream service health; keep distinct from built-in /healthz endpoint.
+    [Route("healthz/services")]
     public class HealthController : ControllerBase
     {
         private static readonly HttpClient _http = new () { Timeout = TimeSpan.FromSeconds(5)};
@@ -17,7 +18,6 @@ namespace CopilotChat.WebApi.Controllers
 
         private readonly ServiceTarget[] _targets = new[]
         {
-            new ServiceTarget("Chat Copilot", "http://localhost:11000/healthz"),
             new ServiceTarget("OpenWebUI", "http://localhost:8080/api/config"),
             new ServiceTarget("Perplexica", "http://localhost:11020/perplexica"),
             new ServiceTarget("SearXNG", "http://localhost:11021"),

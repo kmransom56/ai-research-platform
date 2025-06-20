@@ -2,7 +2,7 @@
 # AI Research Platform Startup Script - Clean & Maintainable
 # Standardized Port Range: 11000-12000
 # Author: Automated Infrastructure Management
-# Version: 3.1 - Fixed Perplexica integration and function definitions
+# Version: 3.0
 
 set -euo pipefail
 
@@ -49,18 +49,19 @@ declare -A INFRA_SERVICES=(
     ["port-scanner"]="11010|cd /home/keith/port-scanner-material-ui && node backend/server.js|/nmap-status"
 )
 
-# Docker Services - CORRECTED FORMAT
+# Docker Services
 declare -A DOCKER_SERVICES=(
     ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
     ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-compose.caddy.yml|/config/"
-    ["perplexica-stack"]="11020|/home/keith/perplexcia/compose.yaml|/"
 )
 
-# External Services (for health checks only) - CORRECTED
+# External Services (for health checks only)
 declare -A EXTERNAL_SERVICES=(
     ["ollama"]="11434|localhost|/api/version"
-    ["openwebui"]="11880|100.123.10.72|/api/config"
+    ["perplexica"]="11020|100.123.10.72|/"
+    ["searxng"]="11021|100.123.10.72|/"
+    ["openwebui"]="8080|100.123.10.72|/api/config"
     ["vscode-web"]="57081|100.123.10.72|/"
 )
 
@@ -179,28 +180,6 @@ setup_uv_environment() {
     log INFO "UV environment activated"
 }
 
-# Utility: Check if a TCP port is already bound (LISTEN state)
-is_port_in_use() {
-    local port=$1
-    # `ss` is shipped with iproute2 on most modern Linux distributions
-    # We look for exact matches to ":<port>" at the end of the local address column.
-    if ss -ltn | awk '{print $4}' | grep -q "[:.]$port$"; then
-        return 0  # port is in use
-    else
-        return 1  # port is free
-    fi
-}
-
-# Returns 0 if a Docker container is already publishing the given host TCP port
-is_docker_port_published() {
-    local port=$1
-    if docker ps --format '{{.Ports}}' | grep -E "[:.]${port}->" >/dev/null 2>&1; then
-        return 0
-    else
-        return 1
-    fi
-}
-
 # =============================================================================
 # SERVICE MANAGEMENT
 # =============================================================================
@@ -235,21 +214,6 @@ start_process_service() {
     local health_path=$4
     local use_uv=${5:-false}
     
-    # Health-check URL used in several places below
-    local health_url="http://100.123.10.72:${port}${health_path}"
-
-    # Skip start if something is already listening on the desired port *and* looks healthy
-    if is_port_in_use "$port"; then
-        log INFO "$name appears to be running already on port $port"
-        if wait_for_service "$name" "$health_url" 5; then
-            log INFO "$name is healthy – skipping start"
-            return 0
-        else
-            log WARN "$name port $port is busy but health-check failed. Will not attempt automatic restart to avoid conflicts."
-            return 1
-        fi
-    fi
-
     log DEBUG "Starting $name..."
     
     local pidfile="$PIDS_DIR/${name}.pid"
@@ -279,6 +243,7 @@ start_process_service() {
     log INFO "Started $name (PID: $new_pid, Port: $port)"
     
     # Health check
+    local health_url="http://100.123.10.72:${port}${health_path}"
     if wait_for_service "$name" "$health_url" 20; then
         log INFO "$name is healthy"
     else
@@ -291,13 +256,7 @@ start_docker_service() {
     local port=$2
     local compose_file=$3
     local health_path=$4
-
-    # If port already bound on host OR another container is publishing it, assume service is up/managed elsewhere
-    if is_port_in_use "$port" || is_docker_port_published "$port"; then
-        log INFO "$name port $port already in use by another process or container – skipping docker-compose up."
-        return 0
-    fi
-
+    
     log DEBUG "Starting Docker service: $name"
     
     if [[ ! -f "$compose_file" ]]; then
@@ -305,52 +264,18 @@ start_docker_service() {
         return 1
     fi
     
-    # Check if services are already running
-    if docker-compose -f "$compose_file" ps --services --filter "status=running" 2>/dev/null | grep -q .; then
-        log INFO "$name stack already has running services"
-        
-        # For Perplexica specifically, check both services
-        if [[ "$name" == "perplexica-stack" ]]; then
-            log INFO "Checking Perplexica services..."
-            if wait_for_service "SearXNG" "http://100.123.10.72:11021/" 10; then
-                log INFO "SearXNG is healthy"
-            fi
-            if wait_for_service "Perplexica" "http://100.123.10.72:11020/" 10; then
-                log INFO "Perplexica is healthy"
-            fi
-        else
-            # Standard health check
-            local health_url="http://100.123.10.72:${port}${health_path}"
-            if wait_for_service "$name" "$health_url" 10; then
-                log INFO "$name is healthy"
-            fi
-        fi
-        return 0
-    fi
-    
-    # Start the stack
-    log INFO "Starting $name Docker stack..."
-    if docker-compose -f "$compose_file" up -d; then
-        log INFO "$name Docker stack started"
-        
-        # For Perplexica specifically, check both services
-        if [[ "$name" == "perplexica-stack" ]]; then
-            log INFO "Checking Perplexica services..."
-            wait_for_service "SearXNG" "http://100.123.10.72:11021/" 30
-            wait_for_service "Perplexica" "http://100.123.10.72:11020/" 30
-        else
-            # Standard health check
+    if docker-compose -f "$compose_file" ps | grep -q "Up"; then
+        log INFO "$name already running"
+    else
+        if docker-compose -f "$compose_file" up -d; then
+            log INFO "$name Docker stack started"
+            
             local health_url="http://100.123.10.72:${port}${health_path}"
             wait_for_service "$name" "$health_url" 30
+        else
+            log ERROR "Failed to start $name"
+            return 1
         fi
-    else
-        # If failure due to port already allocated, assume service is already running
-        if is_port_in_use "$port" || is_docker_port_published "$port"; then
-            log INFO "$name appears to be already running (port $port bound). Skipping."
-            return 0
-        fi
-        log ERROR "Failed to start $name"
-        return 1
     fi
 }
 
@@ -436,7 +361,7 @@ generate_status_report() {
 {
     "platform": {
         "name": "AI Research Platform",
-        "version": "3.1",
+        "version": "3.0",
         "startup_time": "$(date -Iseconds)",
         "port_range": "11000-12000"
     },
@@ -486,7 +411,7 @@ EOF
                 "port": $port,
                 "status": "$status",
                 "local_url": "http://${host}:${port}",
-                "tailscale_url": "https://${service_name}.${TAILSCALE_DOMAIN}/"
+                "tailscale_url": "https://$TAILSCALE_DOMAIN/${service_name}/"
             }
 EOF
         done
@@ -502,7 +427,6 @@ EOF
     log INFO "Status report generated: $status_file"
 }
 
-# FIXED FUNCTION DEFINITION
 display_access_information() {
     log TITLE "Platform Access Information"
     
@@ -512,11 +436,6 @@ display_access_information() {
     echo "   💫 Magentic-One: http://100.123.10.72:11003"
     echo "   🔗 Webhook Server: http://100.123.10.72:11002"
     echo "   🔍 Port Scanner: http://100.123.10.72:11010"
-    
-    echo -e "\n${GREEN}🔍 SEARCH & AI:${NC}"
-    echo "   🧠 Perplexica: http://100.123.10.72:11020"
-    echo "   🔎 SearXNG: http://100.123.10.72:11021"
-    echo "   🌐 OpenWebUI: http://100.123.10.72:11880"
     
     echo -e "\n${BLUE}🛠️ INFRASTRUCTURE:${NC}"
     echo "   🔧 Nginx Proxy: http://100.123.10.72:11080"
@@ -555,7 +474,7 @@ cleanup() {
 main() {
     trap cleanup EXIT
     
-    log TITLE "AI Research Platform Startup v3.1"
+    log TITLE "AI Research Platform Startup v3.0"
     log INFO "Timestamp: $(date)"
     log INFO "User: $(whoami)"
     log INFO "Platform Directory: $PLATFORM_DIR"
