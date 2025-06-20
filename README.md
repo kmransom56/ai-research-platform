@@ -2,7 +2,39 @@
 
 # 🤖 AI Research Platform (Based on Chat Copilot)
 
-This platform provides a complete AI research environment accessible via Tailscale mesh network. Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kernel), it now includes:
+A comprehensive, self-hosted AI research and development platform with secure remote access, optimized for high-performance GPU systems.
+
+[![GitHub Stars](https://img.shields.io/github/stars/kmransom56/ai-research-platform?style=social)](https://github.com/kmransom56/ai-research-platform)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Ubuntu%2FDebian-orange.svg)](https://ubuntu.com)
+
+## 🚀 Quick Installation
+
+### One-Command Installation
+```bash
+curl -fsSL https://raw.githubusercontent.com/kmransom56/ai-research-platform/main/install-ai-platform.sh | bash
+```
+
+### Or Clone and Install
+```bash
+git clone https://github.com/kmransom56/ai-research-platform.git
+cd ai-research-platform
+./install-ai-platform.sh
+```
+
+### System Requirements
+- **Minimum**: Ubuntu 20.04+, 16GB RAM, 100GB storage
+- **Recommended**: 64GB+ RAM, NVIDIA GPU with 8GB+ VRAM
+- **High-Performance**: 72GB+ GPU VRAM, 128GB+ RAM, NVMe SSD
+
+## 📦 Deployment Package
+Create portable installation for other systems:
+```bash
+./create-deployment-package.sh
+# Transfer /tmp/ai-research-platform-*.tar.gz to target system
+```
+
+Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kernel), this platform includes:
 
 ## 🚀 Platform Components
 
@@ -25,7 +57,67 @@ This platform provides a complete AI research environment accessible via Tailsca
 - **Problem Solving** - Complex problem decomposition and solution design
 - **Local LLM Integration** - 7+ Ollama models including llama3.2, mistral, deepseek-coder
 
-## 🌐 Network Access
+## 🎮 GPU Optimization & Large Models
+
+This platform is optimized for high-memory GPU systems. For systems with 72GB+ VRAM:
+
+### Supported Large Models
+```bash
+# After installation, install models via Ollama:
+ollama pull llama2:70b          # ~40GB VRAM - Complex reasoning
+ollama pull codellama:34b       # ~20GB VRAM - Programming tasks  
+ollama pull mixtral:8x7b        # ~45GB VRAM - Mixture of experts
+ollama pull deepseek-coder:33b  # ~20GB VRAM - Code generation
+```
+
+### Memory Optimization
+- **Conservative**: Use 60GB, leave 12GB free for system
+- **Aggressive**: Use 68GB, leave 4GB free for optimal performance  
+- **Concurrent**: Run multiple models simultaneously
+
+See [GPU_OPTIMIZATION_72GB.md](GPU_OPTIMIZATION_72GB.md) for detailed configuration.
+
+## 🚀 Easy Deployment to New Systems
+
+### Create Deployment Package
+```bash
+./create-deployment-package.sh
+# Creates: /tmp/ai-research-platform-YYYYMMDD.tar.gz
+```
+
+### Deploy on Target System
+```bash
+# Transfer package
+scp /tmp/ai-research-platform-*.tar.gz user@target-server:~/
+
+# Extract and deploy
+tar -xzf ai-research-platform-*.tar.gz
+cd ai-research-platform-*
+./quick-deploy.sh
+```
+
+### Post-Deployment Configuration
+1. Configure API keys in `config/.env`
+2. Setup Tailscale: `sudo tailscale up`
+3. Update domain in Caddyfile
+4. Start platform: `./startup-platform-clean.sh`
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions  
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
 
 **Tailscale IP**: `100.123.10.72`  
 **Primary Interfaces**:
@@ -318,7 +410,7 @@ By default, Chat Copilot runs locally without authentication, using a guest user
    **Powershell**
 
    ```powershell
-   .\Configure.ps1 -AiService {AI_SERVICE} -APIKey {API_KEY} -Endpoint {AZURE_OPENAI_ENDPOINT} -FrontendClientId {FRONTEND_APPLICATION_ID} -BackendClientId {BACKEND_APPLICATION_ID} -TenantId {TENANT_ID} -Instance {AZURE_AD_INSTANCE}
+   .\Configure.ps1 -AIService {AI_SERVICE} -APIKey {API_KEY} -Endpoint {AZURE_OPENAI_ENDPOINT} -FrontendClientId {FRONTEND_APPLICATION_ID} -BackendClientId {BACKEND_APPLICATION_ID} -TenantId {TENANT_ID} -Instance {AZURE_AD_INSTANCE}
    ```
 
    **Bash**
