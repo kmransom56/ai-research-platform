@@ -223,6 +223,182 @@ EOF
     log SUCCESS "Ollama installed"
 }
 
+install_perplexica() {
+    log INFO "Installing Perplexica AI search engine..."
+
+    cd "$INSTALL_DIR"
+
+    # Clone Perplexica
+    if [[ ! -d "perplexica" ]]; then
+        git clone https://github.com/ItzCrazyKns/Perplexica.git perplexica
+    fi
+
+    cd perplexica
+
+    # Create environment file
+    if [[ ! -f ".env" ]]; then
+        cat >.env <<EOF
+PORT=11020
+OLLAMA_API_BASE_URL=http://localhost:11434
+OPENAI_API_KEY=\${OPENAI_API_KEY:-your-openai-key-here}
+ANTHROPIC_API_KEY=\${ANTHROPIC_API_KEY:-your-anthropic-key-here}
+SEARXNG_API_ENDPOINT=http://localhost:11021
+EOF
+    fi
+
+    # Build and start with Docker Compose
+    docker-compose -f compose.yaml up -d --build
+
+    log SUCCESS "Perplexica installed and started on port 11020"
+}
+
+install_searxng() {
+    log INFO "Installing SearXNG privacy search engine..."
+
+    cd "$INSTALL_DIR"
+    mkdir -p searxng
+    cd searxng
+
+    # Create SearXNG configuration
+    cat >settings.yml <<EOF
+use_default_settings: true
+server:
+  secret_key: "$(openssl rand -hex 32)"
+  bind_address: "0.0.0.0"
+  port: 11021
+search:
+  safe_search: 1
+  autocomplete: "google"
+outgoing:
+  request_timeout: 5.0
+  max_request_timeout: 15.0
+engines:
+  - name: google
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: duckduckgo
+    disabled: false
+EOF
+
+    # Create Docker Compose for SearXNG
+    cat >docker-compose.yml <<EOF
+version: '3.8'
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "11021:8080"
+    volumes:
+      - "./settings.yml:/etc/searxng/settings.yml:ro"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:11021/
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+EOF
+
+    # Start SearXNG
+    docker-compose up -d
+
+    log SUCCESS "SearXNG installed and started on port 11021"
+}
+
+install_vscode_server() {
+    log INFO "Installing VS Code Server..."
+
+    # Install VS Code Server
+    cd "$INSTALL_DIR"
+
+    # Download and install code-server
+    curl -fsSL https://code-server.dev/install.sh | sh -s -- --method=standalone --prefix="$INSTALL_DIR/code-server"
+
+    # Create VS Code configuration
+    mkdir -p "$HOME/.config/code-server"
+    cat >"$HOME/.config/code-server/config.yaml" <<EOF
+bind-addr: 0.0.0.0:57081
+auth: password
+password: $(openssl rand -base64 32)
+cert: false
+EOF
+
+    # Create systemd service for code-server
+    sudo tee /etc/systemd/system/code-server.service >/dev/null <<EOF
+[Unit]
+Description=VS Code Server
+After=network.target
+
+[Service]
+Type=exec
+ExecStart=$INSTALL_DIR/code-server/bin/code-server --bind-addr 0.0.0.0:57081 --user-data-dir $HOME/.local/share/code-server --extensions-dir $HOME/.local/share/code-server/extensions
+Restart=always
+User=$USER
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=HOME=$HOME
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    # Enable and start the service
+    sudo systemctl daemon-reload
+    sudo systemctl enable code-server
+    sudo systemctl start code-server
+
+    # Get the password for display later
+    local vscode_password=$(grep 'password:' "$HOME/.config/code-server/config.yaml" | cut -d' ' -f2)
+    echo "$vscode_password" >"$CONFIG_DIR/vscode-password.txt"
+
+    log SUCCESS "VS Code Server installed on port 57081"
+    log INFO "VS Code password saved to: $CONFIG_DIR/vscode-password.txt"
+}
+
+install_openwebui() {
+    log INFO "Installing OpenWebUI..."
+
+    cd "$INSTALL_DIR"
+    mkdir -p openwebui
+    cd openwebui
+
+    # Create Docker Compose for OpenWebUI
+    cat >docker-compose.yml <<EOF
+version: '3.8'
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "11880:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - WEBUI_SECRET_KEY=$(openssl rand -hex 32)
+    volumes:
+      - open-webui:/app/backend/data
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    restart: unless-stopped
+
+volumes:
+  open-webui:
+EOF
+
+    # Start OpenWebUI
+    docker-compose up -d
+
+    log SUCCESS "OpenWebUI installed and started on port 11880"
+}
+
 setup_python_environment() {
     log INFO "Setting up Python environment..."
 
@@ -464,6 +640,18 @@ main() {
 
     log TITLE "Installing Ollama..."
     install_ollama
+
+    log TITLE "Installing Perplexica..."
+    install_perplexica
+
+    log TITLE "Installing SearXNG..."
+    install_searxng
+
+    log TITLE "Installing VS Code Server..."
+    install_vscode_server
+
+    log TITLE "Installing OpenWebUI..."
+    install_openwebui
 
     log TITLE "Setting up platform files..."
     clone_platform_repository
