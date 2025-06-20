@@ -11,11 +11,13 @@ A comprehensive, self-hosted AI research and development platform with secure re
 ## 🚀 Quick Installation
 
 ### One-Command Installation
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/kmransom56/ai-research-platform/main/install-ai-platform.sh | bash
 ```
 
 ### Or Clone and Install
+
 ```bash
 git clone https://github.com/kmransom56/ai-research-platform.git
 cd ai-research-platform
@@ -23,12 +25,15 @@ cd ai-research-platform
 ```
 
 ### System Requirements
+
 - **Minimum**: Ubuntu 20.04+, 16GB RAM, 100GB storage
 - **Recommended**: 64GB+ RAM, NVIDIA GPU with 8GB+ VRAM
 - **High-Performance**: 72GB+ GPU VRAM, 128GB+ RAM, NVMe SSD
 
 ## 📦 Deployment Package
+
 Create portable installation for other systems:
+
 ```bash
 ./create-deployment-package.sh
 # Transfer /tmp/ai-research-platform-*.tar.gz to target system
@@ -39,6 +44,7 @@ Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kerne
 ## 🚀 Platform Components
 
 ### Core AI Services
+
 1. **Chat Copilot** - [.NET web API service](./webapi/) + [React web app](./webapp/)
 2. **AutoGen Studio** - Multi-agent conversation platform with Ollama integration
 3. **OpenWebUI** - Advanced LLM interface with multiple model support
@@ -46,12 +52,14 @@ Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kerne
 5. **SearchNG** - Privacy-focused search engine
 
 ### Research & Development Tools
+
 6. **VS Code Online** - Browser-based development environment
 7. **Port Scanner** - Network discovery and monitoring
 8. **Material-UI Control Panel** - Centralized system management
 9. **GitHub Webhook System** - Automated deployment pipeline
 
 ### Multi-Agent AI Capabilities
+
 - **Code Review Teams** - Multi-agent code analysis with specialized roles
 - **Research Analysis** - Collaborative research with fact-checking
 - **Problem Solving** - Complex problem decomposition and solution design
@@ -62,17 +70,19 @@ Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kerne
 This platform is optimized for high-memory GPU systems. For systems with 72GB+ VRAM:
 
 ### Supported Large Models
+
 ```bash
 # After installation, install models via Ollama:
 ollama pull llama2:70b          # ~40GB VRAM - Complex reasoning
-ollama pull codellama:34b       # ~20GB VRAM - Programming tasks  
+ollama pull codellama:34b       # ~20GB VRAM - Programming tasks
 ollama pull mixtral:8x7b        # ~45GB VRAM - Mixture of experts
 ollama pull deepseek-coder:33b  # ~20GB VRAM - Code generation
 ```
 
 ### Memory Optimization
+
 - **Conservative**: Use 60GB, leave 12GB free for system
-- **Aggressive**: Use 68GB, leave 4GB free for optimal performance  
+- **Aggressive**: Use 68GB, leave 4GB free for optimal performance
 - **Concurrent**: Run multiple models simultaneously
 
 See [GPU_OPTIMIZATION_72GB.md](GPU_OPTIMIZATION_72GB.md) for detailed configuration.
@@ -80,12 +90,14 @@ See [GPU_OPTIMIZATION_72GB.md](GPU_OPTIMIZATION_72GB.md) for detailed configurat
 ## 🚀 Easy Deployment to New Systems
 
 ### Create Deployment Package
+
 ```bash
 ./create-deployment-package.sh
 # Creates: /tmp/ai-research-platform-YYYYMMDD.tar.gz
 ```
 
 ### Deploy on Target System
+
 ```bash
 # Transfer package
 scp /tmp/ai-research-platform-*.tar.gz user@target-server:~/
@@ -97,6 +109,7 @@ cd ai-research-platform-*
 ```
 
 ### Post-Deployment Configuration
+
 1. Configure API keys in `config/.env`
 2. Setup Tailscale: `sudo tailscale up`
 3. Update domain in Caddyfile
@@ -104,13 +117,14 @@ cd ai-research-platform-*
 
 ## 📚 Documentation
 
-- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions  
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
 - [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
 - [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
 
 ## 🌐 Access URLs (Post-Installation)
 
 **Secure HTTPS Access via Tailscale:**
+
 - **Main Hub**: `https://your-tailscale-domain.ts.net`
 - **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
 - **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
@@ -121,6 +135,7 @@ cd ai-research-platform-*
 
 **Tailscale IP**: `100.123.10.72`  
 **Primary Interfaces**:
+
 - Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
 - AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
 - OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
@@ -147,24 +162,28 @@ To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/de
 ## 🎯 Platform Features
 
 ### 🤖 Multi-Agent AI Capabilities
+
 - **AutoGen Studio** - Create AI agent teams with local Ollama models
 - **Collaborative Workflows** - Code review, research analysis, problem solving
 - **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
 - **Zero External Dependencies** - All AI processing stays on your network
 
 ### 🔧 Integrated Development Environment
+
 - **VS Code Online** - Full browser-based development environment
 - **GitHub Webhook Automation** - Auto-deployment on code changes
 - **Material-UI Control Panel** - Centralized system management
 - **Network Discovery** - Port scanning and service monitoring
 
 ### 🔍 Advanced Search & Research
+
 - **Perplexica AI Search** - Chat with the internet using AI
 - **SearchNG** - Privacy-focused search engine
 - **OpenWebUI** - Multi-model LLM interface
 - **Real-time Internet Access** - Current information retrieval
 
 ### 🌐 Tailscale Network Integration
+
 - **Mesh Network Access** - Available across all your devices
 - **Secure Communication** - End-to-end encrypted connections
 - **Remote Development** - Access from anywhere on your Tailscale network
@@ -187,10 +206,10 @@ You will need the following items to run the sample:
 - [Git](https://www.git-scm.com/downloads)
 - AI Service (one of the following is required)
 
-| AI Service   | Requirement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AI Service   | Requirement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Azure OpenAI | - [Access](https://aka.ms/oai/access)<br>- [Resource](https://learn.microsoft.com/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#create-a-resource)<br>- [Deployed models](https://learn.microsoft.com/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model) (`gpt-4o` and `text-embedding-ada-002`) <br>- [Endpoint](https://learn.microsoft.com/azure/ai-services/openai/tutorials/embeddings?tabs=command-line#retrieve-key-and-endpoint)<br>- [API key](https://learn.microsoft.com/azure/ai-services/openai/tutorials/embeddings?tabs=command-line#retrieve-key-and-endpoint) |
-| OpenAI       | - [Account](https://platform.openai.com/docs/overview)<br>- [API key](https://platform.openai.com/api-keys)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| OpenAI       | - [Account](https://platform.openai.com/docs/overview)<br>- [API key](https://platform.openai.com/api-keys)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 # Instructions
 
