@@ -20,7 +20,7 @@ echo "Repository: $REPO"
 # Add collaborator
 if gh api repos/"$REPO"/collaborators/"$USERNAME" \
     --method PUT \
-    --field permission="$PERMISSION" > /dev/null 2>&1; then
+    --field permission="$PERMISSION" >/dev/null 2>&1; then
     echo "✅ Successfully added $USERNAME to $REPO with $PERMISSION access"
     echo "🔗 Invitation sent! They'll receive an email notification."
 else
