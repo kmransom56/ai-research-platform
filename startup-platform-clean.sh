@@ -643,6 +643,7 @@ main() {
     # Phase 4: Reporting
     generate_status_report
     display_access_information
+    display_service_credentials
 
     log INFO "✅ AI Research Platform startup complete!"
 }
