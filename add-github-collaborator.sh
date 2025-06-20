@@ -32,12 +32,12 @@ add_collaborator() {
     local repo="$1"
     local username="$2"
     local permission="$3"
-    
+
     log "Adding $username as $permission to $repo..."
-    
+
     if gh api repos/"$repo"/collaborators/"$username" \
         --method PUT \
-        --field permission="$permission" > /dev/null 2>&1; then
+        --field permission="$permission" >/dev/null 2>&1; then
         success "Added $username to $repo with $permission access"
         return 0
     else
@@ -57,18 +57,18 @@ list_collaborators() {
 main() {
     echo -e "${BLUE}🤝 GitHub Collaborator Management${NC}"
     echo "=================================="
-    
+
     # Get collaborator username
     read -p "Enter your brother's GitHub username: " BROTHER_USERNAME
-    
+
     # Validate username exists
-    if ! gh api users/"$BROTHER_USERNAME" > /dev/null 2>&1; then
+    if ! gh api users/"$BROTHER_USERNAME" >/dev/null 2>&1; then
         error "GitHub user '$BROTHER_USERNAME' not found. Please check the username."
         exit 1
     fi
-    
+
     success "Found GitHub user: $BROTHER_USERNAME"
-    
+
     # Get permission level
     echo ""
     echo "Permission levels:"
@@ -78,13 +78,16 @@ main() {
     echo ""
     read -p "Enter permission level [admin/push/pull] (default: admin): " PERMISSION
     PERMISSION=${PERMISSION:-admin}
-    
+
     # Validate permission
     case "$PERMISSION" in
-        admin|push|pull) ;;
-        *) error "Invalid permission. Use admin, push, or pull."; exit 1 ;;
+    admin | push | pull) ;;
+    *)
+        error "Invalid permission. Use admin, push, or pull."
+        exit 1
+        ;;
     esac
-    
+
     # Get repository selection
     echo ""
     echo "Repository selection:"
@@ -94,88 +97,88 @@ main() {
     echo "  4. Select specific repositories"
     echo ""
     read -p "Choose option [1-4]: " REPO_OPTION
-    
+
     case "$REPO_OPTION" in
-        1)
-            # Current repository only
-            CURRENT_REPO=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
-            success "Will add collaborator to: $CURRENT_REPO"
-            add_collaborator "$CURRENT_REPO" "$BROTHER_USERNAME" "$PERMISSION"
-            ;;
-        2)
-            # All private repositories
-            log "Getting list of private repositories..."
-            REPOS=($(gh repo list --limit 100 --visibility private --json nameWithOwner --jq '.[].nameWithOwner'))
-            
-            echo ""
-            success "Found ${#REPOS[@]} private repositories"
+    1)
+        # Current repository only
+        CURRENT_REPO=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
+        success "Will add collaborator to: $CURRENT_REPO"
+        add_collaborator "$CURRENT_REPO" "$BROTHER_USERNAME" "$PERMISSION"
+        ;;
+    2)
+        # All private repositories
+        log "Getting list of private repositories..."
+        REPOS=($(gh repo list --limit 100 --visibility private --json nameWithOwner --jq '.[].nameWithOwner'))
+
+        echo ""
+        success "Found ${#REPOS[@]} private repositories"
+        for repo in "${REPOS[@]}"; do
+            echo "  - $repo"
+        done
+
+        echo ""
+        read -p "Add $BROTHER_USERNAME to all private repositories? [y/N]: " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
             for repo in "${REPOS[@]}"; do
-                echo "  - $repo"
+                add_collaborator "$repo" "$BROTHER_USERNAME" "$PERMISSION"
+                sleep 1 # Rate limiting
             done
-            
-            echo ""
-            read -p "Add $BROTHER_USERNAME to all private repositories? [y/N]: " -n 1 -r
-            echo
-            if [[ $REPLY =~ ^[Yy]$ ]]; then
-                for repo in "${REPOS[@]}"; do
-                    add_collaborator "$repo" "$BROTHER_USERNAME" "$PERMISSION"
-                    sleep 1  # Rate limiting
-                done
-            fi
-            ;;
-        3)
-            # All repositories
-            log "Getting list of all repositories..."
-            REPOS=($(gh repo list --limit 100 --json nameWithOwner --jq '.[].nameWithOwner'))
-            
-            echo ""
-            success "Found ${#REPOS[@]} repositories"
+        fi
+        ;;
+    3)
+        # All repositories
+        log "Getting list of all repositories..."
+        REPOS=($(gh repo list --limit 100 --json nameWithOwner --jq '.[].nameWithOwner'))
+
+        echo ""
+        success "Found ${#REPOS[@]} repositories"
+        for repo in "${REPOS[@]}"; do
+            echo "  - $repo"
+        done
+
+        echo ""
+        read -p "Add $BROTHER_USERNAME to ALL repositories? [y/N]: " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
             for repo in "${REPOS[@]}"; do
-                echo "  - $repo"
+                add_collaborator "$repo" "$BROTHER_USERNAME" "$PERMISSION"
+                sleep 1 # Rate limiting
             done
-            
-            echo ""
-            read -p "Add $BROTHER_USERNAME to ALL repositories? [y/N]: " -n 1 -r
-            echo
-            if [[ $REPLY =~ ^[Yy]$ ]]; then
-                for repo in "${REPOS[@]}"; do
-                    add_collaborator "$repo" "$BROTHER_USERNAME" "$PERMISSION"
-                    sleep 1  # Rate limiting
-                done
+        fi
+        ;;
+    4)
+        # Select specific repositories
+        log "Available repositories:"
+        REPOS=($(gh repo list --limit 50 --json nameWithOwner --jq '.[].nameWithOwner'))
+
+        for i in "${!REPOS[@]}"; do
+            echo "  $((i + 1)). ${REPOS[i]}"
+        done
+
+        echo ""
+        echo "Enter repository numbers (space-separated, e.g., 1 3 5):"
+        read -a SELECTED_INDICES
+
+        for index in "${SELECTED_INDICES[@]}"; do
+            if [[ "$index" =~ ^[0-9]+$ ]] && [ "$index" -ge 1 ] && [ "$index" -le "${#REPOS[@]}" ]; then
+                repo="${REPOS[$((index - 1))]}"
+                add_collaborator "$repo" "$BROTHER_USERNAME" "$PERMISSION"
+                sleep 1
+            else
+                warn "Invalid selection: $index"
             fi
-            ;;
-        4)
-            # Select specific repositories
-            log "Available repositories:"
-            REPOS=($(gh repo list --limit 50 --json nameWithOwner --jq '.[].nameWithOwner'))
-            
-            for i in "${!REPOS[@]}"; do
-                echo "  $((i+1)). ${REPOS[i]}"
-            done
-            
-            echo ""
-            echo "Enter repository numbers (space-separated, e.g., 1 3 5):"
-            read -a SELECTED_INDICES
-            
-            for index in "${SELECTED_INDICES[@]}"; do
-                if [[ "$index" =~ ^[0-9]+$ ]] && [ "$index" -ge 1 ] && [ "$index" -le "${#REPOS[@]}" ]; then
-                    repo="${REPOS[$((index-1))]}"
-                    add_collaborator "$repo" "$BROTHER_USERNAME" "$PERMISSION"
-                    sleep 1
-                else
-                    warn "Invalid selection: $index"
-                fi
-            done
-            ;;
-        *)
-            error "Invalid option"
-            exit 1
-            ;;
+        done
+        ;;
+    *)
+        error "Invalid option"
+        exit 1
+        ;;
     esac
-    
+
     echo ""
     success "🎉 Collaborator management complete!"
-    
+
     # Business considerations
     echo ""
     echo -e "${YELLOW}💼 Business Partnership Considerations:${NC}"
