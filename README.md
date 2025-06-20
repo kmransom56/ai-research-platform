@@ -1,4 +1,10 @@
-**NOTE**: This repository has been **transformed** into a comprehensive **AI Research Platform** with Tailscale network integration. This extends the original Chat Copilot sample with multi-agent capabilities, local LLMs, and advanced AI research tools.
+**NOTE**: This repository has been **transformed** into a comprehensive **AI Research Platform** with Tailscale network inte## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [🎮 **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Commercialization strategy
+- [🤝 **GitHub Collaboration**](add-github-collaborator.sh) - Team management toolson. This extends the original Chat Copilot sample with multi-agent capabilities, local LLMs, and advanced AI research tools.
 
 # 🤖 AI Research Platform (Based on Chat Copilot)
 
@@ -64,6 +70,13 @@ Built on Microsoft [Semantic Kernel](https://github.com/microsoft/semantic-kerne
 - **Research Analysis** - Collaborative research with fact-checking
 - **Problem Solving** - Complex problem decomposition and solution design
 - **Local LLM Integration** - 7+ Ollama models including llama3.2, mistral, deepseek-coder
+
+### Business & Collaboration Tools
+
+10. **GitHub Collaborator Management** - Interactive scripts for team collaboration
+11. **Business Partnership Framework** - Commercialization and revenue strategies
+12. **Deployment Package Creator** - Portable installation for client systems
+13. **Market Analysis & Legal Framework** - IP protection and business setup
 
 ## 🎮 GPU Optimization & Large Models
 
@@ -189,401 +202,1425 @@ To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/de
 - **Remote Development** - Access from anywhere on your Tailscale network
 - **Service Discovery** - Automatic network service mapping
 
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
 ## 📚 Documentation
 
-- **[Application Directory](./APPLICATIONS_DIRECTORY.md)** - Complete service catalog
-- **[AutoGen Studio Setup](./AUTOGEN_STUDIO_SETUP.md)** - Multi-agent platform guide
-- **[Webhook Deployment](./WEBHOOK_SETUP.md)** - Automated deployment system
-- **[Control Panel Guide](./webapp/public/control-panel.html)** - System management interface
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
 
-# Requirements
+## 🌐 Access URLs (Post-Installation)
 
-You will need the following items to run the sample:
+**Secure HTTPS Access via Tailscale:**
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) _(via Setup install.\* script)_
-- [Node.js](https://nodejs.org/en/download) _(via Setup install.\* script)_
-- [Yarn](https://classic.yarnpkg.com/docs/install) _(via Setup install.\* script)_
-- [Git](https://www.git-scm.com/downloads)
-- AI Service (one of the following is required)
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
 
-| AI Service   | Requirement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Azure OpenAI | - [Access](https://aka.ms/oai/access)<br>- [Resource](https://learn.microsoft.com/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#create-a-resource)<br>- [Deployed models](https://learn.microsoft.com/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model) (`gpt-4o` and `text-embedding-ada-002`) <br>- [Endpoint](https://learn.microsoft.com/azure/ai-services/openai/tutorials/embeddings?tabs=command-line#retrieve-key-and-endpoint)<br>- [API key](https://learn.microsoft.com/azure/ai-services/openai/tutorials/embeddings?tabs=command-line#retrieve-key-and-endpoint) |
-| OpenAI       | - [Account](https://platform.openai.com/docs/overview)<br>- [API key](https://platform.openai.com/api-keys)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+**Current Development URLs:**
 
-# Instructions
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
 
-## Windows
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
 
-1. Open PowerShell as an administrator.
-   > NOTE: Ensure that you have [PowerShell Core 6+](https://github.com/PowerShell/PowerShell) installed. This is different from the default PowerShell installed on Windows.
-1. Clone this repository
-   ```powershell
-   git clone [https://github.com/kmransom56/ai-research-platform]
-   ```
-1. Setup your environment.
+## 📋 Original Chat Copilot Components
 
-   The following is a script to help you install the dependencies required. Feel free to install `dotnet`, `nodejs`, and `yarn` with your method of choice or use this script.
+This platform extends the original Chat Copilot with three base components:
 
-   ```powershell
-   cd ai-research-platform\scripts\
-   .\Install.ps1
-   ```
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
 
-   > NOTE: This script will install `Chocolatey`, `dotnet-8.0-sdk`, `nodejs`, and `yarn`.
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
 
-   > NOTE: If you receive an error that the script is not digitally signed or cannot execute on the system, you may need to [change the execution policy](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3#change-the-execution-policy) (see list of [policies](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3#powershell-execution-policies) and [scopes](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3#execution-policy-scope)) or [unblock the script](https://learn.microsoft.com/powershell/module/microsoft.powershell.security/get-executionpolicy?view=powershell-7.3#example-4-unblock-a-script-to-run-it-without-changing-the-execution-policy).
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
 
-1. Configure Chat Copilot.
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
 
-   ```powershell
-   .\Configure.ps1 -AIService {AI_SERVICE} -APIKey {API_KEY} -Endpoint {AZURE_OPENAI_ENDPOINT}
-   ```
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
 
-   - `AI_SERVICE`: `AzureOpenAI` or `OpenAI`.
-   - `API_KEY`: The `API key` for Azure OpenAI or for OpenAI.
-   - `AZURE_OPENAI_ENDPOINT`: The Azure OpenAI resource `Endpoint` address. This is only required when using Azure OpenAI, omit `-Endpoint` if using OpenAI.
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
 
-   - > **IMPORTANT:** For `AzureOpenAI`, if you deployed models `gpt-4o` and `text-embedding-ada-002` with custom names (instead of the default names), also use the parameters:
+## 🎯 Platform Features
 
-     ```powershell
-     -CompletionModel {DEPLOYMENT_NAME} -EmbeddingModel {DEPLOYMENT_NAME}
-     ```
+### 🤖 Multi-Agent AI Capabilities
 
-     Open the `.\Configure.ps1` script to see all of the available parameters.
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
 
-1. Run Chat Copilot locally. This step starts both the backend API and frontend application.
+### 🔧 Integrated Development Environment
 
-   ```powershell
-   .\Start.ps1
-   ```
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
 
-   It may take a few minutes for Yarn packages to install on the first run.
+### 🔍 Advanced Search & Research
 
-   > NOTE: Confirm pop-ups are not blocked and you are logged in with the same account used to register the application.
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
 
-   - (Optional) To start ONLY the backend:
+### 🌐 Tailscale Network Integration
 
-     ```powershell
-     .\Start-Backend.ps1
-     ```
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
 
-## Linux/macOS
+## 💼 Business & Collaboration Features
 
-1. Open Bash as an Administrator.
-1. Clone this repository
-   ```bash
-   git clone [https://github.com/kmransom56/ai-research-platform]
-   ```
-1. Configure environment.
+### GitHub Team Management
 
-   The following is a script to help you install the dependencies required. Feel free to install `dotnet`, `nodejs`, and `yarn` with your method of choice or use this script.
+Add collaborators to repositories for business partnerships:
 
-   ```bash
-   cd ai-research-platform/scripts/
-   ```
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
 
-   **Ubuntu/Debian Linux**
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
 
-   ```bash
-   ./install-apt.sh
-   ```
+**Features:**
 
-   > NOTE: This script uses `apt` to install `dotnet-sdk-8.0`, `nodejs`, and `yarn`.
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
 
-   **macOS**
+### Commercial Opportunities
 
-   ```bash
-   ./install-brew.sh
-   ```
+This platform addresses high-value markets:
 
-   > NOTE: This script uses `homebrew` to install `dotnet-sdk`, `nodejs`, and `yarn`.
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
 
-1. Configure Chat Copilot.
+### Revenue Models
 
-   1. For OpenAI
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
 
-      ```bash
-      ./configure.sh --aiservice OpenAI --apikey {API_KEY}
-      ```
+### Business Documentation
 
-      - `API_KEY`: The `API key` for OpenAI.
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
 
-   2. For Azure OpenAI
+## 📚 Documentation
 
-      ```bash
-      ./configure.sh --aiservice AzureOpenAI \
-                     --endpoint {AZURE_OPENAI_ENDPOINT} \
-                     --apikey   {API_KEY}
-      ```
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
 
-      - `AZURE_OPENAI_ENDPOINT`: The Azure OpenAI resource `Endpoint` address.
-      - `API_KEY`: The `API key` for Azure OpenAI.
+## 🌐 Access URLs (Post-Installation)
 
-      **IMPORTANT:** If you deployed models `gpt-4o` and `text-embedding-ada-002`
-      with custom names (instead of the default names), you need to specify
-      the deployment names with three additional parameters:
+**Secure HTTPS Access via Tailscale:**
 
-      ```bash
-      ./configure.sh --aiservice AzureOpenAI \
-                     --endpoint        {AZURE_OPENAI_ENDPOINT} \
-                     --apikey          {API_KEY} \
-                     --completionmodel {DEPLOYMENT_NAME} \
-                     --embeddingmodel  {DEPLOYMENT_NAME}
-      ```
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
 
-1. Run Chat Copilot locally. This step starts both the backend API and frontend application.
+**Current Development URLs:**
 
-   ```bash
-   ./start.sh
-   ```
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
 
-   It may take a few minutes for Yarn packages to install on the first run.
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
 
-   > NOTE: Confirm pop-ups are not blocked and you are logged in with the same account used to register the application.
+## 📋 Original Chat Copilot Components
 
-   - (Optional) To start ONLY the backend:
+This platform extends the original Chat Copilot with three base components:
 
-     ```powershell
-     ./start-backend.sh
-     ```
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
 
-## (Optional) Run the [memory pipeline](./memorypipeline/README.md)
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
 
-By default, the webapi is configured to work without the memory pipeline for synchronous processing documents. To enable asynchronous document processing, you need to configure the webapi and the memory pipeline. Please refer to the [webapi README](./webapi/README.md) and the [memory pipeline README](./memorypipeline/README.md) for more information.
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
 
-## (Optional) Enable backend authentication via Azure AD
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
 
-By default, Chat Copilot runs locally without authentication, using a guest user profile. If you want to enable authentication with Azure Active Directory, follow the steps below.
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
 
-### Requirements
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
 
-- [Azure account](https://azure.microsoft.com/free)
-- [Azure AD Tenant](https://learn.microsoft.com/azure/active-directory/develop/quickstart-create-new-tenant)
+## 🎯 Platform Features
 
-### Instructions
+### 🤖 Multi-Agent AI Capabilities
 
-1. Create an [application registration](https://learn.microsoft.com/azure/active-directory/develop/quickstart-register-app) for the frontend web app, using the values below
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
 
-   - `Supported account types`: "_Accounts in this organizational directory only ({YOUR TENANT} only - Single tenant)_"
-   - `Redirect URI (optional)`: _Single-page application (SPA)_ and use _http://localhost:3000_.
+### 🔧 Integrated Development Environment
 
-2. Create a second [application registration](https://learn.microsoft.com/azure/active-directory/develop/quickstart-register-app) for the backend web api, using the values below:
-   - `Supported account types`: "_Accounts in this organizational directory only ({YOUR TENANT} only - Single tenant)_"
-   - Do **not** configure a `Redirect URI (optional)`
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
 
-> NOTE: Other account types can be used to allow multitenant and personal Microsoft accounts to use your application if you desire. Doing so may result in more users and therefore higher costs.
+### 🔍 Advanced Search & Research
 
-> Take note of the `Application (client) ID` for both app registrations as you will need them in future steps.
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
 
-3. Expose an API within the second app registration
+### 🌐 Tailscale Network Integration
 
-   1. Select _Expose an API_ from the menu
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
 
-   2. Add an _Application ID URI_
+## 💼 Business & Collaboration Features
 
-      1. This will generate an `api://` URI
+### GitHub Team Management
 
-      2. Click _Save_ to store the generated URI
+Add collaborators to repositories for business partnerships:
 
-   3. Add a scope for `access_as_user`
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
 
-      1. Click _Add scope_
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
 
-      2. Set _Scope name_ to `access_as_user`
+**Features:**
 
-      3. Set _Who can consent_ to _Admins and users_
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
 
-      4. Set _Admin consent display name_ and _User consent display name_ to `Access copilot chat as a user`
+### Commercial Opportunities
 
-      5. Set _Admin consent description_ and _User consent description_ to `Allows the accesses to the Copilot chat web API as a user`
+This platform addresses high-value markets:
 
-   4. Add the web app frontend as an authorized client application
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
 
-      1. Click _Add a client application_
+### Revenue Models
 
-      2. For _Client ID_, enter the frontend's application (client) ID
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
 
-      3. Check the checkbox under _Authorized scopes_
+### Business Documentation
 
-      4. Click _Add application_
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
 
-4. Add permissions to web app frontend to access web api as user
+## 📚 Documentation
 
-   1. Open app registration for web app frontend
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
 
-   2. Go to _API Permissions_
+## 🌐 Access URLs (Post-Installation)
 
-   3. Click _Add a permission_
+**Secure HTTPS Access via Tailscale:**
 
-   4. Select the tab _APIs my organization uses_
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
 
-   5. Choose the app registration representing the web api backend
+**Current Development URLs:**
 
-   6. Select permissions `access_as_user`
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
 
-   7. Click _Add permissions_
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
 
-5. Run the Configure script with additional parameters to set up authentication.
+## 📋 Original Chat Copilot Components
 
-   **Powershell**
+This platform extends the original Chat Copilot with three base components:
 
-   ```powershell
-   .\Configure.ps1 -AIService {AI_SERVICE} -APIKey {API_KEY} -Endpoint {AZURE_OPENAI_ENDPOINT} -FrontendClientId {FRONTEND_APPLICATION_ID} -BackendClientId {BACKEND_APPLICATION_ID} -TenantId {TENANT_ID} -Instance {AZURE_AD_INSTANCE}
-   ```
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
 
-   **Bash**
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
 
-   ```bash
-   ./configure.sh --aiservice {AI_SERVICE} --apikey {API_KEY} --endpoint {AZURE_OPENAI_ENDPOINT} --frontend-clientid {FRONTEND_APPLICATION_ID} --backend-clientid {BACKEND_APPLICATION_ID} --tenantid {TENANT_ID} --instance {AZURE_AD_INSTANCE}
-   ```
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
 
-   - `AI_SERVICE`: `AzureOpenAI` or `OpenAI`.
-   - `API_KEY`: The `API key` for Azure OpenAI or for OpenAI.
-   - `AZURE_OPENAI_ENDPOINT`: The Azure OpenAI resource `Endpoint` address. This is only required when using Azure OpenAI, omit `-Endpoint` if using OpenAI.
-   - `FRONTEND_APPLICATION_ID`: The `Application (client) ID` associated with the application registration for the frontend.
-   - `BACKEND_APPLICATION_ID`: The `Application (client) ID` associated with the application registration for the backend.
-   - `TENANT_ID` : Your Azure AD tenant ID
-   - `AZURE_AD_INSTANCE` _(optional)_: The Azure AD cloud instance for the authenticating users. Defaults to `https://login.microsoftonline.com`.
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
 
-6. Run Chat Copilot locally. This step starts both the backend API and frontend application.
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
 
-   **Powershell**
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
 
-   ```powershell
-   .\Start.ps1
-   ```
+## 🎯 Platform Features
 
-   **Bash**
+### 🤖 Multi-Agent AI Capabilities
 
-   ```bash
-   ./start.sh
-   ```
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
 
-## Optional Configuration: [Ms Graph API Plugin with On-Behalf-Of Flow](./plugins/OBO/README.md)
+### 🔧 Integrated Development Environment
 
-This native plugin enables the execution of Microsoft Graph APIs using the On-Behalf-Of (OBO) flow with delegated permissions.
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
 
-The OBO flows is used to ensure that the backend APIs are consumed with the identity of the user, not the managed identity or service principal of the middle-tier application (in this case the WebApi).
+### 🔍 Advanced Search & Research
 
-Also, this ensures that consent is given, so that the client app (WebApp) can call the middle-tier app (WebApi), and the middle-tier app has permission to call the back-end resource (MSGraph).
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
 
-This sample does not implement incremental consent in the UI so all the Graph scopes to be used need to have "Administrator Consent" given in the middle-tier app registration.
+### 🌐 Tailscale Network Integration
 
-More information in the [OBO readme.md](./plugins/OBO/README.md).
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
 
-### Requirements
+## 💼 Business & Collaboration Features
 
-Backend authentication via Azure AD must be enabled. Detailed instructions for enabling backend authentication are provided below.
+### GitHub Team Management
 
-### Limitations
+Add collaborators to repositories for business partnerships:
 
-- Currently, the plugin only supports GET operations. Future updates may add support for other types of operations.
-- Graph queries that return large results, may reach the token limit for the AI model, producing an error.
-- Incremental consent is not implemented in this sample.
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
 
-# Troubleshooting
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
 
-1. **_Issue:_** Unable to load chats.
+**Features:**
 
-   _Details_: interaction*in_progress: Interaction is currently in progress.*
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
 
-   _Explanation_: The WebApp can display this error when the application is configured for a different AAD tenant from the browser, (e.g., personal/MSA account vs work/school account).
+### Commercial Opportunities
 
-   _Solution_: Either use a private/incognito browser tab or clear your browser credentials/cookies. Confirm you are logged in with the same account used to register the application.
+This platform addresses high-value markets:
 
-2. **_Issue:_**: Challenges using text completion models, such as `text-davinci-003`
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
 
-   _Solution_: For OpenAI, see [model endpoint compatibility](https://platform.openai.com/docs/models/model-endpoint-compatibility) for
-   the complete list of current models supporting chat completions. For Azure OpenAI, see [model summary table and region availability](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#model-summary-table-and-region-availability).
+### Revenue Models
 
-3. **_Issue:_** Localhost SSL certificate errors / CORS errors
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
 
-   ![Cert-Issue](https://github.com/microsoft/chat-copilot/assets/64985898/e9072af1-e43c-472d-bebc-d0082d0c9180)
+### Business Documentation
 
-   _Explanation_: Your browser may be blocking the frontend access to the backend while waiting for your permission to connect.
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
 
-   _Solution_:
+## 📚 Documentation
 
-   1. Confirm the backend service is running. Open a web browser and navigate to `https://localhost:40443/healthz`
-      - You should see a confirmation message: `Healthy`
-      - If your browser asks you to acknowledge the risks of visiting an insecure website, you must acknowledge this before the frontend can connect to the backend server.
-   2. Navigate to `http://localhost:3000` or refresh the page to use the Chat Copilot application.
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
 
-4. **_Issue:_** Yarn is not working.
+## 🌐 Access URLs (Post-Installation)
 
-   _Explanation_: You may have the wrong Yarn version installed such as v2.x+.
+**Secure HTTPS Access via Tailscale:**
 
-   _Solution_: Use the classic version.
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
 
-   ```bash
-   npm install -g yarn
-   yarn set version classic
-   ```
+**Current Development URLs:**
 
-5. **_Issue:_** Missing `/usr/share/dotnet/host/fxr` folder.
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
 
-   _Details_: "A fatal error occurred. The folder [/usr/share/dotnet/host/fxr] does not exist" when running dotnet commands on Linux.
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
 
-   _Explanation_: When .NET (Core) was first released for Linux, it was not yet available in the official Ubuntu repo. So instead, many of us added the Microsoft APT repo in order to install it. Now, the packages are part of the Ubuntu repo, and they are conflicting with the Microsoft packages. This error is a result of mixed packages. ([Source: StackOverflow](https://stackoverflow.com/questions/73753672/a-fatal-error-occurred-the-folder-usr-share-dotnet-host-fxr-does-not-exist))
+## 📋 Original Chat Copilot Components
 
-   _Solution_:
+This platform extends the original Chat Copilot with three base components:
 
-   ```bash
-   # Remove all existing packages to get to a clean state:
-   sudo apt remove --assume-yes dotnet*;
-   sudo apt remove --assume-yes aspnetcore*;
-   sudo apt remove --assume-yes netstandard*;
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
 
-   # Set the Microsoft package provider priority
-   echo -e "Package: *\nPin: origin \"packages.microsoft.com\"\nPin-Priority: 1001" | sudo tee /etc/apt/preferences.d/99microsoft-dotnet.pref;
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
 
-   # Update and install dotnet
-   sudo apt update;
-   sudo apt install --assume-yes dotnet-sdk-8.0;
-   ```
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
 
-# A note on branches
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
 
-Every release is associated with a release branch. For instance, release [v0.9](https://github.com/microsoft/chat-copilot/releases/tag/v0.9) is on a branch called [0.9](https://github.com/microsoft/chat-copilot/tree/0.9).
-Once a release is out, its branch will no longer be updated. The exception to this is the latest release branch, which will only receive bug fixes.
-This is to provide some stability to those for whom breaking changes and being on the bleeding edge (with the bugs it can entail) is not a desirable option.
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
 
-# Check out our other repos!
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
 
-If you would like to learn more about Semantic Kernel and AI, you may also be interested in other repos the Semantic Kernel team supports:
+## 🎯 Platform Features
 
-| Repo                                                                              | Description                                                                                      |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| [Semantic Kernel](https://github.com/microsoft/semantic-kernel)                   | A lightweight SDK that integrates cutting-edge LLM technology quickly and easily into your apps. |
-| [Semantic Kernel Docs](https://github.com/MicrosoftDocs/semantic-kernel-docs)     | The home for Semantic Kernel documentation that appears on the Microsoft learn site.             |
-| [Semantic Kernel Starters](https://github.com/microsoft/semantic-kernel-starters) | Starter projects for Semantic Kernel to make it easier to get started.                           |
-| [Semantic Memory](https://github.com/microsoft/semantic-memory)                   | A service that allows you to create pipelines for ingesting, storing, and querying knowledge.    |
+### 🤖 Multi-Agent AI Capabilities
 
-## Join the community
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
 
-We welcome your contributions and suggestions to the Chat Copilot Sample App! One of the easiest
-ways to participate is to engage in discussions in the GitHub repository.
-Bug reports and fixes are welcome!
+### 🔧 Integrated Development Environment
 
-To learn more and get started:
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
 
-- Read the [documentation](https://learn.microsoft.com/semantic-kernel/chat-copilot/)
-- Join the [Discord community](https://aka.ms/SKDiscord)
-- [Contribute](CONTRIBUTING.md) to the project
-- Follow the team on our [blog](https://aka.ms/sk/blog)
+### 🔍 Advanced Search & Research
 
-## Code of Conduct
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
 
-This project has adopted the
-[Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the
-[Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
-or contact [opencode@microsoft.com](mailto:opencode@microsoft.com)
-with any additional questions or comments.
+### 🌐 Tailscale Network Integration
 
-## License
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+## 💼 Business & Collaboration Features
 
-Licensed under the [MIT](LICENSE) license.
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**: Admin, push, or pull access levels
+- ✅ **User validation**: Verifies GitHub usernames exist
+- ✅ **Batch operations**: Efficient team onboarding
+
+### Commercial Opportunities
+
+This platform addresses high-value markets:
+
+| Market Segment                   | Size  | Our Position           |
+| -------------------------------- | ----- | ---------------------- |
+| **Enterprise AI Infrastructure** | $50B+ | 72GB GPU optimization  |
+| **AI Development Tools**         | $15B+ | Complete AutoGen stack |
+| **Privacy-Focused AI**           | $8B+  | On-premises deployment |
+
+### Revenue Models
+
+- **SaaS Licensing**: $200-$50K per client annually
+- **Professional Services**: AI implementation consulting
+- **Hardware Optimization**: GPU-specific deployment packages
+
+### Business Documentation
+
+- [💼 **Business Partnership Guide**](BUSINESS_PARTNERSHIP_GUIDE.md) - Complete commercialization strategy
+- [🤝 **Team Collaboration**](add-github-collaborator.sh) - GitHub repository management
+- [🚀 **Market Analysis**](BUSINESS_PARTNERSHIP_GUIDE.md#financial-projections) - Revenue projections and strategy
+
+## 📚 Documentation
+
+- [📋 **Installation Guide**](INSTALLATION_GUIDE.md) - Detailed setup instructions
+- [� **GPU Optimization**](GPU_OPTIMIZATION_72GB.md) - High-performance GPU configuration
+- [🔧 **Deployment Package**](create-deployment-package.sh) - Portable installation creator
+
+## 🌐 Access URLs (Post-Installation)
+
+**Secure HTTPS Access via Tailscale:**
+
+- **Main Hub**: `https://your-tailscale-domain.ts.net`
+- **Chat Copilot**: `https://copilot.your-tailscale-domain.ts.net`
+- **AutoGen Studio**: `https://autogen.your-tailscale-domain.ts.net`
+- **Perplexica**: `https://perplexica.your-tailscale-domain.ts.net`
+- **VS Code**: `https://vscode.your-tailscale-domain.ts.net`
+
+**Current Development URLs:**
+
+**Tailscale IP**: `100.123.10.72`  
+**Primary Interfaces**:
+
+- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
+- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
+- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+
+## 📋 Original Chat Copilot Components
+
+This platform extends the original Chat Copilot with three base components:
+
+1. A frontend application [React web app](./webapp/)
+2. A backend REST API [.NET web API service](./webapi/)
+3. A [.NET worker service](./memorypipeline/) for processing semantic memory.
+
+These quick-start instructions run the sample locally. They can also be found on the official Chat Copilot Microsoft Learn documentation page for [getting started](https://learn.microsoft.com/semantic-kernel/chat-copilot/getting-started).
+
+To deploy the sample to Azure, please view [Deploying Chat Copilot](./scripts/deploy/README.md) after meeting the [requirements](#requirements) described below.
+
+> **IMPORTANT:** This sample is for educational purposes only and is not recommended for production deployments.
+
+> **IMPORTANT:** Each chat interaction will call Azure OpenAI/OpenAI which will use tokens that you may be billed for.
+
+![Chat Copilot answering a question](https://learn.microsoft.com/en-us/semantic-kernel/media/chat-copilot-in-action.gif)
+
+## 🎯 Platform Features
+
+### 🤖 Multi-Agent AI Capabilities
+
+- **AutoGen Studio** - Create AI agent teams with local Ollama models
+- **Collaborative Workflows** - Code review, research analysis, problem solving
+- **7+ Local Models** - llama3.2:3b, mistral, deepseek-coder, codellama, and more
+- **Zero External Dependencies** - All AI processing stays on your network
+
+### 🔧 Integrated Development Environment
+
+- **VS Code Online** - Full browser-based development environment
+- **GitHub Webhook Automation** - Auto-deployment on code changes
+- **Material-UI Control Panel** - Centralized system management
+- **Network Discovery** - Port scanning and service monitoring
+
+### 🔍 Advanced Search & Research
+
+- **Perplexica AI Search** - Chat with the internet using AI
+- **SearchNG** - Privacy-focused search engine
+- **OpenWebUI** - Multi-model LLM interface
+- **Real-time Internet Access** - Current information retrieval
+
+### 🌐 Tailscale Network Integration
+
+- **Mesh Network Access** - Available across all your devices
+- **Secure Communication** - End-to-end encrypted connections
+- **Remote Development** - Access from anywhere on your Tailscale network
+- **Service Discovery** - Automatic network service mapping
+
+## 💼 Business & Collaboration Features
+
+### GitHub Team Management
+
+Add collaborators to repositories for business partnerships:
+
+```bash
+# Interactive collaborator management (recommended)
+./add-github-collaborator.sh
+
+# Quick single repository addition
+./quick-add-collaborator.sh username admin
+```
+
+**Features:**
+
+- ✅ **Multi-repository support**: Add collaborators to multiple repos at once
+- ✅ **Permission management**
