@@ -53,6 +53,7 @@ declare -A INFRA_SERVICES=(
 declare -A DOCKER_SERVICES=(
     ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
+    ["fortinet-api"]="5000|/home/keith/fortinet-manager/docker-compose.yml|/api/status"
     ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-configs/docker-compose.caddy.yml|/config/"
     ["perplexica-stack"]="11020|$PLATFORM_DIR/perplexica/compose.yaml|/perplexica"
     ["searxng"]="11021|$PLATFORM_DIR/searxng/docker-compose.yml|/"
@@ -61,11 +62,11 @@ declare -A DOCKER_SERVICES=(
 
 # External Services (for health checks only)
 declare -A EXTERNAL_SERVICES=(
-    ["ollama"]="11434|localhost|/api/version"
-    ["openwebui"]="11880|localhost|/api/config"
-    ["vscode-web"]="57081|localhost|/"
-    ["searxng"]="11021|localhost|/search"
-    ["perplexica"]="11020|localhost|/perplexica"
+    ["ollama"]="11434|100.123.10.72|/api/version"
+    ["openwebui"]="11880|100.123.10.72|/"
+    ["vscode-web"]="57081|100.123.10.72|/"
+    ["searxng"]="11021|100.123.10.72|/"
+    ["perplexica"]="11020|100.123.10.72|/"
 )
 # =============================================================================
 # ENHANCED DOCKER SERVICE FUNCTION (Optional improvement)
@@ -110,7 +111,7 @@ start_docker_service_enhanced() {
         # For Perplexica specifically, check both services
         if [[ "$name" == "perplexica-stack" ]]; then
             log INFO "Checking Perplexica services..."
-            wait_for_service "SearXNG" "http://100.123.10.72:11021/searxng" 30
+            wait_for_service "SearXNG" "http://100.123.10.72:11021/" 30
             wait_for_service "Perplexica" "http://100.123.10.72:11020/" 30
         else
             # Standard health check
@@ -544,36 +545,40 @@ EOF
 display_access_information() {
     log TITLE "Platform Access Information"
 
-    echo -e "\n${GREEN}🏠 LOCAL ACCESS (via Caddy SSL on port 10443):${NC}"
-    echo "   🤖 Chat Copilot: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/copilot"
-    echo "   🌟 AutoGen Studio: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/autogen"
-    echo "   💫 Magentic-One: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/magentic"
-    echo "   🔗 Webhook Server: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/webhook"
-    echo "   🔍 Port Scanner: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/portscanner"
+    echo -e "\n${GREEN}🏠 MAIN ACCESS (via Caddy SSL on port 8443):${NC}"
+    echo "   🤖 Chat Copilot: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/copilot"
+    echo "   🌟 AutoGen Studio: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/autogen"
+    echo "   💫 Magentic-One: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/magentic"
+    echo "   🔗 Webhook Server: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/webhook"
+    echo "   🔍 Port Scanner: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/portscanner"
 
-    echo -e "\n${BLUE}🛠️ INFRASTRUCTURE (via Nginx Proxy on port 11082):${NC}"
-    echo "   🔧 Nginx Proxy: https://ubuntuaicodeserver-1.tail5137b4.ts.net:11082/nginx"
-    echo "   🦙 Ollama LLM: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/ollama"
-    echo "   💻 VS Code Web: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/vscode"
+    echo -e "\n${BLUE}🛠️ INFRASTRUCTURE & SECURITY:${NC}"
+    echo "   🔧 Nginx Proxy: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/nginx"
+    echo "   🛡️ Fortinet Manager: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/fortinet"
+    echo "   🔗 Fortinet API: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/fortinet-api"
+    echo "   🦙 Ollama LLM: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/ollama"
+    echo "   💻 VS Code Web: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/vscode"
 
     echo -e "\n${GREEN}🔍 SEARCH & AI:${NC}"
-    echo "   🧠 Perplexica: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/perplexica"
-    echo "   🔎 SearXNG: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/searxng"
-    echo "   🌐 OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/ (Root)"
+    echo "   🧠 Perplexica: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/perplexica"
+    echo "   🔎 SearXNG: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/searxng"
+    echo "   🌐 OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/ (Root)"
 
     echo -e "\n${YELLOW}🔗 DIRECT ACCESS (HTTP):${NC}"
-    echo "   🤖 Chat Copilot: http://ubuntuaicodeserver-1.tail5137b4.ts.net:11000"
-    echo "   🌟 AutoGen Studio: http://ubuntuaicodeserver-1.tail5137b4.ts.net:11001"
-    echo "   💫 Magentic-One: http://ubuntuaicodeserver-1.tail5137b4.ts.net:11003"
+    echo "   🤖 Chat Copilot API: http://100.123.10.72:11000"
+    echo "   🌟 AutoGen Studio: http://100.123.10.72:11001"
+    echo "   💫 Magentic-One: http://100.123.10.72:11003"
+    echo "   🔗 Webhook Server: http://100.123.10.72:11002"
 
     if check_tailscale; then
         echo -e "\n${GREEN}📱 TAILSCALE ACCESS:${NC}"
-        echo "   🌐 Main Hub: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443"
-        echo "   🤖 All Services: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/{service}"
+        echo "   🌐 Main Hub: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443"
+        echo "   🤖 All Services: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/{service}"
+        echo "   🎯 Control Panel: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/hub"
         echo -e "\n${YELLOW}📱 Mobile Setup:${NC}"
         echo "   1. Install Tailscale app"
         echo "   2. Connect with same account"
-        echo "   3. Bookmark: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443"
+        echo "   3. Bookmark: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443"
     else
         echo -e "\n${YELLOW}📱 TAILSCALE SETUP:${NC}"
         echo "   Install: curl -fsSL https://tailscale.com/install.sh | sh"
@@ -593,21 +598,23 @@ display_service_credentials() {
     if [[ -f "$CONFIG_DIR/vscode-password.txt" ]]; then
         local vscode_password=$(cat "$CONFIG_DIR/vscode-password.txt")
         echo -e "\n${YELLOW}🔑 VS Code Server Credentials:${NC}"
-        echo "   URL: https://vscode.$TAILSCALE_DOMAIN"
+        echo "   URL: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/vscode"
         echo "   Password: $vscode_password"
     fi
 
-    # Perplexica info
-    echo -e "\n${GREEN}🔍 AI Search Services:${NC}"
-    echo "   🧠 Perplexica: https://perplexica.$TAILSCALE_DOMAIN"
-    echo "   🔎 SearXNG: https://searxng.$TAILSCALE_DOMAIN"
-    echo "   💬 OpenWebUI: https://openwebui.$TAILSCALE_DOMAIN"
+    # AI Services info
+    echo -e "\n${GREEN}🔍 AI & Security Services:${NC}"
+    echo "   🧠 Perplexica: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/perplexica"
+    echo "   🔎 SearXNG: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/searxng"
+    echo "   💬 OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/"
+    echo "   🛡️ Fortinet: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/fortinet"
 
     # Service status
     echo -e "\n${BLUE}📊 Service Status:${NC}"
-    echo "   Check all services: ./check-installation.sh"
+    echo "   Check all services: ./check-platform-status.sh"
     echo "   GPU monitoring: watch -n 1 nvidia-smi"
-    echo "   Platform logs: tail -f logs/platform.log"
+    echo "   Platform logs: tail -f $LOGS_DIR/platform.log"
+    echo "   Caddy admin: http://100.123.10.72:2019/config/"
 }
 # =============================================================================
 # MAIN EXECUTION

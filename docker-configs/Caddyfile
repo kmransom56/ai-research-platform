@@ -3,12 +3,12 @@
 }
 
 # HTTP to HTTPS redirect
-ubuntuaicodeserver-1.tail5137b4.ts.net:80 {
+ubuntuaicodeserver-1.tail5137b4.ts.net:80, 100.123.10.72:80 {
 	redir https://{host}:8443{uri} permanent
 }
 
 # HTTPS with CA-issued certificates
-ubuntuaicodeserver-1.tail5137b4.ts.net:8443 {
+ubuntuaicodeserver-1.tail5137b4.ts.net:8443, 100.123.10.72:8443 {
 	tls /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key
 
 	# Serve static files from /srv (mounted from webapp/public) FIRST
@@ -50,6 +50,9 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:8443 {
 	}
 	handle_path /gateway-https* {
 		reverse_proxy 100.123.10.72:11082
+	}
+	handle_path /fortinet-api* {
+		reverse_proxy 100.123.10.72:5000
 	}
 	handle_path /fortinet* {
 		reverse_proxy 100.123.10.72:3001
