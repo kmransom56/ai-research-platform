@@ -171,3 +171,71 @@ cd webapp && npx playwright test
 ### Emergency Recovery
 - Emergency reset: `./scripts/backup-recovery/emergency-reset.sh`
 - Config restore: `./scripts/backup-recovery/restore-config.sh`
+
+## Containerized Installation
+
+### Quick Start (New Computer)
+```bash
+# Option 1: Install in user directory
+git clone https://github.com/kmransom56/ai-research-platform.git
+cd ai-research-platform
+
+# Option 2: Install in /opt (system-wide)
+sudo git clone https://github.com/kmransom56/ai-research-platform.git /opt/ai-research-platform
+sudo chown -R $USER:$USER /opt/ai-research-platform
+cd /opt/ai-research-platform
+
+# Configure environment
+cp .env.template .env
+# Edit .env with your Azure OpenAI keys and passwords
+
+# Start complete platform
+./start-containerized-platform.sh start-build
+```
+
+### Container Commands
+```bash
+# Start platform
+./start-containerized-platform.sh start
+
+# Stop platform  
+./start-containerized-platform.sh stop
+
+# View logs
+./start-containerized-platform.sh logs
+
+# Check health
+./start-containerized-platform.sh health
+
+# Clean restart
+./start-containerized-platform.sh clean
+```
+
+### Access After Installation
+- **Main Hub**: https://localhost:8443
+- **Control Panel**: https://localhost:8443/hub
+- **Applications**: https://localhost:8443/applications.html
+- **All services** available through reverse proxy
+
+## Debugging & Development
+
+### Getting Back to This Chat Session
+1. **Copy CLAUDE.md**: This file contains all instructions for Claude Code
+2. **Use Claude Code CLI**: Run `claude` in project directory
+3. **Or use VS Code**: Access web IDE at https://localhost:8443/vscode
+
+### Common Issues
+- **Port conflicts**: Change ports in docker-compose-full-stack.yml
+- **SSL issues**: Check Caddy logs with `docker logs ai-platform-caddy`
+- **Service failures**: Check individual service logs with `docker logs <service-name>`
+- **Environment issues**: Verify .env file has all required values
+- **Permission issues in /opt**: Ensure user owns the directory with `sudo chown -R $USER:$USER /opt/ai-research-platform`
+- **Docker permission denied**: Add user to docker group with `sudo usermod -aG docker $USER` (logout/login required)
+
+### File Sync Issues
+If HTML pages show old content:
+```bash
+# Copy updated files from webapp/public/ to webapi/wwwroot/
+cp webapp/public/control-panel.html webapi/wwwroot/
+cp webapp/public/applications.html webapi/wwwroot/
+```
