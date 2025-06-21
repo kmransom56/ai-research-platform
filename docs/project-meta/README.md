@@ -13,7 +13,7 @@ A comprehensive, self-hosted AI research and development platform with secure re
 ### One-Command Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/kmransom56/ai-research-platform/main/install-ai-platform.sh | bash
+curl -fsSL https://raw.githubusercontent.com/kmransom56/ai-research-platform/main/scripts/platform-management/install-ai-platform.sh | bash
 ```
 
 ### Or Clone and Install
@@ -21,7 +21,7 @@ curl -fsSL https://raw.githubusercontent.com/kmransom56/ai-research-platform/mai
 ```bash
 git clone https://github.com/kmransom56/ai-research-platform.git
 cd ai-research-platform
-./install-ai-platform.sh
+./scripts/platform-management/install-ai-platform.sh
 ```
 
 ### System Requirements
@@ -35,7 +35,7 @@ cd ai-research-platform
 Create portable installation for other systems:
 
 ```bash
-./create-deployment-package.sh
+./scripts/deployment/create-deployment-package.sh
 # Transfer /tmp/ai-research-platform-*.tar.gz to target system
 ```
 
@@ -92,7 +92,7 @@ See [GPU_OPTIMIZATION_72GB.md](GPU_OPTIMIZATION_72GB.md) for detailed configurat
 ### Create Deployment Package
 
 ```bash
-./create-deployment-package.sh
+./scripts/deployment/create-deployment-package.sh
 # Creates: /tmp/ai-research-platform-YYYYMMDD.tar.gz
 ```
 
@@ -113,7 +113,7 @@ cd ai-research-platform-*
 1. Configure API keys in `config/.env`
 2. Setup Tailscale: `sudo tailscale up`
 3. Update domain in Caddyfile
-4. Start platform: `./startup-platform-clean.sh`
+4. Start platform: `./scripts/platform-management/startup-platform-clean.sh`
 
 ## 📚 Documentation
 
@@ -195,8 +195,8 @@ This platform includes comprehensive tools for commercialization and team collab
 
 ### 🤝 GitHub Collaboration Management
 
-- **[add-github-collaborator.sh](add-github-collaborator.sh)** - Interactive script for managing collaborators across multiple repositories
-- **[quick-add-collaborator.sh](quick-add-collaborator.sh)** - Simple one-command collaborator addition
+- **[add-github-collaborator.sh](../scripts/utilities/add-github-collaborator.sh)** - Interactive script for managing collaborators across multiple repositories
+- **[quick-add-collaborator.sh](../scripts/utilities/quick-add-collaborator.sh)** - Simple one-command collaborator addition
 - **Multi-repository support** - Add collaborators to current repo, all private repos, or selected repos
 - **Permission management** - Admin, push, or pull access levels
 
@@ -225,10 +225,10 @@ This platform includes comprehensive tools for commercialization and team collab
 
 ```bash
 # Add business partner as collaborator
-./add-github-collaborator.sh
+./scripts/utilities/add-github-collaborator.sh
 
 # Quick single repository addition
-./quick-add-collaborator.sh username admin
+./scripts/utilities/quick-add-collaborator.sh username admin
 
 # Review business strategy
 cat BUSINESS_PARTNERSHIP_GUIDE.md

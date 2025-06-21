@@ -5,7 +5,7 @@
 For a fresh Ubuntu/Debian system, run:
 
 ```bash
-wget https://raw.githubusercontent.com/your-repo/ai-platform/main/install-ai-platform.sh
+wget https://raw.githubusercontent.com/your-repo/ai-platform/main/scripts/platform-management/install-ai-platform.sh
 chmod +x install-ai-platform.sh
 ./install-ai-platform.sh
 ```
@@ -13,7 +13,7 @@ chmod +x install-ai-platform.sh
 Or copy the installer from an existing installation:
 
 ```bash
-scp your-user@source-server:/home/user/chat-copilot/install-ai-platform.sh ./
+scp your-user@source-server:/home/user/chat-copilot/scripts/platform-management/install-ai-platform.sh ./
 ./install-ai-platform.sh
 ```
 
@@ -93,7 +93,7 @@ tailscale status
 ### 3. Domain Configuration
 Update your domain in:
 - `/home/user/chat-copilot/config/Caddyfile`
-- `/home/user/chat-copilot/startup-platform-clean.sh`
+- `/home/user/chat-copilot/scripts/platform-management/startup-platform-clean.sh`
 
 Replace `your_tailscale_domain_here` with your actual Tailscale domain.
 
@@ -104,7 +104,7 @@ Caddy automatically handles Let's Encrypt certificates for Tailscale domains.
 
 ```bash
 cd /home/user/chat-copilot
-./startup-platform-clean.sh
+./scripts/platform-management/startup-platform-clean.sh
 ```
 
 ## Service URLs (after configuration)
@@ -174,7 +174,7 @@ nvidia-smi --query-gpu=memory.used,memory.total --format=csv
 ### Create Backup
 ```bash
 cd /home/user/chat-copilot
-./backup-configs.sh
+./scripts/backup-recovery/backup-configs.sh
 ```
 
 ### Restore Configuration
@@ -183,7 +183,7 @@ cd /home/user/chat-copilot
 scp -r backups/ user@new-server:/home/user/chat-copilot/
 
 # Restore
-./restore-configs.sh backup-date
+./scripts/backup-recovery/restore-config.sh backup-date
 ```
 
 ## Troubleshooting
@@ -239,7 +239,7 @@ Your 72GB system could serve as:
 Check for updates:
 ```bash
 git pull origin main  # If using git
-./install-ai-platform.sh --update  # Will be implemented
+./scripts/platform-management/install-ai-platform.sh --update  # Will be implemented
 ```
 
 For issues:

@@ -17,7 +17,7 @@
 - ✅ PID management
 - ✅ Port verification
 - ✅ Log rotation
-- **Usage:** `./stop-platform.sh`
+- **Usage:** `./scripts/platform-management/stop-platform.sh`
 
 ### `check-platform-status.sh` 📊
 **Comprehensive status checker** - Full platform health check
@@ -26,7 +26,7 @@
 - ✅ Docker containers
 - ✅ Systemd services
 - ✅ Platform health summary
-- **Usage:** `./check-platform-status.sh`
+- **Usage:** `./scripts/platform-management/check-platform-status.sh`
 
 ### `manage-platform.sh` 🎛️
 **User-friendly management interface** - Simple platform control
@@ -35,48 +35,48 @@
 
 ## Configuration Management
 
-### `validate-config.sh` ✅
+### `scripts/config-management/validate-config.sh` ✅
 **Configuration validation** - Runs every 15 minutes via cron
 - Port configuration checking
 - Service health verification
 - Configuration snapshots
 - **Usage:** Automatic via cron
 
-### `protect-config.sh` 🔒
+### `scripts/config-management/protect-config.sh` 🔒
 **Configuration protection** - Prevents unauthorized changes
 - File protection mechanisms
 - Backup validation
-- **Usage:** `./protect-config.sh`
+- **Usage:** `./scripts/config-management/protect-config.sh`
 
-### `fix-configuration-drift.sh` 🔧
+### `scripts/config-management/fix-configuration-drift.sh` 🔧
 **Configuration drift fix** - Solves reboot configuration issues
 - Fixes systemd conflicts
 - Consolidates startup systems
-- **Usage:** `./fix-configuration-drift.sh`
+- **Usage:** `./scripts/config-management/fix-configuration-drift.sh`
 
-### `switch-ai-provider.sh` 🔄
+### `scripts/utilities/switch-ai-provider.sh` 🔄
 **AI provider switching** - Switch between OpenAI/Azure
 - Configuration backup
 - Provider switching
 - Health testing
-- **Usage:** `./switch-ai-provider.sh openai`
+- **Usage:** `./scripts/utilities/switch-ai-provider.sh openai`
 
 ## Backup & Recovery
 
-### `backup-configs.sh` 💾
+### `scripts/backup-recovery/backup-configs.sh` 💾
 **Manual configuration backup**
 - Creates timestamped backups
-- **Usage:** `./backup-configs.sh`
+- **Usage:** `./scripts/backup-recovery/backup-configs.sh`
 
-### `backup-configs-auto.sh` ⏰
+### `scripts/backup-recovery/backup-configs-auto.sh` ⏰
 **Automated backup** - Runs every 6 hours via cron
 - **Usage:** Automatic via cron
 
-### `restore-config.sh` 🔄
+### `scripts/backup-recovery/restore-config.sh` 🔄
 **Configuration restoration**
-- **Usage:** `./restore-config.sh [backup_name]`
+- **Usage:** `./scripts/backup-recovery/restore-config.sh [backup_name]`
 
-### `emergency-reset.sh` 🚨
+### `scripts/backup-recovery/emergency-reset.sh` 🚨
 **Emergency platform reset**
 - Resets to default configuration
 - **Usage:** `./emergency-reset.sh`
