@@ -58,8 +58,9 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 	handle_path /ollama* {
 		reverse_proxy 100.123.10.72:11434
 	}
-	handle_path /openwebui* {
-		reverse_proxy 100.123.10.72:11880
+	handle /openwebui* {
+		rewrite * /
+		reverse_proxy openwebui:8080
 	}
 
 	############################################################
@@ -73,8 +74,14 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 	############################################################
 	# Default (root) → OpenWebUI #
 	############################################################
-	handle {
-		reverse_proxy 100.123.10.72:11880
+	@htmlFiles {
+		path_regexp htmlFiles ^/[^/]+\.html$
+	}
+	root @htmlFiles /srv
+	file_server @htmlFiles
+
+	handle /* {
+		reverse_proxy openwebui:8080
 	}
 
 	############################################################
