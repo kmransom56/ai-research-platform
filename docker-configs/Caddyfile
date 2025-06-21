@@ -4,7 +4,15 @@
 
 # HTTPS with Tailscale domain - SSL termination on port 10443
 ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
-	tls internal
+	tls /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key
+
+	# Serve static files from /srv (mounted from webapp/public) FIRST
+	@staticFiles {
+		path_regexp staticFiles ^/[^/]+\.html$
+	}
+	root @staticFiles /srv
+	file_server @staticFiles
+
 	############################################################
 	# Path-based services (handle_path overrides default) #
 	############################################################
@@ -21,7 +29,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 		reverse_proxy 100.123.10.72:11001
 	}
 	handle_path /magentic* {
-		reverse_proxy 100.123.10.72:11003
+		reverse_proxy magentic-one:11003
 	}
 	handle_path /webhook* {
 		reverse_proxy 100.123.10.72:11002
