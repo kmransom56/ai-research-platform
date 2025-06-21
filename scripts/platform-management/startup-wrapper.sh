@@ -11,9 +11,9 @@
 
 set -euo pipefail
 
-PLATFORM_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASH_MANAGER="$PLATFORM_DIR/startup-platform-clean.sh"
-PYTHON_MANAGER="$PLATFORM_DIR/startup_platform.py"
+PLATFORM_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+BASH_MANAGER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/startup-platform-clean.sh"
+PYTHON_MANAGER="$PLATFORM_DIR/python/startup-scripts/startup_platform.py"
 
 CHOICE="${STARTUP_MANAGER:-}"  # env-var override
 
