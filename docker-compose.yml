@@ -5,15 +5,15 @@ services:
     container_name: caddy-tailscale
     restart: unless-stopped
     ports:
-      - "10443:10443"
       - "80:80"
+      - "8443:8443"
     volumes:
       - ./docker-configs/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+      - /home/keith/chat-copilot/webapp/public:/srv:ro
       - /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:/etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:ro
       - /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:/etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:ro
-      - /home/keith/chat-copilot/webapp/public:/srv:ro
     networks:
       - ai-platform
 

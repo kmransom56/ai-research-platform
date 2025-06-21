@@ -2,8 +2,13 @@
 	admin 0.0.0.0:2019
 }
 
-# HTTPS with Tailscale domain - SSL termination on port 10443
-ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
+# HTTP to HTTPS redirect
+ubuntuaicodeserver-1.tail5137b4.ts.net:80 {
+	redir https://{host}:8443{uri} permanent
+}
+
+# HTTPS with CA-issued certificates
+ubuntuaicodeserver-1.tail5137b4.ts.net:8443 {
 	tls /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key
 
 	# Serve static files from /srv (mounted from webapp/public) FIRST
@@ -20,7 +25,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 		reverse_proxy 100.123.10.72:57081
 	}
 	handle_path /copilot/api* {
-		reverse_proxy 100.123.10.72:3080
+		reverse_proxy 100.123.10.72:11000
 	}
 	handle_path /copilot* {
 		reverse_proxy 100.123.10.72:3000
@@ -29,7 +34,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 		reverse_proxy 100.123.10.72:11001
 	}
 	handle_path /magentic* {
-		reverse_proxy magentic-one:11003
+		reverse_proxy 100.123.10.72:11003
 	}
 	handle_path /webhook* {
 		reverse_proxy 100.123.10.72:11002
@@ -60,7 +65,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 	}
 	handle /openwebui* {
 		rewrite * /
-		reverse_proxy openwebui:8080
+		reverse_proxy 100.123.10.72:11880
 	}
 
 	############################################################
@@ -81,7 +86,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 	file_server @htmlFiles
 
 	handle /* {
-		reverse_proxy openwebui:8080
+		reverse_proxy 100.123.10.72:11880
 	}
 
 	############################################################

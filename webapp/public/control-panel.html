@@ -340,12 +340,12 @@
             <div class="control-section">
                 <h3><span class="material-icons">code</span>Development Tools</h3>
                 <div class="button-grid">
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/" target="_blank"
+                    <a href="/vscode/login" target="_blank"
                         class="control-button info" id="vscode-btn">
                         <span class="material-icons">code</span>
                         VS Code Web
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner/" target="_blank"
+                    <a href="/portscanner/" target="_blank"
                         class="control-button info">
                         <span class="material-icons">network_ping</span>
                         Port Scanner
@@ -470,13 +470,13 @@
             <h3>🚀 Frequently Used</h3>
             <div class="quick-buttons">
                 <button class="quick-button"
-                    onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net', '_blank')">🤖
+                    onclick="window.open('/', '_blank')">🤖
                     OpenWebUI</button>
                 <button class="quick-button"
-                    onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/', '_blank')">💬 Chat
+                    onclick="window.open('/copilot/', '_blank')">💬 Chat
                     Copilot</button>
                 <button class="quick-button"
-                    onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/', '_blank')">🔍
+                    onclick="window.open('/perplexica', '_blank')">🔍
                     Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
@@ -484,7 +484,7 @@
                     onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚
                     GitHub</button>
                 <button class="quick-button"
-                    onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/', '_blank')">💻 VS
+                    onclick="window.open('/vscode/login', '_blank')">💻 VS
                     Code</button>
             </div>
         </div>
@@ -509,11 +509,11 @@
 
         (function () {
             const LEGACY_HOST = 'ubuntuaicodeserver-1.tail5137b4.ts.net';
-            const DEFAULT_PORT = '10443';
+            const DEFAULT_PORT = '80';
             const CURRENT_HOST = window.location.port
                 ? window.location.host                       // already has port
                 : `${window.location.hostname}:${DEFAULT_PORT}`; // add default
-            const CURRENT_BASE = `${window.location.protocol}//${CURRENT_HOST}`;
+            const CURRENT_BASE = `https://${CURRENT_HOST}:8443`;
 
             // --- Fix existing anchor tags -------------------------------------------------
             function rewriteAnchors() {
@@ -610,7 +610,7 @@
 
             try {
                 if (action === 'status') {
-                    const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/status', {
+                    const response = await fetch('/copilot/api/systemcontrol/status', {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
@@ -632,7 +632,7 @@
                         logOutput('❌ Failed to get status from backend', 'error');
                     }
                 } else {
-                    const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/switch-provider', {
+                    const response = await fetch('/copilot/api/systemcontrol/switch-provider', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ provider: action })
@@ -679,7 +679,7 @@
             logOutput(messages[action] || 'Unknown Docker action', 'info');
 
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/docker', {
+                const response = await fetch('/copilot/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: action === 'ps' ? 'status' : action })
@@ -732,7 +732,7 @@
             logOutput('🧪 Testing all AI Research Platform services...', 'info');
 
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/test-services', {
+                const response = await fetch('/copilot/api/systemcontrol/test-services', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -764,7 +764,7 @@
                 const services = [
                     { name: 'OpenWebUI', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net' },
                     { name: 'Chat Copilot', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/' },
-                    { name: 'Perplexica', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/' },
+                    { name: 'Perplexica', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica' },
                     { name: 'SearchNG', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/' },
                     { name: 'Health Check', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz' }
                 ];
@@ -833,7 +833,7 @@
                 endpoints: {
                     openwebui: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net',
                     chatcopilot: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/',
-                    perplexica: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/',
+                    perplexica: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica',
                     searchng: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/'
                 }
             };
@@ -858,9 +858,9 @@
         // Check external services status
         async function checkExternalServices() {
             const services = [
-                { id: 'perplexica-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/', name: 'Perplexica' },
+                { id: 'perplexica-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica', name: 'Perplexica' },
                 { id: 'searxng-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/', name: 'SearXNG' },
-                { id: 'vscode-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/', name: 'VS Code Web' }
+                { id: 'vscode-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/login', name: 'VS Code Web' }
             ];
 
             for (const service of services) {
@@ -901,7 +901,7 @@
             logOutput('🔍 Checking webhook server status...', 'info');
 
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health', {
+                const response = await fetch('/webhook/health', {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -913,7 +913,7 @@
                     logOutput(`🕐 Status check: ${data.timestamp}`, 'info');
 
                     // Get detailed status
-                    const statusResponse = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/status');
+                    const statusResponse = await fetch('/webhook/status');
                     if (statusResponse.ok) {
                         const statusData = await statusResponse.json();
                         logOutput(`📋 Recent webhook activity:`, 'info');
@@ -934,7 +934,7 @@
             logOutput('🚀 Triggering manual deployment...', 'info');
 
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/deploy', {
+                const response = await fetch('/webhook/deploy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -961,7 +961,7 @@
 
             try {
                 // First check if it's already running
-                const healthCheck = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health').catch(() => null);
+                const healthCheck = await fetch('/webhook/health').catch(() => null);
                 if (healthCheck && healthCheck.ok) {
                     logOutput('⚠️ Webhook server is already running', 'warning');
                     return;
@@ -1007,7 +1007,7 @@
                     logOutput('✅ Webhook server stop command sent', 'success');
                     logOutput('🔄 Verifying shutdown...', 'info');
                     setTimeout(() => {
-                        fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health')
+                        fetch('/webhook/health')
                             .then(() => logOutput('⚠️ Server may still be running', 'warning'))
                             .catch(() => logOutput('✅ Webhook server stopped successfully', 'success'));
                     }, 2000);
@@ -1021,7 +1021,7 @@
 
         async function checkDeploymentStatus() {
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/status');
+                const response = await fetch('/webhook/status');
                 if (response.ok) {
                     const data = await response.json();
                     const recentLogs = data.recentLogs.slice(-2);
