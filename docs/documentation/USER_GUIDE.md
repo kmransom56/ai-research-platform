@@ -47,12 +47,12 @@ After starting the platform, access these URLs:
 
 | Service | URL | Purpose |
 |---------|-----|---------|
-| **Control Panel** | http://100.123.10.72:11000/control-panel.html | Main dashboard |
-| **Chat Copilot** | http://100.123.10.72:11000 | AI chat interface |
-| **Port Scanner** | http://100.123.10.72:11010 | Network port scanning with nmap |
-| **Nginx Proxy** | http://100.123.10.72:11080 | Proxy manager (admin@example.com/changeme) |
-| **AutoGen Studio** | http://100.123.10.72:8085 | Multi-agent AI studio |
-| **Webhook Server** | http://100.123.10.72:11002/health | Deployment automation |
+| **Control Panel** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub | Main dashboard |
+| **Chat Copilot** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot | AI chat interface |
+| **Port Scanner** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner | Network port scanning with nmap |
+| **Nginx Proxy** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx | Proxy manager (admin@example.com/changeme) |
+| **AutoGen Studio** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen | Multi-agent AI studio |
+| **Webhook Server** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health | Deployment automation |
 
 ## 🔍 Troubleshooting
 

@@ -108,7 +108,7 @@ If configuration drift occurs again:
 2. **Manual Fix**:
    ```bash
    # Fix .env file
-   echo "REACT_APP_BACKEND_URI=http://100.123.10.72:11000/" > webapp/.env
+   echo "REACT_APP_BACKEND_URI=https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/" > webapp/.env
    
    # Fix backend port in appsettings.json (line 506)
    # Change "Url": "http://0.0.0.0:11000"

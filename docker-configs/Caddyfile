@@ -11,8 +11,11 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 	handle_path /vscode* {
 		reverse_proxy 100.123.10.72:57081
 	}
+	handle_path /copilot/api* {
+		reverse_proxy 100.123.10.72:3080
+	}
 	handle_path /copilot* {
-		reverse_proxy 100.123.10.72:11000
+		reverse_proxy 100.123.10.72:3000
 	}
 	handle_path /autogen* {
 		reverse_proxy 100.123.10.72:11001
@@ -56,7 +59,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
 	############################################################
 	handle_path /hub* {
 		rewrite * /control-panel.html
-		reverse_proxy 100.123.10.72:11000
+		reverse_proxy 100.123.10.72:3000
 	}
 
 	############################################################

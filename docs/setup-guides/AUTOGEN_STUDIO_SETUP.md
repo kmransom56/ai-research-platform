@@ -22,14 +22,14 @@ AutoGen Studio is now integrated into your AI Research Platform, providing multi
 ## 🌐 Access Information
 
 ### Primary Access
-- **AutoGen Studio**: [http://100.123.10.72:8085](http://100.123.10.72:8085)
+- **AutoGen Studio**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen](https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen)
 - **Network**: Tailscale VPN (`100.123.10.72`)
 - **Port**: `8085`
 - **Status**: ✅ Active and Integrated
 
 ### Quick Access Links
-- **Control Panel**: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
-- **Applications Dashboard**: [http://100.123.10.72:10500/applications.html](http://100.123.10.72:10500/applications.html)
+- **Control Panel**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub](https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub)
+- **Applications Dashboard**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/applications.html](https://ubuntuaicodeserver-1.tail5137b4.ts.net/applications.html)
 
 ---
 
@@ -144,7 +144,7 @@ autogenstudio --version
 ## 📋 Getting Started Guide
 
 ### Step 1: Access AutoGen Studio
-1. Open [http://100.123.10.72:8085](http://100.123.10.72:8085)
+1. Open [https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen](https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen)
 2. Click "Team Builder" to create your first agent team
 3. Select "New Team" to start configuration
 
@@ -202,7 +202,7 @@ nohup autogenstudio ui --port 8085 --host 0.0.0.0 > autogen-studio.log 2>&1 &
 ### Check Status
 ```bash
 # Server status
-curl http://100.123.10.72:8085
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen
 
 # Ollama models
 curl http://localhost:11434/api/tags
@@ -220,7 +220,7 @@ python autogen_config.py
 python autogen_examples.py
 
 # Test integration
-curl -s http://100.123.10.72:8085 | grep "AutoGen Studio"
+curl -s https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen | grep "AutoGen Studio"
 ```
 
 ---
@@ -258,7 +258,7 @@ curl -s http://100.123.10.72:8085 | grep "AutoGen Studio"
 ### Health Checks
 ```bash
 # AutoGen Studio status
-curl -I http://100.123.10.72:8085
+curl -I https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen
 
 # Ollama API status  
 curl http://localhost:11434/api/version
@@ -370,7 +370,7 @@ import requests
 # Send results to Chat Copilot
 def send_to_copilot(result):
     response = requests.post(
-        "https://100.123.10.72:40443/api/chat",
+        "https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/chat",
         json={"message": result}
     )
     return response.json()

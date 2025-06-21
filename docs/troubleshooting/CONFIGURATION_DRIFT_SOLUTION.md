@@ -115,7 +115,7 @@ That's it! Users don't need to understand ports, configurations, or technical de
 
 ### **For New Users:**
 1. Run `./manage-platform.sh start`
-2. Access http://100.123.10.72:11000/control-panel.html
+2. Access https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub
 3. Everything works, no configuration needed
 
 ### **For Ongoing Use:**
@@ -150,10 +150,10 @@ After running `./manage-platform.sh start`:
 
 | Service | URL | Status |
 |---------|-----|--------|
-| **Main Dashboard** | http://100.123.10.72:11000/control-panel.html | ✅ Protected |
-| **Port Scanner** | http://100.123.10.72:11010 | ✅ Nmap enabled, auto-fixed |
-| **Chat Interface** | http://100.123.10.72:11000 | ✅ Backend auto-configured |
-| **Proxy Manager** | http://100.123.10.72:11080 | ✅ Container auto-managed |
+| **Main Dashboard** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub | ✅ Protected |
+| **Port Scanner** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner | ✅ Nmap enabled, auto-fixed |
+| **Chat Interface** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot | ✅ Backend auto-configured |
+| **Proxy Manager** | https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx | ✅ Container auto-managed |
 
 ## 🎉 **Final Result**
 

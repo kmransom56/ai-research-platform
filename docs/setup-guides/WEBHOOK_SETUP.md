@@ -28,7 +28,7 @@ The webhook system automatically:
 - Backup creation
 
 ### 3. Control Panel Integration
-- **URL**: http://100.123.10.72:10500/control-panel.html
+- **URL**: https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub
 - Webhook management buttons
 - Real-time deployment monitoring
 - Manual deployment triggers
@@ -46,7 +46,7 @@ The webhook system automatically:
 
 4. **Configure the webhook**:
    ```
-   Payload URL: http://100.123.10.72:9001/webhook
+   Payload URL: https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook
    Content type: application/json
    Secret: ai-research-platform-webhook-secret
    
@@ -67,7 +67,7 @@ node webhook-server.js
 ```
 
 #### Option B: Use Control Panel
-1. Open http://100.123.10.72:10500/control-panel.html
+1. Open https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub
 2. Click "Start Webhook" button in Deployment section
 
 #### Option C: Systemd Service (Production)
@@ -87,12 +87,12 @@ sudo systemctl status webhook-server.service
 
 1. **Test webhook server manually**:
    ```bash
-   curl http://100.123.10.72:9001/health
+   curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health
    ```
 
 2. **Test manual deployment**:
    ```bash
-   curl -X POST http://100.123.10.72:9001/deploy
+   curl -X POST https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/deploy
    ```
 
 3. **Make a test commit to trigger webhook**:
@@ -122,7 +122,7 @@ sudo systemctl status webhook-server.service
 ## 📊 Monitoring & Logs
 
 ### Real-time Monitoring
-- **Control Panel**: http://100.123.10.72:10500/control-panel.html
+- **Control Panel**: https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub
 - **Webhook Status**: Shows server uptime and recent activity
 - **Live Logs**: Real-time deployment progress
 
@@ -134,10 +134,10 @@ sudo systemctl status webhook-server.service
 ### Status Endpoints
 ```bash
 # Server health
-curl http://100.123.10.72:9001/health
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health
 
 # Recent activity
-curl http://100.123.10.72:9001/status
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/status
 ```
 
 ## 🔒 Security Configuration
@@ -156,7 +156,7 @@ curl http://100.123.10.72:9001/status
 
 When you push to the main branch:
 
-1. **GitHub sends webhook** to http://100.123.10.72:9001/webhook
+1. **GitHub sends webhook** to https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook
 2. **Webhook server verifies** signature and branch
 3. **Deployment starts**:
    - Creates backup
@@ -197,9 +197,9 @@ tail -f /home/keith/chat-copilot/deployment.log
 ### Health Checks
 ```bash
 # Test all critical services
-curl -k https://100.123.10.72:40443/healthz  # Backend API
-curl http://100.123.10.72:10500              # Frontend
-curl http://100.123.10.72:9001/health        # Webhook server
+curl -k https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz  # Backend API
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot              # Frontend
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health       # Webhook server
 ```
 
 ## 📈 Advanced Configuration

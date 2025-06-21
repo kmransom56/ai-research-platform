@@ -94,18 +94,18 @@ All scripts now use the **standardized port range 11000-12000** with NO old port
 
 ```bash
 # Main Platform
-http://100.123.10.72:11000/control-panel.html  # Main interface
-http://100.123.10.72:11000/healthz             # Health check
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub                # Main interface
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz     # Health check
 
 # AI Services  
-http://100.123.10.72:11001                     # AutoGen Studio
-http://100.123.10.72:11003/health              # Magentic-One
-http://100.123.10.72:11002/health              # Webhook Server
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen             # AutoGen Studio
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic/health     # Magentic-One
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health      # Webhook Server
 
 # Tools
-http://100.123.10.72:11010                     # Port Scanner
-http://100.123.10.72:11080                     # Nginx Proxy Manager
-http://localhost:11434/api/version             # Ollama LLM
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner        # Port Scanner
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx               # Nginx Proxy Manager
+https://ubuntuaicodeserver-1.tail5137b4.ts.net/ollama/api/version  # Ollama LLM
 ```
 
 ## 🎉 **Mission Accomplished!**

@@ -110,18 +110,18 @@ cd /home/user/chat-copilot
 ## Service URLs (after configuration)
 
 ### Core AI Services
-- **Chat Copilot**: `https://copilot.your-domain.ts.net`
-- **AutoGen Studio**: `https://autogen.your-domain.ts.net`
-- **Magentic-One**: `https://magentic.your-domain.ts.net`
+- **Chat Copilot**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot`
+- **AutoGen Studio**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen`
+- **Magentic-One**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic`
 
 ### AI Tools & Models
-- **Ollama API**: `https://ollama.your-domain.ts.net`
-- **OpenWebUI**: `https://openwebui.your-domain.ts.net`
-- **Perplexica**: `https://perplexica.your-domain.ts.net`
+- **Ollama API**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/ollama`
+- **OpenWebUI**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui`
+- **Perplexica**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica`
 
 ### Development Tools
-- **VS Code Web**: `https://vscode.your-domain.ts.net`
-- **Port Scanner**: `https://portscanner.your-domain.ts.net`
+- **VS Code Web**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode`
+- **Port Scanner**: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner`
 
 ## GPU Memory Optimization
 

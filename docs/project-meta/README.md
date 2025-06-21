@@ -136,10 +136,10 @@ cd ai-research-platform-*
 **Tailscale IP**: `100.123.10.72`  
 **Primary Interfaces**:
 
-- Chat Copilot: [http://100.123.10.72:10500](http://100.123.10.72:10500)
-- AutoGen Studio: [http://100.123.10.72:8085](http://100.123.10.72:8085)
-- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
-- Control Panel: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
+- Chat Copilot: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot](https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot)
+- AutoGen Studio: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen](https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen)
+- OpenWebUI: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui](https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui)
+- Control Panel: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub](https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub)
 
 ## 📋 Original Chat Copilot Components
 

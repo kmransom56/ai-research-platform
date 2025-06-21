@@ -8,29 +8,29 @@
 ### Primary AI Chat & Research
 | Application | URL | Description | Status |
 |-------------|-----|-------------|---------|
-| **OpenWebUI** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net) | Advanced LLM Chat Interface with Multiple Models | ✅ Active |
-| **Chat Copilot** | [http://100.123.10.72:10500](http://100.123.10.72:10500) | Microsoft Semantic Kernel AI Chat Platform | ✅ Active |
-| **Chat Copilot API** | [http://100.123.10.72:40444](http://100.123.10.72:40444) | Backend REST API for AI Chat (HTTP) | ✅ Active |
-| **Perplexica** | [http://100.123.10.72:3999/perplexica](http://100.123.10.72:3999/perplexica) | AI Search with Real-time Internet Access | ✅ Active |
-| **SearchNG** | [http://100.123.10.72:4000](http://100.123.10.72:4000) | Privacy-focused Search Engine | ✅ Active |
+| **OpenWebUI** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui](https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui) | Advanced LLM Chat Interface with Multiple Models | ✅ Active |
+| **Chat Copilot** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot](https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot) | Microsoft Semantic Kernel AI Chat Platform | ✅ Active |
+| **Chat Copilot API** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api](https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api) | Backend REST API for AI Chat | ✅ Active |
+| **Perplexica** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica](https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica) | AI Search with Real-time Internet Access | ✅ Active |
+| **SearchNG** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng](https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng) | Privacy-focused Search Engine | ✅ Active |
 
 ### Multi-Agent AI Platforms
 | Application | URL | Description | Status |
 |-------------|-----|-------------|---------|
-| **AutoGen Studio** | [http://100.123.10.72:8085](http://100.123.10.72:8085) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
-| **Magentic-One** | [http://100.123.10.72:8086](http://100.123.10.72:8086) | Microsoft's Multi-Agent Orchestration System | ✅ Active |
+| **AutoGen Studio** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen](https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
+| **Magentic-One** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic](https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic) | Microsoft's Multi-Agent Orchestration System | ✅ Active |
 
 ### AI Research URLs
-- **OpenWebUI (Primary)**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net](https://ubuntuaicodeserver-1.tail5137b4.ts.net)
-- **Chat Interface**: [http://100.123.10.72:10500](http://100.123.10.72:10500)
-- **AI Web Search**: [http://100.123.10.72:3999/perplexica](http://100.123.10.72:3999/perplexica)
-- **Search Discovery**: [http://100.123.10.72:3999/perplexica/discover](http://100.123.10.72:3999/perplexica/discover)
-- **Research Library**: [http://100.123.10.72:3999/perplexica/library](http://100.123.10.72:3999/perplexica/library)
+- **OpenWebUI (Primary)**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui](https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui)
+- **Chat Interface**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot](https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot)
+- **AI Web Search**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica](https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica)
+- **Search Discovery**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/discover](https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/discover)
+- **Research Library**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/library](https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/library)
 
 ### Multi-Agent Platform URLs
-- **AutoGen Studio**: [http://100.123.10.72:8085](http://100.123.10.72:8085)
-- **Magentic-One Dashboard**: [http://100.123.10.72:8086](http://100.123.10.72:8086)
-- **Magentic-One API**: [http://100.123.10.72:8086/api/chat](http://100.123.10.72:8086/api/chat)
+- **AutoGen Studio**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen](https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen)
+- **Magentic-One Dashboard**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic](https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic)
+- **Magentic-One API**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic/api/chat](https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic/api/chat)
 
 ---
 
@@ -39,19 +39,19 @@
 ### Development Environment
 | Application | URL | Description | Status |
 |-------------|-----|-------------|---------|
-| **Material-UI Control Panel** | [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html) | Interactive System Management Dashboard | ✅ Active |
-| **VS Code Web (Enhanced)** | [http://100.123.10.72:57081](http://100.123.10.72:57081) | Full VS Code Server with AI Development Workspace | ✅ Active |
-| **Port Scanner Dashboard** | [http://100.123.10.72:10200](http://100.123.10.72:10200) | Network Discovery & Monitoring | ✅ Active |
-| **AutoGen Studio** | [http://100.123.10.72:8085](http://100.123.10.72:8085) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
-| **Magentic-One Platform** | [http://100.123.10.72:8086](http://100.123.10.72:8086) | Advanced Multi-Agent Task Solving System | 🟡 Configured |
+| **Material-UI Control Panel** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub](https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub) | Interactive System Management Dashboard | ✅ Active |
+| **VS Code Web (Enhanced)** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode](https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode) | Full VS Code Server with AI Development Workspace | ✅ Active |
+| **Port Scanner Dashboard** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner](https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner) | Network Discovery & Monitoring | ✅ Active |
+| **AutoGen Studio** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen](https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen) | Multi-Agent Conversation Platform with Ollama | ✅ Active |
+| **Magentic-One Platform** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic](https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic) | Advanced Multi-Agent Task Solving System | 🟡 Configured |
 
 ### Network Management
 | Application | URL | Description | Status |
 |-------------|-----|-------------|---------|
-| **Fortinet Manager** | [http://100.123.10.72:3001](http://100.123.10.72:3001) | Network Security Management UI | ✅ Active |
-| **Fortinet API** | [http://100.123.10.72:5000](http://100.123.10.72:5000) | Network Management REST API | ✅ Active |
-| **Nginx Gateway** | [http://100.123.10.72:8082](http://100.123.10.72:8082) | Web Services Proxy | ✅ Active |
-| **Nginx HTTPS** | [https://100.123.10.72:8443](https://100.123.10.72:8443) | Secure Web Gateway | ✅ Active |
+| **Fortinet Manager** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet](https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet) | Network Security Management UI | ✅ Active |
+| **Fortinet API** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet-api](https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet-api) | Network Management REST API | ✅ Active |
+| **Nginx Gateway** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx](https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx) | Web Services Proxy | ✅ Active |
+| **Nginx HTTPS** | [https://ubuntuaicodeserver-1.tail5137b4.ts.net/gateway-https](https://ubuntuaicodeserver-1.tail5137b4.ts.net/gateway-https) | Secure Web Gateway | ✅ Active |
 
 ---
 
@@ -90,24 +90,24 @@
 ### Most Used Applications
 ```bash
 # AI Research
-OpenWebUI:       https://ubuntuaicodeserver-1.tail5137b4.ts.net
-Chat Copilot:    http://100.123.10.72:10500
-AI Search:       http://100.123.10.72:3999
-Code Editor:     http://100.123.10.72:57081
+OpenWebUI:       https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui
+Chat Copilot:    https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot
+AI Search:       https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica
+Code Editor:     https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode
 
 # Network Tools  
-Port Scanner:    http://100.123.10.72:10200
-Security Mgmt:   http://100.123.10.72:3001
-API Gateway:     http://100.123.10.72:8082
+Port Scanner:    https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner
+Security Mgmt:   https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet
+API Gateway:     https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx
 ```
 
 ### API Endpoints
 ```bash
 # Primary APIs
-Chat API:        https://100.123.10.72:40443/api
-Health Check:    https://100.123.10.72:40443/healthz
-Fortinet API:    http://100.123.10.72:5000/api
-Search API:      http://100.123.10.72:4000
+Chat API:        https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api
+Health Check:    https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz
+Fortinet API:    https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet-api
+Search API:      https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng
 ```
 
 ---
@@ -160,10 +160,10 @@ docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Status}}"
 ### Access from Command Line
 ```bash
 # Test connectivity
-curl http://100.123.10.72:10500    # Chat Copilot
-curl http://100.123.10.72:3999     # Perplexica
-curl http://100.123.10.72:10200    # Port Scanner
-curl https://100.123.10.72:40443/healthz  # Health Check
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot    # Chat Copilot
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica  # Perplexica
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner # Port Scanner
+curl https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz  # Health Check
 ```
 
 ---

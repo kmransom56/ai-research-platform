@@ -126,7 +126,7 @@ echo "Remember to restart the backend service"
 ## Monitoring
 
 Both configurations support the same health check endpoint:
-- Health Check: `https://100.123.10.72:40443/healthz`
+- Health Check: `https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz`
 
 ## Benefits of Dual Configuration
 

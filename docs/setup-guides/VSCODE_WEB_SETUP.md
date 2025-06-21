@@ -23,15 +23,15 @@ VS Code Web provides a full-featured, browser-based Visual Studio Code experienc
 ## 🌐 Access Information
 
 ### Primary Access
-- **VS Code Web**: [http://100.123.10.72:57081](http://100.123.10.72:57081)
+- **VS Code Web**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode](https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode)
 - **Network**: Tailscale VPN (`100.123.10.72`)
 - **Port**: `57081`
 - **Server Type**: Official VS Code Server
 - **Status**: ✅ Active and Enhanced
 
 ### Quick Access
-- **Control Panel**: [http://100.123.10.72:10500/control-panel.html](http://100.123.10.72:10500/control-panel.html)
-- **Applications Dashboard**: [http://100.123.10.72:10500/applications.html](http://100.123.10.72:10500/applications.html)
+- **Control Panel**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub](https://ubuntuaicodeserver-1.tail5137b4.ts.net/hub)
+- **Applications Dashboard**: [https://ubuntuaicodeserver-1.tail5137b4.ts.net/applications.html](https://ubuntuaicodeserver-1.tail5137b4.ts.net/applications.html)
 
 ---
 
@@ -151,10 +151,10 @@ def test_ai_service(url: str, service_name: str):
 
 # Test AI Research Platform services
 services = {
-    "AutoGen Studio": "http://100.123.10.72:8085",
-    "OpenWebUI": "https://ubuntuaicodeserver-1.tail5137b4.ts.net",
-    "Chat Copilot": "http://100.123.10.72:10500",
-    "Perplexica": "http://100.123.10.72:3999/perplexica"
+    "AutoGen Studio": "https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen",
+    "OpenWebUI": "https://ubuntuaicodeserver-1.tail5137b4.ts.net/openwebui",
+    "Chat Copilot": "https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot",
+    "Perplexica": "https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica"
 }
 
 for name, url in services.items():
@@ -189,7 +189,7 @@ for name, url in services.items():
 ## 🚀 Getting Started Guide
 
 ### Step 1: Access VS Code Web
-1. Open [http://100.123.10.72:57081](http://100.123.10.72:57081)
+1. Open [https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode](https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode)
 2. Wait for VS Code to load completely
 3. You'll see the familiar VS Code interface
 
@@ -311,7 +311,7 @@ graph TD
 #### VS Code Web Not Loading
 ```bash
 # Check server status
-curl -I http://100.123.10.72:57081
+curl -I https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode
 
 # Check process
 ps aux | grep code
