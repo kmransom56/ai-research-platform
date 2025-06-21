@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 # Logging function
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >>"$LOG_FILE"
 }
 
 # Function to display colored output
@@ -24,11 +24,11 @@ print_status() {
     local status=$1
     local message=$2
     case $status in
-        "SUCCESS") echo -e "${GREEN}✅ $message${NC}" ;;
-        "ERROR") echo -e "${RED}❌ $message${NC}" ;;
-        "WARNING") echo -e "${YELLOW}⚠️ $message${NC}" ;;
-        "INFO") echo -e "${BLUE}ℹ️ $message${NC}" ;;
-        "HEADER") echo -e "${PURPLE}🚀 $message${NC}" ;;
+    "SUCCESS") echo -e "${GREEN}✅ $message${NC}" ;;
+    "ERROR") echo -e "${RED}❌ $message${NC}" ;;
+    "WARNING") echo -e "${YELLOW}⚠️ $message${NC}" ;;
+    "INFO") echo -e "${BLUE}ℹ️ $message${NC}" ;;
+    "HEADER") echo -e "${PURPLE}🚀 $message${NC}" ;;
     esac
 }
 
@@ -36,7 +36,7 @@ print_status() {
 show_status() {
     print_status "HEADER" "AI Research Platform Status"
     echo ""
-    
+
     # Check ALL services with standardized ports
     local services=(
         "Chat Copilot Backend|http://100.123.10.72:11000/healthz"
@@ -52,16 +52,16 @@ show_status() {
         "VS Code Web|http://100.123.10.72:57081"
         "Fortinet Manager|http://100.123.10.72:3001"
     )
-    
+
     for service in "${services[@]}"; do
-        IFS='|' read -r name url <<< "$service"
-        if curl -s --max-time 5 "$url" &> /dev/null; then
+        IFS='|' read -r name url <<<"$service"
+        if curl -s --max-time 5 "$url" &>/dev/null; then
             print_status "SUCCESS" "$name is running"
         else
             print_status "ERROR" "$name is not responding"
         fi
     done
-    
+
     echo ""
     print_status "INFO" "🌐 SERVICE ENDPOINTS:"
     print_status "INFO" "   🏠 Chat Copilot: http://100.123.10.72:11000/control-panel.html"
@@ -81,20 +81,20 @@ show_status() {
 start_platform() {
     print_status "HEADER" "Starting AI Research Platform"
     log "User requested platform start"
-    
+
     # Run configuration validation first
     if [ -f "$SCRIPT_DIR/validate-config.sh" ]; then
         print_status "INFO" "Validating configuration..."
-        if "$SCRIPT_DIR/validate-config.sh" >> "$LOG_FILE" 2>&1; then
+        if "$SCRIPT_DIR/validate-config.sh" >>"$LOG_FILE" 2>&1; then
             print_status "SUCCESS" "Configuration validation passed"
         else
             print_status "WARNING" "Configuration issues detected - attempting to fix"
         fi
     fi
-    
+
     # Start platform
     print_status "INFO" "Starting services..."
-    if "$SCRIPT_DIR/startup-platform.sh" >> "$LOG_FILE" 2>&1; then
+    if "$SCRIPT_DIR/startup-platform.sh" >>"$LOG_FILE" 2>&1; then
         print_status "SUCCESS" "Platform started successfully"
         echo ""
         show_status
@@ -108,12 +108,12 @@ start_platform() {
 stop_platform() {
     print_status "HEADER" "Stopping AI Research Platform"
     log "User requested platform stop"
-    
+
     print_status "INFO" "Stopping services..."
-    
+
     # Use comprehensive stop script
     if [ -f "$SCRIPT_DIR/stop-platform.sh" ]; then
-        "$SCRIPT_DIR/stop-platform.sh" >> "$LOG_FILE" 2>&1
+        "$SCRIPT_DIR/stop-platform.sh" >>"$LOG_FILE" 2>&1
         print_status "SUCCESS" "All services stopped via stop-platform.sh"
     else
         # Fallback - stop known processes manually
@@ -124,12 +124,12 @@ stop_platform() {
         pkill -f "port-scanner" && print_status "SUCCESS" "Stopped Port Scanner"
         pkill -f "health-monitor" && print_status "SUCCESS" "Stopped Health Monitor"
     fi
-    
+
     # Stop Docker services
-    if docker-compose -f "$SCRIPT_DIR/docker-compose.nginx-proxy-manager.yml" down &> /dev/null; then
+    if docker-compose -f "$SCRIPT_DIR/docker-compose.nginx-proxy-manager.yml" down &>/dev/null; then
         print_status "SUCCESS" "Stopped Docker services"
     fi
-    
+
     print_status "SUCCESS" "Platform stopped"
 }
 
@@ -144,7 +144,7 @@ restart_platform() {
 # Function to validate configuration
 validate_configuration() {
     print_status "HEADER" "Validating Platform Configuration"
-    
+
     if [ -f "$SCRIPT_DIR/validate-config.sh" ]; then
         "$SCRIPT_DIR/validate-config.sh"
     else
@@ -157,7 +157,7 @@ validate_configuration() {
 show_logs() {
     local service=$1
     print_status "HEADER" "Platform Logs"
-    
+
     if [ -z "$service" ]; then
         echo "Available logs:"
         ls -la "$SCRIPT_DIR/logs/" 2>/dev/null | grep -E "\.(log)$" | awk '{print "  " $9}'
@@ -166,7 +166,7 @@ show_logs() {
         echo "Example: $0 logs port-scanner"
         return 0
     fi
-    
+
     local log_file="$SCRIPT_DIR/logs/$service.log"
     if [ -f "$log_file" ]; then
         print_status "INFO" "Showing last 50 lines of $service logs:"
@@ -180,7 +180,7 @@ show_logs() {
 # Function to backup configuration
 backup_config() {
     print_status "HEADER" "Creating Configuration Backup"
-    
+
     if [ -f "$SCRIPT_DIR/backup-configs-auto.sh" ]; then
         "$SCRIPT_DIR/backup-configs-auto.sh"
         print_status "SUCCESS" "Configuration backup created"
@@ -193,7 +193,7 @@ backup_config() {
 restore_config() {
     local backup_name=${1:-"latest"}
     print_status "HEADER" "Restoring Configuration"
-    
+
     if [ -f "$SCRIPT_DIR/restore-config.sh" ]; then
         "$SCRIPT_DIR/restore-config.sh" "$backup_name"
     else
@@ -204,12 +204,12 @@ restore_config() {
 # Function to enable monitoring
 enable_monitoring() {
     print_status "HEADER" "Enabling Health Monitoring"
-    
+
     if [ -f "$SCRIPT_DIR/health-monitor.sh" ]; then
         # Start health monitor in background
-        nohup "$SCRIPT_DIR/health-monitor.sh" > "$SCRIPT_DIR/logs/health-monitor.log" 2>&1 &
+        nohup "$SCRIPT_DIR/health-monitor.sh" >"$SCRIPT_DIR/logs/health-monitor.log" 2>&1 &
         local monitor_pid=$!
-        echo $monitor_pid > "$SCRIPT_DIR/pids/health-monitor.pid"
+        echo $monitor_pid >"$SCRIPT_DIR/pids/health-monitor.pid"
         print_status "SUCCESS" "Health monitoring enabled (PID: $monitor_pid)"
         print_status "INFO" "Monitor logs: $SCRIPT_DIR/logs/health-monitor.log"
     else
@@ -220,7 +220,7 @@ enable_monitoring() {
 # Function to disable monitoring
 disable_monitoring() {
     print_status "HEADER" "Disabling Health Monitoring"
-    
+
     if [ -f "$SCRIPT_DIR/pids/health-monitor.pid" ]; then
         local monitor_pid=$(cat "$SCRIPT_DIR/pids/health-monitor.pid")
         if kill "$monitor_pid" 2>/dev/null; then
@@ -237,10 +237,10 @@ disable_monitoring() {
 # Function to emergency reset
 emergency_reset() {
     print_status "HEADER" "Emergency Reset"
-    
+
     echo -e "${RED}⚠️ WARNING: This will reset all configurations to defaults!${NC}"
     read -p "Are you sure? (yes/no): " confirm
-    
+
     if [ "$confirm" = "yes" ]; then
         if [ -f "$SCRIPT_DIR/emergency-reset.sh" ]; then
             "$SCRIPT_DIR/emergency-reset.sh"
@@ -293,50 +293,50 @@ show_help() {
 main() {
     # Create logs directory
     mkdir -p "$SCRIPT_DIR/logs"
-    
+
     case "${1:-help}" in
-        "status")
-            show_status
-            ;;
-        "start")
-            start_platform
-            ;;
-        "stop")
-            stop_platform
-            ;;
-        "restart")
-            restart_platform
-            ;;
-        "validate")
-            validate_configuration
-            ;;
-        "logs")
-            show_logs "$2"
-            ;;
-        "backup")
-            backup_config
-            ;;
-        "restore")
-            restore_config "$2"
-            ;;
-        "monitor-enable")
-            enable_monitoring
-            ;;
-        "monitor-disable")
-            disable_monitoring
-            ;;
-        "emergency-reset")
-            emergency_reset
-            ;;
-        "help"|"--help"|"-h")
-            show_help
-            ;;
-        *)
-            print_status "ERROR" "Unknown command: $1"
-            echo ""
-            show_help
-            exit 1
-            ;;
+    "status")
+        show_status
+        ;;
+    "start")
+        start_platform
+        ;;
+    "stop")
+        stop_platform
+        ;;
+    "restart")
+        restart_platform
+        ;;
+    "validate")
+        validate_configuration
+        ;;
+    "logs")
+        show_logs "$2"
+        ;;
+    "backup")
+        backup_config
+        ;;
+    "restore")
+        restore_config "$2"
+        ;;
+    "monitor-enable")
+        enable_monitoring
+        ;;
+    "monitor-disable")
+        disable_monitoring
+        ;;
+    "emergency-reset")
+        emergency_reset
+        ;;
+    "help" | "--help" | "-h")
+        show_help
+        ;;
+    *)
+        print_status "ERROR" "Unknown command: $1"
+        echo ""
+        show_help
+        exit 1
+        ;;
     esac
 }
 
