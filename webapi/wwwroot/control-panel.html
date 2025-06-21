@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Research Platform - Control Panel</title>
-    
+
     <!-- Material-UI CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -31,25 +32,25 @@
             padding: 30px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #667eea;
         }
-        
+
         .header h1 {
             color: #333;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
-        
+
         .header .subtitle {
             color: #666;
             font-size: 1.2em;
         }
-        
+
         .status-bar {
             background: #f8f9fa;
             border-radius: 8px;
@@ -60,31 +61,39 @@
             align-items: center;
             flex-wrap: wrap;
         }
-        
+
         .status-item {
             display: flex;
             align-items: center;
             margin: 5px 10px;
         }
-        
+
         .status-indicator {
             width: 12px;
             height: 12px;
             border-radius: 50%;
             margin-right: 8px;
         }
-        
-        .status-active { background-color: #4caf50; }
-        .status-inactive { background-color: #f44336; }
-        .status-unknown { background-color: #ff9800; }
-        
+
+        .status-active {
+            background-color: #4caf50;
+        }
+
+        .status-inactive {
+            background-color: #f44336;
+        }
+
+        .status-unknown {
+            background-color: #ff9800;
+        }
+
         .control-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .control-section {
             background: white;
             border-radius: 12px;
@@ -92,7 +101,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #667eea;
         }
-        
+
         .control-section h3 {
             color: #333;
             margin-bottom: 20px;
@@ -100,18 +109,18 @@
             display: flex;
             align-items: center;
         }
-        
+
         .control-section h3 .material-icons {
             margin-right: 10px;
             color: #667eea;
         }
-        
+
         .button-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 12px;
         }
-        
+
         .control-button {
             background: linear-gradient(145deg, #667eea, #764ba2);
             color: white;
@@ -128,33 +137,33 @@
             text-decoration: none;
             min-height: 48px;
         }
-        
+
         .control-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
         }
-        
+
         .control-button .material-icons {
             margin-right: 8px;
             font-size: 1.2em;
         }
-        
+
         .control-button.secondary {
             background: linear-gradient(145deg, #28a745, #20c997);
         }
-        
+
         .control-button.warning {
             background: linear-gradient(145deg, #ffc107, #fd7e14);
         }
-        
+
         .control-button.danger {
             background: linear-gradient(145deg, #dc3545, #e83e8c);
         }
-        
+
         .control-button.info {
             background: linear-gradient(145deg, #17a2b8, #6f42c1);
         }
-        
+
         .logs-section {
             background: #1e1e1e;
             color: #00ff00;
@@ -166,25 +175,25 @@
             overflow-y: auto;
             margin-top: 20px;
         }
-        
+
         .quick-actions {
             background: #e3f2fd;
             border-radius: 12px;
             padding: 20px;
             margin-top: 25px;
         }
-        
+
         .quick-actions h3 {
             color: #1976d2;
             margin-bottom: 15px;
         }
-        
+
         .quick-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-        
+
         .quick-button {
             background: #1976d2;
             color: white;
@@ -195,34 +204,35 @@
             cursor: pointer;
             transition: background 0.3s ease;
         }
-        
+
         .quick-button:hover {
             background: #1565c0;
         }
-        
+
         @media (max-width: 768px) {
             .control-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .status-bar {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .button-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>🤖 AI Research Platform Control Panel</h1>
             <p class="subtitle">Tailscale Network: 100.123.10.72 | Management Dashboard</p>
         </div>
-        
+
         <div class="status-bar">
             <div class="status-item">
                 <div class="status-indicator status-active"></div>
@@ -253,14 +263,17 @@
                 <span>Provider: OpenAI</span>
             </div>
         </div>
-        
+
         <div class="control-grid">
             <!-- Service Status Notice -->
             <div class="control-section" style="grid-column: 1 / -1;">
-                <div style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                <div
+                    style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
                     <h4 style="margin: 0 0 10px 0;">🔍 External Services Status</h4>
-                    <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS Code Web are independent applications that need to be started separately.</p>
-                    <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat Copilot, Webhook Server, Port Scanner, Nginx Gateway, Fortinet Manager</p>
+                    <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS
+                        Code Web are independent applications that need to be started separately.</p>
+                    <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat
+                        Copilot, Webhook Server, Port Scanner, Nginx Gateway, Fortinet Manager</p>
                 </div>
             </div>
 
@@ -268,33 +281,38 @@
             <div class="control-section">
                 <h3><span class="material-icons">smart_toy</span>AI Services</h3>
                 <div class="button-grid">
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net" target="_blank" class="control-button">
+                    <a href="/openwebui" target="_blank" class="control-button">
                         <span class="material-icons">psychology</span>
                         OpenWebUI
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/" target="_blank" class="control-button">
+                    <a href="/copilot" target="_blank"
+                        class="control-button">
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/" target="_blank" class="control-button" id="perplexica-btn">
+                    <a href="/perplexica" target="_blank"
+                        class="control-button" id="perplexica-btn">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/" target="_blank" class="control-button" id="searxng-btn">
+                    <a href="/searxng" target="_blank"
+                        class="control-button" id="searxng-btn">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/autogen/" target="_blank" class="control-button">
+                    <a href="/autogen" target="_blank"
+                        class="control-button">
                         <span class="material-icons">groups</span>
                         AutoGen Studio
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/magentic/" target="_blank" class="control-button">
+                    <a href="/magentic" target="_blank"
+                        class="control-button">
                         <span class="material-icons">hub</span>
                         Magentic-One
                     </a>
                 </div>
             </div>
-            
+
             <!-- System Control Section -->
             <div class="control-section">
                 <h3><span class="material-icons">settings</span>System Control</h3>
@@ -317,20 +335,23 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Development Tools Section -->
             <div class="control-section">
                 <h3><span class="material-icons">code</span>Development Tools</h3>
                 <div class="button-grid">
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/" target="_blank" class="control-button info" id="vscode-btn">
+                    <a href="/vscode/login" target="_blank"
+                        class="control-button info" id="vscode-btn">
                         <span class="material-icons">code</span>
                         VS Code Web
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/portscanner/" target="_blank" class="control-button info">
+                    <a href="/portscanner/" target="_blank"
+                        class="control-button info">
                         <span class="material-icons">network_ping</span>
                         Port Scanner
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz" target="_blank" class="control-button info">
+                    <a href="/copilot/healthz" target="_blank"
+                        class="control-button info">
                         <span class="material-icons">health_and_safety</span>
                         Health Check
                     </a>
@@ -340,16 +361,18 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Network Management Section -->
             <div class="control-section">
                 <h3><span class="material-icons">router</span>Network Management</h3>
                 <div class="button-grid">
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/fortinet/" target="_blank" class="control-button">
+                    <a href="/fortinet/" target="_blank"
+                        class="control-button">
                         <span class="material-icons">security</span>
                         Fortinet Mgmt
                     </a>
-                    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net/nginx/" target="_blank" class="control-button">
+                    <a href="/nginx/" target="_blank"
+                        class="control-button">
                         <span class="material-icons">dns</span>
                         Nginx Gateway
                     </a>
@@ -363,7 +386,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Service Management Section -->
             <div class="control-section">
                 <h3><span class="material-icons">build</span>Service Management</h3>
@@ -386,7 +409,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Deployment & Automation Section -->
             <div class="control-section">
                 <h3><span class="material-icons">rocket_launch</span>Deployment & Automation</h3>
@@ -409,7 +432,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Quick Actions Section -->
             <div class="control-section">
                 <h3><span class="material-icons">flash_on</span>Quick Actions</h3>
@@ -433,7 +456,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Logs Section -->
         <div class="logs-section" id="logsOutput">
             <div>🤖 AI Research Platform Control Panel Ready</div>
@@ -441,32 +464,114 @@
             <div>🔗 Tailscale IP: 100.123.10.72</div>
             <div>⚡ Click any button to execute commands...</div>
         </div>
-        
+
         <!-- Quick Actions Bar -->
         <div class="quick-actions">
             <h3>🚀 Frequently Used</h3>
             <div class="quick-buttons">
-                <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net', '_blank')">🤖 OpenWebUI</button>
-                <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/', '_blank')">💬 Chat Copilot</button>
-                <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/', '_blank')">🔍 Perplexica</button>
+                <button class="quick-button"
+                    onclick="window.open('/', '_blank')">🤖
+                    OpenWebUI</button>
+                <button class="quick-button"
+                    onclick="window.open('/copilot/', '_blank')">💬 Chat
+                    Copilot</button>
+                <button class="quick-button"
+                    onclick="window.open('/perplexica', '_blank')">🔍
+                    Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
-                <button class="quick-button" onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚 GitHub</button>
-                <button class="quick-button" onclick="window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/', '_blank')">💻 VS Code</button>
+                <button class="quick-button"
+                    onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚
+                    GitHub</button>
+                <button class="quick-button"
+                    onclick="window.open('/vscode/login', '_blank')">💻 VS
+                    Code</button>
             </div>
         </div>
     </div>
-    
+
     <script>
+        /* =============================================
+           Dynamic host patch
+           ---------------------------------------------
+           Anything in this file that still references the
+           old hard-coded Tailscale domain will be rewritten
+           on the client so the Control-Panel works
+           regardless of which hostname it is served from.
+
+           1.  All <a href="…"> links pointing at the old domain
+               are rewritten when the DOM is ready.
+           2.  All fetch() calls are transparently proxied so
+               their URL host is replaced with the current one.
+           3.  All window.open() calls are wrapped so external
+               links are also rewritten.
+        ============================================== */
+
+        (function () {
+            const LEGACY_HOST = 'ubuntuaicodeserver-1.tail5137b4.ts.net';
+            const CURRENT_BASE = `${window.location.protocol}//${window.location.host}`;
+
+            // --- Fix existing anchor tags -------------------------------------------------
+            function rewriteAnchors() {
+                document.querySelectorAll(`a[href*="${LEGACY_HOST}"]`).forEach(a => {
+                    try {
+                        const u = new URL(a.href);
+                        // Only rewrite if we're actually on a different host
+                        if (u.hostname !== window.location.hostname) {
+                            a.href = `${CURRENT_BASE}${u.pathname}${u.search}${u.hash}`;
+                        }
+                    } catch (_) {
+                        /* ignore malformed */
+                    }
+                });
+            }
+
+            // --- Patch global fetch -------------------------------------------------------
+            const _fetch = window.fetch.bind(window);
+            window.fetch = function (input, init) {
+                if (typeof input === 'string' && input.includes(LEGACY_HOST)) {
+                    const urlObj = new URL(input);
+                    if (urlObj.hostname !== window.location.hostname) {
+                        input = `${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                    }
+                } else if (input instanceof Request && input.url.includes(LEGACY_HOST)) {
+                    const urlObj = new URL(input.url);
+                    if (urlObj.hostname !== window.location.hostname) {
+                        input = new Request(`${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`, input);
+                    }
+                }
+                return _fetch(input, init);
+            };
+
+            // --- Patch window.open --------------------------------------------------------
+            const _open = window.open.bind(window);
+            window.open = function (url, target, features) {
+                if (typeof url === 'string' && url.includes(LEGACY_HOST)) {
+                    const urlObj = new URL(url);
+                    if (urlObj.hostname !== window.location.hostname) {
+                        url = `${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                    }
+                }
+                return _open(url, target, features);
+            };
+
+            // Run once DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', rewriteAnchors);
+            } else {
+                rewriteAnchors();
+            }
+        })();
+
         // Service status tracking
         let serviceStatus = {
             openwebui: 'active',
-            chatcopilot: 'active', 
+            chatcopilot: 'active',
             perplexica: 'active',
             searchng: 'active',
             provider: 'openai'
         };
-        
+
         // Log output function
         function logOutput(message, type = 'info') {
             const logsDiv = document.getElementById('logsOutput');
@@ -475,13 +580,13 @@
             logsDiv.innerHTML += `<div>[${timestamp}] ${icon} ${message}</div>`;
             logsDiv.scrollTop = logsDiv.scrollHeight;
         }
-        
+
         // Execute command function
         async function executeCommand(service, action) {
             logOutput(`Executing ${service} ${action}...`, 'info');
-            
+
             try {
-                switch(service) {
+                switch (service) {
                     case 'switch-ai':
                         await handleAISwitch(action);
                         break;
@@ -498,7 +603,7 @@
                 logOutput(`Error: ${error.message}`, 'error');
             }
         }
-        
+
         // Handle AI provider switching
         async function handleAISwitch(action) {
             const messages = {
@@ -506,39 +611,39 @@
                 'azure': 'Switching to Azure OpenAI...',
                 'openai': 'Switching to OpenAI...'
             };
-            
+
             logOutput(messages[action] || 'Unknown AI action', 'info');
-            
+
             try {
                 if (action === 'status') {
-                    const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/status', {
+                    const response = await fetch('/copilot/api/systemcontrol/status', {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
-                    
+
                     if (response.ok) {
                         const data = await response.json();
                         logOutput(`📊 Current Provider: ${data.provider.toUpperCase()}`, 'info');
                         logOutput('🏥 Backend: Healthy', 'success');
                         logOutput(`🔗 Tailscale IP: ${data.tailscaleIp}`, 'info');
-                        
+
                         // Update service status
                         data.services.forEach(service => {
                             logOutput(`✅ ${service.name}: ${service.status}`, 'success');
                         });
-                        
+
                         serviceStatus.provider = data.provider;
                         updateStatusIndicator();
                     } else {
                         logOutput('❌ Failed to get status from backend', 'error');
                     }
                 } else {
-                    const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/switch-provider', {
+                    const response = await fetch('/copilot/api/systemcontrol/switch-provider', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ provider: action })
                     });
-                    
+
                     if (response.ok) {
                         const data = await response.json();
                         serviceStatus.provider = action;
@@ -567,7 +672,7 @@
                 }, 500);
             }
         }
-        
+
         // Handle Docker commands
         async function handleDockerCommand(action) {
             const messages = {
@@ -576,16 +681,16 @@
                 'restart': 'Restarting Docker services...',
                 'stop-all': 'Stopping all Docker services...'
             };
-            
+
             logOutput(messages[action] || 'Unknown Docker action', 'info');
-            
+
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/docker', {
+                const response = await fetch('/copilot/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: action === 'ps' ? 'status' : action })
                 });
-                
+
                 if (response.ok) {
                     const data = await response.json();
                     logOutput(`✅ Docker ${data.action} completed successfully`, 'success');
@@ -616,28 +721,28 @@
                 }, 1000);
             }
         }
-        
+
         // Handle network ping
         async function handlePing(target) {
             logOutput(`🏓 Pinging ${target}...`, 'info');
-            
+
             setTimeout(() => {
                 logOutput(`✅ ${target} is reachable`, 'success');
                 logOutput('📊 Response time: ~5ms', 'info');
                 logOutput('🌐 Tailscale network: Operational', 'success');
             }, 1000);
         }
-        
+
         // Test all services
         async function testAllServices() {
             logOutput('🧪 Testing all AI Research Platform services...', 'info');
-            
+
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/test-services', {
+                const response = await fetch('/copilot/api/systemcontrol/test-services', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 if (response.ok) {
                     const data = await response.json();
                     data.services.forEach(service => {
@@ -648,7 +753,7 @@
                             logOutput(`   Error: ${service.error}`, 'error');
                         }
                     });
-                    
+
                     const allHealthy = data.services.every(s => s.status === 'accessible');
                     if (allHealthy) {
                         logOutput('🎉 All services are operational!', 'success');
@@ -663,13 +768,13 @@
                 logOutput(`❌ Network error: ${error.message}`, 'error');
                 // Fallback to simulation
                 const services = [
-                    { name: 'OpenWebUI', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net' },
-                    { name: 'Chat Copilot', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/' },
-                    { name: 'Perplexica', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/' },
-                    { name: 'SearchNG', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/' },
-                    { name: 'Health Check', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/healthz' }
+                    { name: 'OpenWebUI', url: '/openwebui' },
+                    { name: 'Chat Copilot', url: '/copilot/' },
+                    { name: 'Perplexica', url: '/perplexica' },
+                    { name: 'SearchNG', url: '/searxng/' },
+                    { name: 'Health Check', url: '/copilot/healthz' }
                 ];
-                
+
                 for (let i = 0; i < services.length; i++) {
                     setTimeout(() => {
                         logOutput(`✅ ${services[i].name}: Simulated test passed`, 'success');
@@ -680,18 +785,18 @@
                 }
             }
         }
-        
+
         // Refresh service status
         function refreshServices() {
             logOutput('🔄 Refreshing service status...', 'info');
-            
+
             setTimeout(() => {
                 logOutput('✅ Status refresh completed', 'success');
                 logOutput('📊 All services: Operational', 'success');
                 updateStatusIndicator();
             }, 1000);
         }
-        
+
         // Update status indicators
         function updateStatusIndicator() {
             // Update provider status in the status bar
@@ -705,7 +810,7 @@
                 }
             });
         }
-        
+
         // Show network information
         function showNetworkInfo() {
             logOutput('🌐 Network Information:', 'info');
@@ -714,7 +819,7 @@
             logOutput('🌍 Access: Global (via Tailscale)', 'info');
             logOutput('🔒 Security: Encrypted mesh network', 'info');
         }
-        
+
         // Show logs
         function showLogs() {
             logOutput('📋 Recent system activity:', 'info');
@@ -722,54 +827,54 @@
             logOutput('🕐 2025-06-14 09:44:58 - Perplexica: AI search ready', 'info');
             logOutput('🕐 2025-06-14 09:44:45 - OpenWebUI: Connected', 'info');
         }
-        
+
         // Export configuration
         function exportConfig() {
             logOutput('📦 Exporting configuration...', 'info');
-            
+
             const config = {
                 tailscale_ip: '100.123.10.72',
                 services: serviceStatus,
                 timestamp: new Date().toISOString(),
                 endpoints: {
-                    openwebui: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net',
-                    chatcopilot: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/',
-                    perplexica: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/',
-                    searchng: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/'
+                    openwebui: '/openwebui',
+                    chatcopilot: '/copilot/',
+                    perplexica: '/perplexica',
+                    searchng: '/searxng/'
                 }
             };
-            
+
             setTimeout(() => {
                 logOutput('✅ Configuration exported successfully', 'success');
                 logOutput('💾 File: ai-platform-config.json', 'info');
             }, 800);
         }
-        
+
         // Backup data
         function backupData() {
             logOutput('💾 Creating system backup...', 'info');
-            
+
             setTimeout(() => {
                 logOutput('✅ Backup completed successfully', 'success');
                 logOutput('📁 Location: /home/keith/backups/', 'info');
                 logOutput('🗓️ Timestamp: ' + new Date().toLocaleString(), 'info');
             }, 1200);
         }
-        
+
         // Check external services status
         async function checkExternalServices() {
             const services = [
-                { id: 'perplexica-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/perplexica/', name: 'Perplexica' },
-                { id: 'searxng-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/searxng/', name: 'SearXNG' },
-                { id: 'vscode-btn', url: 'https://ubuntuaicodeserver-1.tail5137b4.ts.net/vscode/', name: 'VS Code Web' }
+                { id: 'perplexica-btn', url: '/perplexica', name: 'Perplexica' },
+                { id: 'searxng-btn', url: '/searxng/', name: 'SearXNG' },
+                { id: 'vscode-btn', url: '/vscode/login', name: 'VS Code Web' }
             ];
-            
+
             for (const service of services) {
                 try {
-                    const response = await fetch(service.url, { 
+                    const response = await fetch(service.url, {
                         method: 'HEAD',
                         mode: 'no-cors',
-                        timeout: 3000 
+                        timeout: 3000
                     });
                     // If we get here without error, service is likely up
                     document.getElementById(service.id).style.opacity = '1.0';
@@ -785,36 +890,36 @@
                 }
             }
         }
-        
+
         // Run status check on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             setTimeout(checkExternalServices, 1000);
         });
-        
+
         // Open full dashboard
         function openDashboard() {
-            window.open('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/applications.html', '_blank');
+            window.open('/copilot/applications.html', '_blank');
             logOutput('🚀 Opening full applications dashboard...', 'info');
         }
-        
+
         // Webhook management functions
         async function checkWebhookStatus() {
             logOutput('🔍 Checking webhook server status...', 'info');
-            
+
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health', {
+                const response = await fetch('/webhook/health', {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 if (response.ok) {
                     const data = await response.json();
                     logOutput('✅ Webhook server is running', 'success');
                     logOutput(`📊 Uptime: ${Math.floor(data.uptime / 60)} minutes`, 'info');
                     logOutput(`🕐 Status check: ${data.timestamp}`, 'info');
-                    
+
                     // Get detailed status
-                    const statusResponse = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/status');
+                    const statusResponse = await fetch('/webhook/status');
                     if (statusResponse.ok) {
                         const statusData = await statusResponse.json();
                         logOutput(`📋 Recent webhook activity:`, 'info');
@@ -830,21 +935,21 @@
                 logOutput('💡 Use "Start Webhook" button to launch it', 'info');
             }
         }
-        
+
         async function manualDeploy() {
             logOutput('🚀 Triggering manual deployment...', 'info');
-            
+
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/deploy', {
+                const response = await fetch('/webhook/deploy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 if (response.ok) {
                     const data = await response.json();
                     logOutput('✅ Manual deployment started successfully', 'success');
                     logOutput('📋 Check deployment logs for progress', 'info');
-                    
+
                     // Monitor deployment progress
                     setTimeout(checkDeploymentStatus, 5000);
                 } else {
@@ -856,28 +961,28 @@
                 logOutput('💡 Ensure webhook server is running first', 'info');
             }
         }
-        
+
         async function startWebhookServer() {
             logOutput('🚀 Starting webhook server...', 'info');
-            
+
             try {
                 // First check if it's already running
-                const healthCheck = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health').catch(() => null);
+                const healthCheck = await fetch('/webhook/health').catch(() => null);
                 if (healthCheck && healthCheck.ok) {
                     logOutput('⚠️ Webhook server is already running', 'warning');
                     return;
                 }
-                
+
                 // Start the webhook server
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/docker', {
+                const response = await fetch('/copilot/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         action: 'start-webhook',
                         command: 'cd /home/keith/chat-copilot && nohup node webhook-server.js > webhook.log 2>&1 &'
                     })
                 });
-                
+
                 if (response.ok) {
                     logOutput('✅ Webhook server start command sent', 'success');
                     logOutput('🔄 Checking server status in 3 seconds...', 'info');
@@ -890,25 +995,25 @@
                 logOutput('💡 Try running manually: node webhook-server.js', 'info');
             }
         }
-        
+
         async function stopWebhookServer() {
             logOutput('🛑 Stopping webhook server...', 'info');
-            
+
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/copilot/api/systemcontrol/docker', {
+                const response = await fetch('/copilot/api/systemcontrol/docker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         action: 'stop-webhook',
                         command: 'pkill -f "node.*webhook-server.js"'
                     })
                 });
-                
+
                 if (response.ok) {
                     logOutput('✅ Webhook server stop command sent', 'success');
                     logOutput('🔄 Verifying shutdown...', 'info');
                     setTimeout(() => {
-                        fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/health')
+                        fetch('/webhook/health')
                             .then(() => logOutput('⚠️ Server may still be running', 'warning'))
                             .catch(() => logOutput('✅ Webhook server stopped successfully', 'success'));
                     }, 2000);
@@ -919,10 +1024,10 @@
                 logOutput('❌ Error stopping webhook server', 'error');
             }
         }
-        
+
         async function checkDeploymentStatus() {
             try {
-                const response = await fetch('https://ubuntuaicodeserver-1.tail5137b4.ts.net/webhook/status');
+                const response = await fetch('/webhook/status');
                 if (response.ok) {
                     const data = await response.json();
                     const recentLogs = data.recentLogs.slice(-2);
@@ -936,13 +1041,14 @@
                 logOutput('⚠️ Could not check deployment status', 'warning');
             }
         }
-        
+
         // Initialize the dashboard
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             logOutput('🎯 AI Research Platform Control Panel Initialized', 'success');
             logOutput('🔧 All functions ready for use', 'info');
             updateStatusIndicator();
         });
     </script>
 </body>
+
 </html>

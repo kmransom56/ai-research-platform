@@ -60,14 +60,45 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:8443, 100.123.10.72:8443 {
 	handle /perplexica* {
 		reverse_proxy 100.123.10.72:11020
 	}
-	handle_path /searxng* {
+	
+	# SearXNG with proper static asset handling
+	handle /searxng/static/* {
+		uri strip_prefix /searxng
+		reverse_proxy 100.123.10.72:11021
+	}
+	
+	handle /searxng* {
 		reverse_proxy 100.123.10.72:11021
 	}
 	handle_path /ollama* {
 		reverse_proxy 100.123.10.72:11434
 	}
-	handle /openwebui* {
-		rewrite * /
+	# OpenWebUI and its static assets
+	handle_path /openwebui* {
+		reverse_proxy 100.123.10.72:11880
+	}
+	
+	# Service-specific static assets
+	handle /copilot/static/* {
+		reverse_proxy 100.123.10.72:3000
+	}
+	
+	handle /portscanner/static/* {
+		reverse_proxy 100.123.10.72:11010
+	}
+	
+	
+	# SearXNG static assets (specific paths first)
+	handle /static/themes/* {
+		reverse_proxy 100.123.10.72:11021
+	}
+	
+	# OpenWebUI static assets (catch remaining /static/* paths)
+	handle /static/* {
+		reverse_proxy 100.123.10.72:11880
+	}
+	
+	handle /_app/* {
 		reverse_proxy 100.123.10.72:11880
 	}
 
@@ -76,11 +107,13 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:8443, 100.123.10.72:8443 {
 	############################################################
 	handle_path /hub* {
 		rewrite * /control-panel.html
-		reverse_proxy 100.123.10.72:3000
+		file_server {
+			root /srv
+		}
 	}
 
 	############################################################
-	# Default (root) → OpenWebUI #
+	# Static HTML files (applications.html, control-panel.html, etc.) #
 	############################################################
 	@htmlFiles {
 		path_regexp htmlFiles ^/[^/]+\.html$
@@ -88,8 +121,23 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:8443, 100.123.10.72:8443 {
 	root @htmlFiles /srv
 	file_server @htmlFiles
 
-	handle /* {
-		reverse_proxy 100.123.10.72:11880
+	############################################################
+	# Default (root) → Control Panel #
+	############################################################
+	handle / {
+		rewrite * /control-panel.html
+		file_server {
+			root /srv
+		}
+	}
+
+	############################################################
+	# Catch-all for unmatched routes → 404 or static files #
+	############################################################
+	handle {
+		file_server {
+			root /srv
+		}
 	}
 
 	############################################################
