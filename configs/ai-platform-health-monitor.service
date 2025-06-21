@@ -1,0 +1,29 @@
+[Unit]
+Description=AI Research Platform Health Monitor
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot/scripts/platform-management
+ExecStart=/home/keith/chat-copilot/scripts/platform-management/automated-health-monitor.sh monitor
+ExecStop=/home/keith/chat-copilot/scripts/platform-management/automated-health-monitor.sh stop
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Environment
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=HOME=/home/keith
+
+# Security settings
+NoNewPrivileges=true
+ProtectHome=false
+ProtectSystem=strict
+ReadWritePaths=/home/keith/chat-copilot/logs
+
+[Install]
+WantedBy=multi-user.target
