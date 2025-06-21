@@ -53,8 +53,8 @@ declare -A INFRA_SERVICES=(
 declare -A DOCKER_SERVICES=(
     ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
-    ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-compose.caddy.yml|/config/"
-    ["perplexica-stack"]="11020|/home/keith/perplexcia/compose.yaml|/"
+    ["caddy-proxy"]="10443|$PLATFORM_DIR/docker-compose.caddy.yml|/config/"
+    ["perplexica-stack"]="11020|/home/keith/perplexica/compose.yaml|/"
 )
 
 # External Services (for health checks only) - CORRECTED
@@ -151,11 +151,12 @@ check_tailscale() {
     local tailscale_ip=$(tailscale ip -4 2>/dev/null || echo "Unknown")
     log INFO "Tailscale connected - IP: $tailscale_ip"
 
-    if tailscale status | grep -q "$TAILSCALE_DOMAIN"; then
+    # Check if the current machine appears in the status
+    if tailscale status | grep -q "ubuntuaicodeserver-1"; then
         log INFO "Tailscale domain available: $TAILSCALE_DOMAIN"
         return 0
     else
-        log WARN "Tailscale domain may not be available"
+        log WARN "Current machine not found in Tailscale status"
         return 1
     fi
 }
@@ -486,7 +487,7 @@ EOF
                 "port": $port,
                 "status": "$status",
                 "local_url": "http://${host}:${port}",
-                "tailscale_url": "https://${service_name}.${TAILSCALE_DOMAIN}/"
+                "tailscale_url": "https://${TAILSCALE_DOMAIN}:10443/${service_name}/"
             }
 EOF
         done
@@ -524,13 +525,21 @@ display_access_information() {
     echo "   💻 VS Code Web: http://100.123.10.72:57081"
 
     if check_tailscale; then
-        echo -e "\n${GREEN}📱 TAILSCALE ACCESS:${NC}"
-        echo "   🌐 Main Hub: https://$TAILSCALE_DOMAIN/"
-        echo "   🤖 All Services: https://$TAILSCALE_DOMAIN/{service-name}/"
+        echo -e "\n${GREEN}📱 TAILSCALE ACCESS (HTTPS):${NC}"
+        echo "   🌐 Main Hub: https://$TAILSCALE_DOMAIN:10443/"
+        echo "   🤖 Chat Copilot: https://$TAILSCALE_DOMAIN:10443/chat-copilot/"
+        echo "   🌟 AutoGen Studio: https://$TAILSCALE_DOMAIN:10443/autogen-studio/"
+        echo "   💫 Magentic-One: https://$TAILSCALE_DOMAIN:10443/magentic-one/"
+        echo "   🔗 Webhook Server: https://$TAILSCALE_DOMAIN:10443/webhook-server/"
+        echo "   🔍 Port Scanner: https://$TAILSCALE_DOMAIN:10443/port-scanner/"
+        echo "   🧠 Perplexica: https://$TAILSCALE_DOMAIN:10443/perplexica/"
+        echo "   🔎 SearXNG: https://$TAILSCALE_DOMAIN:10443/searxng/"
+        echo "   🌐 OpenWebUI: https://$TAILSCALE_DOMAIN:10443/openwebui/"
+        echo "   🔧 Nginx Proxy: https://$TAILSCALE_DOMAIN:10443/nginx-proxy/"
         echo -e "\n${YELLOW}📱 Mobile Setup:${NC}"
         echo "   1. Install Tailscale app"
         echo "   2. Connect with same account"
-        echo "   3. Bookmark: https://$TAILSCALE_DOMAIN/"
+        echo "   3. Bookmark: https://$TAILSCALE_DOMAIN:10443/"
     else
         echo -e "\n${YELLOW}📱 TAILSCALE SETUP:${NC}"
         echo "   Install: curl -fsSL https://tailscale.com/install.sh | sh"

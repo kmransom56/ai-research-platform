@@ -2,8 +2,9 @@
 	admin 0.0.0.0:2019
 }
 
-# HTTPS with Tailscale domain - SSL termination
-ubuntuaicodeserver-1.tail5137b4.ts.net {
+# HTTPS with Tailscale domain - SSL termination on port 10443
+ubuntuaicodeserver-1.tail5137b4.ts.net:10443 {
+	tls internal
 	############################################################
 	# Path-based services (handle_path overrides default) #
 	############################################################
@@ -37,7 +38,7 @@ ubuntuaicodeserver-1.tail5137b4.ts.net {
 	handle_path /fortinet* {
 		reverse_proxy 100.123.10.72:3001
 	}
-	handle_path /perplexica* {
+	handle /perplexica* {
 		reverse_proxy 100.123.10.72:11020
 	}
 	handle_path /searxng* {

@@ -6,5 +6,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "autogenstudio[ui]>=0.4.2.2",
+    "flask>=3.1.1",
     "pyautogen>=0.9",
 ]

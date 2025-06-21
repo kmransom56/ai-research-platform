@@ -45,12 +45,12 @@ show_status() {
         "Magentic-One Server|http://100.123.10.72:11003/health"
         "Port Scanner|http://100.123.10.72:11010/nmap-status"
         "Nginx Proxy Manager|http://100.123.10.72:11080"
+        "Perplexica Search AI|http://100.123.10.72:11020"
+        "SearXNG Search Engine|http://100.123.10.72:11021"
         "Ollama LLM Server|http://localhost:11434/api/version"
+        "OpenWebUI|http://100.123.10.72:11880/api/config"
         "VS Code Web|http://100.123.10.72:57081"
         "Fortinet Manager|http://100.123.10.72:3001"
-        "Perplexica Search AI|http://100.123.10.72:3999"
-        "SearXNG Search Engine|http://100.123.10.72:4000"
-        "OpenWebUI|http://100.123.10.72:8080/api/config"
     )
     
     for service in "${services[@]}"; do
@@ -72,9 +72,9 @@ show_status() {
     print_status "INFO" "   💻 VS Code Web: http://100.123.10.72:57081"
     echo ""
     print_status "INFO" "🤖 AI RESEARCH SERVICES:"
-    print_status "INFO" "   🔍 Perplexica: http://100.123.10.72:3999"
-    print_status "INFO" "   🔍 SearXNG: http://100.123.10.72:4000"
-    print_status "INFO" "   💬 OpenWebUI: http://100.123.10.72:8080"
+    print_status "INFO" "   🔍 Perplexica: http://100.123.10.72:11020"
+    print_status "INFO" "   🔍 SearXNG: http://100.123.10.72:11021"
+    print_status "INFO" "   💬 OpenWebUI: http://100.123.10.72:11880"
 }
 
 # Function to start platform
