@@ -1,0 +1,82 @@
+{
+	admin 0.0.0.0:2019
+}
+
+# HTTPS with Tailscale domain - SSL termination
+ubuntuaicodeserver-1.tail5137b4.ts.net {
+	############################################################
+	# Path-based services (handle_path overrides default) #
+	############################################################
+	handle_path /vscode* {
+		reverse_proxy 100.123.10.72:57081
+	}
+	handle_path /copilot* {
+		reverse_proxy 100.123.10.72:11000
+	}
+	handle_path /autogen* {
+		reverse_proxy 100.123.10.72:11001
+	}
+	handle_path /magentic* {
+		reverse_proxy 100.123.10.72:11003
+	}
+	handle_path /webhook* {
+		reverse_proxy 100.123.10.72:11002
+	}
+	handle_path /portscanner* {
+		reverse_proxy 100.123.10.72:11010
+	}
+	handle_path /nginx* {
+		reverse_proxy 100.123.10.72:11080
+	}
+	handle_path /gateway-http* {
+		reverse_proxy 100.123.10.72:11081
+	}
+	handle_path /gateway-https* {
+		reverse_proxy 100.123.10.72:11082
+	}
+	handle_path /fortinet* {
+		reverse_proxy 100.123.10.72:3001
+	}
+	handle_path /perplexica* {
+		reverse_proxy 100.123.10.72:11020
+	}
+	handle_path /searxng* {
+		reverse_proxy 100.123.10.72:11021
+	}
+	handle_path /ollama* {
+		reverse_proxy 100.123.10.72:11434
+	}
+	handle_path /openwebui* {
+		reverse_proxy 100.123.10.72:11880
+	}
+
+	############################################################
+	# Control Panel served at /hub/ #
+	############################################################
+	handle_path /hub* {
+		rewrite * /control-panel.html
+		reverse_proxy 100.123.10.72:11000
+	}
+
+	############################################################
+	# Default (root) → OpenWebUI #
+	############################################################
+	handle {
+		reverse_proxy 100.123.10.72:11880
+	}
+
+	############################################################
+	# Security headers + gzip + logging #
+	############################################################
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Frame-Options "SAMEORIGIN"
+		X-Content-Type-Options "nosniff"
+	}
+
+	encode gzip
+
+	log {
+		output file /var/log/caddy/access.log
+	}
+}

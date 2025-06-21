@@ -61,7 +61,7 @@ public class SystemControlController : ControllerBase
     {
         try
         {
-            var scriptPath = "/home/keith/chat-copilot/switch-ai-provider.sh";
+            var scriptPath = "/home/keith/chat-copilot/scripts/utilities/switch-ai-provider.sh";
             
             if (!System.IO.File.Exists(scriptPath))
             {

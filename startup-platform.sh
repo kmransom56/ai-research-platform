@@ -1,1 +1,1 @@
-exec "$(dirname "$0")/startup-platform-clean.sh" "$@"
+scripts/platform-management/startup-platform.sh
