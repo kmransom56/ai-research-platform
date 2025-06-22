@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  port-scanner:
+    build: /home/keith/port-scanner-material-ui
+    container_name: port-scanner-tailscale
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    environment:
+      - NODE_ENV=production
+      - PORT=11010
+      - HOST=0.0.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11010/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "ai-platform.service=port-scanner"
+      - "ai-platform.port=11010"
+      - "ai-platform.path=/portscanner"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# AI Research Platform - Containerized Startup Script
+# Start Complete Containerized AI Research Platform
 
 set -euo pipefail
 
@@ -21,245 +21,163 @@ print_status() {
     esac
 }
 
-check_prerequisites() {
-    print_status "INFO" "Checking prerequisites..."
-    
-    # Check Docker
-    if ! command -v docker &> /dev/null; then
-        print_status "ERROR" "Docker is not installed"
-        return 1
-    fi
-    
-    if ! docker info &> /dev/null; then
-        print_status "ERROR" "Docker daemon is not running"
-        return 1
-    fi
-    
-    # Check Docker Compose
-    if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
-        print_status "ERROR" "Docker Compose is not installed"
-        return 1
-    fi
-    
-    print_status "SUCCESS" "Prerequisites check passed"
+print_header() {
+    echo
+    echo -e "${BLUE}================================================${NC}"
+    echo -e "${BLUE} $1${NC}"
+    echo -e "${BLUE}================================================${NC}"
+    echo
 }
 
-check_environment_config() {
-    print_status "INFO" "Checking environment configuration..."
+# Function to handle different commands
+handle_command() {
+    local command=${1:-"help"}
     
-    if [ ! -f ".env" ]; then
-        print_status "WARNING" ".env file not found"
-        if [ -f ".env.template" ]; then
-            print_status "INFO" "Creating .env from template..."
-            cp .env.template .env
-            print_status "WARNING" "Please edit .env file with your configuration before continuing"
-            return 1
-        else
-            print_status "ERROR" "No environment template found"
-            return 1
-        fi
-    fi
-    
-    # Check for required variables
-    local required_vars=("AZURE_OPENAI_KEY" "AZURE_OPENAI_ENDPOINT" "POSTGRES_PASSWORD")
-    local missing_vars=()
-    
-    for var in "${required_vars[@]}"; do
-        if ! grep -q "^${var}=" .env || grep -q "^${var}=your-" .env; then
-            missing_vars+=("$var")
-        fi
-    done
-    
-    if [ ${#missing_vars[@]} -gt 0 ]; then
-        print_status "ERROR" "Missing or incomplete environment variables:"
-        printf '   %s\n' "${missing_vars[@]}"
-        print_status "INFO" "Please edit .env file with your configuration"
-        return 1
-    fi
-    
-    print_status "SUCCESS" "Environment configuration is complete"
-}
-
-build_images() {
-    print_status "INFO" "Building custom Docker images..."
-    
-    # Build all custom images
-    docker-compose -f docker-compose-full-stack.yml build
-    
-    print_status "SUCCESS" "Docker images built successfully"
+    case "$command" in
+        "start")
+            start_platform
+            ;;
+        "start-build")
+            start_platform_with_build
+            ;;
+        "stop")
+            stop_platform
+            ;;
+        "logs")
+            show_logs
+            ;;
+        "health")
+            check_health
+            ;;
+        "clean")
+            clean_platform
+            ;;
+        "help"|*)
+            show_help
+            ;;
+    esac
 }
 
 start_platform() {
-    local mode=${1:-"up"}
+    print_header "STARTING CONTAINERIZED AI RESEARCH PLATFORM"
     
-    print_status "INFO" "Starting AI Research Platform in containerized mode..."
+    if [[ -f "configs/docker-compose/docker-compose-full-stack.yml" ]]; then
+        docker-compose -f configs/docker-compose/docker-compose-full-stack.yml up -d
+        print_status "SUCCESS" "Full stack platform started"
+    else
+        print_status "ERROR" "configs/docker-compose/docker-compose-full-stack.yml not found"
+        exit 1
+    fi
     
-    case $mode in
-        "up")
-            docker-compose -f docker-compose-full-stack.yml up -d
-            ;;
-        "up-build")
-            docker-compose -f docker-compose-full-stack.yml up -d --build
-            ;;
-        "logs")
-            docker-compose -f docker-compose-full-stack.yml logs -f
-            ;;
-        *)
-            print_status "ERROR" "Unknown mode: $mode"
-            return 1
-            ;;
-    esac
-    
-    print_status "SUCCESS" "Platform startup initiated"
+    show_access_info
 }
 
-check_service_health() {
-    print_status "INFO" "Checking service health..."
+start_platform_with_build() {
+    print_header "BUILDING AND STARTING CONTAINERIZED PLATFORM"
     
-    local services=(
-        "ai-platform-caddy:172.20.0.10"
-        "ai-platform-chat-backend:172.20.0.20"
-        "ai-platform-chat-frontend:172.20.0.21"
-        "ai-platform-autogen:172.20.0.22"
-        "ai-platform-webhook:172.20.0.23"
-        "ai-platform-magentic:172.20.0.24"
-        "ai-platform-portscanner:172.20.0.25"
-    )
-    
-    sleep 30  # Allow services to start
-    
-    local healthy_count=0
-    local total_count=${#services[@]}
-    
-    for service_info in "${services[@]}"; do
-        local service_name=$(echo "$service_info" | cut -d: -f1)
-        local service_ip=$(echo "$service_info" | cut -d: -f2)
-        
-        if docker ps --filter "name=$service_name" --filter "status=running" | grep -q "$service_name"; then
-            print_status "SUCCESS" "$service_name is running"
-            ((healthy_count++))
-        else
-            print_status "ERROR" "$service_name is not running"
-        fi
-    done
-    
-    local health_percentage=$((healthy_count * 100 / total_count))
-    print_status "INFO" "Platform health: $healthy_count/$total_count services ($health_percentage%)"
-    
-    if [ $health_percentage -ge 90 ]; then
-        print_status "SUCCESS" "Platform is healthy and ready!"
+    if [[ -f "configs/docker-compose/docker-compose-full-stack.yml" ]]; then
+        docker-compose -f configs/docker-compose/docker-compose-full-stack.yml up -d --build
+        print_status "SUCCESS" "Platform built and started"
     else
-        print_status "WARNING" "Some services may need attention"
+        print_status "ERROR" "configs/docker-compose/docker-compose-full-stack.yml not found"
+        exit 1
+    fi
+    
+    show_access_info
+}
+
+stop_platform() {
+    print_header "STOPPING CONTAINERIZED PLATFORM"
+    
+    if [[ -f "configs/docker-compose/docker-compose-full-stack.yml" ]]; then
+        docker-compose -f configs/docker-compose/docker-compose-full-stack.yml down
+        print_status "SUCCESS" "Platform stopped"
+    else
+        print_status "WARNING" "configs/docker-compose/docker-compose-full-stack.yml not found"
     fi
 }
 
-show_access_information() {
-    echo
-    print_status "INFO" "AI Research Platform Access Information"
-    echo
-    echo -e "${BLUE}🌐 Primary Access (HTTPS):${NC}"
-    echo -e "   Main Hub: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443"
-    echo -e "   Applications: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/applications.html"
-    echo -e "   Control Panel: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/hub"
-    echo
-    echo -e "${BLUE}🤖 AI Services:${NC}"
-    echo -e "   Chat Copilot: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/copilot"
-    echo -e "   AutoGen Studio: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/autogen"
-    echo -e "   Magentic-One: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/magentic"
-    echo -e "   OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/openwebui"
-    echo -e "   Perplexica: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/perplexica"
-    echo
-    echo -e "${BLUE}💻 Development Tools:${NC}"
-    echo -e "   VS Code: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/vscode/login"
-    echo -e "   Port Scanner: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/portscanner"
-    echo
-    echo -e "${BLUE}🔧 Management:${NC}"
-    echo -e "   Docker containers: docker ps"
-    echo -e "   View logs: docker-compose -f docker-compose-full-stack.yml logs -f [service]"
-    echo -e "   Stop platform: docker-compose -f docker-compose-full-stack.yml down"
-    echo
+show_logs() {
+    print_header "PLATFORM LOGS"
+    
+    if [[ -f "configs/docker-compose/docker-compose-full-stack.yml" ]]; then
+        docker-compose -f configs/docker-compose/docker-compose-full-stack.yml logs -f
+    else
+        print_status "ERROR" "configs/docker-compose/docker-compose-full-stack.yml not found"
+        exit 1
+    fi
 }
 
-show_usage() {
-    echo "AI Research Platform - Containerized Startup"
-    echo ""
-    echo "Usage: $0 [command]"
-    echo ""
+check_health() {
+    print_header "PLATFORM HEALTH CHECK"
+    
+    docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep -E "(ai-platform|copilot|neo4j|genai)"
+}
+
+clean_platform() {
+    print_header "CLEANING PLATFORM"
+    
+    if [[ -f "configs/docker-compose/docker-compose-full-stack.yml" ]]; then
+        docker-compose -f configs/docker-compose/docker-compose-full-stack.yml down -v --remove-orphans
+        docker system prune -f
+        print_status "SUCCESS" "Platform cleaned"
+    else
+        print_status "WARNING" "configs/docker-compose/docker-compose-full-stack.yml not found"
+    fi
+}
+
+show_access_info() {
+    print_header "ACCESS INFORMATION"
+    
+    print_status "SUCCESS" "AI Research Platform is starting up!"
+    echo
+    print_status "INFO" "Access the platform at:"
+    echo "   🌐 Main Hub: https://localhost:8443/"
+    echo "   🎛️ Control Panel: https://localhost:8443/control-panel.html"
+    echo "   📚 Applications: https://localhost:8443/applications.html"
+    echo "   💬 Chat Copilot: https://localhost:8443/copilot/"
+    echo "   🧠 GenAI Stack: https://localhost:8443/genai-stack/"
+    echo "   🗄️ Neo4j Browser: https://localhost:8443/neo4j/"
+    echo "   👥 AutoGen Studio: https://localhost:8443/autogen/"
+    echo "   🔍 Perplexica: https://localhost:8443/perplexica/"
+    echo
+    print_status "INFO" "Services are starting up. Please wait 1-2 minutes for full availability."
+    print_status "INFO" "Check service status with: $0 health"
+    print_status "INFO" "View logs with: $0 logs"
+}
+
+show_help() {
+    print_header "AI RESEARCH PLATFORM - CONTAINERIZED DEPLOYMENT"
+    
+    echo "Usage: $0 [COMMAND]"
+    echo
     echo "Commands:"
-    echo "  start         - Start the platform (default)"
-    echo "  start-build   - Start with image rebuild"
-    echo "  stop          - Stop the platform"
-    echo "  restart       - Restart the platform"
-    echo "  logs          - Show platform logs"
-    echo "  status        - Show platform status"
-    echo "  health        - Check service health"
-    echo "  clean         - Stop and remove all containers/volumes"
-    echo "  help          - Show this help"
-}
-
-main() {
-    local command=${1:-"start"}
-    
-    echo -e "${BLUE}🚀 AI Research Platform - Containerized Mode${NC}"
-    echo -e "${BLUE}=============================================${NC}"
+    echo "  start          Start the platform (existing images)"
+    echo "  start-build    Build and start the platform (rebuild images)"
+    echo "  stop           Stop the platform"
+    echo "  logs           View platform logs"
+    echo "  health         Check platform health"
+    echo "  clean          Stop and clean platform (removes volumes)"
+    echo "  help           Show this help message"
     echo
-    
-    case $command in
-        "start")
-            check_prerequisites
-            check_environment_config
-            start_platform "up"
-            check_service_health
-            show_access_information
-            ;;
-        "start-build")
-            check_prerequisites
-            check_environment_config
-            build_images
-            start_platform "up-build"
-            check_service_health
-            show_access_information
-            ;;
-        "stop")
-            print_status "INFO" "Stopping AI Research Platform..."
-            docker-compose -f docker-compose-full-stack.yml down
-            print_status "SUCCESS" "Platform stopped"
-            ;;
-        "restart")
-            print_status "INFO" "Restarting AI Research Platform..."
-            docker-compose -f docker-compose-full-stack.yml restart
-            check_service_health
-            ;;
-        "logs")
-            start_platform "logs"
-            ;;
-        "status")
-            check_service_health
-            ;;
-        "health")
-            check_service_health
-            ;;
-        "clean")
-            print_status "WARNING" "This will remove all containers, networks, and volumes"
-            read -p "Are you sure? (y/N): " -n 1 -r
-            echo
-            if [[ $REPLY =~ ^[Yy]$ ]]; then
-                docker-compose -f docker-compose-full-stack.yml down -v --remove-orphans
-                docker system prune -f
-                print_status "SUCCESS" "Platform cleaned"
-            else
-                print_status "INFO" "Clean cancelled"
-            fi
-            ;;
-        "help"|"-h"|"--help")
-            show_usage
-            ;;
-        *)
-            print_status "ERROR" "Unknown command: $command"
-            show_usage
-            exit 1
-            ;;
-    esac
+    echo "Examples:"
+    echo "  $0 start-build    # First time setup"
+    echo "  $0 start          # Normal startup"
+    echo "  $0 stop           # Stop all services"
+    echo "  $0 health         # Check running services"
+    echo
 }
 
-main "$@"
+# Check prerequisites
+if ! command -v docker &> /dev/null; then
+    print_status "ERROR" "Docker is not installed"
+    exit 1
+fi
+
+if ! command -v docker-compose &> /dev/null; then
+    print_status "ERROR" "Docker Compose is not available"
+    exit 1
+fi
+
+# Handle the command
+handle_command "${1:-help}"

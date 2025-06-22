@@ -514,3 +514,17 @@ pids/
 platform-status.json
 config-backups/
 logs/
+runtime-data/
+tmp/
+temp/
+webhook.log
+
+# Excessive backup directories (post-cleanup)
+config-snapshots/
+config-backups-auto/
+.cleanup-backup/
+
+# Archive directories (removed)
+archive_scripts/
+scripts-archive/
+dev-tools/

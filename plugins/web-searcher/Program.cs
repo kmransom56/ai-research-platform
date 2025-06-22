@@ -40,7 +40,6 @@ var host = new HostBuilder()
                     Title = "Web Searcher Plugin",
                     Description = "This plugin is capable of searching the internet."
                 },
-                Servers = DefaultOpenApiConfigurationOptions.GetHostNames(),
                 OpenApiVersion = OpenApiVersionType.V3,
                 IncludeRequestingHostName = true,
                 ForceHttps = false,

@@ -310,6 +310,11 @@
                         <span class="material-icons">hub</span>
                         Magentic-One
                     </a>
+                    <a href="/genai-stack" target="_blank"
+                        class="control-button">
+                        <span class="material-icons">account_tree</span>
+                        GenAI Stack
+                    </a>
                 </div>
             </div>
 
@@ -355,6 +360,11 @@
                         <span class="material-icons">health_and_safety</span>
                         Health Check
                     </a>
+                    <a href="/webhook" target="_blank"
+                        class="control-button info">
+                        <span class="material-icons">webhook</span>
+                        Webhook Server
+                    </a>
                     <button class="control-button secondary" onclick="refreshServices()">
                         <span class="material-icons">refresh</span>
                         Refresh Status
@@ -375,6 +385,21 @@
                         class="control-button">
                         <span class="material-icons">dns</span>
                         Nginx Gateway
+                    </a>
+                    <a href="/bacula/" target="_blank"
+                        class="control-button">
+                        <span class="material-icons">backup</span>
+                        Bacula Backup
+                    </a>
+                    <a href="/ollama-api/" target="_blank"
+                        class="control-button">
+                        <span class="material-icons">api</span>
+                        Ollama API
+                    </a>
+                    <a href="/neo4j/" target="_blank"
+                        class="control-button">
+                        <span class="material-icons">storage</span>
+                        Neo4j Database
                     </a>
                     <button class="control-button secondary" onclick="executeCommand('ping', '100.123.10.72')">
                         <span class="material-icons">network_check</span>
@@ -898,7 +923,7 @@
 
         // Open full dashboard
         function openDashboard() {
-            window.open('/copilot/applications.html', '_blank');
+            window.open('/applications.html', '_blank');
             logOutput('🚀 Opening full applications dashboard...', 'info');
         }
 

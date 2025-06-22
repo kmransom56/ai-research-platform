@@ -1,0 +1,70 @@
+[Unit]
+Description=AI Research Platform - Gateway Services (Nginx, HTTP/HTTPS Gateways, Fortinet, Bacula)
+After=docker.service
+Requires=docker.service
+PartOf=ai-platform.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# Nginx Gateway (port 11080)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop nginx-gateway
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm nginx-gateway
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name nginx-gateway \
+  --restart unless-stopped \
+  -p 11080:80 \
+  -v /home/keith/chat-copilot/nginx-configs:/etc/nginx/conf.d:ro \
+  nginx:alpine
+
+# HTTP Gateway (port 11081)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop http-gateway
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm http-gateway
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name http-gateway \
+  --restart unless-stopped \
+  -p 11081:80 \
+  nginx:alpine
+
+# HTTPS Gateway (port 11082)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop https-gateway
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm https-gateway
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name https-gateway \
+  --restart unless-stopped \
+  -p 11082:443 \
+  nginx:alpine
+
+# Fortinet Manager (port 3001)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop fortinet-manager
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm fortinet-manager
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name fortinet-manager \
+  --restart unless-stopped \
+  -p 3001:3001 \
+  -v /home/keith/chat-copilot/configs:/app/configs \
+  node:18-alpine sh -c "mkdir -p /app && cd /app && npm init -y && npm install express && echo 'const express = require(\"express\"); const app = express(); app.get(\"/\", (req, res) => res.send(\"Fortinet Manager UI\")); app.listen(3001, \"0.0.0.0\");' > server.js && node server.js"
+
+# Bacula Backup (port 11083) - Using simple placeholder
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop bacula-backup
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm bacula-backup
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name bacula-backup \
+  --restart unless-stopped \
+  -p 11083:80 \
+  nginx:alpine
+
+# Stop services
+ExecStop=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop nginx-gateway http-gateway https-gateway fortinet-manager bacula-backup
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=ai-platform.target

@@ -1,0 +1,47 @@
+[Unit]
+Description=AI Research Platform - Core Services
+After=docker.service network.target
+Requires=docker.service
+PartOf=ai-platform.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# Stop any existing containers
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop copilot-api copilot-webapp autogen-studio magentic-one webhook-server
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm copilot-api copilot-webapp autogen-studio magentic-one webhook-server
+
+# Start Chat Copilot Backend API (port 11000)
+ExecStartPre=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker build -f docker/webapi/Dockerfile -t chat-copilot-api .
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name copilot-api \
+  --restart unless-stopped \
+  -p 11000:80 \
+  -e ASPNETCORE_ENVIRONMENT=Production \
+  -e ASPNETCORE_URLS=http://+:80 \
+  --env-file /home/keith/chat-copilot/.env \
+  -v /home/keith/chat-copilot/webapi/appsettings.json:/app/appsettings.json:ro \
+  chat-copilot-api
+
+# Start Chat Copilot Frontend (port 3000)
+ExecStartPre=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker build -f docker/webapp/Dockerfile.nginx -t chat-copilot-webapp .
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name copilot-webapp \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  chat-copilot-webapp
+
+# Stop services on service stop
+ExecStop=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop copilot-api copilot-webapp autogen-studio magentic-one webhook-server
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=ai-platform.target

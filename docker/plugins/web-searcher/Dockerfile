@@ -5,6 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS installer-env
 ARG AZURE_FUNCTION_MASTER_KEY
 WORKDIR /source
 COPY plugins/shared shared
+COPY Directory.Packages.props ./
 COPY plugins/web-searcher web-searcher
 RUN cd /source/web-searcher && \
   mkdir -p /home/site/wwwroot && \

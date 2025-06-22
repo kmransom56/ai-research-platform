@@ -6,6 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **AI Research Platform** - a comprehensive multi-agent AI development environment built on Microsoft's Chat Copilot. It combines multiple AI services, local LLMs, and development tools into a unified platform with secure Tailscale networking.
 
+## External AI Application Resources
+
+- Docker GenAI Stack: https://github.com/docker/genai-stack 
+- Neo4j GenAI Ecosystem Stack: https://neo4j.com/labs/genai-ecosystem/genai-stack/
+
 ## Build & Development Commands
 
 ### Backend (.NET)
@@ -79,6 +84,7 @@ pip install -e .
 - **plugins/**: Semantic Kernel plugins for extended functionality
 - **python/**: AI services including AutoGen Studio and Magentic-One
 - **scripts/**: Platform management, deployment, and utility scripts
+- **genai-stack/**: Neo4j GenAI Stack for knowledge graph AI applications
 
 ### Service Architecture (Ports 11000-12000)
 - **Backend API**: 11000
@@ -91,6 +97,14 @@ pip install -e .
 - **Ollama LLM**: 11434
 - **Caddy HTTPS**: 10443
 
+### Neo4j GenAI Stack (Ports 7474, 7687, 8501-8505)
+- **Neo4j Database**: 7474 (HTTP), 7687 (Bolt)
+- **GenAI Stack Bot**: 8501
+- **GenAI Stack Loader**: 8502
+- **GenAI Stack PDF Reader**: 8503
+- **GenAI Stack API**: 8504
+- **GenAI Stack Frontend**: 8505
+
 ### Key Technologies
 - **.NET 8.0** with ASP.NET Core and SignalR
 - **Microsoft Semantic Kernel** for AI orchestration
@@ -100,10 +114,12 @@ pip install -e .
 - **Tailscale** for secure mesh networking
 - **AutoGen Studio** for multi-agent AI
 - **Ollama** for local LLM serving
+- **Neo4j** for graph database and knowledge graphs
+- **LangChain** for GenAI Stack RAG implementation
 
 ### Network Access
 - **Tailscale Domain**: ubuntuaicodeserver-1.tail5137b4.ts.net
-- **Main Services**: /copilot, /autogen, /openwebui, /hub, /vscode
+- **Main Services**: /copilot, /autogen, /openwebui, /hub, /vscode, /genai-stack, /neo4j
 - **Local Development**: Various localhost ports
 
 ## Configuration Files
@@ -114,6 +130,7 @@ pip install -e .
 - **docker-compose.yml**: Container orchestration
 - **docker-configs/Caddyfile**: Reverse proxy configuration
 - **pyproject.toml**: Python dependencies
+- **genai-stack/**: GenAI Stack configuration and Dockerfiles
 
 ### Configuration Protection
 - Automated validation every 15 minutes
@@ -128,6 +145,7 @@ pip install -e .
 3. **Backend changes**: Work in webapi/ directory, standard .NET development
 4. **Frontend changes**: Work in webapp/ directory, React with hot reload
 5. **Platform services**: Managed via Docker Compose and management scripts
+6. **GenAI Stack development**: Work in genai-stack/ directory for knowledge graph applications
 
 ## Testing & Quality
 
@@ -141,6 +159,9 @@ cd webapp && yarn test
 
 # Playwright E2E tests
 cd webapp && npx playwright test
+
+# Platform validation
+./validate-deployment.sh
 ```
 
 ### Code Quality
@@ -150,10 +171,11 @@ cd webapp && npx playwright test
 
 ## Important Notes
 
-- **Port standardization**: All services use 11000-12000 range
+- **Port standardization**: All services use 11000-12000 range, GenAI Stack uses 8501-8505
 - **Tailscale integration**: Secure network access across devices
 - **Multi-agent AI**: AutoGen Studio enables collaborative AI workflows
 - **Local LLMs**: Ollama supports 7+ models including llama3.2, deepseek-coder
+- **Knowledge Graphs**: Neo4j GenAI Stack provides graph-based AI capabilities
 - **Configuration monitoring**: Automated protection against drift
 - **Health monitoring**: Comprehensive service health checking
 - **GPU optimization**: Supports high-memory GPU systems (72GB+ VRAM)
@@ -163,14 +185,17 @@ cd webapp && npx playwright test
 ### Health Checks
 - Backend: http://localhost:11000/healthz
 - Platform status: `./scripts/platform-management/check-platform-status.sh`
+- Neo4j: http://localhost:7474
+- GenAI Stack: http://localhost:8505
 
 ### Log Locations
-- Platform logs: logs/management.log
-- Service logs: Check individual Docker containers
+- Service logs: Check individual Docker containers with `docker logs <container-name>`
+- Neo4j logs: Via Docker volumes
+- Health status: `./validate-deployment.sh`
 
 ### Emergency Recovery
-- Emergency reset: `./scripts/backup-recovery/emergency-reset.sh`
-- Config restore: `./scripts/backup-recovery/restore-config.sh`
+- Service restart: Use Docker commands or platform management scripts
+- Configuration issues: Check `.env` file and `appsettings.json`
 
 ## Containerized Installation
 
@@ -186,10 +211,10 @@ sudo chown -R $USER:$USER /opt/ai-research-platform
 cd /opt/ai-research-platform
 
 # Configure environment
-cp .env.template .env
+cp configs/.env.template .env
 # Edit .env with your Azure OpenAI keys and passwords
 
-# Start complete platform
+# Start complete platform with GenAI Stack
 ./start-containerized-platform.sh start-build
 ```
 
@@ -215,7 +240,27 @@ cp .env.template .env
 - **Main Hub**: https://localhost:8443
 - **Control Panel**: https://localhost:8443/hub
 - **Applications**: https://localhost:8443/applications.html
+- **GenAI Stack**: https://localhost:8443/genai-stack
+- **Neo4j Browser**: https://localhost:8443/neo4j
 - **All services** available through reverse proxy
+
+## GenAI Stack Features
+
+### Knowledge Graph Capabilities
+- **Neo4j Database**: Graph database with APOC plugins
+- **Support Agent Bot**: AI assistant using knowledge graphs
+- **Document Loader**: Import and process documents into knowledge graphs
+- **PDF Reader**: AI-powered PDF analysis with graph storage
+- **RAG API**: Retrieval-Augmented Generation with graph context
+- **Frontend Dashboard**: Web interface for all GenAI Stack features
+
+### GenAI Stack Applications
+- **Data Import**: /genai-stack/loader (port 8502)
+- **Import Interface**: /genai-stack/import (port 8081) 
+- **Support Bot**: /genai-stack/bot (port 8501)
+- **PDF Reader**: /genai-stack/pdf (port 8503)
+- **API Endpoint**: /genai-stack/api (port 8504)
+- **Main Interface**: /genai-stack (port 8505)
 
 ## Debugging & Development
 
@@ -231,6 +276,8 @@ cp .env.template .env
 - **Environment issues**: Verify .env file has all required values
 - **Permission issues in /opt**: Ensure user owns the directory with `sudo chown -R $USER:$USER /opt/ai-research-platform`
 - **Docker permission denied**: Add user to docker group with `sudo usermod -aG docker $USER` (logout/login required)
+- **Neo4j connection issues**: Check NEO4J_PASSWORD environment variable
+- **GenAI Stack build failures**: Ensure genai-stack directory exists and contains Dockerfiles
 
 ### File Sync Issues
 If HTML pages show old content:

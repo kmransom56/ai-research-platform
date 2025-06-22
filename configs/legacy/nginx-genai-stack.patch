@@ -1,0 +1,11 @@
+# Add these lines to /etc/nginx/sites-available/ai-hub.conf
+# Insert after line 42 (location /bacula/) and before line 44 (# Control-Panel shortcut)
+
+    # Neo4j GenAI Stack Services
+    location /neo4j/           { proxy_pass http://127.0.0.1:7474/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }
+    location /genai-stack/loader/  { proxy_pass http://127.0.0.1:8502/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }
+    location /genai-stack/import/  { proxy_pass http://127.0.0.1:8081/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }
+    location /genai-stack/bot/     { proxy_pass http://127.0.0.1:8501/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }
+    location /genai-stack/pdf/     { proxy_pass http://127.0.0.1:8503/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }
+    location /genai-stack/api/     { proxy_pass http://127.0.0.1:8504/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }
+    location /genai-stack/         { proxy_pass http://127.0.0.1:8505/;   include /etc/nginx/sites-available/04-proxy-settings.conf; }

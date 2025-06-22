@@ -1,0 +1,39 @@
+[Unit]
+Description=Neo4j GenAI Stack Database
+After=docker.service
+Requires=docker.service
+PartOf=ai-platform.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# Stop any existing container
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop neo4j-genai
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm neo4j-genai
+
+# Start Neo4j container
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name neo4j-genai \
+  --restart unless-stopped \
+  -p 7474:7474 -p 7687:7687 \
+  -e NEO4J_AUTH=neo4j/password \
+  -e NEO4J_PLUGINS='["apoc"]' \
+  -e NEO4J_db_tx__log_rotation_retention__policy=false \
+  -e NEO4J_dbms_security_procedures_unrestricted=apoc.* \
+  -v /home/keith/chat-copilot/data:/data \
+  neo4j:5.26
+
+# Stop container on service stop
+ExecStop=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop neo4j-genai
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=ai-platform.target

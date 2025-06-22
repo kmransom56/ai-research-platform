@@ -232,6 +232,12 @@
                     </p>
                     <a href="/magentic" class="app-link" target="_blank">Launch Magentic-One</a>
                 </div>
+
+                <div class="app-card ai-category">
+                    <h3>Neo4j GenAI Stack <span class="status ready">🟡 Ready</span></h3>
+                    <p>Knowledge Graph AI Platform with RAG capabilities - Build intelligent applications with graph-based data</p>
+                    <a href="/genai-stack" class="app-link" target="_blank">Launch GenAI Stack</a>
+                </div>
             </div>
         </div>
 
@@ -262,6 +268,12 @@
                     <p>Web Services Proxy and Gateway for application routing</p>
                     <a href="/nginx" class="app-link" target="_blank">Launch Gateway</a>
                 </div>
+
+                <div class="app-card network-category">
+                    <h3>Bacula Backup <span class="status ready">🟡 Ready</span></h3>
+                    <p>Enterprise backup management system for data protection</p>
+                    <a href="/bacula" class="app-link" target="_blank">Launch Backup</a>
+                </div>
             </div>
         </div>
 
@@ -275,15 +287,39 @@
                 </div>
 
                 <div class="app-card api-category">
-                    <h3>Fortinet API <span class="status active">✅ Active</span></h3>
-                    <p>Network Management REST API for automation</p>
-                    <a href="/fortinet-api" class="app-link" target="_blank">API Endpoint</a>
+                    <h3>Webhook Server <span class="status ready">🟡 Ready</span></h3>
+                    <p>GitHub integration and automation API for platform deployment</p>
+                    <a href="/webhook" class="app-link" target="_blank">Webhook API</a>
                 </div>
 
                 <div class="app-card api-category">
-                    <h3>Ollama (Local LLM) <span class="status ready">🟡 Ready</span></h3>
-                    <p>Local Language Models server with phi3 and nomic-embed models</p>
-                    <a href="/ollama" class="app-link" target="_blank">Local Access</a>
+                    <h3>Ollama API <span class="status ready">🟡 Ready</span></h3>
+                    <p>Local Language Models API with phi3 and nomic-embed models</p>
+                    <a href="/ollama-api" class="app-link" target="_blank">LLM API</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>HTTP Gateway <span class="status ready">🟡 Ready</span></h3>
+                    <p>HTTP traffic gateway and load balancer</p>
+                    <a href="/gateway-http" class="app-link" target="_blank">HTTP Gateway</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>HTTPS Gateway <span class="status ready">🟡 Ready</span></h3>
+                    <p>HTTPS traffic gateway with SSL termination</p>
+                    <a href="/gateway-https" class="app-link" target="_blank">HTTPS Gateway</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>Neo4j Database <span class="status ready">🟡 Ready</span></h3>
+                    <p>Graph Database for GenAI Stack with APOC plugins and Cypher queries</p>
+                    <a href="/neo4j" class="app-link" target="_blank">Neo4j Browser</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>GenAI Stack API <span class="status ready">🟡 Ready</span></h3>
+                    <p>REST API for knowledge graph operations and RAG functionality</p>
+                    <a href="/genai-stack/api" class="app-link" target="_blank">API Docs</a>
                 </div>
             </div>
         </div>
@@ -291,16 +327,21 @@
         <div class="quick-access">
             <h3>🚀 Quick Access Links</h3>
             <div class="quick-links">
-                <a href="/openwebui" class="quick-link"
-                    target="_blank">OpenWebUI</a>
-                <a href="/hub" class="quick-link" target="_blank">🎛️ Control
-                    Panel</a>
-                <a href="/copilot" class="quick-link" target="_blank">AI Chat</a>
-                <a href="/perplexica" class="quick-link" target="_blank">AI Search</a>
-                <a href="/vscode" class="quick-link" target="_blank">Code Editor</a>
-                <a href="/portscanner" class="quick-link" target="_blank">Port Scanner</a>
-                <a href="/fortinet" class="quick-link" target="_blank">Network Mgmt</a>
-                <a href="/copilot/healthz" class="quick-link" target="_blank">Health Check</a>
+                <a href="/hub" class="quick-link" target="_blank">🎛️ Control Panel</a>
+                <a href="/copilot" class="quick-link" target="_blank">💬 AI Chat</a>
+                <a href="/copilot/api" class="quick-link" target="_blank">🔌 API</a>
+                <a href="/autogen" class="quick-link" target="_blank">👥 AutoGen</a>
+                <a href="/magentic" class="quick-link" target="_blank">🏭 Magentic-One</a>
+                <a href="/perplexica" class="quick-link" target="_blank">🔍 AI Search</a>
+                <a href="/searxng" class="quick-link" target="_blank">🕵️ SearXNG</a>
+                <a href="/portscanner" class="quick-link" target="_blank">📡 Port Scanner</a>
+                <a href="/vscode" class="quick-link" target="_blank">💻 Code Editor</a>
+                <a href="/nginx" class="quick-link" target="_blank">⚙️ Nginx</a>
+                <a href="/fortinet" class="quick-link" target="_blank">🛡️ Fortinet</a>
+                <a href="/webhook" class="quick-link" target="_blank">🔗 Webhook</a>
+                <a href="/copilot/healthz" class="quick-link" target="_blank">🏥 Health</a>
+                <a href="/genai-stack" class="quick-link" target="_blank">🧠 GenAI Stack</a>
+                <a href="/neo4j" class="quick-link" target="_blank">📊 Neo4j</a>
             </div>
         </div>
 
@@ -365,11 +406,13 @@
                 '100.123.10.72'
             ];
 
-            const DEFAULT_PORT = '10443';
+            const DEFAULT_PORT = '8443';
             const CURRENT_HOST = window.location.port
                 ? window.location.host
                 : `${window.location.hostname}:${DEFAULT_PORT}`;
-            const CURRENT_BASE = `${window.location.protocol}//${CURRENT_HOST}`;
+            const CURRENT_BASE = window.location.protocol === 'https:' 
+                ? `https://${CURRENT_HOST}` 
+                : `https://${window.location.hostname}:8443`;
 
             // Mapping of legacy container ports → path prefixes handled by Caddy
             const PORT_TO_PATH = {

@@ -6,6 +6,7 @@ WORKDIR /source
 # generate dev-certs for https
 RUN dotnet dev-certs https
 # copy everything else and build app
+COPY Directory.Packages.props .
 COPY memorypipeline memorypipeline
 COPY shared shared
 RUN cd memorypipeline && \

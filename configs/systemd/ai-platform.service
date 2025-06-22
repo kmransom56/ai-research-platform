@@ -1,0 +1,17 @@
+[Unit]
+Description=AI Research Platform
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=forking
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+ExecStart=/home/keith/chat-copilot/start-nginx-platform.sh
+ExecStop=/usr/bin/docker stop nginx-simple
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

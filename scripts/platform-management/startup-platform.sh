@@ -18,6 +18,9 @@ readonly CONFIG_DIR="$PLATFORM_DIR/config"
 
 # Timeouts and retries
 readonly SERVICE_TIMEOUT=30
+
+# GenAI Stack Integration
+readonly GENAI_STACK_ENABLED=true
 readonly SLEEP_INTERVAL=3
 readonly MAX_STARTUP_TIME=300
 

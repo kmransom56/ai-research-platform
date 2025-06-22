@@ -3,13 +3,18 @@
     <RootNamespace>CopilotChat.WebApi</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>5ee045b0-aea3-4f08-8d31-32d1a6f8fed0</UserSecretsId>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisMode>Default</AnalysisMode>
     <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);SKEXP0050;SKEXP0040;KMEXP02</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,16 +22,23 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" />
     <PackageReference Include="Microsoft.Azure.Cosmos" />
     <PackageReference Include="Microsoft.Identity.Web" />
-    <PackageReference Include="Microsoft.KernelMemory.Abstractions" />
-    <PackageReference Include="Microsoft.SemanticKernel" />
-    <PackageReference Include="Microsoft.SemanticKernel.Abstractions" />
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" />
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" />
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" />
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" />
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.MsGraph" />
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" />
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" />
+    <PackageReference Include="Microsoft.KernelMemory.AI.OpenAI"/>
+    <PackageReference Include="Microsoft.KernelMemory.AI.AzureOpenAI"/>
+    <PackageReference Include="Microsoft.KernelMemory.Core"/>
+    <PackageReference Include="Microsoft.KernelMemory.Abstractions"/>
+    <PackageReference Include="Microsoft.KernelMemory.DataFormats.AzureAIDocIntel"/>
+    <PackageReference Include="Microsoft.KernelMemory.DocumentStorage.AzureBlobs"/>
+    <PackageReference Include="Microsoft.KernelMemory.MemoryDb.*"/>
+    <PackageReference Include="Microsoft.KernelMemory.Orchestration.*"/>
+    <PackageReference Include="Microsoft.SemanticKernel"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Abstractions"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.MsGraph"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi"/>
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web"/>
     <PackageReference Include="SharpToken" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>

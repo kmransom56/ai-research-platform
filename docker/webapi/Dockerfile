@@ -8,6 +8,7 @@ RUN dotnet dev-certs https
 # copy everything else and build app
 COPY webapi webapi
 COPY shared shared
+COPY Directory.Packages.props .
 RUN cd webapi && \
   dotnet restore --use-current-runtime && \
   apt update && apt install -y wget && \

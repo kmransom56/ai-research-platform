@@ -1,0 +1,57 @@
+[Unit]
+Description=AI Research Platform - Python Services (AutoGen, Magentic-One, Webhook)
+After=ai-platform-services.service docker.service
+Requires=docker.service
+PartOf=ai-platform.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# AutoGen Studio (port 11001)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop autogen-studio
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm autogen-studio
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name autogen-studio \
+  --restart unless-stopped \
+  -p 11001:8081 \
+  -e PYTHONPATH=/app \
+  -v /home/keith/chat-copilot/python/autogen-studio:/app \
+  python:3.11-slim bash -c "cd /app && pip install autogen-studio && autogen-studio ui --host 0.0.0.0 --port 8081"
+
+# Webhook Server (port 11002)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop webhook-server
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm webhook-server
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name webhook-server \
+  --restart unless-stopped \
+  -p 11002:11002 \
+  -e NODE_ENV=production \
+  -v /home/keith/chat-copilot:/app \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  node:18-alpine sh -c "cd /app && npm install && node runtime-data/webhook-server.js"
+
+# Magentic-One (port 11003)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop magentic-one
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm magentic-one
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name magentic-one \
+  --restart unless-stopped \
+  -p 11003:11003 \
+  -e PYTHONPATH=/app \
+  -v /home/keith/chat-copilot/python/services:/app \
+  python:3.11-slim bash -c "cd /app && pip install -r requirements.txt && python magentic_one_server.py"
+
+# Stop services
+ExecStop=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop autogen-studio webhook-server magentic-one
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=ai-platform.target

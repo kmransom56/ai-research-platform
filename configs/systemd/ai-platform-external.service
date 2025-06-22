@@ -1,0 +1,66 @@
+[Unit]
+Description=AI Research Platform - External Services (Perplexica, SearXNG, Port Scanner)
+After=docker.service
+Requires=docker.service
+PartOf=ai-platform.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# Port Scanner (port 11010)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop port-scanner
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm port-scanner
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name port-scanner \
+  --restart unless-stopped \
+  -p 11010:11010 \
+  -e NODE_ENV=production \
+  -e PORT=11010 \
+  node:18-alpine sh -c "npm install -g port-scanner-ui && port-scanner-ui --host 0.0.0.0 --port 11010"
+
+# SearXNG (port 11021)
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop searxng
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm searxng
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name searxng \
+  --restart unless-stopped \
+  -p 11021:8080 \
+  -e BASE_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/searxng/ \
+  -e INSTANCE_NAME="AI Research Platform Search" \
+  searxng/searxng:latest
+
+# Perplexica (port 11020) - depends on SearXNG
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop perplexica
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm perplexica
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name perplexica \
+  --restart unless-stopped \
+  -p 11020:3000 \
+  -e SEARXNG_API_URL=http://searxng:8080 \
+  --link searxng \
+  itzcrazykns1337/perplexcia:main
+
+# Ollama API (port 11434) 
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop ollama
+ExecStartPre=-/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker rm ollama
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker run -d \
+  --name ollama \
+  --restart unless-stopped \
+  -p 11434:11434 \
+  -v ollama:/root/.ollama \
+  ollama/ollama
+
+# Stop services
+ExecStop=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker stop port-scanner searxng perplexica ollama
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=ai-platform.target

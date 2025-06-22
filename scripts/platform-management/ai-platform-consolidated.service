@@ -1,0 +1,40 @@
+[Unit]
+Description=AI Research Platform - Complete Stack
+Documentation=https://github.com/kmransom56/ai-research-platform
+After=network-online.target docker.service
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+
+# Environment setup
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/keith/.local/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# Use the production SSL startup script
+ExecStart=/home/keith/chat-copilot/start-ssl-platform.sh
+ExecStop=/bin/bash -c 'cd /home/keith/chat-copilot && docker stop nginx-ssl; docker-compose -f configs/docker-compose/docker-compose-full-stack.yml down'
+
+# Restart policy
+Restart=on-failure
+RestartSec=30
+TimeoutStartSec=600
+TimeoutStopSec=300
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-platform
+
+# Security
+NoNewPrivileges=false
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

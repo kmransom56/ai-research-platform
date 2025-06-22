@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using System.Net;
+using System.IO;
+using System.Threading.Tasks;
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.Functions.Worker;
@@ -12,6 +14,9 @@ using Microsoft.Extensions.Primitives;
 using Microsoft.OpenApi.Models;
 using Plugins.PluginShared;
 using Plugins.WebSearcher.Models;
+using System.Linq;
+using System.Net.Http;
+using System;
 
 namespace Plugins.WebSearcher;
 

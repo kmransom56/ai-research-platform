@@ -1,0 +1,23 @@
+[Unit]
+Description=AI Research Platform with SSL
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=forking
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+ExecStart=/home/keith/chat-copilot/start-ssl-platform.sh
+ExecStop=/bin/bash -c 'docker stop nginx-ssl; pkill -f "dotnet.*11000"; pkill -f "yarn.*start"'
+Restart=on-failure
+RestartSec=30
+TimeoutStartSec=300
+
+# Environment
+Environment=HOME=/home/keith
+Environment=USER=keith
+
+[Install]
+WantedBy=multi-user.target

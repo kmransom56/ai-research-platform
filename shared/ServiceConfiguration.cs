@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using CopilotChat.Shared.Ocr.Tesseract;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,7 @@ using Microsoft.KernelMemory.DocumentStorage.DevTools;
 using Microsoft.KernelMemory.MemoryDb.SQLServer;
 using Microsoft.KernelMemory.MemoryStorage;
 using Microsoft.KernelMemory.MemoryStorage.DevTools;
+using Microsoft.KernelMemory.Orchestration.RabbitMQ;
 using Microsoft.KernelMemory.Pipeline.Queue.DevTools;
 
 namespace CopilotChat.Shared;
@@ -134,9 +137,9 @@ internal sealed class ServiceConfiguration
                     builder.Services.AddAzureQueuesOrchestration(this.GetServiceConfig<AzureQueuesConfig>("AzureQueues"));
                     break;
 
-                case string y when y.Equals("RabbitMQ", StringComparison.OrdinalIgnoreCase):
-                    builder.Services.AddRabbitMQOrchestration(this.GetServiceConfig<RabbitMQConfig>("RabbitMQ"));
-                    break;
+                //case string y when y.Equals("RabbitMQ", StringComparison.OrdinalIgnoreCase):
+                //    builder.Services.AddRabbitMQOrchestration(this.GetServiceConfig<RabbitMQConfig>("RabbitMQ"));
+                //    break;
 
                 case string y when y.Equals("SimpleQueues", StringComparison.OrdinalIgnoreCase):
                     builder.Services.AddSimpleQueues(this.GetServiceConfig<SimpleQueuesConfig>("SimpleQueues"));

@@ -6,11 +6,8 @@ FROM node:lts-alpine as builder
 ARG REACT_APP_BACKEND_URI
 WORKDIR /app
 COPY webapp/ .
-RUN yarn install \
-  --prefer-offline \
-  --frozen-lockfile \
-  --non-interactive \
-  --production=false
+RUN rm -f package-lock.json && \
+    yarn install --prefer-offline --non-interactive --production=false
 RUN yarn build
 
 # final stage/image

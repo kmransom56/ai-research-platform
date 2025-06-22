@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  nginx-ssl:
+    image: nginx:alpine
+    container_name: nginx-ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-ssl.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./webapp/public:/usr/share/nginx/html:ro
+      - /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:/etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:ro
+      - /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:/etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:ro
+    restart: unless-stopped
+    networks:
+      - ai-platform
+
+  # External services that should be running
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui
+    ports:
+      - "11880:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://100.123.10.72:11434
+    volumes:
+      - openwebui-data:/app/backend/data
+    restart: unless-stopped
+    networks:
+      - ai-platform
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "11021:8080"
+    environment:
+      - SEARXNG_URL=https://100.123.10.72/searxng/
+    restart: unless-stopped
+    networks:
+      - ai-platform
+
+  perplexica:
+    image: itzcrazykns1337/perplexcia:main
+    container_name: perplexica
+    ports:
+      - "11020:3000"
+    environment:
+      - SEARXNG_API_URL=http://searxng:8080
+    restart: unless-stopped
+    networks:
+      - ai-platform
+    depends_on:
+      - searxng
+
+  autogen-studio:
+    image: microsoft/autogen:latest
+    container_name: autogen-studio
+    ports:
+      - "11001:8081"
+    environment:
+      - AUTOGEN_USE_DOCKER=false
+    restart: unless-stopped
+    networks:
+      - ai-platform
+
+  magentic-one:
+    build:
+      context: ./python/services
+      dockerfile: Dockerfile
+    container_name: magentic-one
+    ports:
+      - "11003:11003"
+    restart: unless-stopped
+    networks:
+      - ai-platform
+
+  code-server:
+    image: codercom/code-server:latest
+    container_name: code-server
+    ports:
+      - "57081:8080"
+    environment:
+      - PASSWORD=your-secure-password
+    volumes:
+      - ./:/home/coder/workspace
+      - code-server-data:/home/coder/.local/share/code-server
+    restart: unless-stopped
+    networks:
+      - ai-platform
+
+volumes:
+  openwebui-data:
+  code-server-data:
+
+networks:
+  ai-platform:
+    driver: bridge

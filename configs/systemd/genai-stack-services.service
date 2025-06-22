@@ -1,0 +1,33 @@
+[Unit]
+Description=GenAI Stack Platform Services
+After=neo4j-genai.service docker.service
+Requires=neo4j-genai.service docker.service
+PartOf=ai-platform.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot/genai-stack
+Environment=HOME=/home/keith
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/tmp
+
+# Wait for Neo4j to be ready
+ExecStartPre=/bin/bash -c 'for i in {1..30}; do curl -s http://localhost:7474 && break || sleep 2; done'
+
+# Stop any existing containers
+ExecStartPre=-/usr/bin/docker stop genai-bot genai-pdf genai-api genai-loader genai-frontend
+ExecStartPre=-/usr/bin/docker rm genai-bot genai-pdf genai-api genai-loader genai-frontend
+
+# Start GenAI Stack services using docker-compose
+ExecStart=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker-compose up -d bot pdf_bot api loader front-end
+
+# Stop services on service stop
+ExecStop=/usr/bin/env DOCKER_HOST=unix:///var/run/docker.sock /usr/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=ai-platform.target
