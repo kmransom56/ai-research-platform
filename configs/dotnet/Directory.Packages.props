@@ -85,7 +85,7 @@
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     
     <!-- Azure AI OpenAI - Override to stable version -->
-    <PackageVersion Include="Azure.AI.OpenAI" Version="1.0.0-beta.17" />
+    <PackageVersion Include="Azure.AI.OpenAI" Version="2.2.0" />
     
     <!-- Other packages -->
     <PackageVersion Include="SharpToken" Version="2.0.2" />
