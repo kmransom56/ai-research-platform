@@ -259,6 +259,10 @@
                 <span>Magentic-One</span>
             </div>
             <div class="status-item">
+                <div class="status-indicator status-active"></div>
+                <span>Windmill</span>
+            </div>
+            <div class="status-item">
                 <div class="status-indicator status-unknown"></div>
                 <span>Provider: OpenAI</span>
             </div>
@@ -431,6 +435,29 @@
                     <button class="control-button info" onclick="showLogs()">
                         <span class="material-icons">article</span>
                         View Logs
+                    </button>
+                </div>
+            </div>
+
+            <!-- Application Management Section -->
+            <div class="control-section">
+                <h3><span class="material-icons">apps</span>Application Management</h3>
+                <div class="button-grid">
+                    <button class="control-button" onclick="showAddApplicationDialog()">
+                        <span class="material-icons">add_circle</span>
+                        Add Application
+                    </button>
+                    <button class="control-button secondary" onclick="listApplications()">
+                        <span class="material-icons">list</span>
+                        List Applications
+                    </button>
+                    <button class="control-button info" onclick="testNewApplication()">
+                        <span class="material-icons">check_circle</span>
+                        Test Application
+                    </button>
+                    <button class="control-button warning" onclick="removeApplication()">
+                        <span class="material-icons">remove_circle</span>
+                        Remove Application
                     </button>
                 </div>
             </div>
@@ -1064,6 +1091,120 @@
                 }
             } catch (error) {
                 logOutput('⚠️ Could not check deployment status', 'warning');
+            }
+        }
+
+        // Application Management Functions
+        function showAddApplicationDialog() {
+            logOutput('📱 Opening Add Application dialog...', 'info');
+            
+            const name = prompt('Application Name (e.g., "Grafana"):');
+            if (!name) return;
+            
+            const port = prompt('Application Port (11000-12000 range):');
+            if (!port || isNaN(port) || port < 11000 || port > 12000) {
+                logOutput('❌ Invalid port. Must be between 11000-12000', 'error');
+                return;
+            }
+            
+            const path = prompt('URL Path (e.g., "/grafana"):');
+            if (!path || !path.startsWith('/')) {
+                logOutput('❌ Invalid path. Must start with /', 'error');
+                return;
+            }
+            
+            const description = prompt('Description:');
+            if (!description) return;
+            
+            const category = prompt('Category (ai/dev/network/api):') || 'ai';
+            const dockerImage = prompt('Docker Image (optional):') || '';
+            
+            // Show the command that would be executed
+            let command = `./scripts/platform-management/add-application.sh --name "${name}" --port ${port} --path "${path}" --description "${description}" --category ${category}`;
+            if (dockerImage) {
+                command += ` --docker-image "${dockerImage}"`;
+            }
+            
+            logOutput('🚀 Generated command:', 'info');
+            logOutput(command, 'info');
+            logOutput('📋 Copy this command and run it in terminal', 'info');
+            logOutput('⚠️  Remember to reload nginx after adding', 'warning');
+            
+            // Copy to clipboard if supported
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(command).then(() => {
+                    logOutput('📋 Command copied to clipboard!', 'success');
+                });
+            }
+        }
+        
+        function listApplications() {
+            logOutput('📋 Listing current applications...', 'info');
+            
+            const applications = [
+                'OpenWebUI (11880)',
+                'Chat Copilot (11000)',
+                'Perplexica (11020)',
+                'SearXNG (11021)',
+                'AutoGen Studio (11001)',
+                'Magentic-One (11003)',
+                'Windmill (11005)',
+                'Webhook Server (11002)',
+                'Port Scanner (11010)',
+                'VS Code Web (57081)',
+                'Neo4j GenAI Stack (8501-8505)',
+                'Nginx Gateway (11080-11082)',
+                'Ollama LLM (11434)'
+            ];
+            
+            logOutput('📱 Currently configured applications:', 'info');
+            applications.forEach(app => {
+                logOutput(`   • ${app}`, 'info');
+            });
+            
+            logOutput('🔗 Full list: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/applications.html', 'info');
+        }
+        
+        function testNewApplication() {
+            const path = prompt('Enter application path to test (e.g., "/windmill"):');
+            if (!path) return;
+            
+            logOutput(`🔍 Testing application at ${path}...`, 'info');
+            
+            const testUrl = `https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443${path}`;
+            
+            fetch(testUrl, { method: 'HEAD', mode: 'no-cors' })
+                .then(() => {
+                    logOutput(`✅ Application ${path} appears to be accessible`, 'success');
+                    logOutput(`🔗 URL: ${testUrl}`, 'info');
+                    
+                    if (confirm(`Open ${path} in new tab?`)) {
+                        window.open(testUrl, '_blank');
+                    }
+                })
+                .catch(() => {
+                    logOutput(`❌ Application ${path} is not accessible`, 'error');
+                    logOutput('💡 Check if the service is running and nginx is configured', 'warning');
+                });
+        }
+        
+        function removeApplication() {
+            logOutput('🗑️  Application removal process...', 'warning');
+            
+            const appName = prompt('Enter application name to remove:');
+            if (!appName) return;
+            
+            const confirmRemoval = confirm(`Are you sure you want to remove "${appName}"? This will:\n- Remove nginx configuration\n- Stop Docker container\n- Remove from applications page\n\nThis action cannot be undone.`);
+            
+            if (confirmRemoval) {
+                logOutput(`⚠️  Manual removal required for ${appName}:`, 'warning');
+                logOutput('1. Edit /etc/nginx/sites-available/ai-hub.conf (remove location block)', 'info');
+                logOutput('2. Run: sudo systemctl reload nginx', 'info');
+                logOutput('3. Stop Docker container: docker stop <container-name>', 'info');
+                logOutput('4. Remove from docker-compose.yml', 'info');
+                logOutput('5. Remove from applications.html', 'info');
+                logOutput('6. Update port documentation', 'info');
+                logOutput('🔄 Consider creating an automated removal script', 'info');
             }
         }
 

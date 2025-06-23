@@ -94,6 +94,46 @@
 - Watches for configuration changes
 - **Usage:** Runs in background
 
+## Certificate Management (NEW)
+
+### `scripts/infrastructure/request-ca-certificate.sh` 🔐
+**CA Certificate Integration** - Request certificates from internal CA server
+- ✅ Automated certificate generation from CA at https://192.168.0.2
+- ✅ Multi-endpoint fallback system
+- ✅ nginx configuration automation
+- ✅ Self-signed certificate fallback
+- **Usage:** `./scripts/infrastructure/request-ca-certificate.sh -d domain.local -p 11005 -s servicename`
+
+### `scripts/infrastructure/check-ca-server-status.sh` 📊
+**CA Server Monitoring** - Monitor CA server health and API status
+- ✅ API endpoint testing (generate-cert, sign-csr, ca, setup-chain)
+- ✅ Certificate generation testing
+- ✅ Health monitoring and logging
+- **Usage:** `./scripts/infrastructure/check-ca-server-status.sh`
+
+### `scripts/infrastructure/generate-self-signed-cert.sh` 🛡️
+**Self-signed Certificate Generator** - Fallback certificate generation
+- ✅ Automatic certificate generation
+- ✅ nginx configuration
+- ✅ Proper permissions and security
+- **Usage:** `./scripts/infrastructure/generate-self-signed-cert.sh domain.local 11005`
+
+### `scripts/infrastructure/renew-ca-certificates.sh` 🔄
+**Certificate Renewal Automation** - Automated certificate lifecycle management
+- ✅ Certificate expiration monitoring
+- ✅ Automated renewal workflow
+- ✅ Health checks and validation
+- **Usage:** `./scripts/infrastructure/renew-ca-certificates.sh`
+
+### `scripts/platform-management/add-application.sh` ⚡
+**Application Addition Automation** - Standardized application deployment
+- ✅ Complete application integration
+- ✅ CA certificate automation
+- ✅ nginx configuration
+- ✅ Docker service management
+- ✅ Dashboard integration
+- **Usage:** `./scripts/platform-management/add-application.sh --name windmill --port 11005 --description "Workflow Automation"`
+
 ## Deployment
 
 ### `deploy.sh` 🚀
@@ -108,6 +148,8 @@
 - **AutoGen Studio:** 11001  
 - **Webhook Server:** 11002
 - **Magentic-One:** 11003
+- **Windmill (SSL):** 11005 (NEW)
+- **Windmill (Container):** 11006 (NEW)
 - **Port Scanner:** 11010
 - **Nginx Proxy Manager:** 11080-11082
 - **Ollama:** 11434
@@ -129,9 +171,36 @@
 ./manage-platform.sh start
 ./manage-platform.sh logs autogen-studio
 
+# Certificate Management (NEW)
+./scripts/infrastructure/check-ca-server-status.sh
+./scripts/infrastructure/request-ca-certificate.sh -d windmill.local -p 11005 -s windmill
+./scripts/platform-management/add-application.sh --name newapp --port 11007
+
 # Fix configuration issues
 ./fix-configuration-drift.sh
 
 # Backup configuration
 ./backup-configs.sh
 ```
+
+## Certificate Automation Features (NEW)
+
+### CA Server Integration
+- **CA Server URL:** https://192.168.0.2
+- **Supported Endpoints:** `/api/generate-cert`, `/api/sign-csr`, `/api/ca`, `/api/setup-chain`
+- **Certificate Inventory:** 5 active certificates managed
+- **Download Support:** Full certificate and key retrieval
+- **Validation:** OpenSSL verification integrated
+
+### Certificate Types Supported
+- **Server Certificates:** Standard SSL certificates
+- **HTTPS Certificates:** Web server certificates  
+- **nginx Certificates:** nginx-specific configurations
+- **CSR-based Certificates:** Custom certificate signing requests
+
+### Automation Capabilities
+- **Automatic Generation:** CA API integration
+- **Self-signed Fallback:** Development certificate support
+- **nginx Integration:** Automatic SSL configuration
+- **Certificate Monitoring:** Expiration tracking and renewal
+- **Multi-endpoint Support:** Robust API communication

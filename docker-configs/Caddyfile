@@ -65,6 +65,9 @@ ubuntuaicodeserver-1.tail5137b4.ts.net:80, 100.123.10.72:80 {
 	handle_path /searxng* {
 		reverse_proxy 100.123.10.72:11021
 	}
+	handle_path /windmill* {
+		reverse_proxy 100.123.10.72:11005
+	}
 	handle_path /ollama* {
 		reverse_proxy 100.123.10.72:11434
 	}

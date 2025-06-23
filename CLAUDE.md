@@ -88,6 +88,11 @@ pip install -e .
 
 # Monitor certificate expiration
 python3 python/utilities/check-certificates.py
+
+# CA Certificate Automation (NEW)
+./scripts/infrastructure/check-ca-server-status.sh
+./scripts/infrastructure/request-ca-certificate.sh -d domain.local -p 11005 -s servicename
+./scripts/platform-management/add-application.sh --name windmill --port 11005
 ```
 
 ## Architecture Overview
@@ -106,6 +111,8 @@ python3 python/utilities/check-certificates.py
 - **AutoGen Studio**: 11001  
 - **Webhook Server**: 11002
 - **Magentic-One**: 11003
+- **Windmill (SSL)**: 11005
+- **Windmill (Container)**: 11006
 - **Port Scanner**: 11010
 - **Perplexica AI**: 11020
 - **SearXNG**: 11021
@@ -153,6 +160,46 @@ python3 python/utilities/check-certificates.py
 - File monitoring for unauthorized changes
 - Configuration drift prevention system
 
+## Certificate Automation (NEW)
+
+### CA Server Integration
+- **CA Server URL**: https://192.168.0.2
+- **Supported APIs**: Certificate generation, CSR signing, certificate inventory, download
+- **Managed Certificates**: 5 active certificates tracked and managed
+- **Certificate Types**: Server, HTTPS, nginx, CSR-based certificates
+
+### Certificate Management Scripts
+```bash
+# Check CA server status and API health
+./scripts/infrastructure/check-ca-server-status.sh
+
+# Request certificate from CA server
+./scripts/infrastructure/request-ca-certificate.sh -d windmill.local -p 11005 -s windmill
+
+# Generate self-signed certificates (fallback)
+./scripts/infrastructure/generate-self-signed-cert.sh windmill.local 11005
+
+# Certificate renewal automation
+./scripts/infrastructure/renew-ca-certificates.sh
+
+# Add new application with certificate automation
+./scripts/platform-management/add-application.sh --name newapp --port 11007
+```
+
+### Certificate Features
+- **Automatic Generation**: CA API integration with multi-endpoint fallback
+- **Self-signed Fallback**: Development certificate support when CA unavailable
+- **nginx Integration**: Automatic SSL configuration and deployment
+- **Certificate Monitoring**: Expiration tracking and automated renewal
+- **Download Support**: Full certificate and private key retrieval
+- **Validation**: OpenSSL verification and certificate structure validation
+
+### Certificate Inventory Management
+- **Real-time Tracking**: Monitor certificate status and expiration
+- **Multiple Types**: Support for various certificate types and use cases
+- **Automated Renewal**: Proactive certificate lifecycle management
+- **Health Monitoring**: Continuous validation of certificate infrastructure
+
 ## Development Workflow
 
 1. **Check platform status**: `./scripts/platform-management/manage-platform.sh status`
@@ -161,6 +208,54 @@ python3 python/utilities/check-certificates.py
 4. **Frontend changes**: Work in webapp/ directory, React with hot reload
 5. **Platform services**: Managed via Docker Compose and management scripts
 6. **GenAI Stack development**: Work in genai-stack/ directory for knowledge graph applications
+
+## Adding New Applications
+
+The platform includes a standardized process for adding new applications:
+
+### Using the Add Application Script
+```bash
+# Basic usage
+./scripts/platform-management/add-application.sh \
+  --name "MyApp" \
+  --port 11006 \
+  --path "/myapp" \
+  --description "My Application Description" \
+  --category "ai|dev|network|api"
+
+# With Docker integration
+./scripts/platform-management/add-application.sh \
+  --name "Grafana" \
+  --port 11007 \
+  --path "/grafana" \
+  --description "Monitoring Dashboard" \
+  --category "dev" \
+  --docker-image "grafana/grafana:latest"
+
+# Test mode (see what would be done)
+./scripts/platform-management/add-application.sh --test-mode [options]
+
+# Nginx configuration only
+./scripts/platform-management/add-application.sh --nginx-only [options]
+```
+
+### Using the Control Panel
+1. Access Control Panel: `https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/hub`
+2. Click "Add Application" in the Application Management section
+3. Fill in the prompted information
+4. Copy the generated command and run it in terminal
+
+### What the Script Does
+- **Nginx Configuration**: Adds reverse proxy location to `/etc/nginx/sites-available/ai-hub.conf`
+- **Docker Integration**: Adds service to `docker-compose.yml` (if Docker image provided)
+- **Web Interface**: Updates `applications.html` with new application card and quick link
+- **Documentation**: Updates port configuration documentation
+- **Validation**: Tests nginx configuration and reloads automatically
+
+### Manual Steps After Adding
+1. Start Docker service: `docker-compose up -d`
+2. Test application: `https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/[path]`
+3. Update application status in applications.html if needed
 
 ## Testing & Quality
 
@@ -357,3 +452,5 @@ cp webapp/public/applications.html webapi/wwwroot/
 - **Backup Location**: `/home/keith/chat-copilot/config-backups-working/latest/`
 
 Last backup: Sun Jun 22 07:36:57 PM EDT 2025
+
+- Updated the CLAUDE.md file to include the memory of "update the claude.md file"Last backup: Mon Jun 23 06:42:52 AM EDT 2025
