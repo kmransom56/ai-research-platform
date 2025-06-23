@@ -75,6 +75,21 @@ pip install -e .
 ./scripts/start.sh
 ```
 
+### SSL Certificate Management
+```bash
+# Setup Tailscale SSL certificates
+./scripts/infrastructure/setup-tailscale-ssl.sh
+
+# Verify SSL certificate setup
+./scripts/infrastructure/verify-ssl-setup.sh
+
+# Renew SSL certificates
+./scripts/infrastructure/renew-certificates.sh
+
+# Monitor certificate expiration
+python3 python/utilities/check-certificates.py
+```
+
 ## Architecture Overview
 
 ### Core Components
@@ -279,6 +294,36 @@ cp configs/.env.template .env
 - **Neo4j connection issues**: Check NEO4J_PASSWORD environment variable
 - **GenAI Stack build failures**: Ensure genai-stack directory exists and contains Dockerfiles
 
+### SSL Certificate Issues
+- **Tailscale certificate generation fails**: Check Tailscale authentication with `tailscale status`
+- **Nginx SSL errors**: Verify certificate paths in nginx configs match actual certificate locations
+- **Certificate not found errors**: Run `./scripts/infrastructure/setup-tailscale-ssl.sh` to generate certificates
+- **Permission denied on certificates**: Check certificate file permissions are 644 for .crt and 600 for .key files
+- **Subdomain certificates missing**: Ensure subdomains are configured in Tailscale admin console
+- **Certificate expiration**: Use `./scripts/infrastructure/verify-ssl-setup.sh` to check certificate status
+
+### Package Dependency Issues
+**Azure.AI.OpenAI Version Compatibility (As of June 2025):**
+- Issue: KernelMemory 0.98.x expects Azure.AI.OpenAI version 2.2.0.0 but only 2.2.0-beta.4 is available
+- Current Status: Updated to latest compatible package versions:
+  - Microsoft.KernelMemory.Core: 0.98.250508.3
+  - Microsoft.KernelMemory.Abstractions: 0.98.250508.3
+  - Microsoft.SemanticKernel: 1.57.0
+  - Microsoft.SemanticKernel.Abstractions: 1.57.0
+- Workaround: Use Ollama or disable AI services in appsettings.json for basic API functionality
+- Alternative: Consider Paket package manager for complex dependency resolution
+
+**Package Management:**
+```bash
+# Standard NuGet commands
+dotnet list package --include-transitive
+dotnet add package [PackageName] --version [Version]
+
+# Alternative: Paket (better dependency resolution)
+paket add [PackageName] --version [Version]
+paket install
+```
+
 ### File Sync Issues
 If HTML pages show old content:
 ```bash
@@ -286,3 +331,29 @@ If HTML pages show old content:
 cp webapp/public/control-panel.html webapi/wwwroot/
 cp webapp/public/applications.html webapi/wwwroot/
 ```
+
+## Repository Management
+
+### Latest Updates (June 22, 2025)
+- **Repository Cleaned**: Removed runtime files, backups, and duplicates
+- **Python Scripts**: All 19 scripts reviewed and updated with proper headers
+- **Shell Scripts**: 67+ scripts reviewed, permissions fixed
+- **Documentation**: Updated GenAI Stack README and backup guides
+- **Backup System**: Comprehensive backup/restore system implemented
+
+### Repository Cleanup Completed
+- ✅ Removed runtime files (*.log, *.pid, certificates)
+- ✅ Cleaned up excessive config snapshots (kept latest 3)
+- ✅ Removed duplicate/empty files and directories  
+- ✅ Updated .gitignore to prevent future runtime file commits
+- ✅ Fixed Python script headers and documentation
+- ✅ Verified shell script permissions and executable status
+
+### Backup & Restore System
+- **Quick Restore**: `./scripts/quick-restore.sh` (one-command post-reboot fix)
+- **Create Backup**: `./scripts/backup-working-config.sh`
+- **Health Check**: `./scripts/check-platform-health.sh`
+- **Auto-Restore**: Systemd service enabled for automatic restoration on boot
+- **Backup Location**: `/home/keith/chat-copilot/config-backups-working/latest/`
+
+Last backup: Sun Jun 22 07:36:57 PM EDT 2025

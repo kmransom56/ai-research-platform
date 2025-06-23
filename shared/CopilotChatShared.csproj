@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <RootNamespace>CopilotChat.Shared</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,12 +6,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.KernelMemory.AI.AzureOpenAI"/>
-    <PackageReference Include="Microsoft.KernelMemory.AI.OpenAI"/>
-    <PackageReference Include="Microsoft.KernelMemory.AI.Ollama"/>
-    <PackageReference Include="Microsoft.KernelMemory.Core"/>
+    <PackageReference Include="Microsoft.KernelMemory.AI.AzureOpenAI" />
+    <PackageReference Include="Microsoft.KernelMemory.AI.Ollama" />
+    <PackageReference Include="Microsoft.KernelMemory.AI.OpenAI" />
+    <PackageReference Include="Microsoft.KernelMemory.Core" />
     <PackageReference Include="Microsoft.KernelMemory.DataFormats.AzureAIDocIntel" />
     <PackageReference Include="Microsoft.KernelMemory.DocumentStorage.AzureBlobs" />
     <PackageReference Include="Microsoft.KernelMemory.MemoryDb.AzureAISearch" />
@@ -21,16 +19,6 @@
     <PackageReference Include="Microsoft.KernelMemory.MemoryDb.SQLServer" />
     <PackageReference Include="Microsoft.KernelMemory.Orchestration.AzureQueues" />
     <PackageReference Include="Microsoft.KernelMemory.Orchestration.RabbitMQ" />
-    <PackageReference Include="Tesseract"/>
-    <PackageReference Include="Microsoft.SemanticKernel" />
-    <PackageReference Include="Microsoft.SemanticKernel.Abstractions"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.MsGraph"/>
-    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web"/>
+    <PackageReference Include="Tesseract" />
   </ItemGroup>
-
 </Project>

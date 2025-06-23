@@ -31,7 +31,7 @@ class MagenticOnePlatform:
         self.teams = {}
         self.workflows = {}
         self.config = self._load_config()
-        self.ollama_base_url = "http://host.docker.internal:11434/v1"
+        self.ollama_base_url = "http://localhost:11434/v1"
         
     def _load_config(self):
         """Load Magentic-One configuration"""

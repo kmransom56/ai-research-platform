@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Certificate Expiration Checker for AI Research Platform
+Monitors SSL/TLS certificate expiration dates across Tailscale network
+"""
+
 import ssl
 import socket
 import datetime
@@ -9,7 +14,17 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def check_certificate_expiry(hostname: str, port: int = 443) -> Tuple[str, int]:
-    """Check certificate expiry for a given hostname"""
+    """
+    Check SSL certificate expiration for a given hostname.
+    
+    Args:
+        hostname: The domain name to check
+        port: The port number (default: 443 for HTTPS)
+    
+    Returns:
+        Tuple of (certificate_subject, days_until_expiry)
+        Returns -1 for days if check fails
+    """
     try:
         context = ssl.create_default_context()
         with socket.create_connection((hostname, port), timeout=10) as sock:
@@ -26,13 +41,17 @@ def check_certificate_expiry(hostname: str, port: int = 443) -> Tuple[str, int]:
         return hostname, -1
 
 def main():
+    """
+    Main function to check certificate expiration for all AI Research Platform applications.
+    Checks certificates for each service subdomain on the Tailscale network.
+    """
     applications = ['copilot', 'autogen', 'magentic', 'webhook', 'portscanner', 'nginx-manager', 'http-gateway', 'https-gateway', 'vscode', 'fortinet', 'perplexica', 'searxng', 'openwebui', 'ollama']
     tailnet_domain = "ubuntuaicodeserver-1.tail5137b4.ts.net"
     
     logger.info("Checking certificate expiration for all applications...")
     
     for app in applications:
-        if app in ['ollama']:
+        if app in ['ollama']:  # Ollama doesn't use HTTPS
             continue
             
         hostname = f"{app}.{tailnet_domain}"

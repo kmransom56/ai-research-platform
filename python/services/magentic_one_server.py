@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 """
-Magentic-One Web Server for AI Rese    if MagenticOnePlatform:
-        magentic_one_system = MagenticOnePlatform()
-        logger.info("✅ Magentic-One system initialized successfully")
-    else:
-        logger.warning("⚠️ Magentic-One system not available - running in placeholder mode")
-        magentic_one_system = Noneh Platform
+Magentic-One Web Server for AI Research Platform
 FastAPI-based web interface for Magentic-One multi-agent system
 """
 

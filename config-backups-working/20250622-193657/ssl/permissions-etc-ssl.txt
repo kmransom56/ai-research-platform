@@ -1,0 +1,5 @@
+total 16
+drwxr-xr-x 2 root root     4096 Jun 22 19:06 .
+drwxr-xr-x 5 root root     4096 Jun 22 19:06 ..
+-rw-r--r-- 1 root www-data 2916 Jun 22 19:11 ubuntuaicodeserver-1.tail5137b4.ts.net.crt
+-rw-r--r-- 1 root www-data  227 Jun 22 19:11 ubuntuaicodeserver-1.tail5137b4.ts.net.key

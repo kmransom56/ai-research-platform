@@ -1,0 +1,13 @@
+{
+  "backup_date": "2025-06-22T19:36:57-04:00",
+  "backup_user": "keith",
+  "backup_host": "ubuntuaicodeserver",
+  "platform_directory": "/home/keith/chat-copilot/webapp",
+  "key_services": {
+    "nginx_enabled": true,
+    "backend_port": 11000,
+    "frontend_port": 3000,
+    "ssl_domain": "100.123.10.72:10443",
+    "ollama_models": 14
+  }
+}
