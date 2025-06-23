@@ -543,3 +543,12 @@ config-backups-auto/
 archive_scripts/
 scripts-archive/
 dev-tools/
+
+# Neo4j database runtime files (large files)
+data/databases/
+data/dbms/
+data/transactions/
+data/server_id
+
+# GenAI Stack Neo4j data
+genai-stack/data/
