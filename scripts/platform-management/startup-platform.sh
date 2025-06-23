@@ -1,8 +1,23 @@
 #!/bin/bash
-# AI Research Platform Startup Script - Clean & Maintainable
-# Standardized Port Range: 11000-12000
+# AI Research Platform Startup Script - DEPRECATED
+# This script has been replaced by a simplified startup system
+# Use: ai-platform-restore.service or config-backups-working/latest/quick-restore.sh
 # Author: Automated Infrastructure Management
-# Version: 3.0
+# Version: 3.0 - DEPRECATED
+
+echo "⚠️  WARNING: This startup script is DEPRECATED"
+echo
+echo "The AI Research Platform now uses a simplified startup system:"
+echo "• AUTOMATIC: ai-platform-restore.service (enabled by default)"
+echo "• MANUAL: /home/keith/chat-copilot/config-backups-working/latest/quick-restore.sh"
+echo "• CONTAINERIZED: /home/keith/chat-copilot/start-containerized-platform.sh"
+echo
+echo "For the new startup system, run:"
+echo "  ./scripts/platform-management/startup-platform-simple.sh"
+echo
+echo "Continuing with legacy startup (not recommended)..."
+echo
+sleep 5
 
 set -euo pipefail
 
