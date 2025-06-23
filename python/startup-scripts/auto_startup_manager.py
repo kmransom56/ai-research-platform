@@ -1,35 +1,8 @@
 #!/usr/bin/env python3
 """
-AI Research Platform Auto-Startup Manager - UPDATED
-This script has been updated to work with the new simplified startup system.
-Now only manages ai-platform-restore.service and removes conflicting services.
+AI Research Platform Auto-Startup Manager
+Creates systemd services for automatic boot startup
 """
-
-import sys
-
-print("⚠️  NOTICE: Auto-startup management has been simplified")
-print()
-print("The AI Research Platform now uses:")
-print("• SINGLE SERVICE: ai-platform-restore.service (already configured)")
-print("• AUTOMATIC RESTORE: Uses config-backups-working/latest/quick-restore.sh")
-print("• NO CONFLICTS: All old conflicting services have been removed")
-print()
-print("Current auto-startup status:")
-print("• ai-platform-restore.service: ENABLED (handles everything)")
-print("• All conflicting services: DISABLED and REMOVED")
-print()
-print("No action needed - system is properly configured.")
-print()
-
-choice = input("Continue with old startup manager? (y/N): ").lower()
-if choice not in ['y', 'yes']:
-    print("Exiting. System is already properly configured.")
-    sys.exit(0)
-
-print("Continuing with legacy startup manager (not recommended)...")
-print()
-
-# Original code follows...
 
 import os
 import subprocess

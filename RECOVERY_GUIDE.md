@@ -1,104 +1,216 @@
-# AI Research Platform - Recovery Guide
+# AI Research Platform Recovery Guide
 
-## Quick Recovery After Reboot
+This guide provides comprehensive recovery procedures for the AI Research Platform after system issues, reboots, or configuration problems.
 
-### 1. One-Command Restore
+## Quick Recovery (Most Common)
+
+If services aren't working after a reboot or configuration issue:
+
 ```bash
-cd /home/keith/chat-copilot
+# One-command recovery
 ./config-backups-working/latest/quick-restore.sh
 ```
 
-### 2. Check Status
+This script:
+- Restores known-good configurations
+- Starts essential services (Chat Copilot backend on port 11000)
+- Fixes common startup issues
+- Runs automatically via `ai-platform-restore.service`
+
+## Platform Status Check
+
 ```bash
+# Check what's running
 ./check-platform-status.sh
+
+# Or use the management interface
+./scripts/platform-management/manage-platform.sh status
 ```
 
-### 3. If Issues Persist
+## Startup System v4.0
+
+The platform now uses a simplified startup system:
+
+### Automatic Startup
+- **Service**: `ai-platform-restore.service` (enabled by default)
+- **Script**: `config-backups-working/latest/quick-restore.sh`
+- **Trigger**: Automatically runs on boot
+
+### Manual Startup Options
 ```bash
-# Check logs
-tail -f /tmp/backend.log /tmp/frontend.log
+# Preferred: Use management interface
+./scripts/platform-management/manage-platform.sh start
 
-# Restart individual services
-cd webapi && dotnet run --urls http://0.0.0.0:11000 &
-cd webapp && yarn start &
+# Alternative: Direct quick restore
+./config-backups-working/latest/quick-restore.sh
+
+# Legacy: Old startup script (deprecated)
+./scripts/platform-management/startup-platform.sh
 ```
 
-## Manual Recovery Steps
+## Common Issues & Solutions
 
-### Backend (Chat Copilot API)
+### 502 Bad Gateway (Hub Service)
+**Cause**: Backend API not running on port 11000
+
+**Solution**:
 ```bash
-cd /home/keith/chat-copilot/webapi
-dotnet run --urls http://0.0.0.0:11000 > /tmp/backend.log 2>&1 &
+# Check if backend is running
+curl -s http://100.123.10.72:11000/healthz
+
+# If not running, start it
+./config-backups-working/latest/quick-restore.sh
 ```
 
-### Frontend (React App)
+### Configuration Drift After Reboot
+**Cause**: Multiple conflicting startup services (fixed in v4.0)
+
+**Solution**: The new startup system eliminates this issue. If you still experience drift:
 ```bash
-cd /home/keith/chat-copilot/webapp
-REACT_APP_BACKEND_URI=http://100.123.10.72:11000/ yarn start > /tmp/frontend.log 2>&1 &
+# Verify only one startup service is enabled
+systemctl list-unit-files | grep ai-platform
+# Should only show: ai-platform-restore.service enabled
+
+# If other services are enabled, disable them
+sudo systemctl disable ai-platform.service
+sudo systemctl disable ai-platform-gateways.service
+# etc.
 ```
 
-### SSL Certificates
+### Service Port Conflicts
+**Cause**: Services trying to bind to already-used ports
+
+**Solution**:
 ```bash
-sudo mkdir -p /etc/ssl/tailscale
-sudo cp config-backups-working/latest/ssl/tailscale/* /etc/ssl/tailscale/
-sudo chmod 644 /etc/ssl/tailscale/*.crt
-sudo chmod 640 /etc/ssl/tailscale/*.key
-sudo chgrp www-data /etc/ssl/tailscale/*.key
+# Kill conflicting processes
+sudo pkill -f "dotnet.*webapi"
+sudo pkill -f "autogenstudio"
+
+# Restart with quick restore
+./config-backups-working/latest/quick-restore.sh
 ```
 
-### Nginx Configuration
+### SSL Certificate Issues
+**Cause**: Tailscale certificates missing or expired
+
+**Solution**:
 ```bash
-sudo cp config-backups-working/latest/nginx/sites-available/ai-hub.conf /etc/nginx/sites-available/
-sudo nginx -t && sudo systemctl reload nginx
+# Regenerate Tailscale certificates
+./scripts/infrastructure/setup-tailscale-ssl.sh
+
+# Verify certificate status
+./scripts/infrastructure/verify-ssl-setup.sh
 ```
 
-## Critical Files Backed Up
+## Recovery Procedures by Scenario
 
-### Application Configuration
-- `webapi/appsettings.json` - Backend API configuration with OpenAI settings
-- `webapp/.env` - Frontend environment with backend URI
+### Complete System Reboot
+1. **Automatic**: `ai-platform-restore.service` should start everything
+2. **Manual verification**: Run `./check-platform-status.sh`
+3. **If issues**: Run `./config-backups-working/latest/quick-restore.sh`
 
-### Network Configuration  
-- `/etc/nginx/sites-available/ai-hub.conf` - Reverse proxy with ntopng support
-- `/etc/ssl/tailscale/*` - SSL certificates for HTTPS
+### After Configuration Changes
+1. **Backup current state**: `./scripts/backup-working-config.sh`
+2. **Test changes**: Verify services still work
+3. **If broken**: `./config-backups-working/latest/quick-restore.sh`
 
-### Service States
-- Running Docker containers
-- Ollama model list
-- Service startup commands
+### Docker Container Issues
+```bash
+# Stop all containers
+docker stop $(docker ps -q)
 
-## Key Service URLs
+# Remove problematic containers
+docker container prune -f
 
-- **Platform Status**: `./check-platform-status.sh`
-- **Main Access**: https://100.123.10.72:10443/
-- **Chat Copilot**: https://100.123.10.72:10443/copilot/
-- **ntopng Monitor**: https://100.123.10.72:10443/ntopng
-- **Backend Health**: http://100.123.10.72:11000/healthz
+# Restart platform
+./config-backups-working/latest/quick-restore.sh
+```
 
-## Backup Locations
+### Neo4j Database Issues
+```bash
+# Stop Neo4j
+sudo pkill -f neo4j
+docker stop $(docker ps -q --filter "ancestor=neo4j")
 
-- **Latest Backup**: `/home/keith/chat-copilot/config-backups-working/latest/`
-- **All Backups**: `/home/keith/chat-copilot/config-backups-working/`
-- **Manual Backup**: `./scripts/backup-working-config.sh`
+# Clear database locks (if needed)
+sudo rm -f data/databases/*/database_lock
+sudo rm -f genai-stack/data/databases/*/database_lock
 
-## Troubleshooting
+# Restart platform
+./config-backups-working/latest/quick-restore.sh
+```
 
-### Backend 500 Errors
-- Check OpenAI API key in `webapi/appsettings.json`
-- Verify Ollama is running: `curl http://localhost:11434/api/tags`
-- Check logs: `tail -f /tmp/backend.log`
+## Service Endpoints
 
-### Frontend Connection Issues
-- Check `webapp/.env` has correct backend URI
-- Verify backend is responding: `curl http://100.123.10.72:11000/healthz`
-- Check logs: `tail -f /tmp/frontend.log`
+Once recovered, verify these endpoints work:
 
-### HTTPS Issues
-- Verify SSL certificates exist and have correct permissions
-- Check nginx config: `sudo nginx -t`
-- Reload nginx: `sudo systemctl reload nginx`
+### Core Services
+- **Chat Copilot API**: http://100.123.10.72:11000/healthz
+- **Control Panel**: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/hub
+- **Applications**: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/applications.html
 
-## Emergency Contacts
-- Recovery script: `./config-backups-working/latest/quick-restore.sh`
-- Status checker: `./check-platform-status.sh`
-- Full backup: `./scripts/backup-working-config.sh`
+### AI Services
+- **AutoGen Studio**: http://100.123.10.72:11001
+- **Magentic-One**: http://100.123.10.72:11003
+- **Ollama LLM**: http://100.123.10.72:11434/api/version
+
+### Infrastructure
+- **Port Scanner**: http://100.123.10.72:11010
+- **Nginx Proxy Manager**: http://100.123.10.72:11080
+- **VS Code Web**: http://100.123.10.72:57081
+
+## Backup and Restore
+
+### Create Backup
+```bash
+# Create a new backup of current working state
+./scripts/backup-working-config.sh
+
+# Backups are stored in: config-backups-working/YYYYMMDD-HHMMSS/
+```
+
+### Restore from Specific Backup
+```bash
+# List available backups
+ls -la config-backups-working/
+
+# Restore from specific backup
+./config-backups-working/20250622-193657/quick-restore.sh
+```
+
+## Emergency Reset
+
+If all else fails:
+
+```bash
+# Stop everything
+sudo systemctl stop ai-platform-restore.service
+docker stop $(docker ps -q)
+sudo pkill -f "dotnet"
+sudo pkill -f "autogenstudio"
+sudo pkill -f "magentic"
+
+# Wait a moment
+sleep 5
+
+# Start fresh
+./config-backups-working/latest/quick-restore.sh
+```
+
+## Getting Help
+
+1. **Check logs**: `./scripts/platform-management/manage-platform.sh logs`
+2. **Platform status**: `./check-platform-status.sh`
+3. **Validation**: `./scripts/config-management/validate-config.sh`
+
+## File Locations
+
+- **Quick Restore**: `config-backups-working/latest/quick-restore.sh`
+- **Platform Logs**: `logs/`
+- **Service PIDs**: `pids/`
+- **Backups**: `config-backups-working/`
+- **Health Check**: `check-platform-status.sh`
+
+---
+
+**Last Updated**: June 23, 2025 - Startup System v4.0

@@ -1,73 +1,89 @@
 #!/bin/bash
-# Platform Status Checker - verify all services are running properly
+# AI Research Platform Status Checker
+# Quick health check for all services
 
-echo "🔍 AI Research Platform Status Check"
-echo "===================================="
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
 
-# Check Backend API
-echo "Backend API (11000):"
-if curl -s -o /dev/null -w "%{http_code}" "http://100.123.10.72:11000/healthz" | grep -q "200"; then
-    echo "  ✅ Chat Copilot Backend - HEALTHY"
+print_status() {
+    local status=$1
+    local message=$2
+    case $status in
+    "SUCCESS") echo -e "${GREEN}✅ $message${NC}" ;;
+    "ERROR") echo -e "${RED}❌ $message${NC}" ;;
+    "WARNING") echo -e "${YELLOW}⚠️ $message${NC}" ;;
+    "INFO") echo -e "${BLUE}ℹ️ $message${NC}" ;;
+    esac
+}
+
+echo -e "${BLUE}🚀 AI Research Platform Status Check${NC}"
+echo "================================================"
+
+# Check core services
+check_service() {
+    local name=$1
+    local url=$2
+    local description=$3
+    
+    if curl -s --max-time 5 "$url" &>/dev/null; then
+        print_status "SUCCESS" "$name ($description)"
+    else
+        print_status "ERROR" "$name not responding ($description)"
+    fi
+}
+
+echo ""
+echo "🔍 Core Services:"
+check_service "Chat Copilot Backend" "http://100.123.10.72:11000/healthz" "Main API"
+check_service "AutoGen Studio" "http://100.123.10.72:11001/" "Multi-Agent AI"
+check_service "Webhook Server" "http://100.123.10.72:11002/health" "GitHub Integration"
+check_service "Magentic-One" "http://100.123.10.72:11003/" "AI Research"
+
+echo ""
+echo "🛠️ Infrastructure Services:"
+check_service "Port Scanner" "http://100.123.10.72:11010/" "Network Discovery"
+check_service "Nginx Proxy Manager" "http://100.123.10.72:11080/" "Reverse Proxy"
+check_service "Ollama LLM Server" "http://100.123.10.72:11434/api/version" "Local AI Models"
+
+echo ""
+echo "🌐 External Services:"
+check_service "VS Code Web" "http://100.123.10.72:57081/" "Code Editor"
+check_service "Perplexica AI Search" "http://100.123.10.72:11020/" "AI Search"
+check_service "OpenWebUI" "http://100.123.10.72:11880/" "Web Interface"
+
+echo ""
+echo "🔗 HTTPS Access (via Tailscale):"
+print_status "INFO" "Main Hub: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443"
+print_status "INFO" "Control Panel: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/hub"
+print_status "INFO" "Applications: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/applications.html"
+
+echo ""
+echo "🔧 System Status:"
+
+# Check if startup service is running
+if systemctl is-active --quiet ai-platform-restore.service; then
+    print_status "SUCCESS" "ai-platform-restore.service is active"
 else
-    echo "  ❌ Chat Copilot Backend - FAILED"
+    print_status "WARNING" "ai-platform-restore.service is not active"
 fi
 
-# Check Frontend
-echo "Frontend (3000):"
-if curl -s "http://localhost:3000" | grep -q "Chat Copilot"; then
-    echo "  ✅ React Frontend - HEALTHY"
+# Check for conflicting services
+CONFLICTING_SERVICES=$(systemctl list-unit-files | grep -E "ai-platform\.service|ai-platform-gateways\.service|ai-platform-services\.service" | grep enabled || true)
+if [[ -z "$CONFLICTING_SERVICES" ]]; then
+    print_status "SUCCESS" "No conflicting startup services detected"
 else
-    echo "  ❌ React Frontend - FAILED"
-fi
-
-# Check HTTPS Proxy
-echo "HTTPS Proxy (10443):"
-if curl -k -s "https://100.123.10.72:10443/copilot/" | grep -q "Chat Copilot"; then
-    echo "  ✅ HTTPS Proxy - HEALTHY"
-else
-    echo "  ❌ HTTPS Proxy - FAILED"
-fi
-
-# Check ntopng
-echo "ntopng (8888):"
-if curl -s -o /dev/null -w "%{http_code}" "http://localhost:8888" | grep -q "302"; then
-    echo "  ✅ ntopng Network Monitor - HEALTHY"
-else
-    echo "  ❌ ntopng Network Monitor - FAILED"
-fi
-
-# Check Ollama
-echo "Ollama (11434):"
-if curl -s "http://localhost:11434/api/tags" | grep -q "models"; then
-    echo "  ✅ Ollama LLM Service - HEALTHY"
-else
-    echo "  ❌ Ollama LLM Service - FAILED"
-fi
-
-# Check SSL Certificates
-echo "SSL Certificates:"
-if [ -f "/etc/ssl/tailscale/ubuntuaicodeserver-1.tail5137b4.ts.net.crt" ]; then
-    echo "  ✅ SSL Certificates - PRESENT"
-else
-    echo "  ❌ SSL Certificates - MISSING"
-fi
-
-# Check Nginx
-echo "Nginx:"
-if sudo nginx -t 2>/dev/null; then
-    echo "  ✅ Nginx Configuration - VALID"
-else
-    echo "  ❌ Nginx Configuration - INVALID"
+    print_status "WARNING" "Conflicting startup services found - may cause configuration drift"
+    echo "$CONFLICTING_SERVICES"
 fi
 
 echo ""
-echo "🔗 Quick Access URLs:"
-echo "  • Main Platform: https://100.123.10.72:10443/"
-echo "  • Chat Copilot: https://100.123.10.72:10443/copilot/"
-echo "  • Control Panel: https://100.123.10.72:10443/hub"
-echo "  • Applications: https://100.123.10.72:10443/applications.html"
-echo "  • ntopng Monitor: https://100.123.10.72:10443/ntopng"
+echo "📊 Quick Recovery:"
+print_status "INFO" "If services are down, run: ./config-backups-working/latest/quick-restore.sh"
+print_status "INFO" "Platform management: ./scripts/platform-management/manage-platform.sh"
+
 echo ""
-echo "🛠️  If issues found:"
-echo "  • Restore: /home/keith/chat-copilot/config-backups-working/latest/quick-restore.sh"
-echo "  • Logs: tail -f /tmp/backend.log /tmp/frontend.log"
+echo "================================================"

@@ -57,30 +57,22 @@ pip install -e .
 # Services managed via platform scripts
 ```
 
-### Platform Management (Updated v4.0)
+### Platform Management
 ```bash
-# NEW SIMPLIFIED STARTUP SYSTEM (Recommended):
+# User-friendly platform management
+./scripts/platform-management/manage-platform.sh
 
-# 1. AUTOMATIC (Preferred - no user action needed)
-systemctl status ai-platform-restore.service   # Check auto-startup status
+# Start entire platform
+./scripts/platform-management/startup-platform.sh
 
-# 2. MANUAL RESTORE (After reboot or issues)
-./config-backups-working/latest/quick-restore.sh
+# Check platform status
+./scripts/platform-management/check-platform-status.sh
 
-# 3. PLATFORM MANAGEMENT (Updated for new system)
-./scripts/platform-management/manage-platform.sh         # User-friendly interface
-./scripts/platform-management/startup-platform-simple.sh # New simplified startup
+# Stop platform
+./scripts/platform-management/stop-platform.sh
 
-# 4. CONTAINERIZED DEPLOYMENT
-./start-containerized-platform.sh start         # Docker-based platform
-
-# 5. MONITORING AND STATUS
-./check-platform-status.sh                      # Check all services
-./scripts/platform-management/stop-platform.sh # Stop services
-
-# DEPRECATED (legacy compatibility only):
-./scripts/platform-management/startup-platform.sh  # Old complex startup (deprecated)
-./scripts/start.sh                                   # Original Chat Copilot only
+# Quick start (original Chat Copilot)
+./scripts/start.sh
 ```
 
 ### SSL Certificate Management
@@ -161,24 +153,14 @@ python3 python/utilities/check-certificates.py
 - File monitoring for unauthorized changes
 - Configuration drift prevention system
 
-## Development Workflow (Updated v4.0)
+## Development Workflow
 
-1. **Check platform status**: `./check-platform-status.sh` or `systemctl status ai-platform-restore.service`
-2. **Start development**: 
-   - **AUTOMATIC**: `sudo systemctl restart ai-platform-restore.service` (recommended)
-   - **MANUAL**: `./config-backups-working/latest/quick-restore.sh`
-   - **CONTAINERIZED**: `./start-containerized-platform.sh start`
-   - **LEGACY**: `./scripts/start.sh` for basic Chat Copilot only
+1. **Check platform status**: `./scripts/platform-management/manage-platform.sh status`
+2. **Start development**: Use either `./scripts/start.sh` for basic Chat Copilot or full platform startup
 3. **Backend changes**: Work in webapi/ directory, standard .NET development
-4. **Frontend changes**: Work in webapp/ directory, React with hot reload  
-5. **Platform services**: Now managed via simplified startup system (no conflicts)
+4. **Frontend changes**: Work in webapp/ directory, React with hot reload
+5. **Platform services**: Managed via Docker Compose and management scripts
 6. **GenAI Stack development**: Work in genai-stack/ directory for knowledge graph applications
-
-### 🚨 IMPORTANT CHANGES IN v4.0:
-- **Simplified Startup**: Replaced complex multi-service system with single `ai-platform-restore.service`
-- **No Conflicts**: Removed all conflicting SystemD services and cron jobs
-- **Automatic Recovery**: System automatically restores working configuration after reboot
-- **Backup-Based**: Uses proven backup/restore mechanism for reliable startup
 
 ## Testing & Quality
 
@@ -368,66 +350,10 @@ cp webapp/public/applications.html webapi/wwwroot/
 - ✅ Verified shell script permissions and executable status
 
 ### Backup & Restore System
-- **Quick Restore**: `./config-backups-working/latest/quick-restore.sh` (one-command post-reboot fix)
+- **Quick Restore**: `./scripts/quick-restore.sh` (one-command post-reboot fix)
 - **Create Backup**: `./scripts/backup-working-config.sh`
-- **Health Check**: `./check-platform-status.sh`
-- **Recovery Guide**: `./RECOVERY_GUIDE.md` - Complete recovery documentation
+- **Health Check**: `./scripts/check-platform-health.sh`
+- **Auto-Restore**: Systemd service enabled for automatic restoration on boot
 - **Backup Location**: `/home/keith/chat-copilot/config-backups-working/latest/`
 
-### Current Working Configuration (Backed Up)
-- **Backend**: Chat Copilot API with OpenAI integration (GPT-4o + text-embedding-ada-002)
-- **Frontend**: React app connected to backend API
-- **nginx**: Reverse proxy with ntopng support and SSL termination
-- **ntopng**: Network monitoring at `/ntopng` and `/lua/login.lua`
-- **SSL**: Tailscale certificates with proper permissions
-- **Status**: All services healthy and accessible via HTTPS
-
-Last backup: Mon Jun 23 03:04:04 AM EDT 2025
-
-## Startup System v4.0 - Major Changes (June 2025)
-
-### 🔧 **What Changed:**
-The platform startup system was completely redesigned to eliminate configuration conflicts and ensure reliable operation after reboots.
-
-### ⚠️ **Problem Solved:**
-- **Configuration Drift**: Multiple competing startup systems were overwriting each other
-- **Service Conflicts**: 8+ conflicting SystemD services caused startup failures  
-- **Unreliable Recovery**: Complex dependencies led to boot failures
-
-### ✅ **New Simplified System:**
-
-**ONLY ONE SERVICE:**
-- `ai-platform-restore.service` - Handles everything automatically
-- Runs `config-backups-working/latest/quick-restore.sh` on boot
-- 30-second delay ensures Docker/nginx are ready
-- No conflicts, no race conditions
-
-**REMOVED SERVICES:**
-- `ai-platform-gateways.service` ❌ 
-- `ai-platform-external.service` ❌
-- `ai-platform-python.service` ❌  
-- `ai-platform-services.service` ❌
-- `ai-platform-ssl.service` ❌
-- `ai-platform.service` ❌
-- `genai-stack-services.service` ❌
-- `neo4j-genai.service` ❌
-- `ai-platform.target` ❌
-- Cron startup job ❌
-
-**STARTUP METHODS:**
-1. **AUTOMATIC** (default): `systemctl status ai-platform-restore.service`
-2. **MANUAL**: `./config-backups-working/latest/quick-restore.sh`  
-3. **CONTAINERIZED**: `./start-containerized-platform.sh start`
-
-### 🎯 **Benefits:**
-- ✅ **Reliable**: No more configuration conflicts after reboot
-- ✅ **Simple**: One service handles everything  
-- ✅ **Fast**: Quick restore from proven backup
-- ✅ **Conflict-Free**: All competing services removed
-- ✅ **Maintainable**: Clear, single startup path
-
-### 📚 **Updated Scripts:**
-- `startup-platform.sh` → Shows deprecation warning
-- `startup-platform-simple.sh` → New recommended tool
-- `manage-platform.sh` → Updated for new system
-- Python scripts → Updated with migration notices
+Last backup: Sun Jun 22 07:36:57 PM EDT 2025

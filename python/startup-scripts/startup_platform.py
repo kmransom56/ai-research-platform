@@ -1,63 +1,10 @@
 #!/usr/bin/env python3
 """
-AI Research Platform Manager - DEPRECATED
-This script has been replaced by a simplified startup system.
-Use: ai-platform-restore.service or quick-restore.sh
+AI Research Platform Manager with Power Automate Integration
+Extended for device management and config backup cleanup
 Author: Automated Infrastructure Management
-Version: 4.0 - DEPRECATED
-
-NEW STARTUP METHODS:
-1. SystemD service: ai-platform-restore.service (automatic)
-2. Manual restore: config-backups-working/latest/quick-restore.sh
-3. Containerized: start-containerized-platform.sh
+Version: 4.0
 """
-
-import sys
-import subprocess
-from pathlib import Path
-
-def show_deprecation_notice():
-    """Show deprecation notice and redirect to new startup system."""
-    print("⚠️  WARNING: This Python startup script is DEPRECATED")
-    print()
-    print("The AI Research Platform now uses a simplified startup system:")
-    print("• AUTOMATIC: ai-platform-restore.service (enabled by default)")
-    print("• MANUAL: config-backups-working/latest/quick-restore.sh")
-    print("• CONTAINERIZED: start-containerized-platform.sh")
-    print()
-    print("For platform management, use:")
-    print("  ./scripts/platform-management/startup-platform-simple.sh")
-    print()
-    
-    choice = input("Continue with deprecated startup? (y/N): ").lower()
-    if choice not in ['y', 'yes']:
-        print("Exiting. Use the new startup system instead.")
-        sys.exit(0)
-    
-    print("Continuing with legacy startup (not recommended)...")
-    print()
-
-def run_new_startup():
-    """Run the new simplified startup system."""
-    platform_dir = Path("/home/keith/chat-copilot")
-    restore_script = platform_dir / "config-backups-working/latest/quick-restore.sh"
-    
-    if restore_script.exists():
-        print("Running new quick-restore startup system...")
-        subprocess.run([str(restore_script)], check=True)
-    else:
-        print("❌ Quick restore script not found")
-        print("Run backup script to create restore point first")
-        sys.exit(1)
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--new":
-        run_new_startup()
-        sys.exit(0)
-    
-    show_deprecation_notice()
-
-# Original deprecated code follows...
 
 import asyncio
 import json

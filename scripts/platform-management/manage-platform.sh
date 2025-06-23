@@ -1,7 +1,6 @@
 #!/bin/bash
-# User-Friendly Platform Management Interface - UPDATED
+# User-Friendly Platform Management Interface
 # Simple commands for users to manage the AI Research Platform
-# Updated for new simplified startup system (v4.0)
 
 SCRIPT_DIR="/home/keith/chat-copilot"
 LOG_FILE="$SCRIPT_DIR/logs/management.log"
@@ -93,49 +92,30 @@ show_status() {
     print_status "INFO" "   💬 OpenWebUI: http://100.123.10.72:11880"
 }
 
-# Function to start platform (UPDATED)
+# Function to start platform
 start_platform() {
     print_status "HEADER" "Starting AI Research Platform"
     log "User requested platform start"
 
-    print_status "INFO" "Using new simplified startup system"
-    
-    # Check if ai-platform-restore.service is available
-    if systemctl is-enabled ai-platform-restore.service &>/dev/null; then
-        print_status "INFO" "Running ai-platform-restore.service..."
-        sudo systemctl restart ai-platform-restore.service
-        sleep 5
-        
-        if systemctl is-active ai-platform-restore.service &>/dev/null; then
-            print_status "SUCCESS" "Platform started successfully via SystemD service"
+    # Run configuration validation first
+    if [ -f "$SCRIPT_DIR/validate-config.sh" ]; then
+        print_status "INFO" "Validating configuration..."
+        if "$SCRIPT_DIR/validate-config.sh" >>"$LOG_FILE" 2>&1; then
+            print_status "SUCCESS" "Configuration validation passed"
         else
-            print_status "WARNING" "SystemD service failed, trying manual restore..."
-            start_manual_restore
+            print_status "WARNING" "Configuration issues detected - attempting to fix"
         fi
-    else
-        print_status "INFO" "SystemD service not available, using manual restore..."
-        start_manual_restore
     fi
-    
-    echo ""
-    show_status
-}
 
-# Function to start via manual restore
-start_manual_restore() {
-    local restore_script="$SCRIPT_DIR/config-backups-working/latest/quick-restore.sh"
-    
-    if [ -f "$restore_script" ]; then
-        print_status "INFO" "Running quick restore script..."
-        if bash "$restore_script" >>"$LOG_FILE" 2>&1; then
-            print_status "SUCCESS" "Platform started via manual restore"
-        else
-            print_status "ERROR" "Manual restore failed - check logs"
-            print_status "INFO" "Log file: $LOG_FILE"
-        fi
+    # Start platform
+    print_status "INFO" "Starting services..."
+    if "$SCRIPT_DIR/startup-platform.sh" >>"$LOG_FILE" 2>&1; then
+        print_status "SUCCESS" "Platform started successfully"
+        echo ""
+        show_status
     else
-        print_status "ERROR" "Quick restore script not found"
-        print_status "INFO" "Run backup script to create restore point first"
+        print_status "ERROR" "Platform startup failed - check logs"
+        print_status "INFO" "Log file: $LOG_FILE"
     fi
 }
 
