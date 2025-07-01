@@ -8,7 +8,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
+        - subnet: 172.23.0.0/16
 
 volumes:
   caddy_data:
@@ -26,6 +26,18 @@ volumes:
   webhook_logs:
     driver: local
   platform_logs:
+    driver: local
+  openwebui_data:
+    driver: local
+  vscode_config:
+    driver: local
+  neo4j_data:
+    driver: local
+  neo4j_logs:
+    driver: local
+  neo4j_import:
+    driver: local
+  genai_embedding_model:
     driver: local
 
 services:
@@ -64,7 +76,7 @@ services:
   # Chat Copilot Backend (.NET WebAPI)
   chat-copilot-backend:
     build:
-      context: .
+      context: ../../
       dockerfile: docker/webapi/Dockerfile
     container_name: ai-platform-chat-backend
     restart: unless-stopped
@@ -83,7 +95,7 @@ services:
       - "11000:80"
     volumes:
       - platform_logs:/app/logs
-      - ./appsettings.json:/app/appsettings.json:ro
+      - ../../webapi/appsettings.json:/app/appsettings.json:ro
     networks:
       ai-platform:
         ipv4_address: 172.20.0.20
@@ -100,7 +112,7 @@ services:
   # Chat Copilot Frontend (React)
   chat-copilot-frontend:
     build:
-      context: ./webapp
+      context: ../../webapp
       dockerfile: Dockerfile
       args:
         - NODE_ENV=production
@@ -127,7 +139,7 @@ services:
   # AutoGen Studio (Python Multi-Agent System)
   autogen-studio:
     build:
-      context: ./python/autogen-studio
+      context: ../../python/autogen-studio
       dockerfile: Dockerfile
     container_name: ai-platform-autogen
     restart: unless-stopped
@@ -139,7 +151,7 @@ services:
     ports:
       - "11001:8081"
     volumes:
-      - ./python/autogen-studio/config:/app/config:ro
+      - ../../python/autogen-studio/config:/app/config:ro
       - platform_logs:/app/logs
     networks:
       ai-platform:
@@ -153,7 +165,7 @@ services:
   # Webhook Server (Node.js GitHub Integration)
   webhook-server:
     build:
-      context: ./runtime-data
+      context: ../../runtime-data
       dockerfile: Dockerfile.webhook
     container_name: ai-platform-webhook
     restart: unless-stopped
@@ -180,7 +192,7 @@ services:
   # Magentic-One (Microsoft Multi-Agent)
   magentic-one:
     build:
-      context: ./python/services
+      context: ../../python/services
       dockerfile: Dockerfile
     container_name: ai-platform-magentic
     restart: unless-stopped
@@ -284,7 +296,7 @@ services:
     ports:
       - "11021:8080"
     volumes:
-      - ./configs/searxng:/etc/searxng:ro
+      - ../../configs/searxng:/etc/searxng:ro
     networks:
       ai-platform:
         ipv4_address: 172.20.0.32
@@ -305,7 +317,7 @@ services:
     ports:
       - "57081:8080"
     volumes:
-      - .:/home/coder/workspace
+      - ../../:/home/coder/workspace
       - vscode_config:/home/coder/.config
     networks:
       ai-platform:
@@ -374,7 +386,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./sql/init:/docker-entrypoint-initdb.d:ro
+      - ../../sql/init:/docker-entrypoint-initdb.d:ro
     networks:
       ai-platform:
         ipv4_address: 172.20.0.42
@@ -391,7 +403,7 @@ services:
   # Health Monitor Service
   health-monitor:
     build:
-      context: ./scripts/platform-management
+      context: ../../scripts/platform-management
       dockerfile: Dockerfile.monitoring
     container_name: ai-platform-monitor
     restart: unless-stopped
@@ -446,7 +458,7 @@ services:
   # GenAI Stack Data Loader
   genai-stack-loader:
     build:
-      context: ./genai-stack
+      context: ../../genai-stack
       dockerfile: loader.Dockerfile
     container_name: ai-platform-genai-loader
     restart: unless-stopped
@@ -480,7 +492,7 @@ services:
   # GenAI Stack Support Bot
   genai-stack-bot:
     build:
-      context: ./genai-stack
+      context: ../../genai-stack
       dockerfile: bot.Dockerfile
     container_name: ai-platform-genai-bot
     restart: unless-stopped
@@ -514,7 +526,7 @@ services:
   # GenAI Stack PDF Reader
   genai-stack-pdf:
     build:
-      context: ./genai-stack
+      context: ../../genai-stack
       dockerfile: pdf_bot.Dockerfile
     container_name: ai-platform-genai-pdf
     restart: unless-stopped
@@ -546,7 +558,7 @@ services:
   # GenAI Stack API Server
   genai-stack-api:
     build:
-      context: ./genai-stack
+      context: ../../genai-stack
       dockerfile: api.Dockerfile
     container_name: ai-platform-genai-api
     restart: unless-stopped
@@ -585,7 +597,7 @@ services:
   # GenAI Stack Frontend
   genai-stack-frontend:
     build:
-      context: ./genai-stack
+      context: ../../genai-stack
       dockerfile: front-end.Dockerfile
     container_name: ai-platform-genai-frontend
     restart: unless-stopped
@@ -597,12 +609,3 @@ services:
     depends_on:
       genai-stack-api:
         condition: service_healthy
-
-# Additional volume definitions for external services
-volumes:
-  openwebui_data:
-  vscode_config:
-  neo4j_data:
-  neo4j_logs:
-  neo4j_import:
-  genai_embedding_model:

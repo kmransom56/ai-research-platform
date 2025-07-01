@@ -67,6 +67,7 @@ docker run -d \
   -v /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:/etc/ssl/certs/server.crt:ro \
   -v /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:/etc/ssl/private/server.key:ro \
   -v /home/keith/chat-copilot/configs/nginx/nginx-ssl.conf:/etc/nginx/nginx.conf:ro \
+  -v /home/keith/chat-copilot/nginx-configs/ssl-main.conf:/etc/nginx/conf.d/ssl-main.conf:ro \
   -v /home/keith/chat-copilot/webapi/wwwroot:/var/www/html:ro \
   --network host \
   nginx:alpine

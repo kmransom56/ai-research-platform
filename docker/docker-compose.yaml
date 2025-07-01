@@ -18,7 +18,7 @@ services:
       context: ..
       dockerfile: docker/webapp/Dockerfile.nginx
       args:
-        - REACT_APP_BACKEND_URI=https://100.123.10.72:3080
+        - REACT_APP_BACKEND_URI=http://100.123.10.72:3080
     ports:
       - "0.0.0.0:3000:3000"  # Bind to all interfaces for Tailscale access
     depends_on:

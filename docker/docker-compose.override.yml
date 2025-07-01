@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  chat-copilot-webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KernelMemory__Services__OpenAI__APIType=OpenAI
+      - KernelMemory__Services__OpenAI__APIKey=${OpenAI__ApiKey:-your-key-here}
+      - OpenAI__ApiKey=${OpenAI__ApiKey:-your-key-here}
+    restart: unless-stopped
+    
+  chat-copilot-memorypipeline:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KernelMemory__Services__OpenAI__APIType=OpenAI
+      - KernelMemory__Services__OpenAI__APIKey=${OpenAI__ApiKey:-your-key-here}
+    restart: unless-stopped

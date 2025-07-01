@@ -1,0 +1,19 @@
+NAMES                       STATUS                    PORTS
+genai-stack_front-end_1     Up 11 minutes             0.0.0.0:8505->8505/tcp, [::]:8505->8505/tcp
+genai-stack_bot_1           Up 11 minutes (healthy)   0.0.0.0:8501->8501/tcp, [::]:8501->8501/tcp
+genai-stack_loader_1        Up 11 minutes (healthy)   0.0.0.0:8502->8502/tcp, [::]:8502->8502/tcp, 0.0.0.0:8509->8080/tcp, [::]:8509->8080/tcp
+genai-stack_api_1           Up 11 minutes (healthy)   0.0.0.0:8504->8504/tcp, [::]:8504->8504/tcp
+genai-stack_pdf_bot_1       Up 11 minutes (healthy)   0.0.0.0:8503->8503/tcp, [::]:8503->8503/tcp
+genai-stack_database_1      Up 11 minutes (healthy)   0.0.0.0:7474->7474/tcp, [::]:7474->7474/tcp, 7473/tcp, 0.0.0.0:7687->7687/tcp, [::]:7687->7687/tcp
+ai-platform-vscode-simple   Up 11 minutes (healthy)   0.0.0.0:57081->8080/tcp, [::]:57081->8080/tcp
+nginx-proxy-manager         Up 11 minutes             0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:11082->81/tcp, [::]:11082->81/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+windmill-server             Up 11 minutes             0.0.0.0:11006->8000/tcp, [::]:11006->8000/tcp
+magentic-one                Up 11 minutes             0.0.0.0:11003->11003/tcp, [::]:11003->11003/tcp
+windmill-worker             Up 11 minutes             8000/tcp
+windmill-db                 Up 11 minutes             5432/tcp
+autogen-studio              Up 11 minutes             0.0.0.0:11001->8081/tcp, [::]:11001->8081/tcp
+bacula-backup               Up 11 minutes             0.0.0.0:11083->80/tcp, [::]:11083->80/tcp
+perplexica                  Up 11 minutes             0.0.0.0:11020->3000/tcp, [::]:11020->3000/tcp
+http-gateway                Up 11 minutes             0.0.0.0:11081->80/tcp, [::]:11081->80/tcp
+searxng                     Up 11 minutes (healthy)   0.0.0.0:11021->8080/tcp, [::]:11021->8080/tcp
+openwebui                   Up 11 minutes (healthy)   0.0.0.0:11880->8080/tcp, [::]:11880->8080/tcp

@@ -1,0 +1,9 @@
+total 32
+drwxr-xr-x 2 root root     4096 Jun 23 04:11 .
+drwxr-xr-x 6 root root     4096 Jun 23 04:11 ..
+-rw-r--r-- 1 root root     2916 Jun 23 11:30 autogen.ubuntuaicodeserver-1.tail5137b4.ts.net.crt
+-rw-r----- 1 root www-data  227 Jun 23 11:30 autogen.ubuntuaicodeserver-1.tail5137b4.ts.net.key
+-rw-r--r-- 1 root www-data 2916 Jun 23 11:30 ubuntuaicodeserver-1.tail5137b4.ts.net.crt
+-rw-r----- 1 root www-data  227 Jun 23 11:30 ubuntuaicodeserver-1.tail5137b4.ts.net.key
+-rw-r--r-- 1 root root     1464 Jun 23 11:30 windmill.local.crt
+-rw-r----- 1 root www-data 1704 Jun 23 11:30 windmill.local.key
