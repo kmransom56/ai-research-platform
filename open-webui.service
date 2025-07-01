@@ -1,0 +1,27 @@
+[Unit]
+Description=Open WebUI - AI Chat Interface
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=PATH=/home/keith/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/home/keith/venv/bin/open-webui serve --host 100.123.10.72 --port 11880
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=open-webui
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/keith/chat-copilot
+
+[Install]
+WantedBy=multi-user.target
