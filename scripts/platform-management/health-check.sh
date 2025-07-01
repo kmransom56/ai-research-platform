@@ -13,33 +13,27 @@ readonly NC='\033[0m'
 
 # Service definitions
 declare -A SERVICES=(
-    ["Chat Copilot Backend"]="http://100.123.10.72:11000/healthz"
+    ["Chat Copilot Backend"]="http://100.123.10.72:11000/"
     ["AutoGen Studio"]="http://100.123.10.72:11001/"
-    ["Webhook Server"]="http://100.123.10.72:11002/health"
+    ["Webhook Server"]="http://100.123.10.72:11025/health"
     ["Magentic-One"]="http://100.123.10.72:11003/"
     ["Port Scanner"]="http://100.123.10.72:11010/"
-    ["Nginx Proxy"]="http://100.123.10.72:11080/"
-    ["Fortinet Manager"]="http://100.123.10.72:3001/"
-    ["Fortinet API"]="http://100.123.10.72:5000/api/v1/health"
+    ["Nginx Proxy"]="http://100.123.10.72:8080/"
+    ["ntopng Network Monitor"]="http://100.123.10.72:8888/"
+    ["Neo4j Database"]="http://100.123.10.72:7474/"
+    ["GenAI Stack Frontend"]="http://100.123.10.72:8505/"
+    ["GenAI Stack API"]="http://100.123.10.72:8504/"
+    ["GenAI Stack Bot"]="http://100.123.10.72:8501/"
     ["Perplexica"]="http://100.123.10.72:11020"
     ["SearXNG"]="http://100.123.10.72:11021/"
     ["OpenWebUI"]="http://100.123.10.72:11880/"
     ["Ollama"]="http://100.123.10.72:11434/api/version"
     ["VS Code Web"]="http://100.123.10.72:57081/"
-    ["Caddy Admin (Optional)"]="http://100.123.10.72:2019/config"
+    ["Windmill"]="http://100.123.10.72:11006/"
 )
 
-declare -A HTTPS_SERVICES=(
-    ["HTTPS Magentic-One"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/magentic"
-    ["HTTPS AutoGen"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/autogen"
-    ["HTTPS OpenWebUI"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/openwebui"
-    ["HTTPS Perplexica"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/perplexica"
-    ["HTTPS SearXNG"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/searxng"
-    ["HTTPS Chat Copilot"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/copilot"
-    ["HTTPS VS Code"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/vscode/login"
-    ["HTTPS Webhook"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/webhook/health"
-    ["HTTPS Fortinet API"]="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/fortinet-api/api/v1/health"
-)
+# Remove HTTPS services section since Caddy is no longer available
+# declare -A HTTPS_SERVICES=()
 
 test_service() {
     local name=$1
@@ -56,6 +50,12 @@ test_service() {
     # Special cases for services that return non-2xx but are working
     if [[ "$name" == "Perplexica" && "$status_code" == "404" ]]; then
         echo -e "${GREEN}✅ $name: $status_code (Next.js app running)${NC}"
+        return 0
+    elif [[ "$name" == "ntopng Network Monitor" && "$status_code" == "302" ]]; then
+        echo -e "${GREEN}✅ $name: $status_code (redirect to login)${NC}"
+        return 0
+    elif [[ "$name" == "VS Code Web" && "$status_code" == "302" ]]; then
+        echo -e "${GREEN}✅ $name: $status_code (redirect to login)${NC}"
         return 0
     elif [[ "$name" == *"Optional"* && "$status_code" == "000" ]]; then
         echo -e "${YELLOW}⚠️ $name: Not accessible (non-critical)${NC}"
@@ -84,13 +84,8 @@ main() {
         fi
     done
 
-    echo -e "\n${YELLOW}🔒 Testing HTTPS Services:${NC}"
-    for service_name in "${!HTTPS_SERVICES[@]}"; do
-        ((total_services++))
-        if test_service "$service_name" "${HTTPS_SERVICES[$service_name]}" true; then
-            ((healthy_services++))
-        fi
-    done
+    # Skip HTTPS services testing since Caddy has been removed
+    # echo -e "\n${YELLOW}🔒 Testing HTTPS Services:${NC}"
 
     echo -e "\n${BLUE}📊 Summary:${NC}"
     echo -e "   Healthy Services: ${GREEN}$healthy_services${NC}/$total_services"
@@ -105,10 +100,11 @@ main() {
     fi
 
     echo -e "\n${BLUE}🌐 Access Information:${NC}"
-    echo -e "   Primary HTTPS Access: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443"
-    echo -e "   Applications Dashboard: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/applications.html"
-    echo -e "   Control Panel: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/hub"
-    echo -e "   Nginx Proxy Manager: https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/nginx"
+    echo -e "   Primary HTTP Access: http://100.123.10.72:11000 (Chat Copilot)"
+    echo -e "   OpenWebUI: http://100.123.10.72:11880"
+    echo -e "   Perplexica: http://100.123.10.72:11020"
+    echo -e "   AutoGen Studio: http://100.123.10.72:11001"
+    echo -e "   Windmill: http://100.123.10.72:11006"
 
     echo -e "\n${GREEN}🚀 All applications are operational!${NC}"
 

@@ -43,7 +43,7 @@ readonly NC='\033[0m' # No Color
 declare -A CORE_SERVICES=(
     ["chat-copilot-backend"]="11000|cd $PLATFORM_DIR/webapi && dotnet run --urls http://0.0.0.0:11000|/healthz"
     ["autogen-studio"]="11001|autogenstudio ui --port 11001 --host 0.0.0.0|/"
-    ["webhook-server"]="11002|node $PLATFORM_DIR/runtime-data/webhook-server.js|/health"
+    ["webhook-server"]="11025|node $PLATFORM_DIR/runtime-data/webhook-server.js|/health"
     ["magentic-one"]="11003|python $PLATFORM_DIR/python/services/magentic_one_server.py|/health"
 )
 
@@ -54,10 +54,7 @@ declare -A INFRA_SERVICES=(
 
 # Docker Services
 declare -A DOCKER_SERVICES=(
-    ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
-    ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
-    ["fortinet-api"]="5000|/home/keith/fortinet-manager/docker-compose.yml|/api/status"
-    ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-configs/docker-compose.caddy.yml|/config/"
+    ["nginx-proxy"]="8080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["perplexica-stack"]="11020|$PLATFORM_DIR/perplexica/compose.yaml|/perplexica"
     ["searxng"]="11021|$PLATFORM_DIR/searxng/docker-compose.yml|/"
     ["openwebui"]="11880|$PLATFORM_DIR/openwebui/docker-compose.yml|/"

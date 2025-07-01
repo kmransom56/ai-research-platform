@@ -235,7 +235,8 @@
 
                 <div class="app-card ai-category">
                     <h3>Neo4j GenAI Stack <span class="status ready">🟡 Ready</span></h3>
-                    <p>Knowledge Graph AI Platform with RAG capabilities - Build intelligent applications with graph-based data</p>
+                    <p>Knowledge Graph AI Platform with RAG capabilities - Build intelligent applications with
+                        graph-based data</p>
                     <a href="/genai-stack" class="app-link" target="_blank">Launch GenAI Stack</a>
                 </div>
 
@@ -265,9 +266,10 @@
                 </div>
 
                 <div class="app-card network-category">
-                    <h3>Fortinet Manager <span class="status active">✅ Active</span></h3>
-                    <p>Network Security Management UI for infrastructure control</p>
-                    <a href="/fortinet" class="app-link" target="_blank">Launch Manager</a>
+                    <h3>ntopng Network Monitor <span class="status active">✅ Active</span></h3>
+                    <p>Real-time Network Traffic Analysis and Monitoring Dashboard</p>
+                    <a href="http://100.123.10.72:8888/" class="app-link" target="_blank" rel="noopener">Launch
+                        ntopng</a>
                 </div>
 
                 <div class="app-card network-category">
@@ -342,14 +344,15 @@
                 <a href="/perplexica" class="quick-link" target="_blank">🔍 AI Search</a>
                 <a href="/searxng" class="quick-link" target="_blank">🕵️ SearXNG</a>
                 <a href="/portscanner" class="quick-link" target="_blank">📡 Port Scanner</a>
+                <a href="http://100.123.10.72:8888/" class="quick-link" target="_blank" rel="noopener">📊 ntopng</a>
                 <a href="/vscode" class="quick-link" target="_blank">💻 Code Editor</a>
                 <a href="/nginx" class="quick-link" target="_blank">⚙️ Nginx</a>
-                <a href="/fortinet" class="quick-link" target="_blank">🛡️ Fortinet</a>
                 <a href="/webhook" class="quick-link" target="_blank">🔗 Webhook</a>
                 <a href="/copilot/healthz" class="quick-link" target="_blank">🏥 Health</a>
                 <a href="/genai-stack" class="quick-link" target="_blank">🧠 GenAI Stack</a>
                 <a href="/neo4j" class="quick-link" target="_blank">📊 Neo4j</a>
-                <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11005" class="quick-link" target="_blank">⚡ Windmill</a>
+                <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11005" class="quick-link" target="_blank">⚡
+                    Windmill</a>
             </div>
         </div>
 
@@ -418,8 +421,8 @@
             const CURRENT_HOST = window.location.port
                 ? window.location.host
                 : `${window.location.hostname}:${DEFAULT_PORT}`;
-            const CURRENT_BASE = window.location.protocol === 'https:' 
-                ? `https://${CURRENT_HOST}` 
+            const CURRENT_BASE = window.location.protocol === 'https:'
+                ? `https://${CURRENT_HOST}`
                 : `https://${window.location.hostname}:8443`;
 
             // Mapping of legacy container ports → path prefixes handled by Caddy
@@ -435,8 +438,7 @@
                 '3999': '/perplexica/',
                 '4000': '/searxng/',
                 '57081': '/vscode/',
-                '3001': '/fortinet/',
-                '5000': '/fortinet-api/',
+                '8888': 'http://100.123.10.72:8888/',
                 '11005': '/windmill/'
             };
 

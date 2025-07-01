@@ -1,5 +1,10 @@
 #!/bin/bash
-# AI Research Platform Startup Script - Clean & Maintainable
+# AI Research Platform Startup Script
+# Docker Services - CORRECTED FORMAT
+declare -A DOCKER_SERVICES=(
+    ["nginx-proxy"]="11082|/home/keith/nginx_config/docker-compose.nginx-ssl.yml|/"
+    ["perplexica-stack"]="11020|$PLATFORM_DIR/perplexica/compose.yaml|/"
+)
 # Standardized Port Range: 11000-12000
 # Author: Automated Infrastructure Management
 # Version: 3.1 - Fixed Perplexica integration and function definitions
@@ -40,7 +45,7 @@ readonly NC='\033[0m' # No Color
 declare -A CORE_SERVICES=(
     ["chat-copilot-backend"]="11000|cd $PLATFORM_DIR/webapi && dotnet run --urls http://0.0.0.0:11000|/healthz"
     ["autogen-studio"]="11001|autogenstudio ui --port 11001 --host 0.0.0.0|/"
-    ["webhook-server"]="11002|node $PLATFORM_DIR/webhook-server.js|/health"
+    ["webhook-server"]="11025|node $PLATFORM_DIR/webhook-server.js|/health"
     ["magentic-one"]="11003|python $PLATFORM_DIR/python/services/magentic_one_server.py|/health"
 )
 
@@ -51,9 +56,7 @@ declare -A INFRA_SERVICES=(
 
 # Docker Services - CORRECTED FORMAT
 declare -A DOCKER_SERVICES=(
-    ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
-    ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
-    ["caddy-proxy"]="10443|$PLATFORM_DIR/docker-compose.caddy.yml|/config/"
+    ["nginx-proxy"]="8080|/home/keith/nginx_config/docker-compose.nginx-ssl.yml|/"
     ["perplexica-stack"]="11020|/home/keith/perplexica/compose.yaml|/"
 )
 
@@ -487,7 +490,7 @@ EOF
                 "port": $port,
                 "status": "$status",
                 "local_url": "http://${host}:${port}",
-                "tailscale_url": "https://${TAILSCALE_DOMAIN}:10443/${service_name}/"
+                "tailscale_url": "http://${TAILSCALE_DOMAIN}:${port}/"
             }
 EOF
         done
@@ -511,7 +514,7 @@ display_access_information() {
     echo "   🤖 Chat Copilot: http://100.123.10.72:11000"
     echo "   🌟 AutoGen Studio: http://100.123.10.72:11001"
     echo "   💫 Magentic-One: http://100.123.10.72:11003"
-    echo "   🔗 Webhook Server: http://100.123.10.72:11002"
+    echo "   🔗 Webhook Server: http://100.123.10.72:11025"
     echo "   🔍 Port Scanner: http://100.123.10.72:11010"
 
     echo -e "\n${GREEN}🔍 SEARCH & AI:${NC}"
@@ -520,26 +523,25 @@ display_access_information() {
     echo "   🌐 OpenWebUI: http://100.123.10.72:11880"
 
     echo -e "\n${BLUE}🛠️ INFRASTRUCTURE:${NC}"
-    echo "   🔧 Nginx Proxy: http://100.123.10.72:11080"
+    echo "   🔧 Nginx Proxy: http://100.123.10.72:8080"
     echo "   🦙 Ollama LLM: http://localhost:11434"
     echo "   💻 VS Code Web: http://100.123.10.72:57081"
 
     if check_tailscale; then
-        echo -e "\n${GREEN}📱 TAILSCALE ACCESS (HTTPS):${NC}"
-        echo "   🌐 Main Hub: https://$TAILSCALE_DOMAIN:10443/"
-        echo "   🤖 Chat Copilot: https://$TAILSCALE_DOMAIN:10443/chat-copilot/"
-        echo "   🌟 AutoGen Studio: https://$TAILSCALE_DOMAIN:10443/autogen-studio/"
-        echo "   💫 Magentic-One: https://$TAILSCALE_DOMAIN:10443/magentic-one/"
-        echo "   🔗 Webhook Server: https://$TAILSCALE_DOMAIN:10443/webhook-server/"
-        echo "   🔍 Port Scanner: https://$TAILSCALE_DOMAIN:10443/port-scanner/"
-        echo "   🧠 Perplexica: https://$TAILSCALE_DOMAIN:10443/perplexica/"
-        echo "   🔎 SearXNG: https://$TAILSCALE_DOMAIN:10443/searxng/"
-        echo "   🌐 OpenWebUI: https://$TAILSCALE_DOMAIN:10443/openwebui/"
-        echo "   🔧 Nginx Proxy: https://$TAILSCALE_DOMAIN:10443/nginx-proxy/"
+        echo -e "\n${GREEN}📱 TAILSCALE ACCESS (HTTP):${NC}"
+        echo "   🤖 Chat Copilot: http://$TAILSCALE_DOMAIN:11000"
+        echo "   🌟 AutoGen Studio: http://$TAILSCALE_DOMAIN:11001"
+        echo "   💫 Magentic-One: http://$TAILSCALE_DOMAIN:11003"
+        echo "   🔗 Webhook Server: http://$TAILSCALE_DOMAIN:11025"
+        echo "   🔍 Port Scanner: http://$TAILSCALE_DOMAIN:11010"
+        echo "   🧠 Perplexica: http://$TAILSCALE_DOMAIN:11020"
+        echo "   🔎 SearXNG: http://$TAILSCALE_DOMAIN:11021"
+        echo "   🌐 OpenWebUI: http://$TAILSCALE_DOMAIN:11880"
+        echo "   🔧 Nginx Proxy: http://$TAILSCALE_DOMAIN:8080"
         echo -e "\n${YELLOW}📱 Mobile Setup:${NC}"
         echo "   1. Install Tailscale app"
         echo "   2. Connect with same account"
-        echo "   3. Bookmark: https://$TAILSCALE_DOMAIN:10443/"
+        echo "   3. Access via: http://$TAILSCALE_DOMAIN:11000"
     else
         echo -e "\n${YELLOW}📱 TAILSCALE SETUP:${NC}"
         echo "   Install: curl -fsSL https://tailscale.com/install.sh | sh"

@@ -282,6 +282,9 @@ cd webapp && npx playwright test
 ## Important Notes
 
 - **Port standardization**: All services use 11000-12000 range, GenAI Stack uses 8501-8505
+- **Certificate automation**: CA server integration at https://192.168.0.2 with fallback systems
+- **Application deployment**: Standardized addition process with validation and rollback
+- **Windmill integration**: Workflow automation with SSL access on port 11005
 - **Tailscale integration**: Secure network access across devices
 - **Multi-agent AI**: AutoGen Studio enables collaborative AI workflows
 - **Local LLMs**: Ollama supports 7+ models including llama3.2, deepseek-coder
@@ -294,9 +297,11 @@ cd webapp && npx playwright test
 
 ### Health Checks
 - Backend: http://localhost:11000/healthz
-- Platform status: `./scripts/platform-management/check-platform-status.sh`
+- Platform status: `./check-platform-status.sh`
 - Neo4j: http://localhost:7474
 - GenAI Stack: http://localhost:8505
+- Windmill: https://localhost:11005
+- CA Server: `./scripts/infrastructure/check-ca-server-status.sh`
 
 ### Log Locations
 - Service logs: Check individual Docker containers with `docker logs <container-name>`
@@ -429,7 +434,11 @@ cp webapp/public/applications.html webapi/wwwroot/
 
 ## Repository Management
 
-### Latest Updates (June 22, 2025)
+### Latest Updates (June 23, 2025)
+- **Certificate Automation**: Full CA server integration with https://192.168.0.2
+- **Windmill Integration**: Workflow automation engine with SSL support
+- **Application Addition**: Standardized scripts for adding new applications
+- **Certificate Management**: Complete lifecycle automation with fallback systems
 - **Repository Cleaned**: Removed runtime files, backups, and duplicates
 - **Python Scripts**: All 19 scripts reviewed and updated with proper headers
 - **Shell Scripts**: 67+ scripts reviewed, permissions fixed
@@ -444,13 +453,26 @@ cp webapp/public/applications.html webapi/wwwroot/
 - ✅ Fixed Python script headers and documentation
 - ✅ Verified shell script permissions and executable status
 
+### Current Deployment Status (June 23, 2025)
+- ✅ **Certificate Automation**: CA server integration fully functional
+- ✅ **Windmill**: Workflow automation engine deployed at https://localhost:11005
+- ✅ **Application Management**: Standardized addition process with dashboard integration
+- ✅ **SSL Infrastructure**: Self-signed certificates working, CA certificates ready
+- ✅ **GitHub Updated**: Complete documentation and backup/restore system
+- ✅ **Configuration Backup**: Automated backup system with quick restore capability
+
 ### Backup & Restore System
-- **Quick Restore**: `./scripts/quick-restore.sh` (one-command post-reboot fix)
+- **Quick Restore**: `./config-backups-working/latest/quick-restore.sh` (one-command post-reboot fix)
 - **Create Backup**: `./scripts/backup-working-config.sh`
-- **Health Check**: `./scripts/check-platform-health.sh`
-- **Auto-Restore**: Systemd service enabled for automatic restoration on boot
+- **Health Check**: `./check-platform-status.sh`
+- **Recovery Guide**: Complete recovery documentation in `./RECOVERY_GUIDE.md`
 - **Backup Location**: `/home/keith/chat-copilot/config-backups-working/latest/`
 
-Last backup: Sun Jun 22 07:36:57 PM EDT 2025
+### New Applications Added
+- **Windmill**: Workflow automation engine
+  - **SSL Access**: https://localhost:11005 
+  - **Features**: Workflow designer, script execution, scheduling
+  - **Database**: PostgreSQL with persistent storage
+  - **Status**: ✅ Fully operational with SSL certificate
 
-- Updated the CLAUDE.md file to include the memory of "update the claude.md file"Last backup: Mon Jun 23 06:42:52 AM EDT 2025
+Last backup: Mon Jun 23 06:42:52 AM EDT 2025

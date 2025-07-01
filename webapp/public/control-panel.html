@@ -263,7 +263,15 @@
                 <span>Windmill</span>
             </div>
             <div class="status-item">
-                <div class="status-indicator status-unknown"></div>
+                <div class="status-indicator status-active"></div>
+                <span>GenAI Stack</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator status-active"></div>
+                <span>Neo4j</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator status-active"></div>
                 <span>Provider: OpenAI</span>
             </div>
         </div>
@@ -277,7 +285,20 @@
                     <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS
                         Code Web are independent applications that need to be started separately.</p>
                     <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat
-                        Copilot, Webhook Server, Port Scanner, Nginx Gateway, Fortinet Manager</p>
+                        Copilot, Webhook Server, Port Scanner, Nginx Gateway, GenAI Stack, Neo4j, Windmill</p>
+                </div>
+
+                <!-- Nginx Gateway Notice -->
+                <div
+                    style="background-color: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                    <h4 style="margin: 0 0 10px 0;">🌐 Nginx Gateway Available</h4>
+                    <p style="margin: 0 0 10px 0;"><strong>Alternative Access:</strong> Services are also available
+                        through the nginx gateway at <strong>port 11999</strong>.</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Gateway URL:</strong> <a href="http://100.123.10.72:11999/"
+                            target="_blank" style="color: #1976d2;">http://100.123.10.72:11999/</a></p>
+                    <p style="margin: 0;"><strong>Example:</strong> Windmill at <a
+                            href="http://100.123.10.72:11999/windmill/" target="_blank"
+                            style="color: #1976d2;">http://100.123.10.72:11999/windmill/</a></p>
                 </div>
             </div>
 
@@ -289,35 +310,33 @@
                         <span class="material-icons">psychology</span>
                         OpenWebUI
                     </a>
-                    <a href="/copilot" target="_blank"
-                        class="control-button">
+                    <a href="/copilot" target="_blank" class="control-button">
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="/perplexica" target="_blank"
-                        class="control-button" id="perplexica-btn">
+                    <a href="/perplexica" target="_blank" class="control-button" id="perplexica-btn">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="/searxng" target="_blank"
-                        class="control-button" id="searxng-btn">
+                    <a href="/searxng" target="_blank" class="control-button" id="searxng-btn">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
-                    <a href="/autogen" target="_blank"
-                        class="control-button">
+                    <a href="/autogen" target="_blank" class="control-button">
                         <span class="material-icons">groups</span>
                         AutoGen Studio
                     </a>
-                    <a href="/magentic" target="_blank"
-                        class="control-button">
+                    <a href="/magentic" target="_blank" class="control-button">
                         <span class="material-icons">hub</span>
                         Magentic-One
                     </a>
-                    <a href="/genai-stack" target="_blank"
-                        class="control-button">
+                    <a href="/genai-stack" target="_blank" class="control-button">
                         <span class="material-icons">account_tree</span>
                         GenAI Stack
+                    </a>
+                    <a href="/windmill" target="_blank" class="control-button">
+                        <span class="material-icons">waves</span>
+                        Windmill
                     </a>
                 </div>
             </div>
@@ -349,23 +368,19 @@
             <div class="control-section">
                 <h3><span class="material-icons">code</span>Development Tools</h3>
                 <div class="button-grid">
-                    <a href="/vscode/login" target="_blank"
-                        class="control-button info" id="vscode-btn">
+                    <a href="/vscode/login" target="_blank" class="control-button info" id="vscode-btn">
                         <span class="material-icons">code</span>
                         VS Code Web
                     </a>
-                    <a href="/portscanner/" target="_blank"
-                        class="control-button info">
+                    <a href="/portscanner/" target="_blank" class="control-button info">
                         <span class="material-icons">network_ping</span>
                         Port Scanner
                     </a>
-                    <a href="/copilot/healthz" target="_blank"
-                        class="control-button info">
+                    <a href="/copilot/healthz" target="_blank" class="control-button info">
                         <span class="material-icons">health_and_safety</span>
                         Health Check
                     </a>
-                    <a href="/webhook" target="_blank"
-                        class="control-button info">
+                    <a href="/webhook" target="_blank" class="control-button info">
                         <span class="material-icons">webhook</span>
                         Webhook Server
                     </a>
@@ -380,28 +395,23 @@
             <div class="control-section">
                 <h3><span class="material-icons">router</span>Network Management</h3>
                 <div class="button-grid">
-                    <a href="/fortinet/" target="_blank"
-                        class="control-button">
-                        <span class="material-icons">security</span>
-                        Fortinet Mgmt
+                    <a href="/gateway-admin/" target="_blank" class="control-button">
+                        <span class="material-icons">admin_panel_settings</span>
+                        Gateway Admin
                     </a>
-                    <a href="/nginx/" target="_blank"
-                        class="control-button">
+                    <a href="/nginx/" target="_blank" class="control-button">
                         <span class="material-icons">dns</span>
                         Nginx Gateway
                     </a>
-                    <a href="/bacula/" target="_blank"
-                        class="control-button">
-                        <span class="material-icons">backup</span>
-                        Bacula Backup
+                    <a href="/ntopng/" target="_blank" class="control-button">
+                        <span class="material-icons">network_ping</span>
+                        ntopng Monitor
                     </a>
-                    <a href="/ollama-api/" target="_blank"
-                        class="control-button">
+                    <a href="/ollama-api/" target="_blank" class="control-button">
                         <span class="material-icons">api</span>
                         Ollama API
                     </a>
-                    <a href="/neo4j/" target="_blank"
-                        class="control-button">
+                    <a href="/neo4j/" target="_blank" class="control-button">
                         <span class="material-icons">storage</span>
                         Neo4j Database
                     </a>
@@ -521,22 +531,18 @@
         <div class="quick-actions">
             <h3>🚀 Frequently Used</h3>
             <div class="quick-buttons">
-                <button class="quick-button"
-                    onclick="window.open('/', '_blank')">🤖
+                <button class="quick-button" onclick="window.open('/', '_blank')">🤖
                     OpenWebUI</button>
-                <button class="quick-button"
-                    onclick="window.open('/copilot/', '_blank')">💬 Chat
+                <button class="quick-button" onclick="window.open('/copilot/', '_blank')">💬 Chat
                     Copilot</button>
-                <button class="quick-button"
-                    onclick="window.open('/perplexica', '_blank')">🔍
+                <button class="quick-button" onclick="window.open('/perplexica', '_blank')">🔍
                     Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
                 <button class="quick-button"
                     onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚
                     GitHub</button>
-                <button class="quick-button"
-                    onclick="window.open('/vscode/login', '_blank')">💻 VS
+                <button class="quick-button" onclick="window.open('/vscode/login', '_blank')">💻 VS
                     Code</button>
             </div>
         </div>
@@ -765,7 +771,7 @@
                     if (action === 'ps') {
                         logOutput('🐳 perplexica-app-1: Up 45 minutes', 'success');
                         logOutput('🐳 perplexica-searxng-1: Up 45 minutes (healthy)', 'success');
-                        logOutput('🐳 fortinet-manager_frontend_1: Up 45 minutes', 'success');
+                        logOutput('🐳 nginx-proxy-manager: Up 45 minutes', 'success');
                         logOutput('🐳 port-scanner-tailscale: Up 45 minutes', 'success');
                     } else {
                         logOutput(`✅ Simulated Docker ${action} completed`, 'success');
@@ -824,6 +830,10 @@
                     { name: 'Chat Copilot', url: '/copilot/' },
                     { name: 'Perplexica', url: '/perplexica' },
                     { name: 'SearchNG', url: '/searxng/' },
+                    { name: 'ntopng Network Monitor', url: 'http://100.123.10.72:8888/' },
+                    { name: 'Neo4j Database', url: 'http://100.123.10.72:7474/' },
+                    { name: 'GenAI Stack Frontend', url: 'http://100.123.10.72:8505/' },
+                    { name: 'Windmill', url: 'http://100.123.10.72:11006/' },
                     { name: 'Health Check', url: '/copilot/healthz' }
                 ];
 
@@ -918,7 +928,8 @@
             const services = [
                 { id: 'perplexica-btn', url: '/perplexica', name: 'Perplexica' },
                 { id: 'searxng-btn', url: '/searxng/', name: 'SearXNG' },
-                { id: 'vscode-btn', url: '/vscode/login', name: 'VS Code Web' }
+                { id: 'vscode-btn', url: '/vscode/login', name: 'VS Code Web' },
+                { id: 'windmill-btn', url: 'http://100.123.10.72:11006/', name: 'Windmill' }
             ];
 
             for (const service of services) {
@@ -1097,39 +1108,39 @@
         // Application Management Functions
         function showAddApplicationDialog() {
             logOutput('📱 Opening Add Application dialog...', 'info');
-            
+
             const name = prompt('Application Name (e.g., "Grafana"):');
             if (!name) return;
-            
+
             const port = prompt('Application Port (11000-12000 range):');
             if (!port || isNaN(port) || port < 11000 || port > 12000) {
                 logOutput('❌ Invalid port. Must be between 11000-12000', 'error');
                 return;
             }
-            
+
             const path = prompt('URL Path (e.g., "/grafana"):');
             if (!path || !path.startsWith('/')) {
                 logOutput('❌ Invalid path. Must start with /', 'error');
                 return;
             }
-            
+
             const description = prompt('Description:');
             if (!description) return;
-            
+
             const category = prompt('Category (ai/dev/network/api):') || 'ai';
             const dockerImage = prompt('Docker Image (optional):') || '';
-            
+
             // Show the command that would be executed
             let command = `./scripts/platform-management/add-application.sh --name "${name}" --port ${port} --path "${path}" --description "${description}" --category ${category}`;
             if (dockerImage) {
                 command += ` --docker-image "${dockerImage}"`;
             }
-            
+
             logOutput('🚀 Generated command:', 'info');
             logOutput(command, 'info');
             logOutput('📋 Copy this command and run it in terminal', 'info');
             logOutput('⚠️  Remember to reload nginx after adding', 'warning');
-            
+
             // Copy to clipboard if supported
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(command).then(() => {
@@ -1137,10 +1148,10 @@
                 });
             }
         }
-        
+
         function listApplications() {
             logOutput('📋 Listing current applications...', 'info');
-            
+
             const applications = [
                 'OpenWebUI (11880)',
                 'Chat Copilot (11000)',
@@ -1148,36 +1159,37 @@
                 'SearXNG (11021)',
                 'AutoGen Studio (11001)',
                 'Magentic-One (11003)',
-                'Windmill (11005)',
+                'Windmill (11006)',
                 'Webhook Server (11002)',
                 'Port Scanner (11010)',
                 'VS Code Web (57081)',
                 'Neo4j GenAI Stack (8501-8505)',
                 'Nginx Gateway (11080-11082)',
+                'ntopng Network Monitor (8888)',
                 'Ollama LLM (11434)'
             ];
-            
+
             logOutput('📱 Currently configured applications:', 'info');
             applications.forEach(app => {
                 logOutput(`   • ${app}`, 'info');
             });
-            
+
             logOutput('🔗 Full list: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/applications.html', 'info');
         }
-        
+
         function testNewApplication() {
             const path = prompt('Enter application path to test (e.g., "/windmill"):');
             if (!path) return;
-            
+
             logOutput(`🔍 Testing application at ${path}...`, 'info');
-            
+
             const testUrl = `https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443${path}`;
-            
+
             fetch(testUrl, { method: 'HEAD', mode: 'no-cors' })
                 .then(() => {
                     logOutput(`✅ Application ${path} appears to be accessible`, 'success');
                     logOutput(`🔗 URL: ${testUrl}`, 'info');
-                    
+
                     if (confirm(`Open ${path} in new tab?`)) {
                         window.open(testUrl, '_blank');
                     }
@@ -1187,15 +1199,15 @@
                     logOutput('💡 Check if the service is running and nginx is configured', 'warning');
                 });
         }
-        
+
         function removeApplication() {
             logOutput('🗑️  Application removal process...', 'warning');
-            
+
             const appName = prompt('Enter application name to remove:');
             if (!appName) return;
-            
+
             const confirmRemoval = confirm(`Are you sure you want to remove "${appName}"? This will:\n- Remove nginx configuration\n- Stop Docker container\n- Remove from applications page\n\nThis action cannot be undone.`);
-            
+
             if (confirmRemoval) {
                 logOutput(`⚠️  Manual removal required for ${appName}:`, 'warning');
                 logOutput('1. Edit /etc/nginx/sites-available/ai-hub.conf (remove location block)', 'info');

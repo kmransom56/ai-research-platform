@@ -165,7 +165,7 @@ class PlatformConfig:
         ),
         "webhook-server": ServiceConfig(
             name="webhook-server",
-            port=11002,
+            port=11025,
             command="node {platform_dir}/runtime-data/webhook-server.js",
             health_path="/health",
             service_type=ServiceType.CORE
@@ -220,18 +220,10 @@ class PlatformConfig:
         # Docker Services
         "nginx-proxy": ServiceConfig(
             name="nginx-proxy",
-            port=11080,
+            port=8080,
             compose_file="{platform_dir}/docker-compose.nginx-proxy-manager.yml",
             health_path="/",
             service_type=ServiceType.DOCKER
-        ),
-        "fortinet-manager": ServiceConfig(
-            name="fortinet-manager",
-            port=3001,
-            compose_file="/home/keith/fortinet-manager/docker-compose.yml",
-            health_path="/",
-            service_type=ServiceType.DOCKER,
-            power_automate_monitor=True
         ),
         
         # External Services

@@ -14,9 +14,9 @@ stop_service_by_pid() {
     local name=$1
     local pidfile=$2
     local process_pattern=$3
-    
+
     echo "🛑 Stopping $name..."
-    
+
     # Stop via PID file first
     if [ -f "$pidfile" ]; then
         local pid=$(cat "$pidfile")
@@ -24,7 +24,7 @@ stop_service_by_pid() {
             echo "   Sending SIGTERM to PID $pid..."
             kill "$pid" 2>/dev/null || true
             sleep 3
-            
+
             # Force kill if still running
             if kill -0 "$pid" 2>/dev/null; then
                 echo "   Force killing PID $pid..."
@@ -33,7 +33,7 @@ stop_service_by_pid() {
         fi
         rm -f "$pidfile"
     fi
-    
+
     # Kill any remaining processes by pattern
     if [ -n "$process_pattern" ]; then
         pkill -f "$process_pattern" 2>/dev/null || true
@@ -41,7 +41,7 @@ stop_service_by_pid() {
         # Force kill remaining
         pkill -9 -f "$process_pattern" 2>/dev/null || true
     fi
-    
+
     echo "✅ $name stopped"
 }
 
@@ -49,9 +49,9 @@ stop_service_by_pid() {
 stop_docker_service() {
     local name=$1
     local compose_file=$2
-    
+
     echo "🐳 Stopping Docker service: $name..."
-    
+
     if [ -f "$compose_file" ]; then
         docker-compose -f "$compose_file" down 2>/dev/null || true
         echo "✅ $name Docker service stopped"
@@ -107,11 +107,6 @@ if [ -f "$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml" ]; then
     stop_docker_service "Nginx Proxy Manager" "$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml"
 fi
 
-# Stop Fortinet Manager Stack
-if [ -f "/home/keith/fortinet-manager/docker-compose.yml" ]; then
-    stop_docker_service "Fortinet Manager Stack" "/home/keith/fortinet-manager/docker-compose.yml"
-fi
-
 # ==============================================================================
 # PHASE 5: CLEANUP PROCESSES & FILES
 # ==============================================================================
@@ -151,14 +146,14 @@ if [ -d "$PLATFORM_DIR/logs" ]; then
     # Create backup directory for logs
     backup_dir="$PLATFORM_DIR/logs/backup-$(date +%Y%m%d_%H%M%S)"
     mkdir -p "$backup_dir"
-    
+
     # Move current logs to backup
     for logfile in "$PLATFORM_DIR/logs"/*.log; do
         if [ -f "$logfile" ]; then
             mv "$logfile" "$backup_dir/" 2>/dev/null || true
         fi
     done
-    
+
     echo "✅ Logs backed up to: $backup_dir"
 fi
 

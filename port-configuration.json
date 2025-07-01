@@ -1,0 +1,44 @@
+{
+  "ai_research_platform_ports": {
+    "version": "2.0",
+    "last_updated": "2025-06-15",
+    "standard_ports": {
+      "chat_copilot_backend": 11000,
+      "autogen_studio": 11001,
+      "webhook_server": 11025,
+      "magentic_one": 11003,
+      "port_scanner": 11010,
+      "nginx_proxy_manager_web": 8080,
+      "nginx_proxy_manager_admin": 11082,
+      "nginx_proxy_manager_https": 8443,
+      "perplexica": 11020,
+      "searxng": 11021,
+      "openwebui": 11880,
+      "ollama": 11434,
+      "vscode_web": 57081,
+      "windmill": 11006,
+      "ntopng": 8888,
+      "neo4j_web": 7474,
+      "neo4j_bolt": 7687,
+      "genai_stack_frontend": 8505,
+      "genai_stack_api": 8504,
+      "genai_stack_bot": 8501,
+      "genai_stack_pdf_bot": 8503,
+      "genai_stack_loader": 8509,
+      "frontend_dev": 3000
+    },
+    "deprecated_ports": {},
+    "port_ranges": {
+      "ai_services": "11000-11099",
+      "network_tools": "11100-11199",
+      "development": "3000, 57081",
+      "system": "11434"
+    },
+    "validation_rules": [
+      "All AI services must use ports 11000-11099",
+      "Network tools use ports 11100-11199",
+      "No services on deprecated ports",
+      "Use UV for Python environment management"
+    ]
+  }
+}

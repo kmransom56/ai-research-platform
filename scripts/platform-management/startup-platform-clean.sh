@@ -40,7 +40,7 @@ readonly NC='\033[0m' # No Color
 declare -A CORE_SERVICES=(
     ["chat-copilot-backend"]="11000|cd $PLATFORM_DIR/webapi && dotnet run --urls http://0.0.0.0:11000|/healthz"
     ["autogen-studio"]="11001|autogenstudio ui --port 11001 --host 0.0.0.0|/"
-    ["webhook-server"]="11002|node $PLATFORM_DIR/runtime-data/webhook-server.js|/health"
+    ["webhook-server"]="11025|node $PLATFORM_DIR/runtime-data/webhook-server.js|/health"
     ["magentic-one"]="11003|python $PLATFORM_DIR/python/services/magentic_one_server.py|/health"
 )
 
@@ -51,9 +51,7 @@ declare -A INFRA_SERVICES=(
 
 # Docker Services
 declare -A DOCKER_SERVICES=(
-    ["nginx-proxy"]="11080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
-    ["fortinet-manager"]="3001|/home/keith/fortinet-manager/docker-compose.yml|/"
-    ["caddy-proxy"]="2019|$PLATFORM_DIR/docker-configs/docker-compose.caddy.yml|/config/"
+    ["nginx-proxy"]="8080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["perplexica-stack"]="11020|$PLATFORM_DIR/perplexica/compose.yaml|/perplexica"
     ["searxng"]="11021|$PLATFORM_DIR/searxng/docker-compose.yml|/"
     ["openwebui"]="11880|$PLATFORM_DIR/openwebui/docker-compose.yml|/"
@@ -544,36 +542,31 @@ EOF
 display_access_information() {
     log TITLE "Platform Access Information"
 
-    echo -e "\n${GREEN}🏠 LOCAL ACCESS (via Caddy SSL on port 10443):${NC}"
-    echo "   🤖 Chat Copilot: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/copilot"
-    echo "   🌟 AutoGen Studio: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/autogen"
-    echo "   💫 Magentic-One: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/magentic"
-    echo "   🔗 Webhook Server: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/webhook"
-    echo "   🔍 Port Scanner: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/portscanner"
+    echo -e "\n${GREEN}🏠 LOCAL ACCESS (HTTP):${NC}"
+    echo "   🤖 Chat Copilot: http://100.123.10.72:11000"
+    echo "   🌟 AutoGen Studio: http://100.123.10.72:11001"
+    echo "   💫 Magentic-One: http://100.123.10.72:11003"
+    echo "   🔗 Webhook Server: http://100.123.10.72:11025"
+    echo "   🔍 Port Scanner: http://100.123.10.72:11010"
 
-    echo -e "\n${BLUE}🛠️ INFRASTRUCTURE (via Nginx Proxy on port 11082):${NC}"
-    echo "   🔧 Nginx Proxy: https://ubuntuaicodeserver-1.tail5137b4.ts.net:11082/nginx"
-    echo "   🦙 Ollama LLM: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/ollama"
-    echo "   💻 VS Code Web: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/vscode"
+    echo -e "\n${BLUE}🛠️ INFRASTRUCTURE:${NC}"
+    echo "   🔧 Nginx Proxy: http://100.123.10.72:8080"
+    echo "   🦙 Ollama LLM: http://localhost:11434"
+    echo "   💻 VS Code Web: http://100.123.10.72:57081"
 
     echo -e "\n${GREEN}🔍 SEARCH & AI:${NC}"
-    echo "   🧠 Perplexica: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/perplexica"
-    echo "   🔎 SearXNG: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/searxng"
-    echo "   🌐 OpenWebUI: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/ (Root)"
-
-    echo -e "\n${YELLOW}🔗 DIRECT ACCESS (HTTP):${NC}"
-    echo "   🤖 Chat Copilot: http://ubuntuaicodeserver-1.tail5137b4.ts.net:11000"
-    echo "   🌟 AutoGen Studio: http://ubuntuaicodeserver-1.tail5137b4.ts.net:11001"
-    echo "   💫 Magentic-One: http://ubuntuaicodeserver-1.tail5137b4.ts.net:11003"
+    echo "   🧠 Perplexica: http://100.123.10.72:11020"
+    echo "   🔎 SearXNG: http://100.123.10.72:11021"
+    echo "   🌐 OpenWebUI: http://100.123.10.72:11880"
 
     if check_tailscale; then
         echo -e "\n${GREEN}📱 TAILSCALE ACCESS:${NC}"
-        echo "   🌐 Main Hub: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443"
-        echo "   🤖 All Services: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/{service}"
+        echo "   🌐 Network: Available via Tailscale"
+        echo "   📍 IP: $(tailscale ip -4 2>/dev/null || echo '100.123.10.72')"
         echo -e "\n${YELLOW}📱 Mobile Setup:${NC}"
         echo "   1. Install Tailscale app"
         echo "   2. Connect with same account"
-        echo "   3. Bookmark: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443"
+        echo "   3. Access via IP: 100.123.10.72"
     else
         echo -e "\n${YELLOW}📱 TAILSCALE SETUP:${NC}"
         echo "   Install: curl -fsSL https://tailscale.com/install.sh | sh"

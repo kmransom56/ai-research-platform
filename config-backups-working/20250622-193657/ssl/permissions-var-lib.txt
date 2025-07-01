@@ -1,6 +1,0 @@
-total 20
-drwx------ 2 root root     4096 May 25 17:52 .
-drwx------ 4 root root     4096 Jun 19 18:45 ..
--rw------- 1 root root      227 May 25 17:51 acme-account.key.pem
--rw-r--r-- 1 root root     2916 May 25 17:52 ubuntuaicodeserver-1.tail5137b4.ts.net.crt
--rw-r----- 1 root www-data  227 May 25 17:52 ubuntuaicodeserver-1.tail5137b4.ts.net.key
