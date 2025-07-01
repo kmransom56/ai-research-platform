@@ -7,6 +7,12 @@ dotnet/.config
 .env.test.local
 .env.production.local
 
+# Neo4j Database files (large transaction logs)
+data/transactions/
+data/databases/
+*.transaction.db.*
+neostore.transaction.db.*
+
 # Runtime files
 *.log
 *.pid
