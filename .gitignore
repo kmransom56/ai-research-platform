@@ -13,6 +13,20 @@ data/databases/
 *.transaction.db.*
 neostore.transaction.db.*
 
+# Neo4j database files
+data/transactions/*/neostore.transaction.db.*
+data/transactions/*/neostore.nodestore.db.*
+data/transactions/*/neostore.relationshipstore.db.*
+data/transactions/*/neostore.propertystore.db.*
+data/transactions/*/neostore.schemastore.db.*
+data/transactions/*/neostore.labeltokenstore.db.*
+data/transactions/*/neostore.relationshiptypestore.db.*
+data/transactions/*/neostore.counts.db.*
+data/transactions/*/debug.log*
+data/transactions/*/store_lock
+data/transactions/*/*.id
+data/transactions/*/neostore
+
 # Runtime files
 *.log
 *.pid
