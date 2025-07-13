@@ -9,6 +9,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using CopilotChat.Shared.AI;
 
 namespace CopilotChat.WebApi;
 
@@ -60,6 +61,19 @@ public sealed class Program
 
         // Add named HTTP clients for IHttpClientFactory
         builder.Services.AddHttpClient();
+
+        // ─── LLM providers ──────────────────────────
+        builder.Services.AddSingleton<OllamaProvider>();
+        builder.Services.AddSingleton<OpenAiProvider>();
+        builder.Services.AddSingleton<Func<string, ILlmProvider>>(sp => key =>
+        {
+            return key switch
+            {
+                "openai" => sp.GetRequiredService<OpenAiProvider>(),
+                _ => sp.GetRequiredService<OllamaProvider>()
+            };
+        });
+        builder.Services.AddSingleton<ILlmProvider, LlmRouter>();
 
         // Add in the rest of the services.
         builder.Services

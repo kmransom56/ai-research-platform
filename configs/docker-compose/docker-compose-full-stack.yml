@@ -55,6 +55,13 @@ services:
       - Qdrant__Port=6333
       - RabbitMQ__Host=rabbitmq
       - PostgreSQL__Host=postgres
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
+      - OPENAI_API_KEY_FILE=/run/secrets/OPENAI_API_KEY
+      - AZURE_OPENAI_KEY_FILE=/run/secrets/AZURE_OPENAI_KEY
+      - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
+      - GEMINI_API_KEY_FILE=/run/secrets/GEMINI_API_KEY
     # ports mapping removed – backend reachable inside Docker network at 80
     volumes:
       - platform_logs:/app/logs
@@ -63,6 +70,9 @@ services:
       - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
     secrets:
       - AZURE_OPENAI_KEY
+      - OPENAI_API_KEY
+      - ANTHROPIC_API_KEY
+      - GEMINI_API_KEY
     networks:
       ai-platform:
         ipv4_address: 172.20.0.20
@@ -114,6 +124,13 @@ services:
       - PYTHONPATH=/app
       - AUTOGEN_CONFIG_LIST=/app/config/OAI_CONFIG_LIST.json
       - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
+      - OPENAI_API_KEY_FILE=/run/secrets/OPENAI_API_KEY
+      - AZURE_OPENAI_KEY_FILE=/run/secrets/AZURE_OPENAI_KEY
+      - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
+      - GEMINI_API_KEY_FILE=/run/secrets/GEMINI_API_KEY
     entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - ../../python/autogen-studio/config:/app/config:ro
@@ -121,6 +138,9 @@ services:
       - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
     secrets:
       - AZURE_OPENAI_KEY
+      - OPENAI_API_KEY
+      - ANTHROPIC_API_KEY
+      - GEMINI_API_KEY
     ports:
       - "11001:8081"
     networks:
@@ -172,12 +192,22 @@ services:
     environment:
       - PYTHONPATH=/app
       - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
+      - OPENAI_API_KEY_FILE=/run/secrets/OPENAI_API_KEY
+      - AZURE_OPENAI_KEY_FILE=/run/secrets/AZURE_OPENAI_KEY
+      - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
+      - GEMINI_API_KEY_FILE=/run/secrets/GEMINI_API_KEY
     entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - platform_logs:/app/logs
       - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
     secrets:
       - AZURE_OPENAI_KEY
+      - OPENAI_API_KEY
+      - ANTHROPIC_API_KEY
+      - GEMINI_API_KEY
     ports:
       - "11003:11003"
     networks:
@@ -639,6 +669,10 @@ secrets:
     file: ../../secrets/OPENWEBUI_SECRET_KEY
   LANGCHAIN_API_KEY:
     file: ../../secrets/LANGCHAIN_API_KEY
+  ANTHROPIC_API_KEY:
+    file: ../../secrets/ANTHROPIC_API_KEY
+  GEMINI_API_KEY:
+    file: ../../secrets/GEMINI_API_KEY
 
   # ───── Database / queue credentials ─────
   RABBITMQ_USER:
