@@ -368,6 +368,22 @@
                         <span class="material-icons">dns</span>
                         Nginx Gateway
                     </a>
+                    <a href="/gateway-http/" target="_blank" class="control-button">
+                        <span class="material-icons">admin_panel_settings</span>
+                        Gateway Admin
+                    </a>
+                    <a href="/ntopng/" target="_blank" class="control-button">
+                        <span class="material-icons">network_ping</span>
+                        ntopng Monitor
+                    </a>
+                    <a href="/ollama" target="_blank" class="control-button">
+                        <span class="material-icons">api</span>
+                        Ollama API
+                    </a>
+                    <a href="/neo4j" target="_blank" class="control-button">
+                        <span class="material-icons">storage</span>
+                        Neo4j Database
+                    </a>
                     <button class="control-button secondary" onclick="executeCommand('ping', '100.123.10.72')">
                         <span class="material-icons">network_check</span>
                         Test Network
@@ -398,6 +414,29 @@
                     <button class="control-button info" onclick="showLogs()">
                         <span class="material-icons">article</span>
                         View Logs
+                    </button>
+                </div>
+            </div>
+
+            <!-- Application Management Section -->
+            <div class="control-section">
+                <h3><span class="material-icons">apps</span>Application Management</h3>
+                <div class="button-grid">
+                    <button class="control-button" onclick="showAddApplicationDialog()">
+                        <span class="material-icons">add_circle</span>
+                        Add Application
+                    </button>
+                    <button class="control-button secondary" onclick="listApplications()">
+                        <span class="material-icons">list</span>
+                        List Applications
+                    </button>
+                    <button class="control-button info" onclick="testNewApplication()">
+                        <span class="material-icons">check_circle</span>
+                        Test Application
+                    </button>
+                    <button class="control-button warning" onclick="removeApplication()">
+                        <span class="material-icons">remove_circle</span>
+                        Remove Application
                     </button>
                 </div>
             </div>
@@ -847,6 +886,81 @@
                 logOutput('📁 Location: /home/keith/backups/', 'info');
                 logOutput('🗓️ Timestamp: ' + new Date().toLocaleString(), 'info');
             }, 1200);
+        }
+
+        // --------------------------------------------------
+        // Application-management helpers (Add / List / Test / Remove)
+        // --------------------------------------------------
+
+        function showAddApplicationDialog() {
+            logOutput('📱 Opening Add Application dialog...', 'info');
+
+            const name = prompt('Application Name (e.g., "Grafana"):');
+            if (!name) return;
+
+            const port = prompt('Application Port (11000-12000 range or "auto"):') || 'auto';
+            if (port !== 'auto' && (isNaN(port) || port < 11000 || port > 12000)) {
+                logOutput('❌ Invalid port. Must be between 11000-12000 or "auto"', 'error');
+                return;
+            }
+
+            const path = prompt('URL Path (omit or "auto" for automatic path):') || 'auto';
+            if (path !== 'auto' && !path.startsWith('/')) {
+                logOutput('❌ Invalid path. Must start with /', 'error');
+                return;
+            }
+
+            const description = prompt('Description:') || '';
+            const category = prompt('Category (ai/dev/network/api):') || 'ai';
+            const dockerImage = prompt('Docker Image (optional):') || '';
+
+            // Build command string that the add-application script understands
+            let cmd = `./scripts/platform-management/add-application.sh --name "${name}" --description "${description}" --category ${category}`;
+            if (port) cmd += ` --port ${port}`;
+            if (path) cmd += ` --path ${path}`;
+            if (dockerImage) cmd += ` --docker-image "${dockerImage}"`;
+
+            logOutput('🚀 Generated command:', 'info');
+            logOutput(cmd, 'info');
+            logOutput('📋 Copy this command and run it in the terminal', 'info');
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(cmd).then(() => {
+                    logOutput('📋 Command copied to clipboard!', 'success');
+                });
+            }
+        }
+
+        function listApplications() {
+            logOutput('📋 Listing current applications...', 'info');
+
+            fetch('/copilot/api/systemcontrol/applications')
+                .then(r => r.ok ? r.json() : Promise.reject())
+                .then(data => {
+                    data.forEach(app => logOutput(`• ${app.name} (${app.port})`, 'info'));
+                })
+                .catch(() => {
+                    // fallback demo list
+                    ['OpenWebUI', 'Chat Copilot', 'Ollama', 'Windmill'].forEach(a => logOutput(`• ${a}`, 'info'));
+                });
+        }
+
+        function testNewApplication() {
+            const path = prompt('Enter application path to test (e.g., "/windmill"):');
+            if (!path) return;
+
+            logOutput(`🔍 Testing application at ${path}...`, 'info');
+
+            fetch(path, { method: 'HEAD' })
+                .then(() => logOutput(`✅ ${path} is reachable`, 'success'))
+                .catch(() => logOutput(`❌ ${path} is not reachable`, 'error'));
+        }
+
+        function removeApplication() {
+            const name = prompt('Application name to remove:');
+            if (!name) return;
+
+            logOutput(`🗑️  Manual steps required to remove ${name}: edit nginx, docker compose, dashboards`, 'warning');
         }
 
         // Check external services status

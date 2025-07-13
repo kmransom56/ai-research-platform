@@ -66,8 +66,7 @@ services:
     volumes:
       - platform_logs:/app/logs
       - ../../webapi/appsettings.json:/app/appsettings.json:ro
-      - ../../webapp/build:/app/wwwroot
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+      - ../../webapi/wwwroot:/app/wwwroot:ro
     secrets:
       - AZURE_OPENAI_KEY
       - OPENAI_API_KEY
@@ -378,10 +377,8 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER
       - RABBITMQ_DEFAULT_PASS
-    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
     secrets:
       - RABBITMQ_USER
       - RABBITMQ_PASSWORD
@@ -406,11 +403,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD
-    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ../../sql/init:/docker-entrypoint-initdb.d:ro
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
     secrets:
       - POSTGRES_PASSWORD
     ports:
