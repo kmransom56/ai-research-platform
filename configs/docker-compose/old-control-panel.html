@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -285,10 +285,24 @@
             <div class="control-section" style="grid-column: 1 / -1;">
                 <div
                     style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                    <p style="margin: 0;"><strong>Available services:</strong> OpenWebUI, Chat Copilot, Perplexica,
-                        SearchNG,
-                        AutoGen Studio, Magentic-One, Webhook Server, Port Scanner, Nginx Gateway, VS Code Web,
-                        Gateway Admin, Ollama API, Windmill, ntopng, Neo4j, GenAI Stack</p>
+                    <h4 style="margin: 0 0 10px 0;">🔍 External Services Status</h4>
+                    <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS
+                        Code Web are independent applications that need to be started separately.</p>
+                    <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat
+                        Copilot, Webhook Server, Port Scanner, Nginx Gateway, GenAI Stack, Neo4j, Windmill</p>
+                </div>
+
+                <!-- Nginx Gateway Notice -->
+                <div
+                    style="background-color: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                    <h4 style="margin: 0 0 10px 0;">🌐 Nginx Gateway Available</h4>
+                    <p style="margin: 0 0 10px 0;"><strong>Alternative Access:</strong> Services are also available
+                        through the nginx gateway at <strong>port 11999</strong>.</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Gateway URL:</strong> <a href="http://100.123.10.72:11999/"
+                            target="_blank" style="color: #1976d2;">http://100.123.10.72:11999/</a></p>
+                    <p style="margin: 0;"><strong>Example:</strong> Windmill at <a
+                            href="http://100.123.10.72:11999/windmill/" target="_blank"
+                            style="color: #1976d2;">http://100.123.10.72:11999/windmill/</a></p>
                 </div>
             </div>
 
@@ -373,10 +387,6 @@
                     <a href="http://100.123.10.72:11025" target="_blank" class="control-button info">
                         <span class="material-icons">webhook</span>
                         Webhook Server
-                    </a>
-                    <a href="/nginx-config/" target="_blank" class="control-button info">
-                        <span class="material-icons">edit</span>
-                        Nginx Config UI
                     </a>
                     <button class="control-button secondary" onclick="refreshServices()">
                         <span class="material-icons">refresh</span>
@@ -955,7 +965,7 @@
 
         // Open full dashboard
         function openDashboard() {
-            window.open('/copilot/applications.html', '_blank');
+            window.open('/applications.html', '_blank');
             logOutput('🚀 Opening full applications dashboard...', 'info');
         }
 

@@ -43,6 +43,7 @@ readonly NC='\033[0m' # No Color
 declare -A CORE_SERVICES=(
     ["chat-copilot-backend"]="11000|cd $PLATFORM_DIR/webapi && dotnet run --urls http://0.0.0.0:11000|/healthz"
     ["autogen-studio"]="11001|autogenstudio ui --port 11001 --host 0.0.0.0|/"
+    ["open-webui"]="11880|source /home/keith/venv/bin/activate && open-webui serve --host 100.123.10.72 --port 11880|/"
     ["webhook-server"]="11025|node $PLATFORM_DIR/runtime-data/webhook-server.js|/health"
     ["magentic-one"]="11003|python $PLATFORM_DIR/python/services/magentic_one_server.py|/health"
 )
@@ -57,7 +58,6 @@ declare -A DOCKER_SERVICES=(
     ["nginx-proxy"]="8080|$PLATFORM_DIR/docker-compose.nginx-proxy-manager.yml|/"
     ["perplexica-stack"]="11020|$PLATFORM_DIR/perplexica/compose.yaml|/perplexica"
     ["searxng"]="11021|$PLATFORM_DIR/searxng/docker-compose.yml|/"
-    ["openwebui"]="11880|$PLATFORM_DIR/openwebui/docker-compose.yml|/"
 )
 
 # External Services (for health checks only)

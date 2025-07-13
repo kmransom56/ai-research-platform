@@ -1,0 +1,47 @@
+[Unit]
+Description=AI Platform - Open WebUI Chat Interface
+Documentation=https://github.com/open-webui/open-webui
+After=network-online.target
+Wants=network-online.target
+PartOf=ai-platform.target
+
+[Service]
+Type=simple
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+
+# Environment setup matching your platform
+Environment=HOME=/home/keith
+Environment=PATH=/home/keith/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/keith/.local/bin
+
+# Pre-start checks
+ExecStartPre=/bin/bash -c 'test -d /home/keith/venv'
+ExecStartPre=/bin/bash -c 'test -f /home/keith/venv/bin/open-webui'
+
+# Start Open WebUI (using port 11880 to fit your 11000-12000 range)
+ExecStart=/home/keith/venv/bin/open-webui serve --host 100.123.10.72 --port 11880
+
+# Stop command
+ExecStop=/bin/bash -c 'pkill -f "open-webui serve" || true'
+
+# Restart policy matching your platform
+Restart=on-failure
+RestartSec=30
+TimeoutStartSec=120
+TimeoutStopSec=60
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-platform-open-webui
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/keith/chat-copilot
+
+[Install]
+WantedBy=multi-user.target

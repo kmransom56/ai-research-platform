@@ -14,9 +14,12 @@ NC='\033[0m' # No Color
 
 # Configuration
 NGINX_CONFIG="/etc/nginx/sites-available/ai-hub.conf"
-DOCKER_COMPOSE="/home/keith/chat-copilot/docker-compose.yml"
+# Primary compose file (full container stack)
+DOCKER_COMPOSE="/home/keith/chat-copilot/configs/docker-compose/docker-compose-full-stack.yml"
 APPLICATIONS_HTML="/home/keith/chat-copilot/webapp/public/applications.html"
 WEBAPI_HTML="/home/keith/chat-copilot/webapi/wwwroot/applications.html"
+# Control-Panel HTML (authoritative copy)
+CONTROL_PANEL_HTML="/home/keith/chat-copilot/webapi/wwwroot/control-panel.html"
 
 # Print usage
 usage() {
@@ -26,7 +29,7 @@ usage() {
     echo ""
     echo "Options:"
     echo "  --name            Application name (required)"
-    echo "  --port            Application port (required)"
+    echo "  --port            Application port (optional – 'auto' or omitted = find free port)"
     echo "  --path            URL path prefix (required, e.g., /myapp)"
     echo "  --description     Application description (required)"
     echo "  --docker-image    Docker image (optional)"
@@ -109,8 +112,30 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Validate required parameters
-if [[ -z "$APP_NAME" || -z "$APP_PORT" || -z "$APP_PATH" || -z "$APP_DESCRIPTION" ]]; then
+# Find a free port if none supplied or set to 'auto'
+find_free_port() {
+    local start=${1:-11000}
+    local end=${2:-12000}
+    for ((p=start; p<=end; p++)); do
+        if ! ss -ltn "sport = :$p" 2>/dev/null | grep -q LISTEN && \
+           ! lsof -iTCP:"$p" -sTCP:LISTEN -Pn 2>/dev/null | grep -q "$p"; then
+            echo "$p"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Auto-assign port if needed
+if [[ -z "$APP_PORT" || "$APP_PORT" == "auto" ]]; then
+    echo -e "${YELLOW}Port not specified – searching for free port in 11000-12000…${NC}"
+    APP_PORT=$(find_free_port 11000 12000) || {
+        echo -e "${RED}Error: No free port available in 11000-12000${NC}"; exit 1; }
+    echo -e "${GREEN}Assigned free port $APP_PORT${NC}"
+fi
+
+# Validate remaining required parameters
+if [[ -z "$APP_NAME" || -z "$APP_PATH" || -z "$APP_DESCRIPTION" ]]; then
     echo -e "${RED}Error: Missing required parameters${NC}"
     usage
     exit 1
@@ -195,7 +220,7 @@ esac
 
 echo -e "${BLUE}AI Research Platform - Adding Application${NC}"
 echo -e "Name: ${GREEN}$APP_NAME${NC}"
-echo -e "Port: ${GREEN}$APP_PORT${NC}"
+echo -e "Port: ${GREEN}$APP_PORT${NC} (auto-assigned if not specified)"
 echo -e "Path: ${GREEN}$APP_PATH${NC}"
 echo -e "Description: ${GREEN}$APP_DESCRIPTION${NC}"
 echo -e "Category: ${GREEN}$APP_CATEGORY${NC}"
@@ -408,6 +433,43 @@ add_to_applications() {
     echo -e "${GREEN}Applications HTML updated${NC}"
 }
 
+# Function to add to control-panel.html
+add_to_control_panel() {
+    echo -e "${BLUE}Adding to control-panel.html...${NC}"
+
+    local file="$CONTROL_PANEL_HTML"
+
+    if [[ ! -f "$file" ]]; then
+        echo -e "${YELLOW}control-panel.html not found – skipping${NC}"
+        return
+    fi
+
+    # Avoid duplicate entry
+    if grep -q "Launch ${APP_NAME}" "$file" || grep -q ">${APP_NAME}<" "$file"; then
+        echo -e "${YELLOW}${APP_NAME} already exists in control-panel.html${NC}"
+        return
+    fi
+
+    # Build anchor element (copy style of existing buttons)
+    local CP_BUTTON="                    <a href=\"http://100.123.10.72:${APP_PORT}\" target=\"_blank\" class=\"control-button\">\n                        <span class=\"material-icons\">apps</span>\n                        ${APP_NAME}\n                    </a>"
+
+    if [[ "$TEST_MODE" == "true" ]]; then
+        echo "Would insert into control-panel.html:"; echo "$CP_BUTTON"; return
+    fi
+
+    # Insert before the closing tag of the AI Services button grid (after Windmill link)
+    # Fallback: append at the end of first button-grid in AI Services section
+    if grep -n "Windmill" "$file" >/dev/null; then
+        # insert after the Windmill button line
+        sed -i "/Windmill/a\\${CP_BUTTON}" "$file"
+    else
+        # safer fallback: insert before the first </div> after AI Services header
+        sed -i "0,/AI Services/{/button-grid/{n; a\\${CP_BUTTON}}}" "$file"
+    fi
+
+    echo -e "${GREEN}control-panel.html updated${NC}"
+}
+
 # Function to update port documentation
 update_port_docs() {
     echo -e "${BLUE}Updating port documentation...${NC}"
@@ -457,6 +519,7 @@ add_nginx_config
 if [[ "$NGINX_ONLY" != "true" ]]; then
     add_docker_service
     add_to_applications
+    add_to_control_panel
     update_port_docs
 fi
 

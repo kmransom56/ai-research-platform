@@ -181,3 +181,8 @@ fi
 
 # Handle the command
 handle_command "${1:-help}"
+
+print_header "AI RESEARCH PLATFORM - CONTAINERIZED STARTUP"
+
+# Refresh HTML symlinks (control-panel, applications, index)
+bash /home/keith/chat-copilot/scripts/platform-management/create-html-symlinks.sh || true

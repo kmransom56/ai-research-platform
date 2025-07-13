@@ -1,20 +1,11 @@
-version: '3.8'
-
 # AI Research Platform - Complete Containerized Stack
-# This replaces all host-based services with containerized equivalents
 
 networks:
   ai-platform:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.23.0.0/16
+    external: true
+    name: chat-copilot_ai-platform
 
 volumes:
-  caddy_data:
-    driver: local
-  caddy_config:
-    driver: local
   qdrant_data:
     driver: local
   rabbitmq_data:
@@ -41,34 +32,7 @@ volumes:
     driver: local
 
 services:
-  # ===========================================
-  # REVERSE PROXY & SSL TERMINATION
-  # ===========================================
-  caddy:
-    image: caddy:2
-    container_name: ai-platform-caddy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "8443:8443"
-      - "2019:2019"
-    volumes:
-      - ./docker-configs/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-      - ./webapp/public:/srv:ro
-      - /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:/etc/ssl/certs/server.crt:ro
-      - /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:/etc/ssl/private/server.key:ro
-    networks:
-      ai-platform:
-        ipv4_address: 172.20.0.10
-    depends_on:
-      - chat-copilot-backend
-      - chat-copilot-frontend
-      - autogen-studio
-      - webhook-server
-      - port-scanner
-
+  
   # ===========================================
   # CORE AI RESEARCH PLATFORM SERVICES
   # ===========================================
@@ -83,7 +47,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
-      - KernelMemory__Services__OpenAI__APIKey=${AZURE_OPENAI_KEY}
+      # AZURE_OPENAI_KEY provided via Docker Secret
       - KernelMemory__Services__OpenAI__Endpoint=${AZURE_OPENAI_ENDPOINT}
       - SemanticKernel__Services__AzureOpenAI__ApiKey=${AZURE_OPENAI_KEY}
       - SemanticKernel__Services__AzureOpenAI__Endpoint=${AZURE_OPENAI_ENDPOINT}
@@ -91,11 +55,14 @@ services:
       - Qdrant__Port=6333
       - RabbitMQ__Host=rabbitmq
       - PostgreSQL__Host=postgres
-    ports:
-      - "11000:80"
+    # ports mapping removed – backend reachable inside Docker network at 80
     volumes:
       - platform_logs:/app/logs
       - ../../webapi/appsettings.json:/app/appsettings.json:ro
+      - ../../webapp/build:/app/wwwroot
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - AZURE_OPENAI_KEY
     networks:
       ai-platform:
         ipv4_address: 172.20.0.20
@@ -146,13 +113,16 @@ services:
     environment:
       - PYTHONPATH=/app
       - AUTOGEN_CONFIG_LIST=/app/config/OAI_CONFIG_LIST.json
-      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_KEY}
       - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
-    ports:
-      - "11001:8081"
+    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - ../../python/autogen-studio/config:/app/config:ro
       - platform_logs:/app/logs
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - AZURE_OPENAI_KEY
+    ports:
+      - "11001:8081"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.22
@@ -171,15 +141,18 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
       - WEBHOOK_PORT=11002
       - REPOSITORY_PATH=/app/repo
-    ports:
-      - "11002:11002"
+    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - webhook_logs:/app/logs
       - .:/app/repo:rw  # Mount repo for git operations
       - /var/run/docker.sock:/var/run/docker.sock  # Docker access for deployments
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - GITHUB_WEBHOOK_SECRET
+    ports:
+      - "11002:11002"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.23
@@ -198,12 +171,15 @@ services:
     restart: unless-stopped
     environment:
       - PYTHONPATH=/app
-      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_KEY}
       - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
-    ports:
-      - "11003:11003"
+    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - platform_logs:/app/logs
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - AZURE_OPENAI_KEY
+    ports:
+      - "11003:11003"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.24
@@ -250,10 +226,15 @@ services:
       - WEBUI_SECRET_KEY=${OPENWEBUI_SECRET_KEY}
       - OPENAI_API_BASE_URL=${AZURE_OPENAI_ENDPOINT}
       - OPENAI_API_KEY=${AZURE_OPENAI_KEY}
-    ports:
-      - "11880:8080"
+    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - openwebui_data:/app/backend/data
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - OPENWEBUI_SECRET_KEY
+      - AZURE_OPENAI_KEY
+    ports:
+      - "11880:8080"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.30
@@ -270,8 +251,12 @@ services:
     restart: unless-stopped
     environment:
       - SEARXNG_API_URL=http://searxng:8080
-      - OPENAI_API_KEY=${AZURE_OPENAI_KEY}
       - OPENAI_API_BASE_URL=${AZURE_OPENAI_ENDPOINT}
+    entrypoint: ["/entrypoint-export-secrets.sh"]
+    volumes:
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - AZURE_OPENAI_KEY
     ports:
       - "11020:3000"
     networks:
@@ -312,13 +297,17 @@ services:
     container_name: ai-platform-vscode
     restart: unless-stopped
     environment:
-      - PASSWORD=${VSCODE_PASSWORD}
-      - SUDO_PASSWORD=${VSCODE_PASSWORD}
-    ports:
-      - "57081:8080"
+      - PASSWORD
+      - SUDO_PASSWORD
+    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - ../../:/home/coder/workspace
       - vscode_config:/home/coder/.config
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - VSCODE_PASSWORD
+    ports:
+      - "57081:8080"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.33
@@ -357,13 +346,18 @@ services:
     container_name: ai-platform-rabbitmq
     restart: unless-stopped
     environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+    entrypoint: ["/entrypoint-export-secrets.sh"]
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - RABBITMQ_USER
+      - RABBITMQ_PASSWORD
     ports:
       - "5672:5672"
       - "15672:15672"
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
     networks:
       ai-platform:
         ipv4_address: 172.20.0.41
@@ -381,12 +375,16 @@ services:
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
+      - POSTGRES_PASSWORD
+    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ../../sql/init:/docker-entrypoint-initdb.d:ro
+      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
+    secrets:
+      - POSTGRES_PASSWORD
+    ports:
+      - "5432:5432"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.42
@@ -488,6 +486,11 @@ services:
     depends_on:
       neo4j:
         condition: service_healthy
+    secrets:
+      - OPENAI_API_KEY
+      - GOOGLE_API_KEY
+      - NEO4J_USERNAME
+      - NEO4J_PASSWORD
 
   # GenAI Stack Support Bot
   genai-stack-bot:
@@ -522,6 +525,11 @@ services:
     depends_on:
       neo4j:
         condition: service_healthy
+    secrets:
+      - OPENAI_API_KEY
+      - GOOGLE_API_KEY
+      - NEO4J_USERNAME
+      - NEO4J_PASSWORD
 
   # GenAI Stack PDF Reader
   genai-stack-pdf:
@@ -554,6 +562,11 @@ services:
     depends_on:
       neo4j:
         condition: service_healthy
+    secrets:
+      - OPENAI_API_KEY
+      - GOOGLE_API_KEY
+      - NEO4J_USERNAME
+      - NEO4J_PASSWORD
 
   # GenAI Stack API Server
   genai-stack-api:
@@ -593,6 +606,11 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+    secrets:
+      - OPENAI_API_KEY
+      - GOOGLE_API_KEY
+      - NEO4J_USERNAME
+      - NEO4J_PASSWORD
 
   # GenAI Stack Frontend
   genai-stack-frontend:
@@ -609,3 +627,39 @@ services:
     depends_on:
       genai-stack-api:
         condition: service_healthy
+secrets:
+  # ───── API / provider keys ─────
+  AZURE_OPENAI_KEY:
+    file: ../../secrets/AZURE_OPENAI_KEY
+  OPENAI_API_KEY:
+    file: ../../secrets/OPENAI_API_KEY
+  GOOGLE_API_KEY:
+    file: ../../secrets/GOOGLE_API_KEY
+  OPENWEBUI_SECRET_KEY:
+    file: ../../secrets/OPENWEBUI_SECRET_KEY
+  LANGCHAIN_API_KEY:
+    file: ../../secrets/LANGCHAIN_API_KEY
+
+  # ───── Database / queue credentials ─────
+  RABBITMQ_USER:
+    file: ../../secrets/RABBITMQ_USER
+  RABBITMQ_PASSWORD:
+    file: ../../secrets/RABBITMQ_PASSWORD
+  POSTGRES_PASSWORD:
+    file: ../../secrets/POSTGRES_PASSWORD
+
+  # ───── Optional GenAI / Neo4j ─────
+  NEO4J_USERNAME:
+    file: ../../secrets/NEO4J_USERNAME
+  NEO4J_PASSWORD:
+    file: ../../secrets/NEO4J_PASSWORD
+
+  # ───── Platform UI / misc ─────
+  VSCODE_PASSWORD:
+    file: ../../secrets/VSCODE_PASSWORD
+  GITHUB_WEBHOOK_SECRET:
+    file: ../../secrets/GITHUB_WEBHOOK_SECRET
+  AWS_ACCESS_KEY_ID:
+    file: ../../secrets/AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY:
+    file: ../../secrets/AWS_SECRET_ACCESS_KEY

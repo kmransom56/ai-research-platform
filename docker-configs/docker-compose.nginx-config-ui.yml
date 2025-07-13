@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  nginx-config-ui:
+    image: "schenkd/nginx-ui:latest"
+    container_name: nginx-config-ui
+    restart: unless-stopped
+    ports:
+      - "11084:8080"  # Expose web UI on host port 11084
+    volumes:
+      - /etc/nginx:/etc/nginx  # Mount host nginx configuration
+    environment:
+      - TZ=UTC
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    external: false
+    driver: bridge 

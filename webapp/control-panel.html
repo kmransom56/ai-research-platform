@@ -269,11 +269,9 @@
             <div class="control-section" style="grid-column: 1 / -1;">
                 <div
                     style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                    <h4 style="margin: 0 0 10px 0;">🔍 External Services Status</h4>
-                    <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS
-                        Code Web are independent applications that need to be started separately.</p>
-                    <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat
-                        Copilot, Webhook Server, Port Scanner, Nginx Gateway, Fortinet Manager</p>
+                    <p style="margin: 0;"><strong>Available services:</strong> OpenWebUI, Chat Copilot, Perplexica,
+                        SearchNG, AutoGen Studio, Magentic-One, Webhook Server, Port Scanner, Nginx Gateway,
+                        VS Code Web, Gateway Admin, Ollama API, Windmill, ntopng, Neo4j, GenAI Stack</p>
                 </div>
             </div>
 
@@ -285,28 +283,23 @@
                         <span class="material-icons">psychology</span>
                         OpenWebUI
                     </a>
-                    <a href="/copilot" target="_blank"
-                        class="control-button">
+                    <a href="/copilot" target="_blank" class="control-button">
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="/perplexica" target="_blank"
-                        class="control-button" id="perplexica-btn">
+                    <a href="/perplexica" target="_blank" class="control-button" id="perplexica-btn">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="/searxng" target="_blank"
-                        class="control-button" id="searxng-btn">
+                    <a href="/searxng" target="_blank" class="control-button" id="searxng-btn">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
-                    <a href="/autogen" target="_blank"
-                        class="control-button">
+                    <a href="/autogen" target="_blank" class="control-button">
                         <span class="material-icons">groups</span>
                         AutoGen Studio
                     </a>
-                    <a href="/magentic" target="_blank"
-                        class="control-button">
+                    <a href="/magentic" target="_blank" class="control-button">
                         <span class="material-icons">hub</span>
                         Magentic-One
                     </a>
@@ -340,20 +333,21 @@
             <div class="control-section">
                 <h3><span class="material-icons">code</span>Development Tools</h3>
                 <div class="button-grid">
-                    <a href="/vscode/login" target="_blank"
-                        class="control-button info" id="vscode-btn">
+                    <a href="/vscode/login" target="_blank" class="control-button info" id="vscode-btn">
                         <span class="material-icons">code</span>
                         VS Code Web
                     </a>
-                    <a href="/portscanner/" target="_blank"
-                        class="control-button info">
+                    <a href="/portscanner/" target="_blank" class="control-button info">
                         <span class="material-icons">network_ping</span>
                         Port Scanner
                     </a>
-                    <a href="/copilot/healthz" target="_blank"
-                        class="control-button info">
+                    <a href="/copilot/healthz" target="_blank" class="control-button info">
                         <span class="material-icons">health_and_safety</span>
                         Health Check
+                    </a>
+                    <a href="/nginx-config/" target="_blank" class="control-button info">
+                        <span class="material-icons">edit</span>
+                        Nginx Config UI
                     </a>
                     <button class="control-button secondary" onclick="refreshServices()">
                         <span class="material-icons">refresh</span>
@@ -366,13 +360,11 @@
             <div class="control-section">
                 <h3><span class="material-icons">router</span>Network Management</h3>
                 <div class="button-grid">
-                    <a href="/fortinet/" target="_blank"
-                        class="control-button">
+                    <a href="/fortinet/" target="_blank" class="control-button">
                         <span class="material-icons">security</span>
                         Fortinet Mgmt
                     </a>
-                    <a href="/nginx/" target="_blank"
-                        class="control-button">
+                    <a href="/nginx/" target="_blank" class="control-button">
                         <span class="material-icons">dns</span>
                         Nginx Gateway
                     </a>
@@ -469,22 +461,18 @@
         <div class="quick-actions">
             <h3>🚀 Frequently Used</h3>
             <div class="quick-buttons">
-                <button class="quick-button"
-                    onclick="window.open('/', '_blank')">🤖
+                <button class="quick-button" onclick="window.open('/', '_blank')">🤖
                     OpenWebUI</button>
-                <button class="quick-button"
-                    onclick="window.open('/copilot/', '_blank')">💬 Chat
+                <button class="quick-button" onclick="window.open('/copilot/', '_blank')">💬 Chat
                     Copilot</button>
-                <button class="quick-button"
-                    onclick="window.open('/perplexica', '_blank')">🔍
+                <button class="quick-button" onclick="window.open('/perplexica', '_blank')">🔍
                     Perplexica</button>
                 <button class="quick-button" onclick="executeCommand('switch-ai', 'status')">📊 AI Status</button>
                 <button class="quick-button" onclick="refreshServices()">🔄 Refresh</button>
                 <button class="quick-button"
                     onclick="window.open('https://github.com/kmransom56/AI_Research_Platform-_Tailscale', '_blank')">📚
                     GitHub</button>
-                <button class="quick-button"
-                    onclick="window.open('/vscode/login', '_blank')">💻 VS
+                <button class="quick-button" onclick="window.open('/vscode/login', '_blank')">💻 VS
                     Code</button>
             </div>
         </div>
@@ -898,7 +886,7 @@
 
         // Open full dashboard
         function openDashboard() {
-            window.open('/applications.html', '_blank');
+            window.open('/copilot/applications.html', '_blank');
             logOutput('🚀 Opening full applications dashboard...', 'info');
         }
 

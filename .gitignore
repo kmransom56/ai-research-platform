@@ -563,3 +563,4 @@ config-backups-auto/
 archive_scripts/
 scripts-archive/
 dev-tools/
+secrets/*

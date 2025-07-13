@@ -7,6 +7,8 @@ services:
       - KernelMemory__Services__OpenAI__APIKey=${OpenAI__ApiKey:-your-key-here}
       - OpenAI__ApiKey=${OpenAI__ApiKey:-your-key-here}
     restart: unless-stopped
+    volumes:
+      - ../webapi/wwwroot:/app/wwwroot
     
   chat-copilot-memorypipeline:
     environment:

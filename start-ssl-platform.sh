@@ -31,6 +31,9 @@ print_header() {
 
 print_header "AI RESEARCH PLATFORM - SSL PRODUCTION STARTUP"
 
+# Ensure HTML symlinks are up-to-date
+bash /home/keith/chat-copilot/scripts/platform-management/create-html-symlinks.sh
+
 # Check prerequisites
 if ! command -v docker &> /dev/null; then
     print_status "ERROR" "Docker is not installed"
@@ -94,6 +97,24 @@ else
         print_status "ERROR" "No docker-compose configuration found"
         exit 1
     fi
+fi
+
+print_status "INFO" "Starting additional nginx management UIs..."
+
+# Start Nginx Proxy Manager
+if [[ -f "docker-configs/docker-compose.nginx-proxy-manager.yml" ]]; then
+    docker-compose -f docker-configs/docker-compose.nginx-proxy-manager.yml up -d
+    print_status "SUCCESS" "Nginx Proxy Manager stack started"
+else
+    print_status "WARNING" "docker-compose.nginx-proxy-manager.yml not found"
+fi
+
+# Start Nginx Config UI
+if [[ -f "docker-configs/docker-compose.nginx-config-ui.yml" ]]; then
+    docker-compose -f docker-configs/docker-compose.nginx-config-ui.yml up -d
+    print_status "SUCCESS" "Nginx Config UI stack started (port 11084)"
+else
+    print_status "WARNING" "docker-compose.nginx-config-ui.yml not found"
 fi
 
 print_header "STARTUP COMPLETE"
