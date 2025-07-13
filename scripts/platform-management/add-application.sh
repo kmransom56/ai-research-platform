@@ -2,7 +2,8 @@
 
 # AI Research Platform - Add Application Script
 # Creates a standardized process for adding new applications to the platform
-
+# Example:
+#./add-application.sh --name "Prompt Forge" --port auto --description "Prompt IDE" --docker-image ghcr.io/insaanimanav/prompt-forge:main
 set -e
 
 # Colors for output
@@ -30,7 +31,7 @@ usage() {
     echo "Options:"
     echo "  --name            Application name (required)"
     echo "  --port            Application port (optional – 'auto' or omitted = find free port)"
-    echo "  --path            URL path prefix (required, e.g., /myapp)"
+    echo "  --path            URL path prefix (optional – auto-generated from app name if omitted)"
     echo "  --description     Application description (required)"
     echo "  --docker-image    Docker image (optional)"
     echo "  --docker-env      Docker environment variables (optional)"
@@ -134,8 +135,30 @@ if [[ -z "$APP_PORT" || "$APP_PORT" == "auto" ]]; then
     echo -e "${GREEN}Assigned free port $APP_PORT${NC}"
 fi
 
-# Validate remaining required parameters
-if [[ -z "$APP_NAME" || -z "$APP_PATH" || -z "$APP_DESCRIPTION" ]]; then
+# ----------------------------
+# Auto-generate path if needed
+# ----------------------------
+sanitize_name() { echo "$1" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g'; }
+
+generate_unique_path() {
+    local base="/$(sanitize_name "$APP_NAME")"
+    local candidate="$base"
+    local n=2
+    while sudo grep -q "location ${candidate}/" "$NGINX_CONFIG" 2>/dev/null; do
+        candidate="${base}-${n}"
+        ((n++))
+    done
+    echo "$candidate"
+}
+
+# Auto path when not provided or set to 'auto'
+if [[ -z "$APP_PATH" || "$APP_PATH" == "auto" ]]; then
+    APP_PATH=$(generate_unique_path)
+    echo -e "${GREEN}Assigned URL path: $APP_PATH${NC}"
+fi
+
+# Validate required parameters after auto-generation
+if [[ -z "$APP_NAME" || -z "$APP_DESCRIPTION" ]]; then
     echo -e "${RED}Error: Missing required parameters${NC}"
     usage
     exit 1
@@ -169,9 +192,9 @@ case $APP_STATUS in
         ;;
 esac
 
-# Validate path format
-if [[ ! "$APP_PATH" =~ ^/[a-zA-Z0-9_-]+$ ]]; then
-    echo -e "${RED}Error: Path must start with / and contain only alphanumeric characters, hyphens, and underscores${NC}"
+# Validate path format (after auto-gen)
+if [[ ! "$APP_PATH" =~ ^/[a-z0-9-]+$ ]]; then
+    echo -e "${RED}Error: Generated/Provided path '$APP_PATH' is invalid${NC}"
     exit 1
 fi
 
