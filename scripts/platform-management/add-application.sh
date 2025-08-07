@@ -380,9 +380,13 @@ add_docker_service() {
         return
     fi
     
-    # Add the service before the volumes section
-    sed -i "/^volumes:/i\\${DOCKER_SERVICE}" "$DOCKER_COMPOSE"
-    
+    # Safely insert the block before the first "volumes:" line using awk (avoids sed escape issues)
+    tmp_file=$(mktemp)
+    awk -v s="$DOCKER_SERVICE" 'BEGIN{printed=0} {
+        if (!printed && /^volumes:/) {print s; printed=1}
+        print $0
+    }' "$DOCKER_COMPOSE" > "$tmp_file" && mv "$tmp_file" "$DOCKER_COMPOSE"
+
     echo -e "${GREEN}Docker Compose service added${NC}"
 }
 
@@ -403,6 +407,15 @@ add_to_applications() {
     
     # Add port mapping to JavaScript
     PORT_MAPPING="                '${APP_PORT}': '${APP_PATH}/'"
+
+    # Helper to escape string for sed (slashes, ampersands, newlines)
+    escape_sed() {
+        printf '%s' "$1" | sed -e 's/[/&]/\\&/g' -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g'
+    }
+
+    ESC_CARD=$(escape_sed "$APP_CARD")
+    ESC_QUICK=$(escape_sed "$QUICK_LINK")
+    ESC_PORT=$(escape_sed "$PORT_MAPPING")
     
     if [[ "$TEST_MODE" == "true" ]]; then
         echo "Would add application card:"
@@ -429,24 +442,28 @@ add_to_applications() {
         # Add the app card before the closing div of the appropriate section
         case $APP_CATEGORY in
             ai)
-                sed -i "/Launch GenAI Stack<\/a>/a\\${APP_CARD}" "$file"
+                sed -i "/Launch GenAI Stack<\/a>/a\\${ESC_CARD}" "$file"
                 ;;
             dev)
-                sed -i "/Launch Backup<\/a>/a\\${APP_CARD}" "$file"
+                sed -i "/Launch Backup<\/a>/a\\${ESC_CARD}" "$file"
                 ;;
             network)
-                sed -i "/Launch Backup<\/a>/a\\${APP_CARD}" "$file"
+                sed -i "/Launch Backup<\/a>/a\\${ESC_CARD}" "$file"
                 ;;
             api)
-                sed -i "/API Docs<\/a>/a\\${APP_CARD}" "$file"
+                sed -i "/API Docs<\/a>/a\\${ESC_CARD}" "$file"
                 ;;
         esac
         
-        # Add quick link
-        sed -i "/⚡ Windmill<\/a>/a\\${QUICK_LINK}" "$file"
+        # Add quick link (insert after first existing quick-link)
+        sed -i "0,/class=\\\"quick-link\\\"/s//&\n${ESC_QUICK}/" "$file"
         
-        # Add port mapping to JavaScript
-        sed -i "/11005.*windmill/a\\${PORT_MAPPING}," "$file"
+        # Add port mapping to JavaScript PORT_TO_PATH if present
+        if grep -q "const PORT_TO_PATH" "$file"; then
+            if ! grep -q "'${APP_PORT}'" "$file"; then
+                sed -i "/const PORT_TO_PATH = {/{n; a\\${ESC_PORT}}" "$file"
+            fi
+        fi
     }
     
     # Update both HTML files
@@ -474,7 +491,7 @@ add_to_control_panel() {
     fi
 
     # Build anchor element (copy style of existing buttons)
-    local CP_BUTTON="                    <a href=\"http://100.123.10.72:${APP_PORT}\" target=\"_blank\" class=\"control-button\">\n                        <span class=\"material-icons\">apps</span>\n                        ${APP_NAME}\n                    </a>"
+    local CP_BUTTON="                    <a href=\"http://localhost:${APP_PORT}\" target=\"_blank\" class=\"control-button\">\n                        <span class=\"material-icons\">apps</span>\n                        ${APP_NAME}\n                    </a>"
 
     if [[ "$TEST_MODE" == "true" ]]; then
         echo "Would insert into control-panel.html:"; echo "$CP_BUTTON"; return
@@ -483,11 +500,16 @@ add_to_control_panel() {
     # Insert before the closing tag of the AI Services button grid (after Windmill link)
     # Fallback: append at the end of first button-grid in AI Services section
     if grep -n "Windmill" "$file" >/dev/null; then
-        # insert after the Windmill button line
         sed -i "/Windmill/a\\${CP_BUTTON}" "$file"
     else
-        # safer fallback: insert before the first </div> after AI Services header
         sed -i "0,/AI Services/{/button-grid/{n; a\\${CP_BUTTON}}}" "$file"
+    fi
+
+    # Add port mapping to PORT_TO_PATH table if present
+    if grep -q "const PORT_TO_PATH" "$file"; then
+        if ! grep -q "'${APP_PORT}'" "$file"; then
+            sed -i "/const PORT_TO_PATH = {/{n; a\\                '${APP_PORT}': '${APP_PATH}/',}" "$file"
+        fi
     fi
 
     echo -e "${GREEN}control-panel.html updated${NC}"

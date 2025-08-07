@@ -9,8 +9,11 @@ COPY package.json yarn.lock ./
 
 # Install dependencies
 RUN yarn install --prefer-offline --non-interactive --production=false
-# Copy source code
-COPY . .
+
+# Copy source code explicitly
+COPY public ./public
+COPY src ./src
+COPY tsconfig.json ./.prettierrc.cjs .eslintrc.cjs ./
 
 # Build the application
 RUN yarn build

@@ -232,6 +232,11 @@
                     </p>
                     <a href="/magentic" class="app-link" target="_blank">Launch Magentic-One</a>
                 </div>
+                <div class="app-card ai-category">
+                    <h3>Prompt Forge <span class="status ready">🟡 Ready</span></h3>
+                    <p>Prompt engineering playground with Anthropic Claude support and template library</p>
+                    <a href="/promptforge" class="app-link" target="_blank">Launch Prompt Forge</a>
+                </div>
             </div>
         </div>
 
@@ -243,6 +248,18 @@
                     <p>Official VS Code Server with AI Development Workspace, AutoGen integration, and custom snippets
                     </p>
                     <a href="/vscode/login" class="app-link" target="_blank">Launch VS Code Web</a>
+                </div>
+
+                <div class="app-card dev-category">
+                    <h3>Grafana <span class="status ready">🟡 Ready</span></h3>
+                    <p>Metrics dashboard for visualising time-series data</p>
+                    <a href="/grafana" class="app-link" target="_blank">Launch Grafana</a>
+                </div>
+
+                <div class="app-card dev-category">
+                    <h3>Grafana <span class="status ready">🟡 Ready</span></h3>
+                    <p>Metrics dashboard for visualising time-series data</p>
+                    <a href="/grafana" class="app-link" target="_blank">Launch Grafana</a>
                 </div>
 
                 <div class="app-card network-category">
@@ -259,6 +276,18 @@
 
                 <div class="app-card network-category">
                     <h3>Nginx Gateway <span class="status active">✅ Active</span></h3>
+                    <p>Web Services Proxy and Gateway for application routing</p>
+                    <a href="/nginx" class="app-link" target="_blank">Launch Gateway</a>
+                </div>
+
+                <div class="app-card dev-category">
+                    <h3>n8n Automation <span class="status ready">🟡 Ready</span></h3>
+                    <p>Low-code workflow automation tool to connect and automate apps</p>
+                    <a href="/n8n" class="app-link" target="_blank">Launch n8n</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Port Scanner Dashboard <span class="status active">✅ Active</span></h3>
                     <p>Web Services Proxy and Gateway for application routing</p>
                     <a href="/nginx" class="app-link" target="_blank">Launch Gateway</a>
                 </div>
@@ -291,14 +320,15 @@
         <div class="quick-access">
             <h3>🚀 Quick Access Links</h3>
             <div class="quick-links">
-                <a href="/openwebui" class="quick-link"
-                    target="_blank">OpenWebUI</a>
+                <a href="/openwebui" class="quick-link" target="_blank">OpenWebUI</a>
                 <a href="/hub" class="quick-link" target="_blank">🎛️ Control
                     Panel</a>
                 <a href="/copilot" class="quick-link" target="_blank">AI Chat</a>
                 <a href="/perplexica" class="quick-link" target="_blank">AI Search</a>
                 <a href="/vscode" class="quick-link" target="_blank">Code Editor</a>
                 <a href="/portscanner" class="quick-link" target="_blank">Port Scanner</a>
+                <a href="/grafana" class="quick-link" target="_blank">Grafana</a>
+                <a href="/grafana" class="quick-link" target="_blank">Grafana</a>
                 <a href="/fortinet" class="quick-link" target="_blank">Network Mgmt</a>
                 <a href="/copilot/healthz" class="quick-link" target="_blank">Health Check</a>
             </div>
@@ -365,27 +395,59 @@
                 '100.123.10.72'
             ];
 
+            const LOCAL_HOSTS = ['localhost', '127.0.0.1'];
+
             const DEFAULT_PORT = '8443';
             const CURRENT_HOST = window.location.port
                 ? window.location.host
                 : `${window.location.hostname}:${DEFAULT_PORT}`;
-            const CURRENT_BASE = window.location.protocol === 'https:' 
-                ? `https://${CURRENT_HOST}` 
+            const CURRENT_BASE = window.location.protocol === 'https:'
+                ? `https://${CURRENT_HOST}`
                 : `https://${window.location.hostname}:8443`;
 
-            // Mapping of legacy container ports → path prefixes handled by Caddy
+            // Mapping of legacy container ports → path prefixes handled by nginx SSL proxy
             const PORT_TO_PATH = {
+                // Core Platform Services
                 '11000': '/copilot/',
                 '11001': '/autogen/',
-                '11002': '/webhook/',
                 '11003': '/magentic/',
+                '11025': '/webhook/',
+                '11002': '/grafana/',
+                '11500': '/promptforge/',
+                '11510': '/n8n/',
                 '11010': '/portscanner/',
-                '11080': '/nginx/',
-                '11081': '/gateway-http/',
-                '11082': '/gateway-https/',
+                '11880': '/openwebui/',
+                '57081': '/vscode/',
+
+                // Search & Knowledge Services  
+                '11020': '/perplexica/',
+                '11021': '/searxng/',
+                '7474': '/neo4j/',
+                '6333': '/qdrant/',
+
+                // GenAI Stack Services
+                '8505': '/genai-stack/',
+                '8502': '/genai-stack/loader/',
+                '8081': '/genai-stack/import/',
+                '8501': '/genai-stack/bot/',
+                '8503': '/genai-stack/pdf/',
+                '8504': '/genai-stack/api/',
+
+                // Infrastructure & Admin
+                '11082': '/gateway-admin/',
+                '11084': '/nginx-config/',
+                '11434': '/ollama-api/',
+                '11006': '/windmill/',
+                '8888': '/ntopng/',
+                '8080': '/nginx/',
+                '15672': '/rabbitmq/',
+                '5432': '/postgresql/',
+
+                // Legacy/Compatibility
+                '3000': '/copilot/',
+                '3080': '/copilot/',
                 '3999': '/perplexica/',
                 '4000': '/searxng/',
-                '57081': '/vscode/',
                 '3001': '/fortinet/',
                 '5000': '/fortinet-api/'
             };
@@ -394,7 +456,7 @@
                 document.querySelectorAll('a[href]').forEach(a => {
                     try {
                         const url = new URL(a.getAttribute('href'), window.location.href);
-                        if (LEGACY_HOSTS.includes(url.hostname)) {
+                        if (LEGACY_HOSTS.includes(url.hostname) || ['localhost', '127.0.0.1'].includes(url.hostname)) {
                             let newHref = CURRENT_BASE;
 
                             // Replace based on port mapping if available

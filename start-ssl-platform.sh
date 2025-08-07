@@ -46,12 +46,20 @@ if ! command -v docker-compose &> /dev/null; then
 fi
 
 # Check SSL certificates
-CERT_FILE="/etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt"
-KEY_FILE="/etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key"
+CERT_FILE="/etc/ssl/certs/ubuntuaicodeserver-1.tail5137b4.ts.net.crt"
+KEY_FILE="/etc/ssl/private/ubuntuaicodeserver-1.tail5137b4.ts.net.key"
 
 if [[ ! -f "$CERT_FILE" ]] || [[ ! -f "$KEY_FILE" ]]; then
     print_status "WARNING" "SSL certificates not found. Platform will start but SSL may not work."
     print_status "INFO" "Expected certificates at: $CERT_FILE and $KEY_FILE"
+fi
+
+# Ensure generic symlinks for Nginx
+if [[ -f "$CERT_FILE" ]] && [[ ! -f /etc/ssl/certs/server.crt ]]; then
+    sudo ln -sf "$CERT_FILE" /etc/ssl/certs/server.crt
+fi
+if [[ -f "$KEY_FILE" ]] && [[ ! -f /etc/ssl/private/server.key ]]; then
+    sudo ln -sf "$KEY_FILE" /etc/ssl/private/server.key
 fi
 
 # Stop any existing nginx-ssl container
@@ -67,8 +75,8 @@ docker run -d \
   --restart unless-stopped \
   -p 8443:443 \
   -p 8080:80 \
-  -v /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:/etc/ssl/certs/server.crt:ro \
-  -v /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:/etc/ssl/private/server.key:ro \
+  -v /etc/ssl/certs/server.crt:/etc/ssl/certs/server.crt:ro \
+  -v /etc/ssl/private/server.key:/etc/ssl/private/server.key:ro \
   -v /home/keith/chat-copilot/configs/nginx/nginx-ssl.conf:/etc/nginx/nginx.conf:ro \
   -v /home/keith/chat-copilot/nginx-configs/ssl-main.conf:/etc/nginx/conf.d/ssl-main.conf:ro \
   -v /home/keith/chat-copilot/webapi/wwwroot:/var/www/html:ro \
