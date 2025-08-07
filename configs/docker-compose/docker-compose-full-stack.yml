@@ -30,6 +30,8 @@ volumes:
     driver: local
   genai_embedding_model:
     driver: local
+  n8n_data:
+    driver: local
 
 services:
   
@@ -62,7 +64,8 @@ services:
       - AZURE_OPENAI_KEY_FILE=/run/secrets/AZURE_OPENAI_KEY
       - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
       - GEMINI_API_KEY_FILE=/run/secrets/GEMINI_API_KEY
-    # ports mapping removed – backend reachable inside Docker network at 80
+    ports:
+      - "11000:8080"  # Expose backend on port 11000 mapping to internal 8080
     volumes:
       - platform_logs:/app/logs
       - ../../webapi/appsettings.json:/app/appsettings.json:ro
@@ -375,8 +378,8 @@ services:
     container_name: ai-platform-rabbitmq
     restart: unless-stopped
     environment:
-      - RABBITMQ_DEFAULT_USER
-      - RABBITMQ_DEFAULT_PASS
+      - RABBITMQ_DEFAULT_USER_FILE=/run/secrets/RABBITMQ_USER
+      - RABBITMQ_DEFAULT_PASS_FILE=/run/secrets/RABBITMQ_PASSWORD
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     secrets:
@@ -402,7 +405,7 @@ services:
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ../../sql/init:/docker-entrypoint-initdb.d:ro
@@ -637,6 +640,17 @@ services:
       - NEO4J_USERNAME
       - NEO4J_PASSWORD
 
+  # Grafana Metrics Dashboard
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "11002:8000"
+    networks:
+      ai-platform:
+        ipv4_address: 172.20.0.88
+
   # GenAI Stack Frontend
   genai-stack-frontend:
     build:
@@ -652,6 +666,45 @@ services:
     depends_on:
       genai-stack-api:
         condition: service_healthy
+  # Prompt Forge & n8n
+  prompt-forge:
+    image: ghcr.io/insaanimanav/prompt-forge:main
+    container_name: prompt-forge
+    restart: unless-stopped
+    ports:
+      - "11500:8080"
+    environment:
+      - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
+    secrets:
+      - ANTHROPIC_API_KEY
+    networks:
+      ai-platform:
+        ipv4_address: 172.20.0.88
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    volumes:
+      - n8n_data:/home/node/.n8n
+    ports:
+      - "11510:5678"
+    environment:
+      - GENERIC_TIMEZONE=UTC
+    networks:
+      ai-platform:
+        ipv4_address: 172.20.0.89
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5678"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 secrets:
   # ───── API / provider keys ─────
   AZURE_OPENAI_KEY:

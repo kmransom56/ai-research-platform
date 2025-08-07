@@ -26,9 +26,10 @@ for file in "${SYMLINKS[@]}"; do
     continue
   fi
 
-  # Remove existing regular file (not symlink)
+  # Skip if regular file exists (don't override real files)
   if [[ -e "$dest" && ! -L "$dest" ]]; then
-    rm -f "$dest"
+    echo "[SKIP] $dest exists as regular file - not overriding"
+    continue
   fi
 
   # Create/refresh symlink

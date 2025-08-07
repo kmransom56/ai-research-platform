@@ -1,0 +1,7 @@
+[project]
+name = "autogen-studio"
+version = "0.1.0"
+description = "placeholder pyproject for docker build"
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

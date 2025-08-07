@@ -259,6 +259,22 @@
                 <span>Magentic-One</span>
             </div>
             <div class="status-item">
+                <div class="status-indicator status-active"></div>
+                <span>GenAI Stack</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator status-active"></div>
+                <span>Neo4j</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator status-active"></div>
+                <span>Webhook Server</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator status-active"></div>
+                <span>VS Code Server</span>
+            </div>
+            <div class="status-item">
                 <div class="status-indicator status-unknown"></div>
                 <span>Provider: OpenAI</span>
             </div>
@@ -269,9 +285,15 @@
             <div class="control-section" style="grid-column: 1 / -1;">
                 <div
                     style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                    <p style="margin: 0;"><strong>Available services:</strong> OpenWebUI, Chat Copilot, Perplexica,
-                        SearchNG, AutoGen Studio, Magentic-One, Webhook Server, Port Scanner, Nginx Gateway,
-                        VS Code Web, Gateway Admin, Ollama API, Windmill, ntopng, Neo4j, GenAI Stack</p>
+                    <h4 style="margin: 0 0 10px 0;">🔍 Complete AI Research Platform Stack</h4>
+                    <p style="margin: 0 0 10px 0;"><strong>AI Services:</strong> OpenWebUI, Chat Copilot, Perplexica,
+                        SearchNG, AutoGen Studio, Magentic-One</p>
+                    <p style="margin: 0 0 10px 0;"><strong>GenAI Stack:</strong> Support Bot, Data Loader, PDF Reader,
+                        API Server, Frontend, Import Interface</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Database & Infrastructure:</strong> Neo4j, Qdrant Vector DB,
+                        RabbitMQ, PostgreSQL, VS Code Server, Port Scanner</p>
+                    <p style="margin: 0;"><strong>Network & Management:</strong> Webhook Server, Nginx Gateway, Gateway
+                        Admin, Ollama API, ntopng Monitor</p>
                 </div>
             </div>
 
@@ -279,29 +301,64 @@
             <div class="control-section">
                 <h3><span class="material-icons">smart_toy</span>AI Services</h3>
                 <div class="button-grid">
-                    <a href="/openwebui" target="_blank" class="control-button">
+                    <a href="http://localhost:11880" target="_blank" class="control-button">
                         <span class="material-icons">psychology</span>
                         OpenWebUI
                     </a>
-                    <a href="/copilot" target="_blank" class="control-button">
+                    <a href="http://localhost:3000" target="_blank" class="control-button">
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="/perplexica" target="_blank" class="control-button" id="perplexica-btn">
+                    <a href="http://localhost:11020" target="_blank" class="control-button" id="perplexica-btn">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="/searxng" target="_blank" class="control-button" id="searxng-btn">
+                    <a href="http://localhost:11021" target="_blank" class="control-button" id="searxng-btn">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
-                    <a href="/autogen" target="_blank" class="control-button">
+                    <a href="http://localhost:11001" target="_blank" class="control-button">
                         <span class="material-icons">groups</span>
                         AutoGen Studio
                     </a>
-                    <a href="/magentic" target="_blank" class="control-button">
+                    <a href="http://localhost:11003" target="_blank" class="control-button">
                         <span class="material-icons">hub</span>
                         Magentic-One
+                    </a>
+                    <a href="http://localhost:11500" target="_blank" class="control-button">
+                        <span class="material-icons">auto_fix_high</span>
+                        Prompt&nbsp;Forge
+                    </a>
+                </div>
+            </div>
+
+            <!-- GenAI Stack Services Section -->
+            <div class="control-section">
+                <h3><span class="material-icons">account_tree</span>GenAI Stack</h3>
+                <div class="button-grid">
+                    <a href="http://localhost:8505" target="_blank" class="control-button">
+                        <span class="material-icons">dashboard</span>
+                        Frontend
+                    </a>
+                    <a href="http://localhost:8501" target="_blank" class="control-button">
+                        <span class="material-icons">support_agent</span>
+                        Support Bot
+                    </a>
+                    <a href="http://localhost:8502" target="_blank" class="control-button">
+                        <span class="material-icons">upload</span>
+                        Data Loader
+                    </a>
+                    <a href="http://localhost:8503" target="_blank" class="control-button">
+                        <span class="material-icons">picture_as_pdf</span>
+                        PDF Reader
+                    </a>
+                    <a href="http://localhost:8504" target="_blank" class="control-button">
+                        <span class="material-icons">api</span>
+                        API Server
+                    </a>
+                    <a href="http://localhost:8081" target="_blank" class="control-button">
+                        <span class="material-icons">cloud_upload</span>
+                        Import Interface
                     </a>
                 </div>
             </div>
@@ -341,6 +398,13 @@
                         <span class="material-icons">network_ping</span>
                         Port Scanner
                     </a>
+                    <a href="http://localhost:11002" target="_blank" class="control-button info">
+                        <span class="material-icons">monitor</span>
+                        Grafana
+                    </a>
+                    <span class="material-icons">network_ping</span>
+                    Port Scanner
+                    </a>
                     <a href="/copilot/healthz" target="_blank" class="control-button info">
                         <span class="material-icons">health_and_safety</span>
                         Health Check
@@ -349,10 +413,18 @@
                         <span class="material-icons">edit</span>
                         Nginx Config UI
                     </a>
+                    <a href="/n8n/" target="_blank" class="control-button info">
+                        <span class="material-icons">timeline</span>
+                        n8n Automation
+                    </a>
                     <button class="control-button secondary" onclick="refreshServices()">
-                        <span class="material-icons">refresh</span>
-                        Refresh Status
-                    </button>
+                        <span class="material-icons">edit</span>
+                        Nginx Config UI
+                        </a>
+                        <button class="control-button secondary" onclick="refreshServices()">
+                            <span class="material-icons">refresh</span>
+                            Refresh Status
+                        </button>
                 </div>
             </div>
 
@@ -376,13 +448,13 @@
                         <span class="material-icons">network_ping</span>
                         ntopng Monitor
                     </a>
-                    <a href="/ollama" target="_blank" class="control-button">
+                    <a href="http://localhost:11434" target="_blank" class="control-button">
                         <span class="material-icons">api</span>
                         Ollama API
                     </a>
-                    <a href="/neo4j" target="_blank" class="control-button">
-                        <span class="material-icons">storage</span>
-                        Neo4j Database
+                    <a href="http://localhost:11002" target="_blank" class="control-button">
+                        <span class="material-icons">webhook</span>
+                        Webhook Server
                     </a>
                     <button class="control-button secondary" onclick="executeCommand('ping', '100.123.10.72')">
                         <span class="material-icons">network_check</span>
@@ -392,6 +464,37 @@
                         <span class="material-icons">info</span>
                         Network Info
                     </button>
+                </div>
+            </div>
+
+            <!-- Database & Infrastructure Section -->
+            <div class="control-section">
+                <h3><span class="material-icons">storage</span>Database & Infrastructure</h3>
+                <div class="button-grid">
+                    <a href="http://localhost:7474" target="_blank" class="control-button">
+                        <span class="material-icons">account_tree</span>
+                        Neo4j Database
+                    </a>
+                    <a href="http://localhost:6333/dashboard" target="_blank" class="control-button">
+                        <span class="material-icons">query_stats</span>
+                        Qdrant Vector DB
+                    </a>
+                    <a href="http://localhost:15672" target="_blank" class="control-button">
+                        <span class="material-icons">queue</span>
+                        RabbitMQ Mgmt
+                    </a>
+                    <a href="http://localhost:5432" target="_blank" class="control-button">
+                        <span class="material-icons">database</span>
+                        PostgreSQL
+                    </a>
+                    <a href="http://localhost:11010" target="_blank" class="control-button">
+                        <span class="material-icons">scanner</span>
+                        Port Scanner
+                    </a>
+                    <a href="http://localhost:57081" target="_blank" class="control-button">
+                        <span class="material-icons">code</span>
+                        VS Code Server
+                    </a>
                 </div>
             </div>
 
@@ -537,20 +640,81 @@
         (function () {
             const LEGACY_HOST = 'ubuntuaicodeserver-1.tail5137b4.ts.net';
             const CURRENT_BASE = `${window.location.protocol}//${window.location.host}`;
+            // NEW: Hosts that should be dynamically replaced with the current one
+            const LOCAL_HOSTS = ['localhost', '127.0.0.1'];
+
+            // Mapping of common container/native app ports to the reverse-proxy path
+            // Update this table whenever you add a new service so the Control Panel
+            // continues to work from outside the host machine.
+            const PORT_TO_PATH = {
+                // Core Platform Services
+                '11000': '/copilot/',
+                '11001': '/autogen/',
+                '11003': '/magentic/',
+                '11025': '/webhook/',
+                '11002': '/grafana/',
+                '11500': '/promptforge/',
+                '11510': '/n8n/',
+                '11010': '/portscanner/',
+                '11880': '/openwebui/',
+                '57081': '/vscode/',
+
+                // Search & Knowledge Services  
+                '11020': '/perplexica/',
+                '11021': '/searxng/',
+                '7474': '/neo4j/',
+                '6333': '/qdrant/',
+
+                // GenAI Stack Services
+                '8505': '/genai-stack/',
+                '8502': '/genai-stack/loader/',
+                '8081': '/genai-stack/import/',
+                '8501': '/genai-stack/bot/',
+                '8503': '/genai-stack/pdf/',
+                '8504': '/genai-stack/api/',
+
+                // Infrastructure & Admin
+                '11082': '/gateway-admin/',
+                '11084': '/nginx-config/',
+                '11434': '/ollama-api/',
+                '11006': '/windmill/',
+                '8888': '/ntopng/',
+                '8080': '/nginx/',
+                '15672': '/rabbitmq/',
+                '5432': '/postgresql/',
+
+                // Legacy/Compatibility
+                '3000': '/copilot/',
+                '3080': '/copilot/'
+            };
 
             // --- Fix existing anchor tags -------------------------------------------------
             function rewriteAnchors() {
-                document.querySelectorAll(`a[href*="${LEGACY_HOST}"]`).forEach(a => {
+                document.querySelectorAll('a[href]').forEach(a => {
                     try {
-                        const u = new URL(a.href);
-                        // Only rewrite if we're actually on a different host
-                        if (u.hostname !== window.location.hostname) {
-                            a.href = `${CURRENT_BASE}${u.pathname}${u.search}${u.hash}`;
+                        const urlObj = new URL(a.href, window.location.href);
+                        const local = LOCAL_HOSTS.includes(urlObj.hostname);
+                        const legacy = urlObj.hostname === LEGACY_HOST;
+                        if (!local && !legacy) return;
+
+                        // Map known ports to proxy paths when possible
+                        const mapped = PORT_TO_PATH[urlObj.port];
+                        if (mapped) {
+                            a.href = `${CURRENT_BASE}${mapped}`;
+                        } else {
+                            // Fallback: just swap the hostname so http://localhost:1234 → http://currenthost:1234
+                            urlObj.hostname = window.location.hostname;
+                            a.href = urlObj.toString();
                         }
-                    } catch (_) {
-                        /* ignore malformed */
-                    }
+                    } catch (_) {/* ignore malformed */ }
                 });
+            }
+
+            // Run once DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', rewriteAnchors);
+            } else {
+                rewriteAnchors();
             }
 
             // --- Patch global fetch -------------------------------------------------------
@@ -561,11 +725,25 @@
                     if (urlObj.hostname !== window.location.hostname) {
                         input = `${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
                     }
+                } else if (typeof input === 'string' && LOCAL_HOSTS.some(h => input.includes(`://${h}`))) {
+                    try {
+                        const urlObj = new URL(input);
+                        if (LOCAL_HOSTS.includes(urlObj.hostname)) {
+                            input = `${urlObj.protocol}//${window.location.hostname}${urlObj.port ? ':' + urlObj.port : ''}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                        }
+                    } catch (_) { /* ignore malformed */ }
                 } else if (input instanceof Request && input.url.includes(LEGACY_HOST)) {
                     const urlObj = new URL(input.url);
                     if (urlObj.hostname !== window.location.hostname) {
                         input = new Request(`${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`, input);
                     }
+                } else if (input instanceof Request && LOCAL_HOSTS.some(h => input.url.includes(`://${h}`))) {
+                    try {
+                        const urlObj = new URL(input.url);
+                        if (LOCAL_HOSTS.includes(urlObj.hostname)) {
+                            input = new Request(`${urlObj.protocol}//${window.location.hostname}${urlObj.port ? ':' + urlObj.port : ''}${urlObj.pathname}${urlObj.search}${urlObj.hash}`, input);
+                        }
+                    } catch (_) { /* ignore malformed */ }
                 }
                 return _fetch(input, init);
             };
@@ -578,6 +756,13 @@
                     if (urlObj.hostname !== window.location.hostname) {
                         url = `${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
                     }
+                } else if (typeof url === 'string' && LOCAL_HOSTS.some(h => url.includes(`://${h}`))) {
+                    try {
+                        const urlObj = new URL(url);
+                        if (LOCAL_HOSTS.includes(urlObj.hostname)) {
+                            url = `${urlObj.protocol}//${window.location.hostname}${urlObj.port ? ':' + urlObj.port : ''}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                        }
+                    } catch (_) {/* ignore malformed */ }
                 }
                 return _open(url, target, features);
             };
