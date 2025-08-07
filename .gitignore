@@ -564,3 +564,7 @@ archive_scripts/
 scripts-archive/
 dev-tools/
 secrets/*
+
+# Database files - exclude from git tracking
+data/nginx-proxy-manager/database.sqlite
+data/nginx-proxy-manager/*.sqlite*
