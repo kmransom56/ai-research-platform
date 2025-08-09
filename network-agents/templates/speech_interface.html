@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎤 Speech-Enabled Network Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .main-controls {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .mic-button {
+            background: #ff6b6b;
+            border: none;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .mic-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+        }
+        
+        .mic-button.listening {
+            background: #51cf66;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .mic-button.processing {
+            background: #ffd43b;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .status {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            min-height: 30px;
+        }
+        
+        .quick-commands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .quick-command {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .quick-command:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .quick-command h3 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .quick-command p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .response-area {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            min-height: 200px;
+        }
+        
+        .response-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .response-data {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .connection-status.connected {
+            background: #51cf66;
+            color: white;
+        }
+        
+        .connection-status.disconnected {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .transcript {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-style: italic;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            color: #ffcccc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .success {
+            background: rgba(81, 207, 102, 0.2);
+            border: 1px solid #51cf66;
+            color: #ccffcc;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .mic-button {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            
+            .quick-commands {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="connection-status" id="connectionStatus">🔄 Checking...</div>
+        
+        <div class="header">
+            <h1>🎤 Speech-Enabled Network Management</h1>
+            <p>Voice control for your restaurant chain infrastructure</p>
+        </div>
+        
+        <div class="main-controls">
+            <button class="mic-button" id="micButton">🎤</button>
+            <div class="status" id="status">Click the microphone to start voice commands</div>
+        </div>
+        
+        <div class="transcript" id="transcript">
+            Your voice command will appear here...
+        </div>
+        
+        <div class="quick-commands">
+            <div class="quick-command" data-command="How many devices do we have">
+                <h3>📊 Device Count</h3>
+                <p>"How many devices do we have?"</p>
+            </div>
+            <div class="quick-command" data-command="What's the status of Inspire Brands">
+                <h3>🏢 Organization Status</h3>
+                <p>"What's the status of Inspire Brands?"</p>
+            </div>
+            <div class="quick-command" data-command="Show me critical devices">
+                <h3>🚨 Critical Devices</h3>
+                <p>"Show me critical devices"</p>
+            </div>
+            <div class="quick-command" data-command="Give me a network summary">
+                <h3>📋 Network Summary</h3>
+                <p>"Give me a network summary"</p>
+            </div>
+            <div class="quick-command" data-command="Show me top device models">
+                <h3>🔧 Device Models</h3>
+                <p>"Show me top device models"</p>
+            </div>
+            <div class="quick-command" data-command="How is Buffalo Wild Wings doing">
+                <h3>🍖 BWW Status</h3>
+                <p>"How is Buffalo Wild Wings doing?"</p>
+            </div>
+        </div>
+        
+        <div class="response-area">
+            <div class="response-text" id="responseText">
+                Voice responses will appear here. Try saying one of the quick commands above!
+            </div>
+            <div class="response-data" id="responseData" style="display: none;">
+                <!-- JSON data will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SpeechNetworkManager {
+            constructor() {
+                this.recognition = null;
+                this.synthesis = window.speechSynthesis;
+                this.isListening = false;
+                this.isProcessing = false;
+                
+                this.initElements();
+                this.initSpeechRecognition();
+                this.checkConnection();
+                this.setupEventListeners();
+            }
+            
+            initElements() {
+                this.micButton = document.getElementById('micButton');
+                this.status = document.getElementById('status');
+                this.transcript = document.getElementById('transcript');
+                this.responseText = document.getElementById('responseText');
+                this.responseData = document.getElementById('responseData');
+                this.connectionStatus = document.getElementById('connectionStatus');
+            }
+            
+            initSpeechRecognition() {
+                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                    this.showError('Speech recognition not supported in this browser');
+                    return;
+                }
+                
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                this.recognition = new SpeechRecognition();
+                
+                this.recognition.continuous = false;
+                this.recognition.interimResults = true;
+                this.recognition.lang = 'en-US';
+                
+                this.recognition.onstart = () => {
+                    this.isListening = true;
+                    this.updateUI();
+                    this.status.textContent = '🎤 Listening... Speak your network command';
+                };
+                
+                this.recognition.onresult = (event) => {
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+                    
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+                    
+                    this.transcript.textContent = finalTranscript + interimTranscript;
+                    
+                    if (finalTranscript) {
+                        this.processCommand(finalTranscript);
+                    }
+                };
+                
+                this.recognition.onerror = (event) => {
+                    this.isListening = false;
+                    this.updateUI();
+                    this.showError(`Speech recognition error: ${event.error}`);
+                };
+                
+                this.recognition.onend = () => {
+                    this.isListening = false;
+                    this.updateUI();
+                    if (!this.isProcessing) {
+                        this.status.textContent = 'Click microphone to speak another command';
+                    }
+                };
+            }
+            
+            setupEventListeners() {
+                this.micButton.addEventListener('click', () => {
+                    if (this.isListening) {
+                        this.stopListening();
+                    } else {
+                        this.startListening();
+                    }
+                });
+                
+                // Quick command buttons
+                document.querySelectorAll('.quick-command').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const command = button.dataset.command;
+                        this.transcript.textContent = command;
+                        this.processCommand(command);
+                    });
+                });
+            }
+            
+            startListening() {
+                if (this.recognition && !this.isListening) {
+                    this.transcript.textContent = 'Listening...';
+                    this.recognition.start();
+                }
+            }
+            
+            stopListening() {
+                if (this.recognition && this.isListening) {
+                    this.recognition.stop();
+                }
+            }
+            
+            async processCommand(command) {
+                this.isProcessing = true;
+                this.updateUI();
+                this.status.textContent = '🔄 Processing your command...';
+                
+                try {
+                    const response = await fetch('/api/process-command', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ command: command })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.showResponse(result.response, result.data);
+                        this.speakResponse(result.response);
+                    } else {
+                        this.showError(result.error);
+                    }
+                    
+                } catch (error) {
+                    this.showError(`Network error: ${error.message}`);
+                } finally {
+                    this.isProcessing = false;
+                    this.updateUI();
+                    this.status.textContent = 'Ready for next command';
+                }
+            }
+            
+            showResponse(text, data) {
+                this.responseText.textContent = text;
+                
+                if (data) {
+                    this.responseData.textContent = JSON.stringify(data, null, 2);
+                    this.responseData.style.display = 'block';
+                } else {
+                    this.responseData.style.display = 'none';
+                }
+                
+                this.responseText.className = 'response-text success';
+                setTimeout(() => {
+                    this.responseText.className = 'response-text';
+                }, 3000);
+            }
+            
+            showError(message) {
+                this.responseText.textContent = `❌ ${message}`;
+                this.responseText.className = 'response-text error';
+                this.responseData.style.display = 'none';
+                
+                setTimeout(() => {
+                    this.responseText.className = 'response-text';
+                }, 5000);
+            }
+            
+            speakResponse(text) {
+                // Cancel any ongoing speech
+                this.synthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.9;
+                utterance.pitch = 1.0;
+                utterance.volume = 0.8;
+                
+                // Try to find a good voice
+                const voices = this.synthesis.getVoices();
+                const englishVoice = voices.find(voice => 
+                    voice.lang.startsWith('en') && 
+                    (voice.name.includes('Google') || voice.name.includes('Microsoft'))
+                );
+                
+                if (englishVoice) {
+                    utterance.voice = englishVoice;
+                }
+                
+                this.synthesis.speak(utterance);
+            }
+            
+            updateUI() {
+                if (this.isListening) {
+                    this.micButton.className = 'mic-button listening';
+                    this.micButton.textContent = '🔴';
+                } else if (this.isProcessing) {
+                    this.micButton.className = 'mic-button processing';
+                    this.micButton.textContent = '⏳';
+                } else {
+                    this.micButton.className = 'mic-button';
+                    this.micButton.textContent = '🎤';
+                }
+            }
+            
+            async checkConnection() {
+                try {
+                    const response = await fetch('/api/test-connection');
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.connectionStatus.textContent = `✅ ${result.device_count} devices`;
+                        this.connectionStatus.className = 'connection-status connected';
+                    } else {
+                        this.connectionStatus.textContent = '❌ Disconnected';
+                        this.connectionStatus.className = 'connection-status disconnected';
+                    }
+                } catch (error) {
+                    this.connectionStatus.textContent = '❌ Connection Error';
+                    this.connectionStatus.className = 'connection-status disconnected';
+                }
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SpeechNetworkManager();
+        });
+    </script>
+</body>
+</html>
