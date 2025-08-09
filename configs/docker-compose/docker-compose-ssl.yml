@@ -23,7 +23,7 @@ services:
     ports:
       - "11880:8080"
     environment:
-      - OLLAMA_BASE_URL=http://100.123.10.72:11434
+      - OLLAMA_BASE_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:11434
     volumes:
       - openwebui-data:/app/backend/data
     restart: unless-stopped
@@ -36,7 +36,7 @@ services:
     ports:
       - "11021:8080"
     environment:
-      - SEARXNG_URL=https://100.123.10.72/searxng/
+      - SEARXNG_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/searxng/
     restart: unless-stopped
     networks:
       - ai-platform

@@ -31,7 +31,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_BACKEND_URI=http://100.123.10.72:11000/
+      - REACT_APP_BACKEND_URI=https://ubuntuaicodeserver-1.tail5137b4.ts.net:11000/
     restart: unless-stopped
     depends_on:
       - chat-copilot-backend

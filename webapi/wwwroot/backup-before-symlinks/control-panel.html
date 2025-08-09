@@ -230,7 +230,7 @@
     <div class="container">
         <div class="header">
             <h1>🤖 AI Research Platform Control Panel</h1>
-            <p class="subtitle">Tailscale Network: 100.123.10.72 | Management Dashboard</p>
+<p class="subtitle">Tailscale Network: ubuntuaicodeserver-1.tail5137b4.ts.net | Management Dashboard</p>
         </div>
 
         <div class="status-bar">
@@ -260,10 +260,6 @@
             </div>
             <div class="status-item">
                 <div class="status-indicator status-active"></div>
-                <span>Windmill</span>
-            </div>
-            <div class="status-item">
-                <div class="status-indicator status-active"></div>
                 <span>GenAI Stack</span>
             </div>
             <div class="status-item">
@@ -272,10 +268,14 @@
             </div>
             <div class="status-item">
                 <div class="status-indicator status-active"></div>
-                <span>ntopng</span>
+                <span>Webhook Server</span>
             </div>
             <div class="status-item">
                 <div class="status-indicator status-active"></div>
+                <span>VS Code Server</span>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator status-unknown"></div>
                 <span>Provider: OpenAI</span>
             </div>
         </div>
@@ -285,24 +285,15 @@
             <div class="control-section" style="grid-column: 1 / -1;">
                 <div
                     style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                    <h4 style="margin: 0 0 10px 0;">🔍 External Services Status</h4>
-                    <p style="margin: 0 0 10px 0;"><strong>External services</strong> like Perplexica, SearXNG, and VS
-                        Code Web are independent applications that need to be started separately.</p>
-                    <p style="margin: 0;"><strong>Available services:</strong> AutoGen Studio, Magentic-One, Chat
-                        Copilot, Webhook Server, Port Scanner, Nginx Gateway, GenAI Stack, Neo4j, Windmill</p>
-                </div>
-
-                <!-- Nginx Gateway Notice -->
-                <div
-                    style="background-color: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                    <h4 style="margin: 0 0 10px 0;">🌐 Nginx Gateway Available</h4>
-                    <p style="margin: 0 0 10px 0;"><strong>Alternative Access:</strong> Services are also available
-                        through the nginx gateway at <strong>port 11999</strong>.</p>
-                    <p style="margin: 0 0 10px 0;"><strong>Gateway URL:</strong> <a href="http://100.123.10.72:11999/"
-                            target="_blank" style="color: #1976d2;">http://100.123.10.72:11999/</a></p>
-                    <p style="margin: 0;"><strong>Example:</strong> Windmill at <a
-                            href="http://100.123.10.72:11999/windmill/" target="_blank"
-                            style="color: #1976d2;">http://100.123.10.72:11999/windmill/</a></p>
+                    <h4 style="margin: 0 0 10px 0;">🔍 Complete AI Research Platform Stack</h4>
+                    <p style="margin: 0 0 10px 0;"><strong>AI Services:</strong> OpenWebUI, Chat Copilot, Perplexica,
+                        SearchNG, AutoGen Studio, Magentic-One</p>
+                    <p style="margin: 0 0 10px 0;"><strong>GenAI Stack:</strong> Support Bot, Data Loader, PDF Reader,
+                        API Server, Frontend, Import Interface</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Database & Infrastructure:</strong> Neo4j, Qdrant Vector DB,
+                        RabbitMQ, PostgreSQL, VS Code Server, Port Scanner</p>
+                    <p style="margin: 0;"><strong>Network & Management:</strong> Webhook Server, Nginx Gateway, Gateway
+                        Admin, Ollama API, ntopng Monitor</p>
                 </div>
             </div>
 
@@ -310,37 +301,64 @@
             <div class="control-section">
                 <h3><span class="material-icons">smart_toy</span>AI Services</h3>
                 <div class="button-grid">
-                    <a href="/openwebui" target="_blank" class="control-button">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11880" target="_blank" class="control-button">
                         <span class="material-icons">psychology</span>
                         OpenWebUI
                     </a>
-                    <a href="/copilot" target="_blank" class="control-button">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:3000" target="_blank" class="control-button">
                         <span class="material-icons">chat</span>
                         Chat Copilot
                     </a>
-                    <a href="/perplexica" target="_blank" class="control-button" id="perplexica-btn">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11020" target="_blank" class="control-button" id="perplexica-btn">
                         <span class="material-icons">search</span>
                         Perplexica
                     </a>
-                    <a href="/searxng" target="_blank" class="control-button" id="searxng-btn">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11021" target="_blank" class="control-button" id="searxng-btn">
                         <span class="material-icons">privacy_tip</span>
                         SearchNG
                     </a>
-                    <a href="/autogen" target="_blank" class="control-button">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11001" target="_blank" class="control-button">
                         <span class="material-icons">groups</span>
                         AutoGen Studio
                     </a>
-                    <a href="/magentic" target="_blank" class="control-button">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11003" target="_blank" class="control-button">
                         <span class="material-icons">hub</span>
                         Magentic-One
                     </a>
-                    <a href="/genai-stack" target="_blank" class="control-button">
-                        <span class="material-icons">account_tree</span>
-                        GenAI Stack
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11500" target="_blank" class="control-button">
+                        <span class="material-icons">auto_fix_high</span>
+                        Prompt&nbsp;Forge
                     </a>
-                    <a href="/windmill" target="_blank" class="control-button">
-                        <span class="material-icons">waves</span>
-                        Windmill
+                </div>
+            </div>
+
+            <!-- GenAI Stack Services Section -->
+            <div class="control-section">
+                <h3><span class="material-icons">account_tree</span>GenAI Stack</h3>
+                <div class="button-grid">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8505" target="_blank" class="control-button">
+                        <span class="material-icons">dashboard</span>
+                        Frontend
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8501" target="_blank" class="control-button">
+                        <span class="material-icons">support_agent</span>
+                        Support Bot
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8502" target="_blank" class="control-button">
+                        <span class="material-icons">upload</span>
+                        Data Loader
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8503" target="_blank" class="control-button">
+                        <span class="material-icons">picture_as_pdf</span>
+                        PDF Reader
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8504" target="_blank" class="control-button">
+                        <span class="material-icons">api</span>
+                        API Server
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8081" target="_blank" class="control-button">
+                        <span class="material-icons">cloud_upload</span>
+                        Import Interface
                     </a>
                 </div>
             </div>
@@ -380,13 +398,21 @@
                         <span class="material-icons">network_ping</span>
                         Port Scanner
                     </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11007" target="_blank" class="control-button info">
+                        <span class="material-icons">monitor</span>
+                        Grafana
+                    </a>
                     <a href="/copilot/healthz" target="_blank" class="control-button info">
                         <span class="material-icons">health_and_safety</span>
                         Health Check
                     </a>
-                    <a href="/webhook" target="_blank" class="control-button info">
-                        <span class="material-icons">webhook</span>
-                        Webhook Server
+                    <a href="/nginx-config/" target="_blank" class="control-button info">
+                        <span class="material-icons">edit</span>
+                        Nginx Config UI
+                    </a>
+                    <a href="/n8n/" target="_blank" class="control-button info">
+                        <span class="material-icons">timeline</span>
+                        n8n Automation
                     </a>
                     <button class="control-button secondary" onclick="refreshServices()">
                         <span class="material-icons">refresh</span>
@@ -399,27 +425,31 @@
             <div class="control-section">
                 <h3><span class="material-icons">router</span>Network Management</h3>
                 <div class="button-grid">
-                    <a href="/gateway-admin/" target="_blank" class="control-button">
-                        <span class="material-icons">admin_panel_settings</span>
-                        Gateway Admin
+                    <a href="/fortinet/" target="_blank" class="control-button">
+                        <span class="material-icons">security</span>
+                        Fortinet Mgmt
                     </a>
                     <a href="/nginx/" target="_blank" class="control-button">
                         <span class="material-icons">dns</span>
                         Nginx Gateway
                     </a>
+                    <a href="/gateway-admin/" target="_blank" class="control-button">
+                        <span class="material-icons">admin_panel_settings</span>
+                        Gateway Admin
+                    </a>
                     <a href="/ntopng/" target="_blank" class="control-button">
                         <span class="material-icons">network_ping</span>
                         ntopng Monitor
                     </a>
-                    <a href="/ollama-api/" target="_blank" class="control-button">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11434" target="_blank" class="control-button">
                         <span class="material-icons">api</span>
                         Ollama API
                     </a>
-                    <a href="/neo4j/" target="_blank" class="control-button">
-                        <span class="material-icons">storage</span>
-                        Neo4j Database
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11025" target="_blank" class="control-button">
+                        <span class="material-icons">webhook</span>
+                        Webhook Server
                     </a>
-                    <button class="control-button secondary" onclick="executeCommand('ping', '100.123.10.72')">
+<button class="control-button secondary" onclick="executeCommand('ping', 'ubuntuaicodeserver-1.tail5137b4.ts.net')">
                         <span class="material-icons">network_check</span>
                         Test Network
                     </button>
@@ -427,6 +457,53 @@
                         <span class="material-icons">info</span>
                         Network Info
                     </button>
+                </div>
+            </div>
+
+            <!-- Database & Infrastructure Section -->
+            <div class="control-section">
+                <h3><span class="material-icons">storage</span>Database & Infrastructure</h3>
+                <div class="button-grid">
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:7474" target="_blank" class="control-button">
+                        <span class="material-icons">account_tree</span>
+                        Neo4j Database
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:6333/dashboard" target="_blank" class="control-button">
+                        <span class="material-icons">query_stats</span>
+                        Qdrant Vector DB
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:15672" target="_blank" class="control-button">
+                        <span class="material-icons">queue</span>
+                        RabbitMQ Mgmt
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:5432" target="_blank" class="control-button">
+                        <span class="material-icons">database</span>
+                        PostgreSQL
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11010" target="_blank" class="control-button">
+                        <span class="material-icons">scanner</span>
+                        Port Scanner
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:57081" target="_blank" class="control-button">
+                        <span class="material-icons">code</span>
+                        VS Code Server
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11006" target="_blank" class="control-button">
+                        <span class="material-icons">automation</span>
+                        Windmill
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11082" target="_blank" class="control-button">
+                        <span class="material-icons">admin_panel_settings</span>
+                        Gateway Admin
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11084" target="_blank" class="control-button">
+                        <span class="material-icons">settings</span>
+                        Nginx Config UI
+                    </a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8888" target="_blank" class="control-button">
+                        <span class="material-icons">network_ping</span>
+                        ntopng Monitor
+                    </a>
                 </div>
             </div>
 
@@ -527,7 +604,7 @@
         <div class="logs-section" id="logsOutput">
             <div>🤖 AI Research Platform Control Panel Ready</div>
             <div>📊 Status: All systems operational</div>
-            <div>🔗 Tailscale IP: 100.123.10.72</div>
+<div>🔗 Tailscale Domain: ubuntuaicodeserver-1.tail5137b4.ts.net</div>
             <div>⚡ Click any button to execute commands...</div>
         </div>
 
@@ -552,6 +629,8 @@
         </div>
     </div>
 
+    <!-- JavaScript disabled to prevent URL rewriting issues -->
+    <!--
     <script>
         /* =============================================
            Dynamic host patch
@@ -572,20 +651,86 @@
         (function () {
             const LEGACY_HOST = 'ubuntuaicodeserver-1.tail5137b4.ts.net';
             const CURRENT_BASE = `${window.location.protocol}//${window.location.host}`;
+            // NEW: Hosts that should be dynamically replaced with the current one
+            const LOCAL_HOSTS = ['localhost', '127.0.0.1'];
+
+            // Mapping of common container/native app ports to the reverse-proxy path
+            // Update this table whenever you add a new service so the Control Panel
+            // continues to work from outside the host machine.
+            const PORT_TO_PATH = {
+                // Core Platform Services
+                '11000': '/copilot/',
+                '11001': '/autogen/',
+                '11003': '/magentic/',
+                '11025': '/webhook/',
+                '11007': '/grafana/',
+                '11500': '/promptforge/',
+                '11510': '/n8n/',
+                '11010': '/portscanner/',
+                '11880': '/openwebui/',
+                '57081': '/vscode/',
+
+                // Search & Knowledge Services  
+                '11020': '/perplexica/',
+                '11021': '/searxng/',
+                '7474': '/neo4j/',
+                '6333': '/qdrant/',
+
+                // GenAI Stack Services
+                '8505': '/genai-stack/',
+                '8502': '/genai-stack/loader/',
+                '8081': '/genai-stack/import/',
+                '8501': '/genai-stack/bot/',
+                '8503': '/genai-stack/pdf/',
+                '8504': '/genai-stack/api/',
+
+                // Infrastructure & Admin
+                '11082': '/gateway-admin/',
+                '11084': '/nginx-config/',
+                '11434': '/ollama-api/',
+                '11006': '/windmill/',
+                '8888': '/ntopng/',
+                '8080': '/nginx/',
+                '15672': '/rabbitmq/',
+                '5432': '/postgresql/',
+
+                // Legacy/Compatibility
+                '3000': '/copilot/',
+                '3080': '/copilot/'
+            };
 
             // --- Fix existing anchor tags -------------------------------------------------
             function rewriteAnchors() {
-                document.querySelectorAll(`a[href*="${LEGACY_HOST}"]`).forEach(a => {
+                document.querySelectorAll('a[href]').forEach(a => {
                     try {
-                        const u = new URL(a.href);
-                        // Only rewrite if we're actually on a different host
-                        if (u.hostname !== window.location.hostname) {
-                            a.href = `${CURRENT_BASE}${u.pathname}${u.search}${u.hash}`;
+                        const urlObj = new URL(a.href, window.location.href);
+                        const local = LOCAL_HOSTS.includes(urlObj.hostname);
+                        const legacy = urlObj.hostname === LEGACY_HOST;
+                        if (!local && !legacy) return;
+
+                        // Only rewrite legacy Tailscale domain links
+                        if (legacy) {
+                            // Map known ports to proxy paths when possible
+                            const mapped = PORT_TO_PATH[urlObj.port];
+                            if (mapped) {
+                                a.href = `${CURRENT_BASE}${mapped}`;
+                            } else {
+                                a.href = urlObj.toString();
+                            }
                         }
-                    } catch (_) {
-                        /* ignore malformed */
-                    }
+                        // For localhost/127.0.0.1, replace with current IP but preserve port for direct access
+                        else if (local) {
+                            a.href = `http://${window.location.hostname}:${urlObj.port}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                        }
+                    } catch (_) {/* ignore malformed */ }
                 });
+            }
+
+            // Run once DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', rewriteAnchors);
+            } else {
+                rewriteAnchors();
             }
 
             // --- Patch global fetch -------------------------------------------------------
@@ -596,11 +741,25 @@
                     if (urlObj.hostname !== window.location.hostname) {
                         input = `${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
                     }
+                } else if (typeof input === 'string' && LOCAL_HOSTS.some(h => input.includes(`://${h}`))) {
+                    try {
+                        const urlObj = new URL(input);
+                        if (LOCAL_HOSTS.includes(urlObj.hostname)) {
+                            input = `${urlObj.protocol}//${window.location.hostname}${urlObj.port ? ':' + urlObj.port : ''}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                        }
+                    } catch (_) { /* ignore malformed */ }
                 } else if (input instanceof Request && input.url.includes(LEGACY_HOST)) {
                     const urlObj = new URL(input.url);
                     if (urlObj.hostname !== window.location.hostname) {
                         input = new Request(`${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`, input);
                     }
+                } else if (input instanceof Request && LOCAL_HOSTS.some(h => input.url.includes(`://${h}`))) {
+                    try {
+                        const urlObj = new URL(input.url);
+                        if (LOCAL_HOSTS.includes(urlObj.hostname)) {
+                            input = new Request(`${urlObj.protocol}//${window.location.hostname}${urlObj.port ? ':' + urlObj.port : ''}${urlObj.pathname}${urlObj.search}${urlObj.hash}`, input);
+                        }
+                    } catch (_) { /* ignore malformed */ }
                 }
                 return _fetch(input, init);
             };
@@ -613,6 +772,13 @@
                     if (urlObj.hostname !== window.location.hostname) {
                         url = `${CURRENT_BASE}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
                     }
+                } else if (typeof url === 'string' && LOCAL_HOSTS.some(h => url.includes(`://${h}`))) {
+                    try {
+                        const urlObj = new URL(url);
+                        if (LOCAL_HOSTS.includes(urlObj.hostname)) {
+                            url = `${urlObj.protocol}//${window.location.hostname}${urlObj.port ? ':' + urlObj.port : ''}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+                        }
+                    } catch (_) {/* ignore malformed */ }
                 }
                 return _open(url, target, features);
             };
@@ -775,7 +941,7 @@
                     if (action === 'ps') {
                         logOutput('🐳 perplexica-app-1: Up 45 minutes', 'success');
                         logOutput('🐳 perplexica-searxng-1: Up 45 minutes (healthy)', 'success');
-                        logOutput('🐳 nginx-proxy-manager: Up 45 minutes', 'success');
+                        logOutput('🐳 fortinet-manager_frontend_1: Up 45 minutes', 'success');
                         logOutput('🐳 port-scanner-tailscale: Up 45 minutes', 'success');
                     } else {
                         logOutput(`✅ Simulated Docker ${action} completed`, 'success');
@@ -834,10 +1000,6 @@
                     { name: 'Chat Copilot', url: '/copilot/' },
                     { name: 'Perplexica', url: '/perplexica' },
                     { name: 'SearchNG', url: '/searxng/' },
-                    { name: 'ntopng Network Monitor', url: 'http://100.123.10.72:8888/' },
-                    { name: 'Neo4j Database', url: 'http://100.123.10.72:7474/' },
-                    { name: 'GenAI Stack Frontend', url: 'http://100.123.10.72:8505/' },
-                    { name: 'Windmill', url: 'http://100.123.10.72:11006/' },
                     { name: 'Health Check', url: '/copilot/healthz' }
                 ];
 
@@ -927,13 +1089,87 @@
             }, 1200);
         }
 
+        // --------------------------------------------------
+        // Application-management helpers (Add / List / Test / Remove)
+        // --------------------------------------------------
+
+        function showAddApplicationDialog() {
+            logOutput('📱 Opening Add Application dialog...', 'info');
+
+            const name = prompt('Application Name (e.g., "Grafana"):');
+            if (!name) return;
+
+            const port = prompt('Application Port (11000-12000 range or "auto"):') || 'auto';
+            if (port !== 'auto' && (isNaN(port) || port < 11000 || port > 12000)) {
+                logOutput('❌ Invalid port. Must be between 11000-12000 or "auto"', 'error');
+                return;
+            }
+
+            const path = prompt('URL Path (omit or "auto" for automatic path):') || 'auto';
+            if (path !== 'auto' && !path.startsWith('/')) {
+                logOutput('❌ Invalid path. Must start with /', 'error');
+                return;
+            }
+
+            const description = prompt('Description:') || '';
+            const category = prompt('Category (ai/dev/network/api):') || 'ai';
+            const dockerImage = prompt('Docker Image (optional):') || '';
+
+            // Build command string that the add-application script understands
+            let cmd = `./scripts/platform-management/add-application.sh --name "${name}" --description "${description}" --category ${category}`;
+            if (port) cmd += ` --port ${port}`;
+            if (path) cmd += ` --path ${path}`;
+            if (dockerImage) cmd += ` --docker-image "${dockerImage}"`;
+
+            logOutput('🚀 Generated command:', 'info');
+            logOutput(cmd, 'info');
+            logOutput('📋 Copy this command and run it in the terminal', 'info');
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(cmd).then(() => {
+                    logOutput('📋 Command copied to clipboard!', 'success');
+                });
+            }
+        }
+
+        function listApplications() {
+            logOutput('📋 Listing current applications...', 'info');
+
+            fetch('/copilot/api/systemcontrol/applications')
+                .then(r => r.ok ? r.json() : Promise.reject())
+                .then(data => {
+                    data.forEach(app => logOutput(`• ${app.name} (${app.port})`, 'info'));
+                })
+                .catch(() => {
+                    // fallback demo list
+                    ['OpenWebUI', 'Chat Copilot', 'Ollama', 'Windmill'].forEach(a => logOutput(`• ${a}`, 'info'));
+                });
+        }
+
+        function testNewApplication() {
+            const path = prompt('Enter application path to test (e.g., "/windmill"):');
+            if (!path) return;
+
+            logOutput(`🔍 Testing application at ${path}...`, 'info');
+
+            fetch(path, { method: 'HEAD' })
+                .then(() => logOutput(`✅ ${path} is reachable`, 'success'))
+                .catch(() => logOutput(`❌ ${path} is not reachable`, 'error'));
+        }
+
+        function removeApplication() {
+            const name = prompt('Application name to remove:');
+            if (!name) return;
+
+            logOutput(`🗑️  Manual steps required to remove ${name}: edit nginx, docker compose, dashboards`, 'warning');
+        }
+
         // Check external services status
         async function checkExternalServices() {
             const services = [
                 { id: 'perplexica-btn', url: '/perplexica', name: 'Perplexica' },
                 { id: 'searxng-btn', url: '/searxng/', name: 'SearXNG' },
-                { id: 'vscode-btn', url: '/vscode/login', name: 'VS Code Web' },
-                { id: 'windmill-btn', url: 'http://100.123.10.72:11006/', name: 'Windmill' }
+                { id: 'vscode-btn', url: '/vscode/login', name: 'VS Code Web' }
             ];
 
             for (const service of services) {
@@ -965,7 +1201,7 @@
 
         // Open full dashboard
         function openDashboard() {
-            window.open('/applications.html', '_blank');
+            window.open('/copilot/applications.html', '_blank');
             logOutput('🚀 Opening full applications dashboard...', 'info');
         }
 
@@ -1109,121 +1345,6 @@
             }
         }
 
-        // Application Management Functions
-        function showAddApplicationDialog() {
-            logOutput('📱 Opening Add Application dialog...', 'info');
-
-            const name = prompt('Application Name (e.g., "Grafana"):');
-            if (!name) return;
-
-            const port = prompt('Application Port (11000-12000 range):');
-            if (!port || isNaN(port) || port < 11000 || port > 12000) {
-                logOutput('❌ Invalid port. Must be between 11000-12000', 'error');
-                return;
-            }
-
-            const path = prompt('URL Path (e.g., "/grafana"):');
-            if (!path || !path.startsWith('/')) {
-                logOutput('❌ Invalid path. Must start with /', 'error');
-                return;
-            }
-
-            const description = prompt('Description:');
-            if (!description) return;
-
-            const category = prompt('Category (ai/dev/network/api):') || 'ai';
-            const dockerImage = prompt('Docker Image (optional):') || '';
-
-            // Show the command that would be executed
-            let command = `./scripts/platform-management/add-application.sh --name "${name}" --port ${port} --path "${path}" --description "${description}" --category ${category}`;
-            if (dockerImage) {
-                command += ` --docker-image "${dockerImage}"`;
-            }
-
-            logOutput('🚀 Generated command:', 'info');
-            logOutput(command, 'info');
-            logOutput('📋 Copy this command and run it in terminal', 'info');
-            logOutput('⚠️  Remember to reload nginx after adding', 'warning');
-
-            // Copy to clipboard if supported
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(command).then(() => {
-                    logOutput('📋 Command copied to clipboard!', 'success');
-                });
-            }
-        }
-
-        function listApplications() {
-            logOutput('📋 Listing current applications...', 'info');
-
-            const applications = [
-                'OpenWebUI (11880)',
-                'Chat Copilot (11000)',
-                'Perplexica (11020)',
-                'SearXNG (11021)',
-                'AutoGen Studio (11001)',
-                'Magentic-One (11003)',
-                'Windmill (11006)',
-                'Webhook Server (11002)',
-                'Port Scanner (11010)',
-                'VS Code Web (57081)',
-                'Neo4j GenAI Stack (8501-8505)',
-                'Nginx Gateway (11080-11082)',
-                'ntopng Network Monitor (8888)',
-                'Ollama LLM (11434)'
-            ];
-
-            logOutput('📱 Currently configured applications:', 'info');
-            applications.forEach(app => {
-                logOutput(`   • ${app}`, 'info');
-            });
-
-            logOutput('🔗 Full list: https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/applications.html', 'info');
-        }
-
-        function testNewApplication() {
-            const path = prompt('Enter application path to test (e.g., "/windmill"):');
-            if (!path) return;
-
-            logOutput(`🔍 Testing application at ${path}...`, 'info');
-
-            const testUrl = `https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443${path}`;
-
-            fetch(testUrl, { method: 'HEAD', mode: 'no-cors' })
-                .then(() => {
-                    logOutput(`✅ Application ${path} appears to be accessible`, 'success');
-                    logOutput(`🔗 URL: ${testUrl}`, 'info');
-
-                    if (confirm(`Open ${path} in new tab?`)) {
-                        window.open(testUrl, '_blank');
-                    }
-                })
-                .catch(() => {
-                    logOutput(`❌ Application ${path} is not accessible`, 'error');
-                    logOutput('💡 Check if the service is running and nginx is configured', 'warning');
-                });
-        }
-
-        function removeApplication() {
-            logOutput('🗑️  Application removal process...', 'warning');
-
-            const appName = prompt('Enter application name to remove:');
-            if (!appName) return;
-
-            const confirmRemoval = confirm(`Are you sure you want to remove "${appName}"? This will:\n- Remove nginx configuration\n- Stop Docker container\n- Remove from applications page\n\nThis action cannot be undone.`);
-
-            if (confirmRemoval) {
-                logOutput(`⚠️  Manual removal required for ${appName}:`, 'warning');
-                logOutput('1. Edit /etc/nginx/sites-available/ai-hub.conf (remove location block)', 'info');
-                logOutput('2. Run: sudo systemctl reload nginx', 'info');
-                logOutput('3. Stop Docker container: docker stop <container-name>', 'info');
-                logOutput('4. Remove from docker-compose.yml', 'info');
-                logOutput('5. Remove from applications.html', 'info');
-                logOutput('6. Update port documentation', 'info');
-                logOutput('🔄 Consider creating an automated removal script', 'info');
-            }
-        }
-
         // Initialize the dashboard
         document.addEventListener('DOMContentLoaded', function () {
             logOutput('🎯 AI Research Platform Control Panel Initialized', 'success');
@@ -1231,6 +1352,7 @@
             updateStatusIndicator();
         });
     </script>
+    -->
 </body>
 
 </html>
