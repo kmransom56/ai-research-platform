@@ -1,0 +1,1038 @@
+{
+  "predictions": [
+    {
+      "device_serial": "Q4AF-HAMS-G83A",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-10 22:18:42.033679",
+      "confidence_score": 0.8,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 70.9\u00b0C",
+        "Elevated error rate: 4.63%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.7771551403886425,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 425.5270759181226
+    },
+    {
+      "device_serial": "Q4AF-E6K5-K6NK",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-11 22:18:42.033688",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 74.1\u00b0C",
+        "Elevated error rate: 2.59%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.30683508497451,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 379.33862421216895
+    },
+    {
+      "device_serial": "Q2HW-7ZPK-9SDV",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-12 22:18:42.033470",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.52%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.6355903777438967,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 490.5589853043129
+    },
+    {
+      "device_serial": "Q2HW-HZ7U-FBZX",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-12 22:18:42.033754",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 5.36%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.8998173828245413,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 397.0771588704931
+    },
+    {
+      "device_serial": "Q4AF-WRYN-8HQA",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-12 22:18:42.033962",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.65%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.23359857039505,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 469.9106214543145
+    },
+    {
+      "device_serial": "Q2HW-86BR-A6LE",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-13 22:18:42.033447",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 69.3\u00b0C",
+        "Elevated error rate: 5.40%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.527081491374272,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 435.7284932789181
+    },
+    {
+      "device_serial": "Q4AF-NP9S-KKWJ",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-13 22:18:42.033635",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.77%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.618721353818066,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 434.19946573803537
+    },
+    {
+      "device_serial": "Q2HW-3HSG-PTAY",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-13 22:18:42.033934",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 72.7\u00b0C"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.3770829805512057,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 383.0773518820055
+    },
+    {
+      "device_serial": "Q2HW-99JR-KYPM",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-13 22:18:42.033984",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 71.3\u00b0C"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.725178795070562,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 395.1752853890665
+    },
+    {
+      "device_serial": "Q2HW-FMV2-LXQF",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-13 22:18:42.034025",
+      "confidence_score": 0.8,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 72.0\u00b0C",
+        "High CPU utilization: 97.9%",
+        "Elevated error rate: 2.58%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Review device configuration and optimize performance",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.649717972839617,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 486.90980700836354
+    },
+    {
+      "device_serial": "Q4AF-JRH2-Z585",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-14 22:18:42.033615",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 73.4\u00b0C",
+        "Elevated error rate: 1.96%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.1895895185832308,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 475.48591445479303
+    },
+    {
+      "device_serial": "Q2HW-8NUF-JHSX",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-14 22:18:42.033993",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.90%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.2513787759799424,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 408.75943900550044
+    },
+    {
+      "device_serial": "Q4AF-TE4V-JMZJ",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-14 22:18:42.034072",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 70.6\u00b0C",
+        "Elevated error rate: 2.54%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.8757937639503797,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 392.2469365018249
+    },
+    {
+      "device_serial": "Q2HW-3C75-XLL7",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-15 22:18:42.033875",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 61.0\u00b0C",
+        "Elevated error rate: 4.85%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.2588439253165205,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 464.39405879202184
+    },
+    {
+      "device_serial": "Q4AF-D8CH-4F5P",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033523",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 5.40%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.60208798329805,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 419.8200163600289
+    },
+    {
+      "device_serial": "Q2HW-B6VN-68QQ",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033583",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 72.0\u00b0C"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.356480094024928,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 478.1593293074339
+    },
+    {
+      "device_serial": "Q2HW-E5YM-93S7",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033795",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.74%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.858197561059999,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 388.6248687460064
+    },
+    {
+      "device_serial": "Q2HW-73LD-BYWY",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033943",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 5.19%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.229701107499949,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 435.49699786367586
+    },
+    {
+      "device_serial": "Q4AF-TRQH-5GYQ",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033971",
+      "confidence_score": 0.8,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High CPU utilization: 94.5%",
+        "Elevated error rate: 4.69%"
+      ],
+      "recommended_actions": [
+        "Review device configuration and optimize performance",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.9686421423612186,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 440.6848807940836
+    },
+    {
+      "device_serial": "Q2HW-GCCS-9MMN",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.034016",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 69.6\u00b0C",
+        "Elevated error rate: 4.77%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.5710463332038906,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 442.5361214594874
+    },
+    {
+      "device_serial": "Q4AF-KGYX-S9J5",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-17 22:18:42.034046",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 5.37%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.7282302881213987,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 380.1309463673413
+    },
+    {
+      "device_serial": "Q4AF-62QU-QD8L",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-18 22:18:42.033659",
+      "confidence_score": 0.8,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 75.6\u00b0C",
+        "Elevated error rate: 4.66%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.939654394845979,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 497.7342852973165
+    },
+    {
+      "device_serial": "Q4AF-P88D-YJNX",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-18 22:18:42.034084",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 5.24%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.8289483644908495,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 428.0130386724964
+    },
+    {
+      "device_serial": "Q4AF-CMB7-VHSN",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-19 22:18:42.033767",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.54%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.758415921376567,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 447.5102784724878
+    },
+    {
+      "device_serial": "Q4AF-L86W-84XR",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-19 22:18:42.033850",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.88%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.3958452642590737,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 483.0179830156668
+    },
+    {
+      "device_serial": "Q2LP-TAMC-R3A8",
+      "device_type": "MS220-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-19 22:18:42.034006",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.72%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.7286338790859603,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 397.53716320435643
+    },
+    {
+      "device_serial": "Q2HW-5K3Y-BVFS",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-20 22:18:42.033534",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.52%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.274712318266897,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 368.77749556954575
+    },
+    {
+      "device_serial": "Q2LP-SLNQ-5M95",
+      "device_type": "MS220-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-20 22:18:42.033892",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 5.52%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.160346608230181,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 448.0649456832461
+    },
+    {
+      "device_serial": "Q2HW-79QF-JCYF",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-21 22:18:42.034035",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.89%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.8802495232725445,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 388.585973264769
+    },
+    {
+      "device_serial": "Q4AF-CRZX-RVT5",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-22 22:18:42.033484",
+      "confidence_score": 0.8,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 74.7\u00b0C",
+        "Elevated error rate: 3.42%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.937141038011566,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 491.1331220181052
+    },
+    {
+      "device_serial": "Q4AF-CAQ3-M783",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-23 22:18:42.033786",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "Elevated error rate: 4.55%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.5539015355449934,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 403.36462527606665
+    },
+    {
+      "device_serial": "Q4AF-H2BQ-UEQM",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-23 22:18:42.033830",
+      "confidence_score": 0.65,
+      "risk_level": "critical",
+      "failure_indicators": [
+        "High temperature: 70.9\u00b0C",
+        "Elevated error rate: 2.98%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.4076057781770968,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 359.75554460125585
+    },
+    {
+      "device_serial": "Q2HW-4N7L-9BQL",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033625",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.02%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.7189720923108744,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 381.80967415297414
+    },
+    {
+      "device_serial": "Q2HW-44Y5-PYTW",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-16 22:18:42.033953",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 3.74%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.5171439345390088,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 255.17682641425193
+    },
+    {
+      "device_serial": "Q4AF-R8JC-G9AL",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-17 22:18:42.033593",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.32%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.6850728884798292,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 436.20638127414105
+    },
+    {
+      "device_serial": "Q4AF-V9HQ-BCSY",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-17 22:18:42.033913",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 3.68%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.2390079488992014,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 359.0303203952427
+    },
+    {
+      "device_serial": "Q4AF-CEKB-S3BH",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-17 22:18:42.034055",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "High temperature: 63.8\u00b0C",
+        "Elevated error rate: 4.38%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.7008766984034172,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 378.1334488059383
+    },
+    {
+      "device_serial": "Q2HW-4PZM-PUG8",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-18 22:18:42.033606",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.25%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.1766889291540945,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 485.22097192084857
+    },
+    {
+      "device_serial": "Q4AF-BYCH-JFXV",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-22 22:18:42.033647",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.44%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.782480969616758,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 445.8659272683192
+    },
+    {
+      "device_serial": "Q4AF-CU2G-AU5D",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-22 22:18:42.033861",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.07%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.4610349401000018,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 353.1169869702567
+    },
+    {
+      "device_serial": "Q4AF-6AVV-RYU5",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-24 22:18:42.033546",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 3.74%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.0044026359073346,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 329.0714875844641
+    },
+    {
+      "device_serial": "Q2HW-FKGM-TSBK",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-24 22:18:42.033669",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "High temperature: 69.5\u00b0C",
+        "Elevated error rate: 4.02%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.8668776111921903,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 399.898528612725
+    },
+    {
+      "device_serial": "Q2HW-8XEP-JSZA",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-27 22:18:42.033509",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.43%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.9221157372917284,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 498.372646319433
+    },
+    {
+      "device_serial": "Q2HW-8Y3Z-XNDC",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-27 22:18:42.033902",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.45%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.9251505681709218,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 382.57782386523724
+    },
+    {
+      "device_serial": "Q4AF-6L3B-33MG",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-28 22:18:42.033408",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 3.73%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.1897443467226205,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 383.74356675584994
+    },
+    {
+      "device_serial": "Q4AF-RUWF-Y9HJ",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-08-29 22:18:42.033728",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.35%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.524785472456973,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 397.4507340292796
+    },
+    {
+      "device_serial": "Q4AF-Q8RK-LJVY",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-01 22:18:42.033558",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 3.75%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.3316103398086074,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 320.0470942587049
+    },
+    {
+      "device_serial": "Q4AF-8W9A-X8AG",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-04 22:18:42.033572",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "High CPU utilization: 96.7%"
+      ],
+      "recommended_actions": [
+        "Review device configuration and optimize performance"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.417284030413203,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 436.4736192541977
+    },
+    {
+      "device_serial": "Q2HW-83YN-VSKC",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-04 22:18:42.033922",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "High temperature: 63.6\u00b0C",
+        "Elevated error rate: 3.89%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.9778342775916733,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 272.0250433178852
+    },
+    {
+      "device_serial": "Q2HW-ABLS-DMHR",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-05 22:18:42.033776",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 3.79%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 1.3848221244170662,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 398.90339944621434
+    },
+    {
+      "device_serial": "Q2HW-DZPZ-D4A3",
+      "device_type": "MS225-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-06 22:18:42.033712",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.28%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 2.8623236906136897,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 487.39974116828967
+    },
+    {
+      "device_serial": "Q4AF-7PEM-UXFP",
+      "device_type": "MS120-48",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-07 22:18:42.033810",
+      "confidence_score": 0.8,
+      "risk_level": "high",
+      "failure_indicators": [
+        "High temperature: 69.4\u00b0C",
+        "High CPU utilization: 90.0%",
+        "Elevated error rate: 3.69%"
+      ],
+      "recommended_actions": [
+        "Clean device ventilation and check cooling systems",
+        "Review device configuration and optimize performance",
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.2083951518943734,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 407.79020304698855
+    },
+    {
+      "device_serial": "Q3GA-L4S3-X8BK",
+      "device_type": "MG51",
+      "organization_name": "Arby's",
+      "predicted_failure_date": "2025-09-08 22:18:42.033821",
+      "confidence_score": 0.65,
+      "risk_level": "high",
+      "failure_indicators": [
+        "Elevated error rate: 4.28%"
+      ],
+      "recommended_actions": [
+        "Investigate and resolve recurring errors"
+      ],
+      "business_impact": "Medium - Important system but operations could continue",
+      "estimated_downtime_hours": 3.295483928163963,
+      "maintenance_window": "1:00 AM - 5:00 AM (Minimal customer impact)",
+      "cost_estimate": 426.26403551420765
+    }
+  ],
+  "summary": {
+    "total_predictions": 53,
+    "risk_distribution": {
+      "critical": 32,
+      "high": 21,
+      "medium": 0,
+      "low": 0
+    },
+    "critical_devices": [
+      "MaintenancePrediction(device_serial='Q4AF-HAMS-G83A', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 10, 22, 18, 42, 33679), confidence_score=0.8, risk_level='critical', failure_indicators=['High temperature: 70.9\u00b0C', 'Elevated error rate: 4.63%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.7771551403886425, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=425.5270759181226)",
+      "MaintenancePrediction(device_serial='Q4AF-E6K5-K6NK', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 11, 22, 18, 42, 33688), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 74.1\u00b0C', 'Elevated error rate: 2.59%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.30683508497451, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=379.33862421216895)",
+      "MaintenancePrediction(device_serial='Q2HW-7ZPK-9SDV', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 12, 22, 18, 42, 33470), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.52%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.6355903777438967, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=490.5589853043129)",
+      "MaintenancePrediction(device_serial='Q2HW-HZ7U-FBZX', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 12, 22, 18, 42, 33754), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 5.36%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.8998173828245413, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=397.0771588704931)",
+      "MaintenancePrediction(device_serial='Q4AF-WRYN-8HQA', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 12, 22, 18, 42, 33962), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.65%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.23359857039505, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=469.9106214543145)",
+      "MaintenancePrediction(device_serial='Q2HW-86BR-A6LE', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 13, 22, 18, 42, 33447), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 69.3\u00b0C', 'Elevated error rate: 5.40%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.527081491374272, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=435.7284932789181)",
+      "MaintenancePrediction(device_serial='Q4AF-NP9S-KKWJ', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 13, 22, 18, 42, 33635), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.77%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.618721353818066, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=434.19946573803537)",
+      "MaintenancePrediction(device_serial='Q2HW-3HSG-PTAY', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 13, 22, 18, 42, 33934), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 72.7\u00b0C'], recommended_actions=['Clean device ventilation and check cooling systems'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.3770829805512057, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=383.0773518820055)",
+      "MaintenancePrediction(device_serial='Q2HW-99JR-KYPM', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 13, 22, 18, 42, 33984), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 71.3\u00b0C'], recommended_actions=['Clean device ventilation and check cooling systems'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.725178795070562, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=395.1752853890665)",
+      "MaintenancePrediction(device_serial='Q2HW-FMV2-LXQF', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 13, 22, 18, 42, 34025), confidence_score=0.8, risk_level='critical', failure_indicators=['High temperature: 72.0\u00b0C', 'High CPU utilization: 97.9%', 'Elevated error rate: 2.58%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Review device configuration and optimize performance', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.649717972839617, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=486.90980700836354)",
+      "MaintenancePrediction(device_serial='Q4AF-JRH2-Z585', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 14, 22, 18, 42, 33615), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 73.4\u00b0C', 'Elevated error rate: 1.96%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.1895895185832308, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=475.48591445479303)",
+      "MaintenancePrediction(device_serial='Q2HW-8NUF-JHSX', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 14, 22, 18, 42, 33993), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.90%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.2513787759799424, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=408.75943900550044)",
+      "MaintenancePrediction(device_serial='Q4AF-TE4V-JMZJ', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 14, 22, 18, 42, 34072), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 70.6\u00b0C', 'Elevated error rate: 2.54%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.8757937639503797, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=392.2469365018249)",
+      "MaintenancePrediction(device_serial='Q2HW-3C75-XLL7', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 15, 22, 18, 42, 33875), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 61.0\u00b0C', 'Elevated error rate: 4.85%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.2588439253165205, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=464.39405879202184)",
+      "MaintenancePrediction(device_serial='Q4AF-D8CH-4F5P', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 16, 22, 18, 42, 33523), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 5.40%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.60208798329805, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=419.8200163600289)",
+      "MaintenancePrediction(device_serial='Q2HW-B6VN-68QQ', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 16, 22, 18, 42, 33583), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 72.0\u00b0C'], recommended_actions=['Clean device ventilation and check cooling systems'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.356480094024928, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=478.1593293074339)",
+      "MaintenancePrediction(device_serial='Q2HW-E5YM-93S7', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 16, 22, 18, 42, 33795), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.74%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.858197561059999, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=388.6248687460064)",
+      "MaintenancePrediction(device_serial='Q2HW-73LD-BYWY', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 16, 22, 18, 42, 33943), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 5.19%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.229701107499949, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=435.49699786367586)",
+      "MaintenancePrediction(device_serial='Q4AF-TRQH-5GYQ', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 16, 22, 18, 42, 33971), confidence_score=0.8, risk_level='critical', failure_indicators=['High CPU utilization: 94.5%', 'Elevated error rate: 4.69%'], recommended_actions=['Review device configuration and optimize performance', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.9686421423612186, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=440.6848807940836)",
+      "MaintenancePrediction(device_serial='Q2HW-GCCS-9MMN', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 16, 22, 18, 42, 34016), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 69.6\u00b0C', 'Elevated error rate: 4.77%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.5710463332038906, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=442.5361214594874)",
+      "MaintenancePrediction(device_serial='Q4AF-KGYX-S9J5', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 17, 22, 18, 42, 34046), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 5.37%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.7282302881213987, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=380.1309463673413)",
+      "MaintenancePrediction(device_serial='Q4AF-62QU-QD8L', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 18, 22, 18, 42, 33659), confidence_score=0.8, risk_level='critical', failure_indicators=['High temperature: 75.6\u00b0C', 'Elevated error rate: 4.66%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.939654394845979, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=497.7342852973165)",
+      "MaintenancePrediction(device_serial='Q4AF-P88D-YJNX', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 18, 22, 18, 42, 34084), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 5.24%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.8289483644908495, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=428.0130386724964)",
+      "MaintenancePrediction(device_serial='Q4AF-CMB7-VHSN', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 19, 22, 18, 42, 33767), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.54%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.758415921376567, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=447.5102784724878)",
+      "MaintenancePrediction(device_serial='Q4AF-L86W-84XR', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 19, 22, 18, 42, 33850), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.88%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.3958452642590737, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=483.0179830156668)",
+      "MaintenancePrediction(device_serial='Q2LP-TAMC-R3A8', device_type='MS220-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 19, 22, 18, 42, 34006), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.72%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.7286338790859603, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=397.53716320435643)",
+      "MaintenancePrediction(device_serial='Q2HW-5K3Y-BVFS', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 20, 22, 18, 42, 33534), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.52%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.274712318266897, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=368.77749556954575)",
+      "MaintenancePrediction(device_serial='Q2LP-SLNQ-5M95', device_type='MS220-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 20, 22, 18, 42, 33892), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 5.52%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.160346608230181, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=448.0649456832461)",
+      "MaintenancePrediction(device_serial='Q2HW-79QF-JCYF', device_type='MS225-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 21, 22, 18, 42, 34035), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.89%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.8802495232725445, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=388.585973264769)",
+      "MaintenancePrediction(device_serial='Q4AF-CRZX-RVT5', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 22, 22, 18, 42, 33484), confidence_score=0.8, risk_level='critical', failure_indicators=['High temperature: 74.7\u00b0C', 'Elevated error rate: 3.42%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=2.937141038011566, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=491.1331220181052)",
+      "MaintenancePrediction(device_serial='Q4AF-CAQ3-M783', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 23, 22, 18, 42, 33786), confidence_score=0.65, risk_level='critical', failure_indicators=['Elevated error rate: 4.55%'], recommended_actions=['Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=3.5539015355449934, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=403.36462527606665)",
+      "MaintenancePrediction(device_serial='Q4AF-H2BQ-UEQM', device_type='MS120-48', organization_name=\"Arby's\", predicted_failure_date=datetime.datetime(2025, 8, 23, 22, 18, 42, 33830), confidence_score=0.65, risk_level='critical', failure_indicators=['High temperature: 70.9\u00b0C', 'Elevated error rate: 2.98%'], recommended_actions=['Clean device ventilation and check cooling systems', 'Investigate and resolve recurring errors'], business_impact='Medium - Important system but operations could continue', estimated_downtime_hours=1.4076057781770968, maintenance_window='1:00 AM - 5:00 AM (Minimal customer impact)', cost_estimate=359.75554460125585)"
+    ]
+  },
+  "timestamp": "2025-08-09T22:18:42.408400"
+}

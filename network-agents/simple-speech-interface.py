@@ -76,7 +76,7 @@ class SimpleSpeechManager:
                 if pattern in command_lower:
                     # Extract organization name if mentioned
                     org_match = None
-                    org_names = ['inspire brands', 'inspire', 'buffalo wild wings', 'buffalo', 
+                    org_names = ['inspire brands', 'inspire', 'buffalo wild wings', 'buffalo', 'bww',
                                 'arbys', 'arby', 'baskin robbins', 'baskin', 'dunkin', 'comcast']
                     
                     for org in org_names:

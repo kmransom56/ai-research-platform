@@ -145,10 +145,9 @@ class RealMerakiDiscovery:
             org_data["network_count"] = len(networks)
             topology["total_stats"]["networks"] += len(networks)
             
-            # Process networks (limit to prevent timeout)
-            networks_to_process = networks[:50]  # Limit for initial discovery
-            if len(networks) > 50:
-                print(f"   📋 Processing first 50 of {len(networks)} networks for {org['name']}")
+            # Process ALL networks for full enterprise scale
+            networks_to_process = networks  # Process ALL networks
+            print(f"   📋 Processing all {len(networks)} networks for {org['name']}")
             
             # Batch process networks to avoid rate limits
             network_batches = [networks_to_process[i:i+10] for i in range(0, len(networks_to_process), 10)]

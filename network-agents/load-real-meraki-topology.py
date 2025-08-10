@@ -19,7 +19,7 @@ class RealMerakiTopologyLoader:
     def __init__(self, neo4j_uri: str = "neo4j://localhost:7687", 
                  neo4j_user: str = "neo4j", neo4j_password: str = "password"):
         self.driver = GraphDatabase.driver(neo4j_uri, auth=(neo4j_user, neo4j_password))
-        self.batch_size = 1000  # Process in batches for better performance
+        self.batch_size = 5000  # Enterprise scale - handle more devices per batch
         
     def load_topology_file(self, filename: str) -> Dict[str, Any]:
         """Load topology data from JSON file"""
