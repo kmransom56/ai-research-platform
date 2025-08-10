@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎤 Talk to Your Network - Easy Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .status-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-indicator {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .status-connected {
+            color: #4CAF50;
+        }
+        
+        .status-disconnected {
+            color: #f44336;
+        }
+        
+        .microphone-section {
+            margin-bottom: 50px;
+        }
+        
+        .mic-button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            font-size: 4rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .mic-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .mic-button.listening {
+            background: linear-gradient(45deg, #43A047, #66BB6A);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .mic-button.processing {
+            background: linear-gradient(45deg, #FF9800, #FFC107);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .mic-instructions {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .mic-status {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            min-height: 30px;
+        }
+        
+        .command-heard {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        .response-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+            min-height: 100px;
+        }
+        
+        .response-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .response-data {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+            text-align: left;
+            display: none;
+        }
+        
+        .quick-commands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .quick-command-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .quick-command-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quick-command-button h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .quick-command-button p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .help-section {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .help-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .help-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            text-align: left;
+        }
+        
+        .help-examples li {
+            list-style: none;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 5px 0;
+        }
+        
+        .error-message {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.2rem;
+            }
+            
+            .mic-button {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+            
+            .quick-commands {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎤 Talk to Your Network</h1>
+            <p>Simple voice control for network management</p>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-indicator" id="statusIndicator">🔄 Checking connection...</div>
+        </div>
+        
+        <div class="microphone-section">
+            <button class="mic-button" id="micButton">🎤</button>
+            <div class="mic-instructions">Click the microphone and speak</div>
+            <div class="mic-status" id="micStatus">Ready to listen</div>
+        </div>
+        
+        <div class="command-heard" id="commandHeard">
+            Your voice command will appear here...
+        </div>
+        
+        <div class="response-section">
+            <div class="response-text" id="responseText">
+                👋 Welcome! Click the microphone above and ask me about your network.
+                <br><br>
+                Try saying: <strong>"How many devices do we have?"</strong>
+            </div>
+            <div class="response-data" id="responseData"></div>
+        </div>
+        
+        <div class="quick-commands">
+            <div class="quick-command-button" data-command="How many devices do we have">
+                <h3>📊 Device Count</h3>
+                <p>"How many devices do we have?"</p>
+            </div>
+            <div class="quick-command-button" data-command="How is Inspire Brands doing">
+                <h3>🏢 Organization Status</h3>
+                <p>"How is Inspire Brands doing?"</p>
+            </div>
+            <div class="quick-command-button" data-command="Give me a network summary">
+                <h3>📋 Network Summary</h3>
+                <p>"Give me a network summary"</p>
+            </div>
+            <div class="quick-command-button" data-command="What device models do we have">
+                <h3>🔧 Equipment Types</h3>
+                <p>"What device models do we have?"</p>
+            </div>
+            <div class="quick-command-button" data-command="Are there any problems">
+                <h3>🚨 Check Problems</h3>
+                <p>"Are there any problems?"</p>
+            </div>
+            <div class="quick-command-button" data-command="Help me">
+                <h3>❓ Get Help</h3>
+                <p>"Help me"</p>
+            </div>
+        </div>
+        
+        <div class="help-section">
+            <h2>💡 What You Can Ask</h2>
+            <div class="help-examples">
+                <ul>
+                    <li>💬 "How many devices do we have?"</li>
+                    <li>💬 "What's the status of Buffalo Wild Wings?"</li>
+                    <li>💬 "Give me a network summary"</li>
+                    <li>💬 "Show me our equipment types"</li>
+                </ul>
+                <ul>
+                    <li>💬 "Are there any network problems?"</li>
+                    <li>💬 "How is our network doing?"</li>
+                    <li>💬 "Tell me about Arby's network"</li>
+                    <li>💬 "What devices need attention?"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SimpleSpeechManager {
+            constructor() {
+                this.recognition = null;
+                this.synthesis = window.speechSynthesis;
+                this.isListening = false;
+                this.isProcessing = false;
+                
+                this.initElements();
+                this.initSpeechRecognition();
+                this.checkSystemStatus();
+                this.setupEventListeners();
+            }
+            
+            initElements() {
+                this.micButton = document.getElementById('micButton');
+                this.micStatus = document.getElementById('micStatus');
+                this.commandHeard = document.getElementById('commandHeard');
+                this.responseText = document.getElementById('responseText');
+                this.responseData = document.getElementById('responseData');
+                this.statusIndicator = document.getElementById('statusIndicator');
+            }
+            
+            initSpeechRecognition() {
+                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                    this.showError('Voice recognition is not supported in this browser. Please use Chrome, Edge, or Safari.');
+                    return;
+                }
+                
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                this.recognition = new SpeechRecognition();
+                
+                this.recognition.continuous = false;
+                this.recognition.interimResults = true;
+                this.recognition.lang = 'en-US';
+                
+                this.recognition.onstart = () => {
+                    this.isListening = true;
+                    this.updateUI();
+                    this.micStatus.textContent = '🎤 Listening... speak now';
+                    this.commandHeard.textContent = 'Listening...';
+                };
+                
+                this.recognition.onresult = (event) => {
+                    let finalTranscript = '';
+                    let interimTranscript = '';
+                    
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+                    
+                    this.commandHeard.textContent = finalTranscript + interimTranscript;
+                    
+                    if (finalTranscript) {
+                        this.processCommand(finalTranscript);
+                    }
+                };
+                
+                this.recognition.onerror = (event) => {
+                    this.isListening = false;
+                    this.updateUI();
+                    
+                    let errorMessage = 'Voice recognition error';
+                    switch(event.error) {
+                        case 'no-speech':
+                            errorMessage = 'No speech detected. Please try again.';
+                            break;
+                        case 'audio-capture':
+                            errorMessage = 'Microphone not found. Please check your microphone.';
+                            break;
+                        case 'not-allowed':
+                            errorMessage = 'Microphone permission denied. Please allow microphone access.';
+                            break;
+                        default:
+                            errorMessage = `Voice recognition error: ${event.error}`;
+                    }
+                    
+                    this.showError(errorMessage);
+                };
+                
+                this.recognition.onend = () => {
+                    this.isListening = false;
+                    this.updateUI();
+                    if (!this.isProcessing) {
+                        this.micStatus.textContent = 'Click microphone to speak again';
+                    }
+                };
+            }
+            
+            setupEventListeners() {
+                this.micButton.addEventListener('click', () => {
+                    if (this.isListening) {
+                        this.stopListening();
+                    } else {
+                        this.startListening();
+                    }
+                });
+                
+                // Quick command buttons
+                document.querySelectorAll('.quick-command-button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const command = button.dataset.command;
+                        this.commandHeard.textContent = command;
+                        this.processCommand(command);
+                    });
+                });
+            }
+            
+            startListening() {
+                if (this.recognition && !this.isListening) {
+                    this.recognition.start();
+                }
+            }
+            
+            stopListening() {
+                if (this.recognition && this.isListening) {
+                    this.recognition.stop();
+                }
+            }
+            
+            async processCommand(command) {
+                this.isProcessing = true;
+                this.updateUI();
+                this.micStatus.textContent = '🔄 Processing your command...';
+                
+                try {
+                    const response = await fetch('/api/simple-command', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ command: command })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.showResponse(result.response, result.data);
+                        this.speakResponse(result.response);
+                    } else {
+                        this.showError(result.response);
+                    }
+                    
+                } catch (error) {
+                    this.showError(`Network error: ${error.message}`);
+                } finally {
+                    this.isProcessing = false;
+                    this.updateUI();
+                    this.micStatus.textContent = 'Ready - click microphone to speak';
+                }
+            }
+            
+            showResponse(text, data) {
+                this.responseText.innerHTML = `✅ ${text}`;
+                this.responseText.className = 'response-text success-message';
+                
+                if (data && Object.keys(data).length > 0) {
+                    this.responseData.innerHTML = `<strong>Details:</strong><br><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    this.responseData.style.display = 'block';
+                } else {
+                    this.responseData.style.display = 'none';
+                }
+                
+                setTimeout(() => {
+                    this.responseText.className = 'response-text';
+                }, 3000);
+            }
+            
+            showError(message) {
+                this.responseText.innerHTML = `❌ ${message}`;
+                this.responseText.className = 'response-text error-message';
+                this.responseData.style.display = 'none';
+                
+                setTimeout(() => {
+                    this.responseText.className = 'response-text';
+                }, 5000);
+            }
+            
+            speakResponse(text) {
+                this.synthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.85;
+                utterance.pitch = 1.0;
+                utterance.volume = 0.8;
+                
+                const voices = this.synthesis.getVoices();
+                const goodVoice = voices.find(voice => 
+                    voice.lang.startsWith('en') && 
+                    (voice.name.includes('Google') || voice.name.includes('Microsoft') || voice.name.includes('Alex'))
+                );
+                
+                if (goodVoice) {
+                    utterance.voice = goodVoice;
+                }
+                
+                this.synthesis.speak(utterance);
+            }
+            
+            updateUI() {
+                if (this.isListening) {
+                    this.micButton.className = 'mic-button listening';
+                    this.micButton.textContent = '🔴';
+                } else if (this.isProcessing) {
+                    this.micButton.className = 'mic-button processing';
+                    this.micButton.textContent = '⏳';
+                } else {
+                    this.micButton.className = 'mic-button';
+                    this.micButton.textContent = '🎤';
+                }
+            }
+            
+            async checkSystemStatus() {
+                try {
+                    const response = await fetch('/api/status');
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.statusIndicator.innerHTML = `✅ Connected - ${result.device_count} devices ready`;
+                        this.statusIndicator.className = 'status-indicator status-connected';
+                    } else {
+                        this.statusIndicator.innerHTML = '❌ Database not connected';
+                        this.statusIndicator.className = 'status-indicator status-disconnected';
+                    }
+                } catch (error) {
+                    this.statusIndicator.innerHTML = '⚠️ Connection error';
+                    this.statusIndicator.className = 'status-indicator status-disconnected';
+                }
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SimpleSpeechManager();
+        });
+    </script>
+</body>
+</html>
