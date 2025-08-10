@@ -209,6 +209,44 @@ python3 enhanced-voice-interface.py
 - **Main Dashboard**: `http://localhost:11040`
 - **Voice Interface**: `http://localhost:11033`
 - **Neo4j Browser**: `http://localhost:7474`
+- **Grafana Dashboards**: `http://localhost:11002`
+- **Prometheus Metrics**: `http://localhost:9090`
+
+---
+
+## 📊 **Grafana Dashboards & Monitoring**
+
+### Access Grafana Network Dashboards
+```bash
+# Launch all Grafana dashboards
+cd network-agents
+python3 launch-grafana-dashboards.py
+```
+
+**Grafana Access**: `http://localhost:11002` (default login: admin/admin)
+
+### Available Network Dashboards:
+- **📊 Network Topology Overview**: Multi-vendor device visualization
+- **📈 Device Inventory**: Complete restaurant network inventory  
+- **🔍 Performance Metrics**: Real-time network performance
+- **🛡️ Security Posture**: FortiGate security monitoring
+- **⚙️ Configuration State**: Device configuration tracking
+- **👔 Executive Summary**: High-level network health
+- **⚠️ Alert Dashboard**: Active network alerts
+- **📊 Capacity Planning**: Resource utilization trends
+
+### Restaurant-Specific Dashboards:
+- **🍔 Arby's Network Health**: FortiManager + Meraki devices
+- **🍗 Buffalo Wild Wings Status**: Multi-vendor monitoring
+- **🌭 Sonic Infrastructure**: Complete network overview
+
+### Prometheus Metrics Integration:
+**Metrics Endpoint**: `http://localhost:9090`
+- Network device health scores
+- FortiManager connectivity status
+- Security event monitoring
+- Device uptime tracking
+- Performance baselines
 
 ---
 
@@ -268,6 +306,8 @@ print('Sonic:', os.getenv('SONIC_FORTIMANAGER_HOST'))
 - **Discovery Time**: 15-30 minutes for all three FortiManagers
 - **Voice Response**: < 3 seconds for device queries
 - **Dashboard Load**: < 10 seconds for network visualization
+- **Grafana Dashboard**: Real-time metrics and historical trends
+- **Prometheus Metrics**: Network performance monitoring
 
 ---
 
@@ -280,7 +320,9 @@ When properly installed on corporate network:
 3. ✅ **Organization Detection**: Devices automatically classified by restaurant brand
 4. ✅ **Voice Interface**: Responds to Fortinet-specific voice commands
 5. ✅ **Network Visualization**: Neo4j shows multi-vendor topology with Fortinet devices in red
-6. ✅ **Health Monitoring**: Real-time status of restaurant network infrastructure
+6. ✅ **Grafana Dashboards**: Real-time metrics, alerts, and performance monitoring
+7. ✅ **Prometheus Integration**: Network health metrics and alerting
+8. ✅ **Health Monitoring**: Real-time status of restaurant network infrastructure
 
 ---
 

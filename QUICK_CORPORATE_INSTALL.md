@@ -47,6 +47,8 @@ python3 test_corporate_network.py
 - 📊 **Dashboard**: http://localhost:11040
 - 🎤 **Voice**: http://localhost:11033
 - 🗄️ **Database**: http://localhost:7474
+- 📈 **Grafana**: http://localhost:11002
+- 🔍 **Metrics**: http://localhost:9090
 
 ---
 
@@ -79,6 +81,23 @@ SONIC_FORTIMANAGER_HOST=10.128.156.36
 SONIC_USERNAME=ibadmin
 SONIC_PASSWORD=your_password
 ```
+
+---
+
+## 📊 **Grafana Dashboards Included**
+
+```bash
+# Launch all network dashboards
+cd network-agents
+python3 launch-grafana-dashboards.py
+```
+
+**Restaurant Network Dashboards:**
+- 🍔 Arby's Network Health
+- 🍗 Buffalo Wild Wings Status  
+- 🌭 Sonic Infrastructure
+- 📊 Executive Summary
+- 🛡️ Security Monitoring
 
 ---
 
