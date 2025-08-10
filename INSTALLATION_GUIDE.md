@@ -29,18 +29,33 @@ cp .env.template .env
 #### Daily Use - Access Points
 After installation, you can access these tools:
 
-1. **🏠 Main Dashboard** - http://localhost:11040
-   - Click here first - shows all available tools
-   - System status and health overview
+1. **🎤 Main AI Network Management System** - http://localhost:11040
+   - Click here first - central hub for all tools
+   - Choose Restaurant Operations or IT Management
 
-2. **🎤 Restaurant Voice Assistant** - http://localhost:11032
+2. **🍴 Restaurant Operations Voice** - http://localhost:11032
    - Say: "Check store equipment status"
    - Say: "Are the kiosks working?"
    - Say: "How are our POS systems?"
 
-3. **🗺️ Network Map** - http://localhost:11050
-   - Visual map of all your restaurant equipment
-   - Shows which devices need attention (red = problems)
+3. **🌐 IT & Network Management Voice** - http://localhost:11030
+   - Say: "Check network health"
+   - Say: "How many devices do we have?"
+   - Say: "Show me FortiManager status"
+
+4. **📈 Grafana Monitoring Dashboards** - http://localhost:11002
+   - Visual charts and graphs (Login: admin/admin)
+   - Real-time restaurant network monitoring
+   - Device performance and alerts
+
+5. **🔍 Prometheus Metrics** - http://localhost:9090
+   - Network performance metrics
+   - FortiManager connectivity status
+   - System health monitoring
+
+6. **📊 Neo4j Network Visualization** - http://localhost:7474
+   - Interactive network topology (Login: neo4j/password)
+   - Multi-vendor device relationships
 
 #### What to Watch For
 - **Red devices** = Need immediate attention
