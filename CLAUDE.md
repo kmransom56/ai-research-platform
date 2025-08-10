@@ -6,36 +6,51 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **AI Research Platform** - a comprehensive multi-agent AI development environment built on Microsoft's Chat Copilot. It combines multiple AI services, local LLMs, and development tools into a unified platform with secure Tailscale networking.
 
-## 🎤 **NEW: Speech-Enabled AI Network Management**
+## 🍽️ **NEW: AI Restaurant Network Management System**
 
-### **Revolutionary Voice Control**
-The platform now includes a **speech-enabled AI network management system** that provides voice control over enterprise network infrastructure:
+### **Complete Multi-Vendor Network Management**
+The platform now includes a **comprehensive AI-powered restaurant network management system** with FortiManager integration and advanced monitoring:
 
-- **Web Speech Interface**: http://localhost:11030
-- **Voice Commands**: Natural language network management
-- **Text-to-Speech**: AI-powered voice responses
-- **Real Enterprise Data**: 812 Meraki devices across 7 restaurant chain organizations
-- **Live Network Topology**: Connected to Inspire Brands, Buffalo Wild Wings, Arby's, Baskin Robbins
+#### **🎤 Main AI Network Management Hub**
+- **Central Interface**: http://localhost:11040
+- **Restaurant Operations Voice**: http://localhost:11032 (Store managers, equipment monitoring)
+- **IT & Network Management Voice**: http://localhost:11030 (Network engineers, technical staff)
 
-### **Speech Commands**
+#### **📊 Advanced Monitoring & Visualization**
+- **Grafana Dashboards**: http://localhost:11002 (admin/admin) - Real-time restaurant network monitoring
+- **Prometheus Metrics**: http://localhost:9090 - Network health, FortiManager connectivity, alerting
+- **Neo4j Network Topology**: http://localhost:7474 (neo4j/password) - Multi-vendor visualization
+
+#### **🏢 Restaurant Network Scale**
+- **25,000+ Total Devices**: Multi-vendor restaurant network infrastructure
+- **Existing Meraki**: 7,816 devices across restaurant chains
+- **FortiManager Integration**: 15,000-25,000 Fortinet devices
+  - **Arby's**: ~2,000-3,000 devices (FortiManager: 10.128.144.132)
+  - **Buffalo Wild Wings**: ~2,500-3,500 devices (FortiManager: 10.128.145.4)
+  - **Sonic**: ~7,000-10,000 devices (FortiManager: 10.128.156.36)
+
+#### **🎤 Voice Command Examples**
 ```bash
-# Launch speech interface
-cd network-agents
-python3 speech-web-interface.py
+# Restaurant Operations Interface (11032)
+"How are our POS systems?"
+"Check kitchen equipment at Buffalo Wild Wings"
+"Any drive-thru issues?"
+"Are the kiosks working at store 4472?"
 
-# Voice commands you can use:
+# IT & Network Management Interface (11030)
 "How many devices do we have?"
-"What's the status of Inspire Brands?"
-"Show me critical devices"
-"Give me a network summary"
-"Show me top device models"
+"Show Fortinet devices"
+"How is Arby's network?"
+"Check FortiManager connectivity"
+"What's the health of Sonic's infrastructure?"
 ```
 
-### **Enterprise Integration**
-- **812 Real Devices**: MR53 access points, MS120-48LP switches, MX68/MX64 firewalls
-- **Multi-Agent AI**: Integrated with AutoGen Studio, Magentic-One, GenAI Stack
-- **Knowledge Graph**: Neo4j with voice-enabled queries
-- **Performance**: Sub-second response times for voice commands
+#### **🛡️ FortiManager Integration Features**
+- **Proven API Integration**: Based on user's GitHub repository implementation
+- **Restaurant-Specific Enhancements**: Organization detection, device role classification
+- **Corporate Network Ready**: SSL handling for Zscaler, corporate proxy support
+- **Multi-Vendor Discovery**: Unified Meraki + Fortinet device management
+- **Voice-Enabled Queries**: Natural language commands for all restaurant brands
 
 ## External AI Application Resources
 
@@ -106,6 +121,39 @@ pip install -e .
 ./scripts/start.sh
 ```
 
+### Restaurant Network Management
+```bash
+# Start complete multi-vendor network system
+./start-multi-vendor-network-system.sh
+
+# Launch restaurant network voice interfaces
+cd network-agents
+python3 speech-web-interface.py  # Main voice interface (11030)
+python3 restaurant-equipment-voice-interface.py  # Restaurant operations (11032)
+
+# Test FortiManager connectivity (corporate network required)
+cd network-agents
+python3 test_corporate_network.py
+python3 fortimanager_api.py
+
+# Launch monitoring dashboards
+python3 launch-grafana-dashboards.py
+
+# Multi-vendor network discovery
+python3 multi-vendor-discovery.py
+```
+
+### Corporate Network Installation
+```bash
+# Automated corporate network setup
+./scripts/corporate-network-setup.sh
+
+# Quick corporate deployment
+git clone https://github.com/kmransom56/chat-copilot.git
+cd chat-copilot
+./scripts/corporate-network-setup.sh
+```
+
 ### Speech-Enabled Network Management
 ```bash
 # Speech interface for network management
@@ -155,11 +203,12 @@ python3 python/utilities/check-certificates.py
 - **python/**: AI services including AutoGen Studio and Magentic-One
 - **scripts/**: Platform management, deployment, and utility scripts
 - **genai-stack/**: Neo4j GenAI Stack for knowledge graph AI applications
+- **network-agents/**: Restaurant Network Management System with FortiManager integration
 
 ### Service Architecture (Ports 11000-12000)
 - **Backend API**: 11000
 - **AutoGen Studio**: 11001  
-- **Webhook Server**: 11002
+- **Grafana Dashboards**: 11002
 - **Magentic-One**: 11003
 - **Windmill (SSL)**: 11005
 - **Windmill (Container)**: 11006
@@ -168,6 +217,15 @@ python3 python/utilities/check-certificates.py
 - **SearXNG**: 11021
 - **Ollama LLM**: 11434
 - **Caddy HTTPS**: 10443
+
+### Restaurant Network Management (Ports 11030-11040)
+- **IT & Network Voice Interface**: 11030
+- **Restaurant Operations Voice**: 11032
+- **Main AI Network Management Hub**: 11040
+
+### Monitoring & Database Services
+- **Prometheus Metrics**: 9090
+- **Neo4j Database**: 7474 (HTTP), 7687 (Bolt)
 
 ### Neo4j GenAI Stack (Ports 7474, 7687, 8501-8505)
 - **Neo4j Database**: 7474 (HTTP), 7687 (Bolt)
@@ -188,11 +246,24 @@ python3 python/utilities/check-certificates.py
 - **Ollama** for local LLM serving
 - **Neo4j** for graph database and knowledge graphs
 - **LangChain** for GenAI Stack RAG implementation
+- **Grafana** for monitoring dashboards and visualization
+- **Prometheus** for metrics collection and alerting
+- **FortiManager JSON-RPC API** for Fortinet device management
+- **Meraki Dashboard API** for Cisco device management
+- **Web Speech API** for voice interface capabilities
 
 ### Network Access
 - **Tailscale Domain**: ubuntuaicodeserver-1.tail5137b4.ts.net
 - **Main Services**: /copilot, /autogen, /openwebui, /hub, /vscode, /genai-stack, /neo4j
 - **Local Development**: Various localhost ports
+
+### Restaurant Network Management Access
+- **Main AI Network Hub**: http://localhost:11040
+- **Restaurant Operations Voice**: http://localhost:11032  
+- **IT & Network Management Voice**: http://localhost:11030
+- **Grafana Monitoring**: http://localhost:11002 (admin/admin)
+- **Prometheus Metrics**: http://localhost:9090
+- **Neo4j Network Topology**: http://localhost:7474 (neo4j/password)
 
 ## Configuration Files
 
@@ -352,6 +423,10 @@ cd webapp && npx playwright test
 - GenAI Stack: http://localhost:8505
 - Windmill: https://localhost:11005
 - CA Server: `./scripts/infrastructure/check-ca-server-status.sh`
+- **Restaurant Network Management**: http://localhost:11040
+- **Grafana Dashboards**: http://localhost:11002
+- **Prometheus Metrics**: http://localhost:9090
+- **FortiManager Connectivity**: `cd network-agents && python3 test_corporate_network.py`
 
 ### Log Locations
 - Service logs: Check individual Docker containers with `docker logs <container-name>`
