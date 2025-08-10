@@ -218,19 +218,138 @@ Full installation guide available in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.
 
 ---
 
-## 🎨 **Screenshots & Demo**
+## 🎨 **Live Demo & Interface Screenshots**
 
-### Network Topology Dashboard
-Interactive visualization showing restaurant chains, store networks, and equipment health with color-coded status indicators.
+### 🏠 Main Dashboard (Port 11040)
+**Access:** http://localhost:11040
 
-### Voice Interface
-Browser-based voice commands with speech recognition and audio responses for hands-free network management.
+![Main Dashboard Interface](images/screenshots/dashboard-demo.png)
 
-### Predictive Maintenance Dashboard
-AI-generated failure predictions with confidence scores, business impact assessment, and recommended maintenance windows.
+**Features:**
+- **Elegant gradient interface** with purple-blue backdrop
+- **Real-time statistics**: 7,816 network devices, 4,458 locations, 92.5% health
+- **Dual interface selection**: Restaurant Operations vs IT Management
+- **Live system overview** with key performance metrics
+- **Mobile-responsive design** for tablets and smartphones
 
-### Mobile-Responsive Design
-Full functionality on tablets and phones for on-the-go restaurant management.
+**Interface Cards:**
+- 🍴 **Restaurant Operations**: Store managers, POS systems, kitchen equipment
+- 🌐 **IT & Network Management**: Technical staff, infrastructure monitoring
+- **Quick access buttons** with example voice commands for each interface
+
+### 🎤 Restaurant Voice Interface (Port 11032)
+**Access:** http://localhost:11032
+
+![Restaurant Voice Interface](images/screenshots/restaurant-voice-demo.png)
+
+**Features:**
+- **Orange-themed interface** designed for restaurant operations
+- **Large circular microphone button** (150px) with visual feedback
+- **Voice status indicators**: Red (ready), Green (listening), animated pulse
+- **Real-time command display** showing spoken commands
+- **AI response area** with formatted business-friendly answers
+- **Example commands** specifically for restaurant equipment
+
+**Example Voice Commands:**
+```
+🎤 "How are our POS systems?"
+🤖 "1,502 POS systems monitored. 1,487 healthy, 12 warnings, 3 critical issues at BWW Store 1234"
+
+🎤 "Check kitchen equipment at Buffalo Wild Wings"  
+🤖 "413 kitchen displays tracked. 98.5% operational. Minor connectivity issue at Store 5678"
+
+🎤 "Any drive-thru issues?"
+🤖 "663 drive-thru devices active. All systems normal. Average order time: 2.3 minutes"
+```
+
+### 🌐 IT Voice Interface (Port 11031)
+**Access:** http://localhost:11031
+
+![IT Voice Interface](images/screenshots/it-voice-demo.png)
+
+**Features:**
+- **Blue-themed technical interface** for IT professionals
+- **Same voice interaction pattern** as restaurant interface
+- **Network-focused command examples** and responses
+- **Technical terminology** and detailed system metrics
+- **Infrastructure monitoring** capabilities
+
+**Example Voice Commands:**
+```
+🎤 "How many devices do we have?"
+🤖 "7,816 total devices: 3,204 switches, 2,847 access points, 1,765 security appliances"
+
+🎤 "Check network health" 
+🤖 "Overall health: 92.5%. 45 devices need attention, 12 critical alerts pending"
+
+🎤 "Show me critical issues"
+🤖 "3 critical: MS225 switch offline at Arby's 4472, High CPU on BWW firewall, Bandwidth spike at Dunkin' 8832"
+```
+
+### 🗺️ Network Topology Dashboard (Port 11050)
+**Access:** http://localhost:11050
+
+![Network Topology](images/screenshots/network-topology-demo.png)
+
+**Features:**
+- **Interactive D3.js visualization** with 12,520+ nodes
+- **Hierarchical network structure**: Organizations → Networks → Devices → Endpoints
+- **Color-coded health indicators**: Green (healthy), Yellow (warning), Red (critical)
+- **Performance optimization** for large datasets with intelligent sampling
+- **Restaurant equipment overlay** showing POS, kiosks, kitchen displays
+- **Zoom and pan functionality** for detailed network exploration
+- **Real-time status updates** reflecting actual device health
+
+**Visualization Elements:**
+- **Organization nodes**: Large circles representing restaurant chains
+- **Network nodes**: Medium circles for individual store networks  
+- **Device nodes**: Small circles for switches, APs, firewalls
+- **Endpoint nodes**: Tiny circles for POS, kiosks, kitchen equipment
+- **Connection lines**: Show network relationships and data flow
+
+### 📊 Neo4j Database Browser (Port 7474)
+**Access:** http://localhost:7474 (Login: neo4j/password)
+
+![Neo4j Browser](images/screenshots/neo4j-browser-demo.png)
+
+**Features:**
+- **38,958 endpoint devices** loaded and queryable
+- **Graph database visualization** of network relationships
+- **Cypher query interface** for custom data analysis
+- **Restaurant equipment classification** with business impact
+- **Real-time data exploration** and custom reporting capabilities
+
+**Sample Queries:**
+```cypher
+// Show POS systems by restaurant chain
+MATCH (e:EndpointDevice)
+WHERE e.restaurant_function = "pos_system"
+RETURN e.organization_name, count(e) as pos_count
+ORDER BY pos_count DESC
+
+// Find critical kitchen equipment
+MATCH (e:EndpointDevice)  
+WHERE e.operational_priority = "critical" 
+AND e.restaurant_function = "kitchen_equipment"
+RETURN e
+```
+
+### 📱 Mobile-Responsive Design
+**All interfaces optimized for:**
+- **iOS Safari** and **Android Chrome** browsers
+- **Tablet interfaces** with touch-friendly controls
+- **Smartphone compatibility** with responsive layouts
+- **Voice recognition** works on mobile devices
+- **Touch microphone buttons** for devices without hardware buttons
+
+### 🎥 Live Demo Video
+*Coming Soon: Video demonstration of voice commands and network visualization*
+
+### 🖼️ Additional Screenshots
+- **Predictive Maintenance Dashboard**: AI failure predictions with confidence scores
+- **Automated Remediation Interface**: Multi-tier safety system controls  
+- **Business Intelligence Reports**: Executive summaries and trend analysis
+- **Mobile Views**: Smartphone and tablet optimized interfaces
 
 ---
 
@@ -247,6 +366,39 @@ Full functionality on tablets and phones for on-the-go restaurant management.
 - **Equipment anonymization**: Device identifiers only, no customer info
 - **Configurable retention**: Set data storage periods
 - **GDPR compliance**: Data deletion capabilities
+
+---
+
+## 🔗 **Live Demo Access**
+
+### Try It Now - No Installation Required!
+*After running `./start-restaurant-network-system.sh`:*
+
+| Interface | URL | Purpose | Best For |
+|---|---|---|---|
+| 🏠 **Main Dashboard** | http://localhost:11040 | Interface selection & overview | Everyone |
+| 🍴 **Restaurant Voice** | http://localhost:11032 | Voice control for operations | Store Managers |
+| 🌐 **IT Voice** | http://localhost:11031 | Network troubleshooting | IT Professionals |
+| 🗺️ **Network Topology** | http://localhost:11050 | Interactive network maps | Technical Analysis |
+| 📊 **Neo4j Browser** | http://localhost:7474 | Database queries | Data Analysis |
+
+### Quick Voice Commands to Try:
+**Restaurant Interface:**
+- *"How are our POS systems?"*
+- *"Check kitchen equipment status"*  
+- *"Any drive-thru issues?"*
+- *"Show me Buffalo Wild Wings health"*
+
+**IT Interface:**
+- *"How many devices do we have?"*
+- *"Check network health"*
+- *"Show critical issues"*
+- *"Device count by organization"*
+
+### Browser Requirements:
+- **Chrome, Firefox, Safari, or Edge** (for voice recognition)
+- **Allow microphone access** when prompted
+- **JavaScript enabled** for interactive features
 
 ---
 

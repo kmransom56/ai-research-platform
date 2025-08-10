@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍴 Restaurant Equipment Voice Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .voice-controls {
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .microphone-button {
+            width: 150px;
+            height: 150px;
+            background: #FF4444;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .microphone-button:hover {
+            background: #FF2222;
+            transform: scale(1.05);
+        }
+        
+        .microphone-button.listening {
+            background: #22FF22;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .status {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            min-height: 30px;
+        }
+        
+        .command-display {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 50px;
+            font-style: italic;
+        }
+        
+        .response {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            min-height: 80px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: left;
+        }
+        
+        .restaurant-examples {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .restaurant-examples h3 {
+            margin-bottom: 15px;
+            color: #FFE4B5;
+        }
+        
+        .example-commands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            text-align: left;
+        }
+        
+        .example-command {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .equipment-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .equipment-icon {
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .equipment-icon div {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .equipment-icon span {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍴 Restaurant Equipment Voice Control</h1>
+            <p>Troubleshoot POS, Kitchen, Drive-Thru & More with Voice Commands</p>
+        </div>
+        
+        <div class="voice-controls">
+            <button class="microphone-button" id="micButton">🎤</button>
+            <div class="status" id="status">Click the microphone and ask about restaurant equipment</div>
+            <div class="command-display" id="commandDisplay">Voice command will appear here...</div>
+            <div class="response" id="response">
+                <strong>Welcome to Restaurant Equipment Voice Control!</strong><br>
+                Click the microphone and ask about your POS systems, kitchen equipment, drive-thru devices, or any other restaurant technology.
+            </div>
+        </div>
+        
+        <div class="equipment-icons">
+            <div class="equipment-icon">
+                <div>💰</div>
+                <span>POS Systems</span>
+            </div>
+            <div class="equipment-icon">
+                <div>🍳</div>
+                <span>Kitchen Equipment</span>
+            </div>
+            <div class="equipment-icon">
+                <div>🚗</div>
+                <span>Drive-Thru</span>
+            </div>
+            <div class="equipment-icon">
+                <div>📱</div>
+                <span>Kiosks</span>
+            </div>
+            <div class="equipment-icon">
+                <div>📺</div>
+                <span>Menu Boards</span>
+            </div>
+            <div class="equipment-icon">
+                <div>🏪</div>
+                <span>Store Systems</span>
+            </div>
+        </div>
+        
+        <div class="restaurant-examples">
+            <h3>🎤 Try These Restaurant Voice Commands:</h3>
+            <div class="example-commands">
+                <div class="example-command">"How are our POS systems?"</div>
+                <div class="example-command">"Check kitchen equipment at store 4472"</div>
+                <div class="example-command">"Any drive-thru issues?"</div>
+                <div class="example-command">"What restaurant equipment is down?"</div>
+                <div class="example-command">"Check Buffalo Wild Wings kiosks"</div>
+                <div class="example-command">"Are the menu boards working?"</div>
+                <div class="example-command">"How is Inspire Brands equipment?"</div>
+                <div class="example-command">"Check critical restaurant systems"</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class RestaurantVoiceManager {
+            constructor() {
+                this.recognition = null;
+                this.synthesis = window.speechSynthesis;
+                this.isListening = false;
+                
+                this.micButton = document.getElementById('micButton');
+                this.status = document.getElementById('status');
+                this.commandDisplay = document.getElementById('commandDisplay');
+                this.response = document.getElementById('response');
+                
+                this.initializeSpeechRecognition();
+                this.bindEvents();
+            }
+            
+            initializeSpeechRecognition() {
+                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                    this.status.textContent = 'Speech recognition not supported in this browser';
+                    return;
+                }
+                
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                this.recognition = new SpeechRecognition();
+                
+                this.recognition.continuous = false;
+                this.recognition.interimResults = true;
+                this.recognition.lang = 'en-US';
+                
+                this.recognition.onstart = () => {
+                    this.isListening = true;
+                    this.micButton.classList.add('listening');
+                    this.status.textContent = 'Listening for restaurant equipment questions...';
+                    this.commandDisplay.textContent = 'Listening...';
+                };
+                
+                this.recognition.onresult = (event) => {
+                    let finalTranscript = '';
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                        } else {
+                            this.commandDisplay.textContent = `Hearing: "${transcript}"`;
+                        }
+                    }
+                    
+                    if (finalTranscript) {
+                        this.processRestaurantCommand(finalTranscript);
+                    }
+                };
+                
+                this.recognition.onerror = (event) => {
+                    this.stopListening();
+                    this.status.textContent = `Speech recognition error: ${event.error}`;
+                };
+                
+                this.recognition.onend = () => {
+                    this.stopListening();
+                };
+            }
+            
+            bindEvents() {
+                this.micButton.addEventListener('click', () => {
+                    if (this.isListening) {
+                        this.stopListening();
+                    } else {
+                        this.startListening();
+                    }
+                });
+            }
+            
+            startListening() {
+                if (this.recognition) {
+                    this.recognition.start();
+                }
+            }
+            
+            stopListening() {
+                this.isListening = false;
+                this.micButton.classList.remove('listening');
+                this.status.textContent = 'Processing restaurant equipment query...';
+                
+                if (this.recognition) {
+                    this.recognition.stop();
+                }
+            }
+            
+            async processRestaurantCommand(command) {
+                this.commandDisplay.textContent = `Command: "${command}"`;
+                this.response.innerHTML = '<div style="text-align: center;">🔍 Checking restaurant equipment...</div>';
+                
+                try {
+                    const response = await fetch('/api/restaurant-command', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ command: command })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        this.displayResponse(data.response, data.intent);
+                        this.speakResponse(data.response);
+                        this.status.textContent = 'Restaurant equipment check complete. Click microphone for another query.';
+                    } else {
+                        this.displayError(data.response);
+                        this.status.textContent = 'Error checking restaurant equipment. Please try again.';
+                    }
+                } catch (error) {
+                    this.displayError('Failed to connect to restaurant equipment system.');
+                    this.status.textContent = 'Connection error. Please check system status.';
+                }
+            }
+            
+            displayResponse(responseText, intent) {
+                const intentIcons = {
+                    'pos_status': '💰',
+                    'kitchen_equipment': '🍳',
+                    'drive_thru': '🚗',
+                    'kiosk_status': '📱',
+                    'menu_boards': '📺',
+                    'store_equipment': '🏪',
+                    'critical_equipment': '🚨'
+                };
+                
+                const icon = intentIcons[intent] || '🍴';
+                this.response.innerHTML = `<strong>${icon} Restaurant Equipment Status:</strong><br><br>${responseText}`;
+            }
+            
+            displayError(errorText) {
+                this.response.innerHTML = `<strong>⚠️ Error:</strong><br><br>${errorText}`;
+            }
+            
+            speakResponse(text) {
+                if (this.synthesis) {
+                    // Cancel any ongoing speech
+                    this.synthesis.cancel();
+                    
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 0.8;
+                    
+                    this.synthesis.speak(utterance);
+                }
+            }
+        }
+        
+        // Initialize the restaurant voice manager when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new RestaurantVoiceManager();
+        });
+    </script>
+</body>
+</html>
