@@ -223,7 +223,7 @@ Full installation guide available in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.
 ### 🏠 Main Dashboard (Port 11040)
 **Access:** http://localhost:11040
 
-![Main Dashboard Interface](images/screenshots/dashboard-demo.png)
+![Main Dashboard Interface](images/screenshots/main-dashboard.png)
 
 **Features:**
 - **Elegant gradient interface** with purple-blue backdrop
@@ -240,7 +240,7 @@ Full installation guide available in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.
 ### 🎤 Restaurant Voice Interface (Port 11032)
 **Access:** http://localhost:11032
 
-![Restaurant Voice Interface](images/screenshots/restaurant-voice-demo.png)
+![Restaurant Voice Interface](images/screenshots/restaurant-voice.png)
 
 **Features:**
 - **Orange-themed interface** designed for restaurant operations
@@ -265,7 +265,7 @@ Full installation guide available in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.
 ### 🌐 IT Voice Interface (Port 11031)
 **Access:** http://localhost:11031
 
-![IT Voice Interface](images/screenshots/it-voice-demo.png)
+![IT Voice Interface](images/screenshots/it-voice.png)
 
 **Features:**
 - **Blue-themed technical interface** for IT professionals
@@ -289,7 +289,7 @@ Full installation guide available in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.
 ### 🗺️ Network Topology Dashboard (Port 11050)
 **Access:** http://localhost:11050
 
-![Network Topology](images/screenshots/network-topology-demo.png)
+![Network Topology](images/screenshots/network-topology.png)
 
 **Features:**
 - **Interactive D3.js visualization** with 12,520+ nodes
@@ -310,7 +310,7 @@ Full installation guide available in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.
 ### 📊 Neo4j Database Browser (Port 7474)
 **Access:** http://localhost:7474 (Login: neo4j/password)
 
-![Neo4j Browser](images/screenshots/neo4j-browser-demo.png)
+![Neo4j Browser](images/screenshots/neo4j-browser.png)
 
 **Features:**
 - **38,958 endpoint devices** loaded and queryable
