@@ -92,12 +92,12 @@ cd network-agents
 python3 launch-grafana-dashboards.py
 ```
 
-**Restaurant Network Dashboards:**
-- 🍔 Arby's Network Health
-- 🍗 Buffalo Wild Wings Status  
-- 🌭 Sonic Infrastructure
-- 📊 Executive Summary
-- 🛡️ Security Monitoring
+**Complete Monitoring Suite:**
+- 📈 Grafana: Restaurant network dashboards (localhost:11002)
+- 🔍 Prometheus: Network metrics and alerting (localhost:9090)  
+- 📊 Neo4j: Interactive network topology (localhost:7474)
+- 🎤 Voice: Natural language network queries (localhost:11030)
+- 🍴 Restaurant: Operations-focused interface (localhost:11032)
 
 ---
 
