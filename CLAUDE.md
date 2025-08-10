@@ -6,6 +6,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **AI Research Platform** - a comprehensive multi-agent AI development environment built on Microsoft's Chat Copilot. It combines multiple AI services, local LLMs, and development tools into a unified platform with secure Tailscale networking.
 
+## 🎤 **NEW: Speech-Enabled AI Network Management**
+
+### **Revolutionary Voice Control**
+The platform now includes a **speech-enabled AI network management system** that provides voice control over enterprise network infrastructure:
+
+- **Web Speech Interface**: http://localhost:11030
+- **Voice Commands**: Natural language network management
+- **Text-to-Speech**: AI-powered voice responses
+- **Real Enterprise Data**: 812 Meraki devices across 7 restaurant chain organizations
+- **Live Network Topology**: Connected to Inspire Brands, Buffalo Wild Wings, Arby's, Baskin Robbins
+
+### **Speech Commands**
+```bash
+# Launch speech interface
+cd network-agents
+python3 speech-web-interface.py
+
+# Voice commands you can use:
+"How many devices do we have?"
+"What's the status of Inspire Brands?"
+"Show me critical devices"
+"Give me a network summary"
+"Show me top device models"
+```
+
+### **Enterprise Integration**
+- **812 Real Devices**: MR53 access points, MS120-48LP switches, MX68/MX64 firewalls
+- **Multi-Agent AI**: Integrated with AutoGen Studio, Magentic-One, GenAI Stack
+- **Knowledge Graph**: Neo4j with voice-enabled queries
+- **Performance**: Sub-second response times for voice commands
+
 ## External AI Application Resources
 
 - Docker GenAI Stack: https://github.com/docker/genai-stack 
@@ -73,6 +104,25 @@ pip install -e .
 
 # Quick start (original Chat Copilot)
 ./scripts/start.sh
+```
+
+### Speech-Enabled Network Management
+```bash
+# Speech interface for network management
+cd network-agents
+python3 speech-web-interface.py  # Access: http://localhost:11030
+
+# Command-line speech interface
+python3 speech-enabled-network-manager.py
+
+# Test speech commands
+python3 test-speech-cli.py
+
+# Full-scale network discovery
+python3 full-scale-meraki-discovery.py
+
+# Launch with browser integration
+python3 launch-speech-interface.py
 ```
 
 ### SSL Certificate Management
