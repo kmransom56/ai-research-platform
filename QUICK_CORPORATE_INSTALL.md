@@ -45,7 +45,7 @@ python3 test_corporate_network.py
 
 **Access:**
 - 📊 **Dashboard**: http://localhost:11040
-- 🎤 **Voice**: http://localhost:11033
+- 🎤 **Voice**: http://localhost:11030
 - 🗄️ **Database**: http://localhost:7474
 - 📈 **Grafana**: http://localhost:11002
 - 🔍 **Metrics**: http://localhost:9090

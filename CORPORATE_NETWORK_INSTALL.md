@@ -187,7 +187,7 @@ cd network-agents
 python3 enhanced-voice-interface.py
 ```
 
-**Access at:** `http://localhost:11033`
+**Access at:** `http://localhost:11030`
 
 ### Test Voice Commands:
 - *"Show Fortinet devices"*
@@ -207,7 +207,7 @@ python3 enhanced-voice-interface.py
 
 **Access Points:**
 - **Main Dashboard**: `http://localhost:11040`
-- **Voice Interface**: `http://localhost:11033`
+- **Voice Interface**: `http://localhost:11030`
 - **Neo4j Browser**: `http://localhost:7474`
 - **Grafana Dashboards**: `http://localhost:11002`
 - **Prometheus Metrics**: `http://localhost:9090`
