@@ -41,18 +41,18 @@ services:
     networks:
       - ai-platform
 
-  perplexica:
-    image: itzcrazykns1337/perplexcia:main
-    container_name: perplexica
-    ports:
-      - "11020:3000"
-    environment:
-      - SEARXNG_API_URL=http://searxng:8080
-    restart: unless-stopped
-    networks:
-      - ai-platform
-    depends_on:
-      - searxng
+  # perplexica:
+  #   image: itzcrazykns1337/perplexcia:main  # Image not accessible
+  #   container_name: perplexica
+  #   ports:
+  #     - "11020:3000"
+  #   environment:
+  #     - SEARXNG_API_URL=http://searxng:8080
+  #   restart: unless-stopped
+  #   networks:
+  #     - ai-platform
+  #   depends_on:
+  #     - searxng
 
   autogen-studio:
     image: microsoft/autogen:latest

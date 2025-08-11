@@ -1,0 +1,90 @@
+ //Core Services
+http://100.123.10.72:11000    /copilot/  
+http://100.123.10.72:11001    /autogen/  
+http://100.123.10.72:11003    /magentic/  
+http://100.123.10.72:11025    /webhook/  
+http://100.123.10.72:11007    /grafana/  
+http://100.123.10.72:11500    /promptforge/  
+http://100.123.10.72:11510    /n8n/  
+http://100.123.10.72:11010    /portscanner/  
+http://100.123.10.72:11880    /openwebui/  
+http://100.123.10.72:57081    /vscode/  
+
+ // Search & Knowledge Services  
+ http://100.123.10.72:11020    /perplexica/  
+ http://100.123.10.72:11021    /searxng/  
+ http://100.123.10.72:7474    /neo4j/  
+ http://100.123.10.72:6333    /qdrant/  
+
+ // GenAI Stack Services
+ http://100.123.10.72:8505    /genai-stack/  
+ http://100.123.10.72:8502    /genai-stack/loader/  
+ http://100.123.10.72:8081    /genai-stack/import/  
+ http://100.123.10.72:8501    /genai-stack/bot/  
+ http://100.123.10.72:8503    /genai-stack/pdf/  
+ http://100.123.10.72:8504    /genai-stack/api/  
+
+ // Infrastructure & Admin
+ http://100.123.10.72:11082    /gateway-admin/  
+ http://100.123.10.72:11084    /nginx-config/  
+ http://100.123.10.72:11434    /ollama-api/  
+ http://100.123.10.72:11006    /windmill/  
+ http://100.123.10.72:8888    /ntopng/  
+ http://100.123.10.72:8080    /nginx/  
+ http://100.123.10.72:15672    /rabbitmq/  
+ http://100.123.10.72:5432    /postgresql/  
+   http://100.123.10.72:5432    /postgresql/  
+
+ // Legacy/Compatibility
+ http://100.123.10.72:3000    /copilot/  
+ http://100.123.10.72:3080    /copilot/  
+ http://100.123.10.72:3999    /perplexica/  
+ http://100.123.10.72:4000    /searxng/  
+ http://100.123.10.72:3001    /fortinet/  
+ http://100.123.10.72:5000    /fortinet-api/  
+
+ //Core Services
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11000    /copilot/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11001   /autogen/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11003    /magentic/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11025    /webhook/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11007    /grafana/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11500    /promptforge/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11510    /n8n/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11010    /portscanner/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:11880    /openwebui/  
+https://ubuntuaicodeserver-1.tail5137b4.ts.net:57081    /vscode/  
+
+ // Search & Knowledge Services  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:11020    /perplexica/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:11021    /searxng/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:7474    /neo4j/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:6333    /qdrant/  
+
+ // GenAI Stack Services
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8505    /genai-stack/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8502    /genai-stack/loader/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8081    /genai-stack/import/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8501    /genai-stack/bot/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8503    /genai-stack/pdf/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8504    /genai-stack/api/  
+
+ // Infrastructure & Admin
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:11082    /gateway-admin/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:11084    /nginx-config/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:11434    /ollama-api/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:11006    /windmill/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8888    /ntopng/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:8080    /nginx/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:15672    /rabbitmq/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:5432    /postgresql/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:5432    /postgresql/  
+
+ // Legacy/Compatibility
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:3000    /copilot/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:3080    /copilot/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:3999    /perplexica/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:4000    /searxng/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:3001    /fortinet/  
+ https://ubuntuaicodeserver-1.tail5137b4.ts.net:5000    /fortinet-api/  
+

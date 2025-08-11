@@ -32,6 +32,10 @@ volumes:
     driver: local
   n8n_data:
     driver: local
+  perplexica_data:
+    driver: local
+  perplexica_uploads:
+    driver: local
 
 services:
   
@@ -119,30 +123,14 @@ services:
   autogen-studio:
     build:
       context: ../../python/autogen-studio
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.simple
     container_name: ai-platform-autogen
     restart: unless-stopped
     environment:
       - PYTHONPATH=/app
-      - AUTOGEN_CONFIG_LIST=/app/config/OAI_CONFIG_LIST.json
-      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
-      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
-      - OPENAI_API_KEY_FILE=/run/secrets/OPENAI_API_KEY
-      - AZURE_OPENAI_KEY_FILE=/run/secrets/AZURE_OPENAI_KEY
-      - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
-      - GEMINI_API_KEY_FILE=/run/secrets/GEMINI_API_KEY
-    entrypoint: ["/entrypoint-export-secrets.sh"]
+      - OPENAI_API_KEY=dummy-key-for-testing
     volumes:
-      - ../../python/autogen-studio/config:/app/config:ro
       - platform_logs:/app/logs
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
-    secrets:
-      - AZURE_OPENAI_KEY
-      - OPENAI_API_KEY
-      - ANTHROPIC_API_KEY
-      - GEMINI_API_KEY
     ports:
       - "11001:8081"
     networks:
@@ -202,6 +190,7 @@ services:
       - ANTHROPIC_API_KEY_FILE=/run/secrets/ANTHROPIC_API_KEY
       - GEMINI_API_KEY_FILE=/run/secrets/GEMINI_API_KEY
     entrypoint: ["/entrypoint-export-secrets.sh"]
+    command: ["uvicorn", "magentic_one_server:app", "--host", "0.0.0.0", "--port", "11003"]
     volumes:
       - platform_logs:/app/logs
       - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
@@ -246,6 +235,37 @@ services:
       retries: 3
 
   # ===========================================
+  # NETWORK MANAGEMENT SERVICES
+  # ===========================================
+  
+  # Meraki API Connector (Network Management)
+  meraki-connector:
+    build:
+      context: ../../python/meraki-connector
+      dockerfile: Dockerfile
+    container_name: ai-platform-meraki
+    restart: unless-stopped
+    environment:
+      - MERAKI_API_KEY=${MERAKI_API_KEY}
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    volumes:
+      - platform_logs:/app/logs
+    ports:
+      - "11030:11025"
+    networks:
+      ai-platform:
+        ipv4_address: 172.20.0.70
+    depends_on:
+      - postgres
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11025/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================
   # EXTERNAL AI SERVICES (Already Containerized)
   # ===========================================
   
@@ -258,13 +278,8 @@ services:
       - WEBUI_SECRET_KEY=${OPENWEBUI_SECRET_KEY}
       - OPENAI_API_BASE_URL=${AZURE_OPENAI_ENDPOINT}
       - OPENAI_API_KEY=${AZURE_OPENAI_KEY}
-    entrypoint: ["/entrypoint-export-secrets.sh"]
     volumes:
       - openwebui_data:/app/backend/data
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
-    secrets:
-      - OPENWEBUI_SECRET_KEY
-      - AZURE_OPENAI_KEY
     ports:
       - "11880:8080"
     networks:
@@ -276,19 +291,17 @@ services:
       timeout: 10s
       retries: 3
 
-  # Perplexica (AI Search with Internet Access)
   perplexica:
-    image: itzcrazykns1337/perplexcia:main
+    image: itzcrazykns1337/perplexica:main
     container_name: ai-platform-perplexica
     restart: unless-stopped
     environment:
       - SEARXNG_API_URL=http://searxng:8080
-      - OPENAI_API_BASE_URL=${AZURE_OPENAI_ENDPOINT}
-    entrypoint: ["/entrypoint-export-secrets.sh"]
+      - DATA_DIR=/home/perplexica
     volumes:
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
-    secrets:
-      - AZURE_OPENAI_KEY
+      - ./Perplexica/config.toml:/home/perplexica/config.toml:ro
+      - perplexica_data:/home/perplexica/data
+      - perplexica_uploads:/home/perplexica/uploads
     ports:
       - "11020:3000"
     networks:
@@ -302,18 +315,22 @@ services:
       timeout: 10s
       retries: 3
 
-  # SearXNG (Privacy-Focused Search Engine)
+  # SearXNG (Privacy-Focused Search Engine)  
   searxng:
     image: searxng/searxng:latest
-    container_name: ai-platform-searxng
+    container_name: ai-platform-searxng  
     restart: unless-stopped
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
     environment:
-      - BASE_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/searxng/
-      - INSTANCE_NAME=AI Research Platform Search
+      - SEARXNG_SECRET=ai-research-platform-secret-key-12345
+    tmpfs:
+      - /etc/searxng:rw,noexec,nosuid,size=1M
+      - /var/log/searxng:rw,noexec,nosuid,size=1M
     ports:
       - "11021:8080"
-    volumes:
-      - ../../configs/searxng:/etc/searxng:ro
     networks:
       ai-platform:
         ipv4_address: 172.20.0.32
@@ -328,16 +345,13 @@ services:
     image: codercom/code-server:latest
     container_name: ai-platform-vscode
     restart: unless-stopped
+    user: "0:0"
     environment:
-      - PASSWORD
-      - SUDO_PASSWORD
-    entrypoint: ["/entrypoint-export-secrets.sh"]
+      - PASSWORD=vscode123
+      - SUDO_PASSWORD=vscode123
     volumes:
       - ../../:/home/coder/workspace
       - vscode_config:/home/coder/.config
-      - ./docker/entrypoint-export-secrets.sh:/entrypoint-export-secrets.sh:ro
-    secrets:
-      - VSCODE_PASSWORD
     ports:
       - "57081:8080"
     networks:
@@ -378,13 +392,10 @@ services:
     container_name: ai-platform-rabbitmq
     restart: unless-stopped
     environment:
-      - RABBITMQ_DEFAULT_USER_FILE=/run/secrets/RABBITMQ_USER
-      - RABBITMQ_DEFAULT_PASS_FILE=/run/secrets/RABBITMQ_PASSWORD
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    secrets:
-      - RABBITMQ_USER
-      - RABBITMQ_PASSWORD
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -489,7 +500,7 @@ services:
     container_name: ai-platform-genai-loader
     restart: unless-stopped
     ports:
-      - "8081:8080"   # Data import interface
+      - "8082:8080"   # Data import interface
       - "8502:8502"   # Streamlit interface
     environment:
       - NEO4J_URI=neo4j://neo4j:7687
@@ -646,10 +657,10 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "11002:8000"
+      - "11004:3000"
     networks:
       ai-platform:
-        ipv4_address: 172.20.0.88
+        ipv4_address: 172.20.0.90
 
   # GenAI Stack Frontend
   genai-stack-frontend:
