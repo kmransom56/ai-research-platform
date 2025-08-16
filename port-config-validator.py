@@ -15,7 +15,24 @@ class PortConfigValidator:
     """Validates and enforces port configuration standards"""
 
     def __init__(self):
-        self.platform_dir = Path("/home/keith-ransom/chat-copilot")
+        # Use environment variable or detect current directory
+        platform_root = os.environ.get('PLATFORM_ROOT')
+        if platform_root:
+            self.platform_dir = Path(platform_root)
+        else:
+            # Auto-detect platform directory
+            current_dir = Path.cwd()
+            # Look for key files to identify platform root
+            key_files = ['CLAUDE.md', 'CopilotChat.sln', 'webapi', 'webapp']
+            
+            # Check current directory and parents
+            for potential_root in [current_dir] + list(current_dir.parents):
+                if all((potential_root / key_file).exists() for key_file in key_files[:2]):
+                    self.platform_dir = potential_root
+                    break
+            else:
+                # Fallback to current directory
+                self.platform_dir = current_dir
         self.standard_ports = {
             "chat_copilot_backend": 11000,
             "autogen_studio": 11001,
@@ -214,15 +231,15 @@ class PortConfigValidator:
         """Create git hooks and cron jobs for validation"""
 
         # Pre-commit hook
-        pre_commit_hook = """#!/bin/bash
+        pre_commit_hook = f"""#!/bin/bash
 # Port Configuration Validation Hook
 
 echo "🔍 Checking port configurations..."
-python3 /home/keith/chat-copilot/port-config-validator.py --check
+python3 {self.platform_dir}/port-config-validator.py --check
 
 if [ $? -ne 0 ]; then
     echo "❌ Port configuration violations found!"
-    echo "Run: python3 /home/keith/chat-copilot/port-config-validator.py --fix"
+    echo "Run: python3 {self.platform_dir}/port-config-validator.py --fix"
     exit 1
 fi
 
@@ -230,7 +247,7 @@ echo "✅ Port configurations validated"
 """
 
         # Cron job entry
-        cron_job = "0 * * * * python3 /home/keith/chat-copilot/port-config-validator.py --check --quiet"
+        cron_job = f"0 * * * * python3 {self.platform_dir}/port-config-validator.py --check --quiet"
 
         hooks_dir = self.platform_dir / ".git" / "hooks"
         if hooks_dir.exists():
