@@ -24,6 +24,7 @@ docker-compose up -d
 - **Chat Copilot**: Microsoft's AI assistant framework
 - **AutoGen Studio**: Multi-agent AI collaboration
 - **Local LLMs**: Ollama integration with 7+ models
+- **Advanced AI Stack**: vLLM + Oobabooga + KoboldCpp (see `ADVANCED_AI_STACK_GUIDE.md`)
 - **GenAI Stack**: Neo4j-powered knowledge graphs
 
 ### Restaurant Network Management
@@ -49,6 +50,7 @@ docker-compose up -d
 ## Documentation
 
 - `EASY_INSTALL.md` - Quick setup guide
+- `ADVANCED_AI_STACK_GUIDE.md` - **NEW!** vLLM + Oobabooga + KoboldCpp setup
 - `PRODUCTION_READY_GUIDE.md` - Enterprise deployment
 - `PORTABLE_DEPLOYMENT_GUIDE.md` - Cross-platform setup
 - `CLAUDE.md` - Development instructions
