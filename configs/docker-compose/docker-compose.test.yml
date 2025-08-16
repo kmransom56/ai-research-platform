@@ -1,0 +1,23 @@
+networks:
+  ai-platform:
+    external: true
+    name: chat-copilot_ai-platform
+
+services:
+  autogen-studio:
+    build:
+      context: ../../
+      dockerfile: python/autogen-studio/Dockerfile
+    container_name: ai-platform-autogen-test
+    restart: unless-stopped
+    environment:
+      - PYTHONPATH=/app
+      - AUTOGEN_CONFIG_LIST=/app/config/OAI_CONFIG_LIST.json
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - OLLAMA_BASE_URL=http://ollama:11434
+    ports:
+      - "11001:8081"
+    networks:
+      ai-platform:
+        ipv4_address: 172.20.0.222

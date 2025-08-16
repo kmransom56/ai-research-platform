@@ -1,0 +1,55 @@
+general:
+  instance_name: "AI Research Platform Search"
+  contact_url: false
+  enable_metrics: false
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: ""
+  ban_time_on_fail: 5
+  max_ban_time_on_fail: 120
+
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "ultrasecretkey"
+  base_url: false
+  image_proxy: false
+  http_protocol_version: "1.0"
+  method: "POST"
+  default_http_headers:
+    X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
+    X-Download-Options: noopen
+    X-Robots-Tag: noindex, nofollow
+    Referrer-Policy: no-referrer
+
+ui:
+  static_use_hash: false
+  default_locale: ""
+  query_in_title: false
+  infinite_scroll: false
+  center_alignment: false
+  cache_url: https://web.archive.org/web/
+  search_on_category_select: true
+  hotkeys: default
+
+engines:
+  - name: bing
+    engine: bing
+    shortcut: bi
+    categories: general
+    disabled: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    categories: [general, images, videos, news, map]
+    disabled: false
+
+  - name: google
+    engine: google
+    shortcut: go
+    categories: [general, images, videos, news]
+    disabled: false

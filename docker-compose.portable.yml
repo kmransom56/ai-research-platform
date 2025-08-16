@@ -1,0 +1,242 @@
+# =============================================================================
+# Chat Copilot Portable Docker Compose Configuration
+# =============================================================================
+# This is a portable version that uses environment variables instead of 
+# hard-coded paths. Copy .env.template to .env and customize for your system.
+# =============================================================================
+
+version: '3.8'
+
+networks:
+  ai-platform:
+    name: ${DOCKER_NETWORK_NAME:-chatcopilot_ai-platform}
+    driver: bridge
+
+volumes:
+  postgres-data:
+    name: ${DOCKER_VOLUME_PREFIX:-chatcopilot}_postgres-data
+  rabbitmq-data:
+    name: ${DOCKER_VOLUME_PREFIX:-chatcopilot}_rabbitmq-data
+  qdrant-data:
+    name: ${DOCKER_VOLUME_PREFIX:-chatcopilot}_qdrant-data
+  neo4j-data:
+    name: ${DOCKER_VOLUME_PREFIX:-chatcopilot}_neo4j-data
+
+services:
+  # =============================================================================
+  # INFRASTRUCTURE SERVICES
+  # =============================================================================
+  
+  postgres:
+    image: postgres:15
+    container_name: ai-platform-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-chatcopilot}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-chatcopilot-password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ai-platform-rabbitmq
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-chatcopilot}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-chatcopilot-password}
+    ports:
+      - "5672:5672"
+      - "${RABBITMQ_PORT:-15672}:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: ai-platform-qdrant
+    restart: unless-stopped
+    ports:
+      - "${QDRANT_PORT:-6333}:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  neo4j:
+    image: neo4j:5
+    container_name: ai-platform-neo4j
+    restart: unless-stopped
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["apoc"]
+    ports:
+      - "${NEO4J_PORT:-7474}:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "neo4j", "-p", "password", "RETURN 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =============================================================================
+  # CORE CHAT COPILOT SERVICES
+  # =============================================================================
+
+  chat-copilot-backend:
+    build:
+      context: ${CHAT_COPILOT_ROOT:-.}
+      dockerfile: webapi/Dockerfile
+    container_name: ai-platform-chat-backend
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Production}
+      - ASPNETCORE_URLS=http://+:8080
+      - KernelMemory__Services__Postgres__ConnectionString=Host=postgres;Port=5432;Database=${POSTGRES_DB:-chatcopilot};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-chatcopilot-password}
+      - KernelMemory__Services__Qdrant__Endpoint=http://qdrant:6333
+      - KernelMemory__Services__RabbitMq__Host=rabbitmq
+      - KernelMemory__Services__RabbitMq__Username=${RABBITMQ_DEFAULT_USER:-chatcopilot}
+      - KernelMemory__Services__RabbitMq__Password=${RABBITMQ_DEFAULT_PASS:-chatcopilot-password}
+    ports:
+      - "${CHAT_COPILOT_BACKEND_PORT:-11000}:8080"
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}/webapi/wwwroot:/app/wwwroot
+    depends_on:
+      - postgres
+      - rabbitmq
+      - qdrant
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  chat-copilot-frontend:
+    build:
+      context: ${CHAT_COPILOT_ROOT:-.}
+      dockerfile: webapp/Dockerfile
+    container_name: ai-platform-chat-frontend
+    restart: unless-stopped
+    environment:
+      - REACT_APP_BACKEND_URI=http://${PLATFORM_IP:-localhost}:${CHAT_COPILOT_BACKEND_PORT:-11000}/
+    ports:
+      - "${CHAT_COPILOT_FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      - chat-copilot-backend
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =============================================================================
+  # AI SERVICES
+  # =============================================================================
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: ai-platform-openwebui
+    restart: unless-stopped
+    environment:
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY:-$(openssl rand -hex 32)}
+    ports:
+      - "${OPENWEBUI_PORT:-11880}:8080"
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}/data/openwebui:/app/backend/data
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  autogen:
+    image: autogen/autogen-studio:latest
+    container_name: ai-platform-autogen
+    restart: unless-stopped
+    ports:
+      - "${AUTOGEN_PORT:-11001}:8081"
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}/data/autogen:/app/data
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =============================================================================
+  # DEVELOPMENT TOOLS
+  # =============================================================================
+
+  vscode:
+    image: codercom/code-server:latest
+    container_name: ai-platform-vscode
+    restart: unless-stopped
+    environment:
+      - PASSWORD=${VSCODE_PASSWORD:-chatcopilot}
+    ports:
+      - "${VSCODE_PORT:-57081}:8080"
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}:/home/coder/workspace
+      - ${CHAT_COPILOT_ROOT:-.}/data/vscode:/home/coder/.local/share/code-server
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =============================================================================
+  # MONITORING
+  # =============================================================================
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    ports:
+      - "${GRAFANA_PORT:-11004}:3000"
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}/data/grafana:/var/lib/grafana
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
