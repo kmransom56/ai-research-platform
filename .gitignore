@@ -1,0 +1,63 @@
+# Secrets and sensitive files
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+.env
+.env.*
+!.env.template
+appsettings.json
+appsettings.*.json
+config.json
+secrets/
+*.secrets
+
+# Build outputs
+bin/
+obj/
+out/
+build/
+dist/
+target/
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Docker
+.dockerignore
+
+# Database files
+*.sqlite
+*.db
+
+# Backup files
+*backup*
+*-backup/
+config-backups*/
+*.bak
+
+# Runtime files
+*.pid
+*.sock
+logs/
+temp/
