@@ -22,8 +22,8 @@ cp .env.template .env
 # 2. Start production platform with AI Stack
 ./start-ssl-platform.sh
 
-# 3. Access platform: https://100.123.10.72:8443/applications.html
-# 4. Access AI Gateway: https://100.123.10.72:8443/ai-gateway/
+# 3. Access platform: https://${PLATFORM_IP}:8443/applications.html
+# 4. Access AI Gateway: https://${PLATFORM_IP}:8443/ai-gateway/
 ```
 
 #### ⚡ **Development**
@@ -76,46 +76,46 @@ cd docker && docker-compose up --build
 ### **Core Platform Services**
 | Service | Production URL | Development URL | Description |
 |---------|----------------|-----------------|-------------|
-| **🎛️ Control Panel** | `https://100.123.10.72:8443/hub` | `http://localhost:3000/control-panel.html` | Platform management dashboard |
-| **🌐 Applications Hub** | `https://100.123.10.72:8443/applications.html` | `http://localhost:3000/applications.html` | Service directory and launcher |
-| **💬 Chat Copilot UI** | `https://100.123.10.72:8443/copilot/` | `http://localhost:3000/` | AI chat interface |
-| **🔌 Chat Copilot API** | `https://100.123.10.72:8443/copilot/api/` | `http://localhost:3080/` | REST API endpoints |
-| **🏥 Health Check** | `https://100.123.10.72:8443/copilot/healthz` | `http://localhost:3080/healthz` | System health status |
+| **🎛️ Control Panel** | `https://${PLATFORM_IP}:8443/hub` | `http://localhost:3000/control-panel.html` | Platform management dashboard |
+| **🌐 Applications Hub** | `https://${PLATFORM_IP}:8443/applications.html` | `http://localhost:3000/applications.html` | Service directory and launcher |
+| **💬 Chat Copilot UI** | `https://${PLATFORM_IP}:8443/copilot/` | `http://localhost:3000/` | AI chat interface |
+| **🔌 Chat Copilot API** | `https://${PLATFORM_IP}:8443/copilot/api/` | `http://localhost:3080/` | REST API endpoints |
+| **🏥 Health Check** | `https://${PLATFORM_IP}:8443/copilot/healthz` | `http://localhost:3080/healthz` | System health status |
 
 ### **🚀 Advanced AI Stack Services**
 | Service | Production URL | Development URL | Description | Status |
 |---------|----------------|-----------------|-------------|--------|
-| **🧠 DeepSeek R1** | `https://100.123.10.72:8443/ai-stack/reasoning/` | `http://localhost:8000` | Ultra-high performance reasoning and analysis | ⚡ Auto Start |
-| **⚡ Mistral Small** | `https://100.123.10.72:8443/ai-stack/general/` | `http://localhost:8001` | Fast general-purpose AI for everyday tasks | ⚡ Auto Start |
-| **💻 DeepSeek Coder** | `https://100.123.10.72:8443/ai-stack/coding/` | `http://localhost:8002` | Specialized AI for code generation and debugging | ⚡ Auto Start |
-| **🎛️ Oobabooga WebUI** | `https://100.123.10.72:8443/ai-stack/advanced/` | `http://localhost:7860` | Advanced text generation with multimodal support | ⚡ Auto Start |
-| **🎛️ Oobabooga API** | `https://100.123.10.72:8443/ai-stack/api/` | `http://localhost:5000` | API endpoint for integrations | ⚡ Auto Start |
-| **✍️ KoboldCpp** | `https://100.123.10.72:8443/ai-stack/creative/` | `http://localhost:5001` | Creative writing and roleplay AI interface | ⚡ Auto Start |
-| **🌐 AI Stack Gateway** | `https://100.123.10.72:8443/ai-gateway/` | `http://localhost:9000` | Unified API with intelligent task routing | ⚡ Auto Start |
+| **🧠 DeepSeek R1** | `https://${PLATFORM_IP}:8443/ai-stack/reasoning/` | `http://localhost:8000` | Ultra-high performance reasoning and analysis | ⚡ Auto Start |
+| **⚡ Mistral Small** | `https://${PLATFORM_IP}:8443/ai-stack/general/` | `http://localhost:8001` | Fast general-purpose AI for everyday tasks | ⚡ Auto Start |
+| **💻 DeepSeek Coder** | `https://${PLATFORM_IP}:8443/ai-stack/coding/` | `http://localhost:8002` | Specialized AI for code generation and debugging | ⚡ Auto Start |
+| **🎛️ Oobabooga WebUI** | `https://${PLATFORM_IP}:8443/ai-stack/advanced/` | `http://localhost:7860` | Advanced text generation with multimodal support | ⚡ Auto Start |
+| **🎛️ Oobabooga API** | `https://${PLATFORM_IP}:8443/ai-stack/api/` | `http://localhost:5000` | API endpoint for integrations | ⚡ Auto Start |
+| **✍️ KoboldCpp** | `https://${PLATFORM_IP}:8443/ai-stack/creative/` | `http://localhost:5001` | Creative writing and roleplay AI interface | ⚡ Auto Start |
+| **🌐 AI Stack Gateway** | `https://${PLATFORM_IP}:8443/ai-gateway/` | `http://localhost:9000` | Unified API with intelligent task routing | ⚡ Auto Start |
 
 ### **AI & Automation Services**
 | Service | Production URL | Description | Status |
 |---------|----------------|-------------|--------|
-| **👥 AutoGen Studio** | `https://100.123.10.72:8443/autogen/` | Multi-agent conversation platform | 🔄 Manual Start |
-| **🏭 Magentic-One** | `https://100.123.10.72:8443/magentic/` | Microsoft flagship multi-agent system | 🔄 Manual Start |
-| **🔗 Webhook Server** | `https://100.123.10.72:8443/webhook/` | GitHub integration & automation | 🔄 Manual Start |
-| **🧠 Ollama API** | `https://100.123.10.72:8443/ollama-api/` | Local LLM API access | 🔄 Manual Start |
+| **👥 AutoGen Studio** | `https://${PLATFORM_IP}:8443/autogen/` | Multi-agent conversation platform | 🔄 Manual Start |
+| **🏭 Magentic-One** | `https://${PLATFORM_IP}:8443/magentic/` | Microsoft flagship multi-agent system | 🔄 Manual Start |
+| **🔗 Webhook Server** | `https://${PLATFORM_IP}:8443/webhook/` | GitHub integration & automation | 🔄 Manual Start |
+| **🧠 Ollama API** | `https://${PLATFORM_IP}:8443/ollama-api/` | Local LLM API access | 🔄 Manual Start |
 
 ### **Search & Discovery Services**  
 | Service | Production URL | Description | Status |
 |---------|----------------|-------------|--------|
-| **🔍 Perplexica** | `https://100.123.10.72:8443/perplexica/` | AI-powered web search | 🔄 Manual Start |
-| **🕵️ SearXNG** | `https://100.123.10.72:8443/searxng/` | Privacy-focused search engine | 🔄 Manual Start |
+| **🔍 Perplexica** | `https://${PLATFORM_IP}:8443/perplexica/` | AI-powered web search | 🔄 Manual Start |
+| **🕵️ SearXNG** | `https://${PLATFORM_IP}:8443/searxng/` | Privacy-focused search engine | 🔄 Manual Start |
 
 ### **Network & Management Services**
 | Service | Production URL | Description | Status |
 |---------|----------------|-------------|--------|
-| **📡 Port Scanner** | `https://100.123.10.72:8443/portscanner/` | Network discovery & monitoring | 🔄 Manual Start |
-| **⚙️ Nginx Manager** | `https://100.123.10.72:8443/nginx/` | Web server management | 🔄 Manual Start |
-| **🌐 HTTP Gateway** | `https://100.123.10.72:8443/gateway-http/` | HTTP traffic gateway | 🔄 Manual Start |
-| **🔒 HTTPS Gateway** | `https://100.123.10.72:8443/gateway-https/` | HTTPS traffic gateway | 🔄 Manual Start |
-| **🛡️ Fortinet Manager** | `https://100.123.10.72:8443/fortinet/` | Network security management | 🔄 Manual Start |
-| **💾 Bacula Backup** | `https://100.123.10.72:8443/bacula/` | Backup management system | 🔄 Manual Start |
+| **📡 Port Scanner** | `https://${PLATFORM_IP}:8443/portscanner/` | Network discovery & monitoring | 🔄 Manual Start |
+| **⚙️ Nginx Manager** | `https://${PLATFORM_IP}:8443/nginx/` | Web server management | 🔄 Manual Start |
+| **🌐 HTTP Gateway** | `https://${PLATFORM_IP}:8443/gateway-http/` | HTTP traffic gateway | 🔄 Manual Start |
+| **🔒 HTTPS Gateway** | `https://${PLATFORM_IP}:8443/gateway-https/` | HTTPS traffic gateway | 🔄 Manual Start |
+| **🛡️ Fortinet Manager** | `https://${PLATFORM_IP}:8443/fortinet/` | Network security management | 🔄 Manual Start |
+| **💾 Bacula Backup** | `https://${PLATFORM_IP}:8443/bacula/` | Backup management system | 🔄 Manual Start |
 
 ## 🚀 **Advanced AI Stack**
 
@@ -188,16 +188,64 @@ curl http://localhost:9000/health
 
 ## 🔧 **Configuration**
 
-### **Environment Setup**
-```bash
-# Copy template and customize
-cp configs/.env.template .env
+### **🌐 Portable Environment Setup**
 
-# Required variables:
+The platform is designed for **cross-system portability** with environment-based configuration:
+
+```bash
+# 1. Copy and customize environment template
+cp .env.template .env
+
+# 2. Auto-detect system configuration
+./scripts/setup/detect-system.sh
+
+# 3. Update environment with your settings
+nano .env
+```
+
+#### **Key Environment Variables**
+```bash
+# System Configuration (auto-detected)
+PLATFORM_ROOT=/path/to/your/installation
+PLATFORM_IP=your.server.ip
+PLATFORM_USER=your_user
+
+# Service Ports (customizable)
+CHAT_COPILOT_BACKEND_PORT=11000
+CHAT_COPILOT_FRONTEND_PORT=3000
+AI_GATEWAY_PORT=9000
+
+# AI Services
+DEEPSEEK_R1_PORT=8000
+MISTRAL_PORT=8001
+DEEPSEEK_CODER_PORT=8002
+OOBABOOGA_WEBUI_PORT=7860
+OOBABOOGA_API_PORT=5000
+KOBOLDCPP_PORT=5001
+
+# Required API Keys
 AZURE_OPENAI_API_KEY=your_azure_key
 OPENAI_API_KEY=your_openai_key
 POSTGRES_PASSWORD=secure_password
 JWT_SECRET=your_jwt_secret
+```
+
+### **🏢 HA (High Availability) Support**
+
+For HA pairs and multi-node deployments:
+
+```bash
+# Node 1 (.env.node1)
+PLATFORM_IP=10.0.1.10
+NODE_ID=node1
+HA_ENABLED=true
+HA_PEER_IP=10.0.1.11
+
+# Node 2 (.env.node2)  
+PLATFORM_IP=10.0.1.11
+NODE_ID=node2
+HA_ENABLED=true
+HA_PEER_IP=10.0.1.10
 ```
 
 ### **SSL Certificates (Production)**
@@ -271,7 +319,7 @@ yarn test
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 # Core service health
-curl -k https://100.123.10.72:8443/copilot/healthz
+curl -k https://${PLATFORM_IP}:8443/copilot/healthz
 
 # AI Stack Gateway health
 curl http://localhost:9000/health

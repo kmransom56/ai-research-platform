@@ -1,47 +1,47 @@
  //Core Services
-http://100.123.10.72:11000    /copilot/  
-http://100.123.10.72:11001    /autogen/  
-http://100.123.10.72:11003    /magentic/  
-http://100.123.10.72:11025    /webhook/  
-http://100.123.10.72:11007    /grafana/  
-http://100.123.10.72:11500    /promptforge/  
-http://100.123.10.72:11510    /n8n/  
-http://100.123.10.72:11010    /portscanner/  
-http://100.123.10.72:11880    /openwebui/  
-http://100.123.10.72:57081    /vscode/  
+http://${PLATFORM_IP}:11000    /copilot/  
+http://${PLATFORM_IP}:11001    /autogen/  
+http://${PLATFORM_IP}:11003    /magentic/  
+http://${PLATFORM_IP}:11025    /webhook/  
+http://${PLATFORM_IP}:11007    /grafana/  
+http://${PLATFORM_IP}:11500    /promptforge/  
+http://${PLATFORM_IP}:11510    /n8n/  
+http://${PLATFORM_IP}:11010    /portscanner/  
+http://${PLATFORM_IP}:11880    /openwebui/  
+http://${PLATFORM_IP}:57081    /vscode/  
 
  // Search & Knowledge Services  
- http://100.123.10.72:11020    /perplexica/  
- http://100.123.10.72:11021    /searxng/  
- http://100.123.10.72:7474    /neo4j/  
- http://100.123.10.72:6333    /qdrant/  
+ http://${PLATFORM_IP}:11020    /perplexica/  
+ http://${PLATFORM_IP}:11021    /searxng/  
+ http://${PLATFORM_IP}:7474    /neo4j/  
+ http://${PLATFORM_IP}:6333    /qdrant/  
 
  // GenAI Stack Services
- http://100.123.10.72:8505    /genai-stack/  
- http://100.123.10.72:8502    /genai-stack/loader/  
- http://100.123.10.72:8081    /genai-stack/import/  
- http://100.123.10.72:8501    /genai-stack/bot/  
- http://100.123.10.72:8503    /genai-stack/pdf/  
- http://100.123.10.72:8504    /genai-stack/api/  
+ http://${PLATFORM_IP}:8505    /genai-stack/  
+ http://${PLATFORM_IP}:8502    /genai-stack/loader/  
+ http://${PLATFORM_IP}:8081    /genai-stack/import/  
+ http://${PLATFORM_IP}:8501    /genai-stack/bot/  
+ http://${PLATFORM_IP}:8503    /genai-stack/pdf/  
+ http://${PLATFORM_IP}:8504    /genai-stack/api/  
 
  // Infrastructure & Admin
- http://100.123.10.72:11082    /gateway-admin/  
- http://100.123.10.72:11084    /nginx-config/  
- http://100.123.10.72:11434    /ollama-api/  
- http://100.123.10.72:11006    /windmill/  
- http://100.123.10.72:8888    /ntopng/  
- http://100.123.10.72:8080    /nginx/  
- http://100.123.10.72:15672    /rabbitmq/  
- http://100.123.10.72:5432    /postgresql/  
-   http://100.123.10.72:5432    /postgresql/  
+ http://${PLATFORM_IP}:11082    /gateway-admin/  
+ http://${PLATFORM_IP}:11084    /nginx-config/  
+ http://${PLATFORM_IP}:11434    /ollama-api/  
+ http://${PLATFORM_IP}:11006    /windmill/  
+ http://${PLATFORM_IP}:8888    /ntopng/  
+ http://${PLATFORM_IP}:8080    /nginx/  
+ http://${PLATFORM_IP}:15672    /rabbitmq/  
+ http://${PLATFORM_IP}:5432    /postgresql/  
+   http://${PLATFORM_IP}:5432    /postgresql/  
 
  // Legacy/Compatibility
- http://100.123.10.72:3000    /copilot/  
- http://100.123.10.72:3080    /copilot/  
- http://100.123.10.72:3999    /perplexica/  
- http://100.123.10.72:4000    /searxng/  
- http://100.123.10.72:3001    /fortinet/  
- http://100.123.10.72:5000    /fortinet-api/  
+ http://${PLATFORM_IP}:3000    /copilot/  
+ http://${PLATFORM_IP}:3080    /copilot/  
+ http://${PLATFORM_IP}:3999    /perplexica/  
+ http://${PLATFORM_IP}:4000    /searxng/  
+ http://${PLATFORM_IP}:3001    /fortinet/  
+ http://${PLATFORM_IP}:5000    /fortinet-api/  
 
  //Core Services
 https://ubuntuaicodeserver-1.tail5137b4.ts.net:11000    /copilot/  
@@ -85,6 +85,4 @@ https://ubuntuaicodeserver-1.tail5137b4.ts.net:57081    /vscode/
  https://ubuntuaicodeserver-1.tail5137b4.ts.net:3080    /copilot/  
  https://ubuntuaicodeserver-1.tail5137b4.ts.net:3999    /perplexica/  
  https://ubuntuaicodeserver-1.tail5137b4.ts.net:4000    /searxng/  
- https://ubuntuaicodeserver-1.tail5137b4.ts.net:3001    /fortinet/  
- https://ubuntuaicodeserver-1.tail5137b4.ts.net:5000    /fortinet-api/  
 

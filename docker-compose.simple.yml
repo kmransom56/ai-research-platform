@@ -1,0 +1,129 @@
+networks:
+  ai-platform:
+    name: chatcopilot_ai-platform
+    driver: bridge
+
+volumes:
+  postgres-data:
+  rabbitmq-data:
+  qdrant-data:
+  neo4j-data:
+  ollama-data:
+  openwebui-data:
+  vscode-data:
+  grafana-data:
+
+services:
+  # Infrastructure Services
+  postgres:
+    image: postgres:15
+    container_name: ai-platform-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=chatcopilot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=chatcopilot-password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ai-platform
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ai-platform-rabbitmq
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=chatcopilot
+      - RABBITMQ_DEFAULT_PASS=chatcopilot-password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - ai-platform
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: ai-platform-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - ai-platform
+
+  neo4j:
+    image: neo4j:5
+    container_name: ai-platform-neo4j
+    restart: unless-stopped
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["apoc"]
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+    networks:
+      - ai-platform
+
+  # AI Services  
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-platform-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - ai-platform
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: ai-platform-openwebui
+    restart: unless-stopped
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    ports:
+      - "11880:8080"
+    volumes:
+      - openwebui-data:/app/backend/data
+    networks:
+      - ai-platform
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Development Tools
+  vscode:
+    image: codercom/code-server:latest
+    container_name: ai-platform-vscode
+    restart: unless-stopped
+    environment:
+      - PASSWORD=chatcopilot
+    ports:
+      - "57081:8080"
+    volumes:
+      - .:/home/coder/workspace
+      - vscode-data:/home/coder/.local/share/code-server
+    networks:
+      - ai-platform
+
+  # Monitoring
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ai-platform-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "11002:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - ai-platform

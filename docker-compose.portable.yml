@@ -111,7 +111,7 @@ services:
   chat-copilot-backend:
     build:
       context: ${CHAT_COPILOT_ROOT:-.}
-      dockerfile: webapi/Dockerfile
+      dockerfile: docker/webapi/Dockerfile
     container_name: ai-platform-chat-backend
     restart: unless-stopped
     environment:
@@ -141,7 +141,7 @@ services:
   chat-copilot-frontend:
     build:
       context: ${CHAT_COPILOT_ROOT:-.}
-      dockerfile: webapp/Dockerfile
+      dockerfile: docker/webapp/Dockerfile
     container_name: ai-platform-chat-frontend
     restart: unless-stopped
     environment:
@@ -181,7 +181,9 @@ services:
       retries: 5
 
   autogen:
-    image: autogen/autogen-studio:latest
+    build:
+      context: ${CHAT_COPILOT_ROOT:-.}/python/autogen-studio
+      dockerfile: Dockerfile
     container_name: ai-platform-autogen
     restart: unless-stopped
     ports:
@@ -237,6 +239,61 @@ services:
       - ai-platform
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =============================================================================
+  # ADDITIONAL AI SERVICES
+  # =============================================================================
+
+  perplexica:
+    build:
+      context: ${CHAT_COPILOT_ROOT:-.}/Perplexica
+      dockerfile: app.dockerfile
+    container_name: ai-platform-perplexica
+    restart: unless-stopped
+    ports:
+      - "${PERPLEXICA_PORT:-11020}:3000"
+    environment:
+      - DATABASE_URL=file:./data/perplexica.db
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}/data/perplexica:/app/data
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  searxng:
+    build:
+      context: ${CHAT_COPILOT_ROOT:-.}/Perplexica/searxng
+    container_name: ai-platform-searxng
+    restart: unless-stopped
+    ports:
+      - "${SEARXNG_PORT:-11021}:8080"
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-platform-ollama
+    restart: unless-stopped
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ${CHAT_COPILOT_ROOT:-.}/data/ollama:/root/.ollama
+    networks:
+      - ai-platform
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
       interval: 30s
       timeout: 10s
       retries: 5
