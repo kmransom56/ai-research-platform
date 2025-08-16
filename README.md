@@ -19,10 +19,11 @@ cd ai-research-platform
 cp .env.template .env
 # Edit .env with your API keys
 
-# 2. Start production platform
+# 2. Start production platform with AI Stack
 ./start-ssl-platform.sh
 
-# 3. Access at: https://100.123.10.72:8443/applications.html
+# 3. Access platform: https://100.123.10.72:8443/applications.html
+# 4. Access AI Gateway: https://100.123.10.72:8443/ai-gateway/
 ```
 
 #### ⚡ **Development**
@@ -46,6 +47,7 @@ cd docker && docker-compose up --build
 ### **Core Services**
 - **🧠 Chat Copilot**: Microsoft Semantic Kernel AI chat platform
 - **🌐 OpenWebUI**: Advanced LLM interface with multiple models
+- **🚀 Advanced AI Stack**: High-performance vLLM + Oobabooga + KoboldCpp integration
 - **🔍 Perplexica**: AI-powered web search with real-time internet access
 - **🕵️ SearXNG**: Privacy-focused search engine
 - **👥 AutoGen Studio**: Multi-agent conversation platform
@@ -62,6 +64,9 @@ cd docker && docker-compose up --build
 - **.NET 8.0** with ASP.NET Core and SignalR
 - **React 18** with TypeScript and Material-UI
 - **Microsoft Semantic Kernel** for AI orchestration
+- **vLLM** for high-performance LLM inference
+- **Oobabooga** for advanced text generation features
+- **KoboldCpp** for creative writing and roleplay
 - **Docker & Docker Compose** for containerization
 - **nginx** for reverse proxy and SSL termination
 - **PostgreSQL** & **Qdrant** for data storage
@@ -76,6 +81,17 @@ cd docker && docker-compose up --build
 | **💬 Chat Copilot UI** | `https://100.123.10.72:8443/copilot/` | `http://localhost:3000/` | AI chat interface |
 | **🔌 Chat Copilot API** | `https://100.123.10.72:8443/copilot/api/` | `http://localhost:3080/` | REST API endpoints |
 | **🏥 Health Check** | `https://100.123.10.72:8443/copilot/healthz` | `http://localhost:3080/healthz` | System health status |
+
+### **🚀 Advanced AI Stack Services**
+| Service | Production URL | Development URL | Description | Status |
+|---------|----------------|-----------------|-------------|--------|
+| **🧠 DeepSeek R1** | `https://100.123.10.72:8443/ai-stack/reasoning/` | `http://localhost:8000` | Ultra-high performance reasoning and analysis | ⚡ Auto Start |
+| **⚡ Mistral Small** | `https://100.123.10.72:8443/ai-stack/general/` | `http://localhost:8001` | Fast general-purpose AI for everyday tasks | ⚡ Auto Start |
+| **💻 DeepSeek Coder** | `https://100.123.10.72:8443/ai-stack/coding/` | `http://localhost:8002` | Specialized AI for code generation and debugging | ⚡ Auto Start |
+| **🎛️ Oobabooga WebUI** | `https://100.123.10.72:8443/ai-stack/advanced/` | `http://localhost:7860` | Advanced text generation with multimodal support | ⚡ Auto Start |
+| **🎛️ Oobabooga API** | `https://100.123.10.72:8443/ai-stack/api/` | `http://localhost:5000` | API endpoint for integrations | ⚡ Auto Start |
+| **✍️ KoboldCpp** | `https://100.123.10.72:8443/ai-stack/creative/` | `http://localhost:5001` | Creative writing and roleplay AI interface | ⚡ Auto Start |
+| **🌐 AI Stack Gateway** | `https://100.123.10.72:8443/ai-gateway/` | `http://localhost:9000` | Unified API with intelligent task routing | ⚡ Auto Start |
 
 ### **AI & Automation Services**
 | Service | Production URL | Description | Status |
@@ -100,6 +116,75 @@ cd docker && docker-compose up --build
 | **🔒 HTTPS Gateway** | `https://100.123.10.72:8443/gateway-https/` | HTTPS traffic gateway | 🔄 Manual Start |
 | **🛡️ Fortinet Manager** | `https://100.123.10.72:8443/fortinet/` | Network security management | 🔄 Manual Start |
 | **💾 Bacula Backup** | `https://100.123.10.72:8443/bacula/` | Backup management system | 🔄 Manual Start |
+
+## 🚀 **Advanced AI Stack**
+
+### **High-Performance AI Services**
+
+The platform features a **unified AI Stack** with specialized models for different tasks, powered by **vLLM**, **Oobabooga**, and **KoboldCpp** for maximum performance and flexibility.
+
+#### **🎯 Task-Specific AI Models**
+
+| **Task Type** | **Recommended Service** | **Port** | **Use Cases** |
+|---------------|-------------------------|----------|---------------|
+| **🧠 Reasoning** | DeepSeek R1 | 8000 | Complex analysis, problem-solving, logical reasoning |
+| **⚡ General** | Mistral Small | 8001 | Fast responses, general questions, everyday tasks |
+| **💻 Coding** | DeepSeek Coder | 8002 | Code generation, debugging, technical documentation |
+| **🎨 Creative** | KoboldCpp | 5001 | Creative writing, storytelling, roleplay |
+| **🎛️ Advanced** | Oobabooga | 7860 | Multimodal, advanced features, custom workflows |
+
+#### **🌐 Unified AI Gateway (Port 9000)**
+
+**Smart Request Routing** - The AI Gateway automatically routes requests to the optimal model based on task type:
+
+```bash
+# Reasoning tasks → DeepSeek R1
+curl -X POST http://localhost:9000/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{"task_type": "reasoning", "prompt": "Analyze this complex problem..."}'
+
+# Coding tasks → DeepSeek Coder  
+curl -X POST http://localhost:9000/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{"task_type": "coding", "prompt": "Write a Python function to..."}'
+
+# Creative tasks → KoboldCpp
+curl -X POST http://localhost:9000/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{"task_type": "creative", "prompt": "Write a short story about..."}'
+```
+
+#### **🔥 Performance Features**
+
+- **⚡ vLLM Acceleration**: GPU-optimized inference for 3x faster responses
+- **🧠 Model Specialization**: Each AI optimized for specific task types
+- **🌐 Intelligent Routing**: Automatic model selection based on request content
+- **💾 Memory Optimization**: Efficient VRAM usage across multiple models
+- **📊 Load Balancing**: Distribute requests across available resources
+
+#### **🎮 Advanced Features**
+
+- **🖼️ Multimodal Support**: Image analysis with Oobabooga
+- **🎭 Character Roleplay**: Advanced character creation with KoboldCpp
+- **💬 Conversation Memory**: Persistent context across sessions
+- **🔄 Model Swapping**: Hot-swap models without service restart
+- **📈 Usage Analytics**: Real-time performance monitoring
+
+#### **🛠️ AI Stack Management**
+
+```bash
+# Start AI Stack
+~/ai-stack/manage_stack.sh start
+
+# Check status
+~/ai-stack/manage_stack.sh status
+
+# Monitor resources
+python3 ~/ai-stack/monitor.py
+
+# Health check
+curl http://localhost:9000/health
+```
 
 ## 🔧 **Configuration**
 
@@ -185,8 +270,16 @@ yarn test
 # Platform status
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
-# Service health
+# Core service health
 curl -k https://100.123.10.72:8443/copilot/healthz
+
+# AI Stack Gateway health
+curl http://localhost:9000/health
+
+# Individual AI services
+curl http://localhost:8000/health  # DeepSeek R1
+curl http://localhost:8001/health  # Mistral Small
+curl http://localhost:8002/health  # DeepSeek Coder
 
 # Validation script
 ./validate-deployment.sh
