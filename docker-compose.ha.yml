@@ -1,0 +1,230 @@
+version: '3.8'
+
+# High Availability Deployment Configuration
+# Supports primary/secondary node deployment with shared persistence
+
+services:
+  # Core Chat Copilot Services
+  chat-copilot-backend:
+    image: chatcopilot-backend:latest
+    container_name: "chat-copilot-backend-${NODE_ID:-primary}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - PLATFORM_IP=${PLATFORM_IP}
+      - NODE_ID=${NODE_ID:-primary}
+      - HA_ENABLED=${HA_ENABLED:-true}
+      - HA_PEER_IP=${HA_PEER_IP}
+      - CONNECTION_STRINGS__POSTGRES=Host=postgres-ha;Port=5432;Database=chatcopilot;Username=postgres;Password=${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres-ha
+      - rabbitmq-ha
+    ports:
+      - "${CHAT_COPILOT_BACKEND_PORT:-11000}:11000"
+    volumes:
+      - ha_shared_data:/app/data
+      - ha_logs:/app/logs
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+  # HA PostgreSQL with replication support
+  postgres-ha:
+    image: postgres:15
+    container_name: "postgres-ha-${NODE_ID:-primary}"
+    environment:
+      - POSTGRES_DB=chatcopilot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+      - PGUSER=postgres
+      - POSTGRES_REPLICATION_MODE=${NODE_ID:-primary}
+      - POSTGRES_REPLICATION_USER=replicator
+      - POSTGRES_REPLICATION_PASSWORD=${POSTGRES_REPLICATION_PASSWORD:-replication-password}
+      - POSTGRES_MASTER_SERVICE=postgres-ha-primary
+      - POSTGRES_SLAVE_SERVICE=postgres-ha-secondary
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - ha_postgres_data:/var/lib/postgresql/data
+      - ./configs/ha/postgres-ha.conf:/etc/postgresql/postgresql.conf:ro
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  # HA RabbitMQ with mirrored queues
+  rabbitmq-ha:
+    image: rabbitmq:3.12-management
+    container_name: "rabbitmq-ha-${NODE_ID:-primary}"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-chatcopilot}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-chatcopilot-password}
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE:-ai-platform-cookie}
+      - RABBITMQ_CLUSTER_NODE_NAME=rabbit@rabbitmq-ha-${NODE_ID:-primary}
+      - RABBITMQ_CLUSTER_FORMATION_PEER_DISCOVERY_BACKEND=classic_config
+      - RABBITMQ_CLUSTER_NODES=rabbit@rabbitmq-ha-primary,rabbit@rabbitmq-ha-secondary
+    ports:
+      - "${RABBITMQ_PORT:-15672}:15672"
+      - "5672:5672"
+    volumes:
+      - ha_rabbitmq_data:/var/lib/rabbitmq
+      - ./configs/ha/rabbitmq-ha.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # nginx with HA-aware configuration
+  nginx-ha:
+    image: nginx:alpine
+    container_name: "nginx-ha-${NODE_ID:-primary}"
+    environment:
+      - PLATFORM_IP=${PLATFORM_IP}
+      - NODE_ID=${NODE_ID:-primary}
+      - HA_PEER_IP=${HA_PEER_IP}
+    ports:
+      - "${NGINX_SSL_PORT:-8443}:8443"
+      - "${NGINX_HTTP_PORT:-8080}:8080"
+    volumes:
+      - ./configs/ha/nginx-ha.conf:/etc/nginx/nginx.conf:ro
+      - ./configs/ha/sites-enabled/:/etc/nginx/sites-enabled/:ro
+      - /etc/ssl/certs/:/etc/ssl/certs/:ro
+      - /etc/ssl/private/:/etc/ssl/private/:ro
+      - ha_nginx_logs:/var/log/nginx
+    depends_on:
+      - chat-copilot-backend
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+
+  # AutoGen Studio with HA clustering
+  autogen-studio-ha:
+    image: autogen-studio:latest
+    container_name: "autogen-ha-${NODE_ID:-primary}"
+    environment:
+      - NODE_ID=${NODE_ID:-primary}
+      - HA_ENABLED=true
+      - CLUSTER_NODES=autogen-ha-primary,autogen-ha-secondary
+    ports:
+      - "${AUTOGEN_PORT:-11001}:8081"
+    volumes:
+      - ha_autogen_data:/app/data
+      - ha_shared_data:/shared
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+    profiles:
+      - ai-services
+
+  # Advanced AI Stack with HA load balancing
+  deepseek-r1-ha:
+    image: vllm/vllm-openai:latest
+    container_name: "deepseek-r1-ha-${NODE_ID:-primary}"
+    environment:
+      - NODE_ID=${NODE_ID:-primary}
+      - HA_ENABLED=true
+      - MODEL=deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+    ports:
+      - "${DEEPSEEK_R1_PORT:-8000}:8000"
+    volumes:
+      - ha_model_cache:/root/.cache
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+    profiles:
+      - ai-stack
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # Health monitoring for HA
+  health-monitor-ha:
+    image: nginx:alpine
+    container_name: "health-monitor-ha-${NODE_ID:-primary}"
+    environment:
+      - NODE_ID=${NODE_ID:-primary}
+      - HA_PEER_IP=${HA_PEER_IP}
+      - PLATFORM_IP=${PLATFORM_IP}
+    volumes:
+      - ./configs/ha/health-monitor.sh:/health-monitor.sh:ro
+    command: /health-monitor.sh
+    networks:
+      - ai-platform-ha
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+# HA-specific networks
+networks:
+  ai-platform-ha:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+
+# HA-specific volumes with shared persistence
+volumes:
+  ha_postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/data/ha/postgres-${NODE_ID:-primary}
+      o: bind
+  ha_rabbitmq_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/data/ha/rabbitmq-${NODE_ID:-primary}
+      o: bind
+  ha_shared_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/data/ha/shared
+      o: bind
+  ha_autogen_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/data/ha/autogen-${NODE_ID:-primary}
+      o: bind
+  ha_model_cache:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/data/ha/models
+      o: bind
+  ha_logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/logs/ha-${NODE_ID:-primary}
+      o: bind
+  ha_nginx_logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PLATFORM_ROOT}/logs/nginx-ha-${NODE_ID:-primary}
+      o: bind
