@@ -15,7 +15,7 @@ class PortConfigValidator:
     """Validates and enforces port configuration standards"""
 
     def __init__(self):
-        self.platform_dir = Path("/home/keith/chat-copilot")
+        self.platform_dir = Path("/home/keith-ransom/chat-copilot")
         self.standard_ports = {
             "chat_copilot_backend": 11000,
             "autogen_studio": 11001,
