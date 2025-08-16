@@ -1,0 +1,82 @@
+version: '3.8'
+services:
+  caddy:
+    image: caddy:2
+    container_name: caddy-tailscale
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8443:8443"
+      - "2019:2019"
+    volumes:
+      - ./docker-configs/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+      - /home/keith/chat-copilot/webapp/public:/srv:ro
+      - /etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:/etc/ssl/certs/ubuntuaicodeserver.tail5137b4.ts.net.crt:ro
+      - /etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:/etc/ssl/private/ubuntuaicodeserver.tail5137b4.ts.net.key:ro
+    networks:
+      - ai-platform
+
+  magentic-one:
+    build: ./python/services
+    container_name: magentic-one
+    restart: unless-stopped
+    ports:
+      - "11003:11003"
+    networks:
+      - ai-platform
+
+  windmill-db:
+    image: postgres:14
+    container_name: windmill-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: windmill
+      POSTGRES_DB: windmill
+    volumes:
+      - windmill_db:/var/lib/postgresql/data
+    networks:
+      - ai-platform
+
+  windmill-server:
+    image: ghcr.io/windmill-labs/windmill:main
+    container_name: windmill-server
+    restart: unless-stopped
+    ports:
+      - "11006:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:windmill@windmill-db:5432/windmill?sslmode=disable
+      - MODE=server
+      - BASE_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:11005
+    depends_on:
+      - windmill-db
+    networks:
+      - ai-platform
+
+  windmill-worker:
+    image: ghcr.io/windmill-labs/windmill:main
+    container_name: windmill-worker
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://postgres:windmill@windmill-db:5432/windmill?sslmode=disable
+      - MODE=worker
+      - WORKER_GROUP=default
+    depends_on:
+      - windmill-db
+      - windmill-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - windmill_worker_data:/tmp/windmill
+    networks:
+      - ai-platform
+
+volumes:
+  caddy_data:
+  caddy_config:
+  windmill_db:
+  windmill_worker_data:
+
+networks:
+  ai-platform:
+    driver: bridge

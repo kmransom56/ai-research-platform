@@ -177,6 +177,56 @@
         .api-category {
             border-left-color: #96ceb4;
         }
+
+        /* Advanced AI Stack Styles */
+        .service-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .service-card.featured {
+            border-color: #007bff;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+        }
+
+        .service-links {
+            margin: 10px 0;
+        }
+
+        .service-status {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .service-status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .service-status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .app-card.featured {
+            border-color: #007bff;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+        }
     </style>
 </head>
 
@@ -368,6 +418,71 @@
                     <h3>PostgreSQL <span class="status active">✅ Active</span></h3>
                     <p>Relational database for structured data and application state</p>
 <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:5432" class="app-link" target="_blank">Database Access</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Advanced AI Stack</h2>
+            <div class="app-grid">
+                <div class="app-card ai-category">
+                    <h3>🧠 DeepSeek R1 (Reasoning) <span class="status active">✅ Active</span></h3>
+                    <p>Ultra-high performance reasoning and complex analysis</p>
+                    <div class="service-links">
+                        <a href="http://localhost:8000/docs" class="app-link" target="_blank">API Docs</a>
+                        <a href="http://localhost:8000/v1/models" class="app-link" target="_blank">Models</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:8000/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>⚡ Mistral Small (General) <span class="status active">✅ Active</span></h3>
+                    <p>Fast general-purpose AI for everyday tasks</p>
+                    <div class="service-links">
+                        <a href="http://localhost:8001/docs" class="app-link" target="_blank">API Docs</a>
+                        <a href="http://localhost:8001/v1/models" class="app-link" target="_blank">Models</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:8001/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>💻 DeepSeek Coder <span class="status active">✅ Active</span></h3>
+                    <p>Specialized AI for code generation and debugging</p>
+                    <div class="service-links">
+                        <a href="http://localhost:8002/docs" class="app-link" target="_blank">API Docs</a>
+                        <a href="http://localhost:8002/v1/models" class="app-link" target="_blank">Models</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:8002/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>🎛️ Oobabooga WebUI <span class="status active">✅ Active</span></h3>
+                    <p>Advanced text generation with multimodal support</p>
+                    <div class="service-links">
+                        <a href="http://localhost:7860" class="app-link" target="_blank">Open WebUI</a>
+                        <a href="http://localhost:5000/docs" class="app-link" target="_blank">API Docs</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:5000/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>✍️ KoboldCpp <span class="status active">✅ Active</span></h3>
+                    <p>Creative writing and roleplay AI interface</p>
+                    <div class="service-links">
+                        <a href="http://localhost:5001" class="app-link" target="_blank">Open KoboldCpp</a>
+                        <a href="http://localhost:5001/api" class="app-link" target="_blank">API Info</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:5001">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category featured">
+                    <h3>🌐 AI Stack Gateway <span class="status active">✅ Active</span></h3>
+                    <p>Unified API with intelligent task routing</p>
+                    <div class="service-links">
+                        <a href="http://localhost:9000/health" class="app-link" target="_blank">Health Check</a>
+                        <a href="http://localhost:9000/docs" class="app-link" target="_blank">API Docs</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:9000/health">Checking...</div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,3 @@
+Real-time sync demonstration file
+Created at: $(date)
+This file should sync to the backup server automatically.

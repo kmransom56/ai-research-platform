@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  windmill:
+    image: ghcr.io/windmill-labs/windmill:main
+    container_name: windmill
+    restart: unless-stopped
+    ports:
+      - "11006:8000"
+    environment:
+      - DATABASE_URL=postgres://postgres:windmill@windmill-db:5432/windmill?sslmode=disable
+      - RUST_LOG=info
+    depends_on:
+      - windmill-db
+    networks:
+      - windmill-network
+
+  windmill-db:
+    image: postgres:15
+    container_name: windmill-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=windmill
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=windmill
+    volumes:
+      - windmill-db-data:/var/lib/postgresql/data
+    networks:
+      - windmill-network
+
+volumes:
+  windmill-db-data:
+
+networks:
+  windmill-network:
+    driver: bridge

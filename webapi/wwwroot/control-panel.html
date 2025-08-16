@@ -209,6 +209,78 @@
             background: #1565c0;
         }
 
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .service-quick-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .service-quick-link.featured {
+            border-color: #007bff;
+            background: #f8f9ff;
+        }
+
+        .port {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .status-panel {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .status-item.online {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .status-item.offline {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
         @media (max-width: 768px) {
             .control-grid {
                 grid-template-columns: 1fr;
@@ -329,6 +401,45 @@
                         <span class="material-icons">auto_fix_high</span>
                         Prompt&nbsp;Forge
                     </a>
+                </div>
+            </div>
+
+            <!-- AI Stack Management -->
+            <div class="control-section">
+                <h3><span class="material-icons">rocket_launch</span>Advanced AI Stack</h3>
+                
+                <div class="control-grid">
+                    <button onclick="manageAIStack('start')" class="control-button secondary">Start AI Stack</button>
+                    <button onclick="manageAIStack('stop')" class="control-button danger">Stop AI Stack</button>
+                    <button onclick="manageAIStack('restart')" class="control-button warning">Restart AI Stack</button>
+                    <button onclick="checkAIStackStatus()" class="control-button info">Check Status</button>
+                </div>
+                
+                <div class="service-grid">
+                    <div class="service-quick-link">
+                        <a href="http://localhost:8000/docs">DeepSeek R1 API</a>
+                        <span class="port">:8000</span>
+                    </div>
+                    <div class="service-quick-link">
+                        <a href="http://localhost:8001/docs">Mistral API</a>
+                        <span class="port">:8001</span>
+                    </div>
+                    <div class="service-quick-link">
+                        <a href="http://localhost:8002/docs">Coder API</a>
+                        <span class="port">:8002</span>
+                    </div>
+                    <div class="service-quick-link">
+                        <a href="http://localhost:7860">Oobabooga</a>
+                        <span class="port">:7860</span>
+                    </div>
+                    <div class="service-quick-link">
+                        <a href="http://localhost:5001">KoboldCpp</a>
+                        <span class="port">:5001</span>
+                    </div>
+                    <div class="service-quick-link featured">
+                        <a href="http://localhost:9000/health">AI Gateway</a>
+                        <span class="port">:9000</span>
+                    </div>
                 </div>
             </div>
 
@@ -1343,6 +1454,66 @@
             } catch (error) {
                 logOutput('⚠️ Could not check deployment status', 'warning');
             }
+        }
+
+        // AI Stack Management Functions
+        function manageAIStack(action) {
+            fetch('/api/ai-stack/' + action, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification('AI Stack ' + action + ' initiated', 'info');
+                    setTimeout(checkAIStackStatus, 5000);
+                })
+                .catch(error => {
+                    showNotification('Error managing AI Stack: ' + error.message, 'error');
+                });
+        }
+
+        function checkAIStackStatus() {
+            fetch('http://localhost:9000/health')
+                .then(response => response.json())
+                .then(data => {
+                    displayAIStackStatus(data);
+                })
+                .catch(error => {
+                    showNotification('AI Stack Gateway not responding', 'warning');
+                });
+        }
+
+        function displayAIStackStatus(status) {
+            const statusDiv = document.getElementById('ai-stack-status') || createStatusDiv();
+            let html = '<h4>AI Stack Status</h4><div class="status-grid">';
+            
+            const services = {
+                'reasoning': 'DeepSeek R1',
+                'general': 'Mistral', 
+                'coding': 'DeepSeek Coder',
+                'creative': 'KoboldCpp',
+                'advanced': 'Oobabooga'
+            };
+            
+            for (const [key, name] of Object.entries(services)) {
+                const isOnline = status[key] === 'online';
+                html += `<div class="status-item ${isOnline ? 'online' : 'offline'}">
+                            <span class="service-name">${name}</span>
+                            <span class="status-indicator">${isOnline ? '🟢' : '🔴'}</span>
+                         </div>`;
+            }
+            
+            html += '</div>';
+            statusDiv.innerHTML = html;
+        }
+
+        function createStatusDiv() {
+            const div = document.createElement('div');
+            div.id = 'ai-stack-status';
+            div.className = 'status-panel';
+            document.querySelector('.control-section').appendChild(div);
+            return div;
+        }
+
+        function showNotification(message, type) {
+            logOutput(message, type);
         }
 
         // Initialize the dashboard

@@ -6,10 +6,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **AI Research Platform** - a comprehensive multi-agent AI development environment built on Microsoft's Chat Copilot. It combines multiple AI services, local LLMs, and development tools into a unified platform with secure Tailscale networking.
 
-## 🍽️ **NEW: AI Restaurant Network Management System**
+## 🚀 **NEW: Advanced AI Stack Integration**
+
+### **High-Performance AI Services**
+The platform now includes an **advanced AI stack** with vLLM, Oobabooga, and KoboldCpp integration:
+
+#### **🎯 AI Stack Services (Ports 8000-9000)**
+- **vLLM DeepSeek R1**: http://localhost:8000 (Reasoning and complex analysis)
+- **vLLM Mistral Small**: http://localhost:8001 (General purpose, fast responses)  
+- **vLLM DeepSeek Coder**: http://localhost:8002 (Code generation and debugging)
+- **Oobabooga WebUI**: http://localhost:7860 (Advanced features, multimodal)
+- **Oobabooga API**: http://localhost:5000 (API endpoint for integrations)
+- **KoboldCpp**: http://localhost:5001 (Creative writing and roleplay)
+- **AI Stack Gateway**: http://localhost:9000 (Unified API with smart routing)
+
+## 🍽️ **Restaurant Network Management System**
 
 ### **Complete Multi-Vendor Network Management**
-The platform now includes a **comprehensive AI-powered restaurant network management system** with FortiManager integration and advanced monitoring:
+The platform includes a **comprehensive AI-powered restaurant network management system** with FortiManager integration and advanced monitoring:
 
 #### **🎤 Main AI Network Management Hub**
 - **Central Interface**: http://localhost:11040
@@ -239,6 +253,9 @@ python3 python/utilities/check-certificates.py
 - **.NET 8.0** with ASP.NET Core and SignalR
 - **Microsoft Semantic Kernel** for AI orchestration
 - **React 18** with TypeScript and Material-UI
+- **vLLM** for high-performance LLM inference
+- **Oobabooga** for advanced text generation features
+- **KoboldCpp** for creative writing and roleplay
 - **Docker & Docker Compose** for containerization
 - **Caddy** web server with automatic HTTPS
 - **Tailscale** for secure mesh networking
@@ -402,7 +419,11 @@ cd webapp && npx playwright test
 
 ## Important Notes
 
-- **Port standardization**: All services use 11000-12000 range, GenAI Stack uses 8501-8505
+- **Port standardization**: Core services 11000-12000, AI Stack 8000-9000, Gateway 9000
+- **Advanced AI Integration**: vLLM + Oobabooga + KoboldCpp for specialized tasks
+- **Task-based routing**: Reasoning, coding, creative, general purpose AI endpoints
+- **Hardware optimization**: Optimized for high-memory GPU systems (96GB+ VRAM)
+- **Unified API**: Single gateway endpoint for intelligent request routing
 - **Certificate automation**: CA server integration at https://192.168.0.2 with fallback systems
 - **Application deployment**: Standardized addition process with validation and rollback
 - **Windmill integration**: Workflow automation with SSL access on port 11005
@@ -412,12 +433,13 @@ cd webapp && npx playwright test
 - **Knowledge Graphs**: Neo4j GenAI Stack provides graph-based AI capabilities
 - **Configuration monitoring**: Automated protection against drift
 - **Health monitoring**: Comprehensive service health checking
-- **GPU optimization**: Supports high-memory GPU systems (72GB+ VRAM)
 
 ## Quick References
 
 ### Health Checks
 - Backend: http://localhost:11000/healthz
+- AI Stack Gateway: http://localhost:9000/health
+- Individual AI services: Check ports 8000-8002, 5000-5001, 7860
 - Platform status: `./check-platform-status.sh`
 - Neo4j: http://localhost:7474
 - GenAI Stack: http://localhost:8505
