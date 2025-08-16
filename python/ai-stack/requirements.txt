@@ -1,0 +1,27 @@
+# Advanced AI Stack Requirements
+
+# Core web framework
+flask>=2.3.0
+requests>=2.31.0
+
+# Production WSGI server
+gunicorn>=20.1.0
+gevent>=23.0.0
+
+# System monitoring
+psutil>=5.9.5
+
+# GPU monitoring (optional, will fallback gracefully if not available)
+nvidia-ml-py3>=12.535.108
+
+# JSON handling and utilities
+python-dateutil>=2.8.0
+
+# Logging and debugging
+colorama>=0.4.6
+
+# Optional: Docker integration for monitoring
+docker>=6.1.0
+
+# Optional: Prometheus metrics
+prometheus-client>=0.17.0

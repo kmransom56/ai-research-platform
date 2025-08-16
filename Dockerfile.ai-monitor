@@ -1,0 +1,122 @@
+FROM python:3.12-slim
+
+LABEL maintainer="AI Research Platform Team"
+LABEL description="Advanced AI Stack Monitor - System and service monitoring"
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    flask==2.3.0 \
+    requests==2.31.0 \
+    psutil==5.9.5 \
+    docker==6.1.0 \
+    prometheus-client==0.17.0
+
+# Copy monitoring application
+COPY python/ai-stack/monitor.py .
+
+# Create simple web interface for monitoring
+RUN cat > web_monitor.py << 'EOF'
+from flask import Flask, jsonify, render_template_string
+from monitor import AIStackMonitor
+import json
+
+app = Flask(__name__)
+monitor = AIStackMonitor()
+
+HTML_TEMPLATE = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Stack Monitor</title>
+    <meta http-equiv="refresh" content="30">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .healthy { background-color: #d4edda; color: #155724; }
+        .warning { background-color: #fff3cd; color: #856404; }
+        .critical { background-color: #f8d7da; color: #721c24; }
+        .metric { display: inline-block; margin: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        pre { background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>AI Stack Monitor</h1>
+    <div class="status {{ status_class }}">
+        Overall Status: {{ overall_status }}
+    </div>
+    
+    <h2>System Metrics</h2>
+    <div class="metric">CPU: {{ cpu_usage }}%</div>
+    <div class="metric">Memory: {{ memory_usage }}%</div>
+    {% if gpu_available %}
+    <div class="metric">GPU Memory: {{ gpu_memory_usage }}%</div>
+    {% endif %}
+    
+    <h2>Service Health</h2>
+    <div class="metric">Services Online: {{ services_online }}/{{ services_total }}</div>
+    
+    <h2>Detailed Report</h2>
+    <pre>{{ report_json }}</pre>
+    
+    <p><em>Auto-refreshes every 30 seconds</em></p>
+</body>
+</html>
+'''
+
+@app.route('/')
+def index():
+    report = monitor.generate_report()
+    summary = report.get('summary', {})
+    
+    status_class = {
+        'healthy': 'healthy',
+        'warning': 'warning', 
+        'critical': 'critical'
+    }.get(summary.get('overall_status'), 'warning')
+    
+    return render_template_string(HTML_TEMPLATE,
+        overall_status=summary.get('overall_status', 'unknown').upper(),
+        status_class=status_class,
+        cpu_usage=summary.get('cpu_usage', 0),
+        memory_usage=summary.get('memory_usage', 0),
+        gpu_available=summary.get('gpu_available', False),
+        gpu_memory_usage=summary.get('gpu_memory_usage', 0),
+        services_online=summary.get('services_online', 0),
+        services_total=summary.get('services_total', 0),
+        report_json=json.dumps(report, indent=2)
+    )
+
+@app.route('/api/health')
+def api_health():
+    return jsonify(monitor.generate_report())
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8090)
+EOF
+
+# Create logs directory
+RUN mkdir -p logs
+
+# Create non-root user
+RUN groupadd -r monitor && useradd -r -g monitor -d /app -s /bin/bash monitor
+RUN chown -R monitor:monitor /app
+USER monitor
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:8090/api/health || exit 1
+
+# Expose port
+EXPOSE 8090
+
+# Start the web monitor
+CMD ["python", "web_monitor.py"]

@@ -9,7 +9,7 @@ This is the **AI Research Platform** - a comprehensive multi-agent AI developmen
 ## 🚀 **NEW: Advanced AI Stack Integration**
 
 ### **High-Performance AI Services**
-The platform now includes an **advanced AI stack** with vLLM, Oobabooga, and KoboldCpp integration:
+The platform now includes a **fully integrated advanced AI stack** with vLLM, Oobabooga, and KoboldCpp:
 
 #### **🎯 AI Stack Services (Ports 8000-9000)**
 - **vLLM DeepSeek R1**: http://localhost:8000 (Reasoning and complex analysis)
@@ -19,6 +19,13 @@ The platform now includes an **advanced AI stack** with vLLM, Oobabooga, and Kob
 - **Oobabooga API**: http://localhost:5000 (API endpoint for integrations)
 - **KoboldCpp**: http://localhost:5001 (Creative writing and roleplay)
 - **AI Stack Gateway**: http://localhost:9000 (Unified API with smart routing)
+- **AI Stack Monitor**: http://localhost:8090 (System and service monitoring)
+
+#### **📊 Integrated Management**
+- **Management Scripts**: `./scripts/platform-management/manage-ai-stack.sh`
+- **Docker Integration**: `docker-compose.ai-stack.yml` with full containerization
+- **Python SDK**: Advanced AI client library in `python/ai-stack/`
+- **Configuration**: Integrated into `appsettings.json` and `.env` files
 
 ## 🍽️ **Restaurant Network Management System**
 
@@ -133,6 +140,26 @@ pip install -e .
 
 # Quick start (original Chat Copilot)
 ./scripts/start.sh
+```
+
+### Advanced AI Stack Management
+```bash
+# Manage AI Stack Gateway
+./scripts/platform-management/manage-ai-stack.sh start-gateway
+./scripts/platform-management/manage-ai-stack.sh stop-gateway
+./scripts/platform-management/manage-ai-stack.sh health
+
+# Monitor AI Stack
+./scripts/platform-management/manage-ai-stack.sh monitor
+
+# Test AI Stack functionality
+./scripts/platform-management/manage-ai-stack.sh test
+
+# Start with Docker (full stack)
+docker-compose -f docker-compose.ai-stack.yml up -d
+
+# Start individual AI services (following setup guide)
+# See: Advanced AI Stack Setup Guide.md
 ```
 
 ### Restaurant Network Management
@@ -438,8 +465,10 @@ cd webapp && npx playwright test
 
 ### Health Checks
 - Backend: http://localhost:11000/healthz
-- AI Stack Gateway: http://localhost:9000/health
-- Individual AI services: Check ports 8000-8002, 5000-5001, 7860
+- **AI Stack Gateway**: http://localhost:9000/health
+- **AI Stack Monitor**: http://localhost:8090
+- **Individual AI services**: Check ports 8000-8002, 5000-5001, 7860
+- **AI Stack Management**: `./scripts/platform-management/manage-ai-stack.sh health`
 - Platform status: `./check-platform-status.sh`
 - Neo4j: http://localhost:7474
 - GenAI Stack: http://localhost:8505
@@ -624,3 +653,74 @@ cp webapp/public/applications.html webapi/wwwroot/
 
 Last backup: Mon Jun 23 06:42:52 AM EDT 2025
 Last backup: Mon Jun 23 08:29:57 PM EDT 2025
+
+## Advanced AI Stack Usage Examples
+
+### Using the Python SDK
+```python
+from python.ai_stack.advanced_ai_client import AdvancedAIStack
+
+# Initialize client
+ai = AdvancedAIStack()
+
+# Check health
+health = ai.health_check()
+print(f"Overall status: {health.get('overall_status')}")
+
+# Different task types
+reasoning_result = ai.complete("Solve: 2x + 5 = 17", task_type="reasoning")
+coding_result = ai.complete("Write a Python function to sort a list", task_type="coding")
+creative_result = ai.complete("Write a haiku about AI", task_type="creative")
+
+print(f"Reasoning: {reasoning_result.content}")
+print(f"Coding: {coding_result.content}")
+print(f"Creative: {creative_result.content}")
+```
+
+### Using via HTTP API
+```bash
+# Health check
+curl http://localhost:9000/health
+
+# Completion request
+curl -X POST http://localhost:9000/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "task_type": "reasoning",
+    "prompt": "Explain quantum computing",
+    "max_tokens": 200,
+    "temperature": 0.7
+  }'
+
+# OpenAI-compatible endpoint
+curl -X POST http://localhost:9000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [{"role": "user", "content": "Hello, AI!"}],
+    "task_type": "general",
+    "max_tokens": 100
+  }'
+```
+
+### Docker Deployment
+```bash
+# Start full AI stack with containerization
+docker-compose -f docker-compose.ai-stack.yml up -d
+
+# Check container status
+docker-compose -f docker-compose.ai-stack.yml ps
+
+# View logs
+docker-compose -f docker-compose.ai-stack.yml logs ai-gateway
+docker-compose -f docker-compose.ai-stack.yml logs ai-monitor
+
+# Scale gateway instances
+docker-compose -f docker-compose.ai-stack.yml up -d --scale ai-gateway=3
+```
+
+### Integration Points
+1. **Backend (.NET)**: AI Stack endpoints configured in `appsettings.json`
+2. **Frontend (React)**: Environment variables in `webapp/.env`
+3. **Docker**: Full containerization with `docker-compose.ai-stack.yml`
+4. **Monitoring**: Integrated with Grafana and Prometheus
+5. **Management**: Platform scripts in `scripts/platform-management/`
