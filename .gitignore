@@ -7,6 +7,11 @@ dotnet/.config
 .env.test.local
 .env.production.local
 
+# GitHub secrets files
+github_secrets.txt*
+*secrets*.txt
+secrets-import.txt
+
 # Neo4j Database files (large transaction logs)
 data/transactions/
 data/databases/

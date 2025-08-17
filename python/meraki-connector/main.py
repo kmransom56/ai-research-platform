@@ -24,7 +24,7 @@ logger = structlog.get_logger()
 # Configuration
 MERAKI_API_KEY = os.getenv('MERAKI_API_KEY', '')
 REDIS_URL = os.getenv('REDIS_URL', 'redis://redis:6379')
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres123@postgres:5432/chatcopilot')
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/chatcopilot')
 
 class MerakiConnector:
     """Main Meraki API connector class"""

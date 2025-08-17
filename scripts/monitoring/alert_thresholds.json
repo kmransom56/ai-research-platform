@@ -1,0 +1,6 @@
+{
+  "github_api_usage_percent": 85,
+  "unusual_activity_requests_per_hour": 100,
+  "failed_auth_attempts": 5,
+  "new_ip_addresses": true
+}

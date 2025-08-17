@@ -63,7 +63,7 @@ class SecretReplacer:
             ReplacementRule(
                 name="github_token_json",
                 pattern=r'"(token|githubToken|github_token)":\s*"gh[pousr]_[A-Za-z0-9]{36}"',
-                replacement=r'"\1": "${GITHUB_TOKEN}"',
+                replacement=r'"\1": "${GH_TOKEN}"',
                 file_types=['.json'],
                 description="GitHub Token in JSON",
                 confidence=0.9,
@@ -72,7 +72,7 @@ class SecretReplacer:
             ReplacementRule(
                 name="github_token_raw",
                 pattern=r'gh[pousr]_[A-Za-z0-9]{36}',
-                replacement='${GITHUB_TOKEN}',
+                replacement='${GH_TOKEN}',
                 file_types=['.py', '.js', '.ts', '.env'],
                 description="Raw GitHub Token",
                 confidence=0.85,
@@ -112,7 +112,7 @@ class SecretReplacer:
                 file_types=['.py', '.js', '.ts', '.json', '.env'],
                 description="Database Connection String",
                 confidence=0.8,
-                test_examples=['postgresql://user:pass@localhost:5432/db']
+                test_examples=['postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/db']
             ),
             ReplacementRule(
                 name="env_assignment",

@@ -251,10 +251,10 @@ NEO4J_PASSWORD=your_neo4j_password_here
 # PostgreSQL
 POSTGRES_PASSWORD=your_postgres_password_here
 POSTGRES_USER=postgres
-DATABASE_URL=postgresql://user:pass@localhost:5432/db
+DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/db
 
 # MongoDB
-MONGODB_CONNECTION_STRING=mongodb://user:pass@localhost:27017/db
+MONGODB_CONNECTION_STRING=mongodb://${DB_USER}:${DB_PASSWORD}@localhost:27017/db
 MONGODB_PASSWORD=your_mongodb_password_here
 
 # Redis
@@ -293,7 +293,7 @@ NEXTAUTH_SECRET=your_nextauth_secret_here
 # =============================================================================
 
 # GitHub
-GITHUB_TOKEN=ghp_your_github_token_here
+GH_TOKEN=ghp_your_github_token_here
 GITHUB_CLIENT_ID=your_github_client_id_here
 GITHUB_CLIENT_SECRET=your_github_client_secret_here
 

@@ -89,7 +89,7 @@ services:
     container_name: ai-platform-neo4j
     restart: unless-stopped
     environment:
-      - NEO4J_AUTH=neo4j/password
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
       - NEO4J_PLUGINS=["apoc"]
     ports:
       - "${NEO4J_PORT:-7474}:7474"
