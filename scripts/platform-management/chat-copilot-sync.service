@@ -1,0 +1,37 @@
+[Unit]
+Description=Chat Copilot Real-time Backup Sync Service
+After=network-online.target
+Wants=network-online.target
+Requires=network-online.target
+
+[Service]
+Type=simple
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+ExecStart=/home/keith/chat-copilot/scripts/platform-management/sync-service-wrapper.sh start
+ExecStop=/home/keith/chat-copilot/scripts/platform-management/sync-service-wrapper.sh stop
+Restart=always
+RestartSec=30
+StartLimitInterval=300
+StartLimitBurst=3
+StandardOutput=journal
+StandardError=journal
+
+# Environment variables
+Environment=HOME=/home/keith
+Environment=USER=keith
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Network and security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=false
+ProtectSystem=strict
+ReadWritePaths=/home/keith/chat-copilot
+PrivateNetwork=false
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=none
+
+[Install]
+WantedBy=multi-user.target
