@@ -16,7 +16,7 @@ from enum import Enum
 import aiohttp
 import uuid
 from datetime import datetime, timedelta
-from workflow_templates import workflow_manager
+# Import workflow_manager inside functions to avoid circular import
 from mcp_server_registry import mcp_registry
 
 # Configure logging
@@ -369,6 +369,9 @@ class CollaborationOrchestrator:
         if context is None:
             context = {}
         
+        # Import workflow_manager here to avoid circular import
+        from workflow_templates import workflow_manager
+        
         # Use workflow template if specified or auto-suggest
         if template_name:
             if workflow_manager.get_template(template_name):
@@ -597,6 +600,9 @@ class CollaborationOrchestrator:
         """Collaboration workflow that includes MCP server integration"""
         if context is None:
             context = {}
+        
+        # Import workflow_manager here to avoid circular import
+        from workflow_templates import workflow_manager
         
         # Get template with MCP integrations
         template = workflow_manager.get_template(template_name or workflow_manager.suggest_template(prompt))

@@ -1,8 +1,6 @@
 #!/bin/bash
-"""
-MCP Integration Test Suite for AI Collaboration System
-Tests the complete MCP server integration with the AI stack
-"""
+# MCP Integration Test Suite for AI Collaboration System
+# Tests the complete MCP server integration with the AI stack
 
 set -e
 

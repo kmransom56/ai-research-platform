@@ -314,7 +314,14 @@ start_realtime_sync() {
             .git/*|node_modules/*|__pycache__/*|.venv/*|venv/*|build/*|dist/*|logs/*|pids/*|temp/*|tmp/*) return 0 ;;
         esac
         
-        if [[ -f "$file" ]]; then
+        if [[ -e "$file" ]]; then
+            # Create parent directory on remote if needed
+            local parent_dir=$(dirname "$rel_path")
+            if [[ "$parent_dir" != "." ]]; then
+                ssh "$BACKUP_SERVER" "mkdir -p '$REMOTE_PATH/$parent_dir'" >/dev/null 2>&1
+            fi
+            
+            # Sync the file/directory
             if rsync -avz --timeout=10 "$file" "$BACKUP_SERVER:$REMOTE_PATH/$rel_path" >/dev/null 2>&1; then
                 log_msg "SYNC" "Auto-synced: $rel_path"
             else
@@ -331,13 +338,20 @@ start_realtime_sync() {
             log_msg "INFO" "Using inotifywait for real-time monitoring"
             
             inotifywait -m -r -e modify,create,delete,move \
-                --exclude '\.(log|tmp|swp|swo|pyc|pyo|lock|pid)$' \
-                --exclude '/(logs|pids|\.git|node_modules|__pycache__|\.venv|venv|build|dist|temp|tmp)/' \
+                --exclude '\.(log|tmp|swp|swo|pyc|pyo|lock|pid)$|/(logs|pids|\.git|node_modules|__pycache__|\.venv|venv|build|dist|temp|tmp)/' \
                 "$PLATFORM_ROOT" | while read path action file; do
                 
-                if [[ "$action" == "MODIFY" || "$action" == "CREATE" ]]; then
-                    sync_changed_file "$path$file"
-                fi
+                case "$action" in
+                    "MODIFY"|"CREATE"|"MOVED_TO")
+                        sync_changed_file "$path$file"
+                        ;;
+                    "DELETE"|"MOVED_FROM")
+                        local rel_path="${path}${file}"
+                        rel_path="${rel_path#$PLATFORM_ROOT/}"
+                        ssh "$BACKUP_SERVER" "rm -f '$REMOTE_PATH/$rel_path'" >/dev/null 2>&1
+                        log_msg "SYNC" "Auto-deleted: $rel_path"
+                        ;;
+                esac
             done
         else
             log_msg "WARNING" "inotifywait not available, using periodic sync (every 30 seconds)"

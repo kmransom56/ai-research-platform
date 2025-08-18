@@ -477,11 +477,11 @@ def invoke_mcp_server(server_name):
             try:
                 from network_agents.fortimanager_mcp_server import FortiManagerMCPServer
                 fm_server = FortiManagerMCPServer()
-                await fm_server.start_session()
+                loop.run_until_complete(fm_server.start_session())
                 result = loop.run_until_complete(
                     fm_server.handle_mcp_request(method, params)
                 )
-                await fm_server.close()
+                loop.run_until_complete(fm_server.close())
                 return jsonify(result)
             finally:
                 loop.close()

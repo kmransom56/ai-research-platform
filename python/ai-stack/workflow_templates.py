@@ -8,8 +8,30 @@ Enhanced with MCP (Model Context Protocol) server integration
 import json
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
-from collaboration_orchestrator import Task, TaskType
+from enum import Enum
 import uuid
+
+class TaskType(Enum):
+    """Task types for different AI services"""
+    REASONING = "reasoning"
+    GENERAL = "general"
+    CODING = "coding"
+    CREATIVE = "creative"
+    RESEARCH = "research"
+    ANALYSIS = "analysis"
+    MULTIMODAL = "multimodal"
+    COLLABORATIVE = "collaborative"
+
+@dataclass
+class Task:
+    """Individual task within a collaboration plan"""
+    id: str
+    type: TaskType
+    prompt: str
+    context: Dict[str, Any]
+    dependencies: List[str]
+    assigned_services: List[str]
+    status: str = "pending"
 
 @dataclass
 class WorkflowTemplate:
