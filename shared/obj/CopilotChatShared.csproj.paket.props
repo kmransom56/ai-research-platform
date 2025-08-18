@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+        <PaketPropsVersion>6.0.0</PaketPropsVersion>
+        <PaketPropsLoaded>true</PaketPropsLoaded>
+    </PropertyGroup>
+
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos')))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="ClosedXML.Parser">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="ExcelNumberFormat">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="HtmlAgilityPack">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Data.SqlClient.SNI.runtime">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.0.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.FileSystemGlobbing">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.SqlServer.Server">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="PdfPig">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.1.10</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Polly.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.6.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="RBush.Signed">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="SixLabors.Fonts">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.1.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Diagnostics.EventLog">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.IO.Hashing">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.IO.Packaging">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="DocumentFormat.OpenXml.Framework">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">3.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="DocumentFormat.OpenXml">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">3.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="ClosedXML">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.105</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Linq.Async">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.0.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.CommandLine">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Runtime.Caching">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Threading.RateLimiting">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Npgsql">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Pgvector">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.3.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="RabbitMQ.Client">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">7.1.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging.EventLog">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Diagnostics">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.UserSecrets">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging.Console">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging.EventSource">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.ML.Tokenizers">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.0.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.ML.Tokenizers.Data.Cl100kBase">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.0.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.ML.Tokenizers.Data.O200kBase">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.0.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.ML.Tokenizers.Data.P50kBase">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.0.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="OllamaSharp">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.2.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.KernelMemory.AI.Tiktoken">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.KernelMemory.Chunkers">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.AI.FormRecognizer">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.Storage.Common">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">12.23</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.Storage.Blobs">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">12.24.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.Storage.Queues">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">12.22</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Data.SqlClient">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.0.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.AI.OpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.6.0-preview.1.25310.2</Version>
+        </PackageReference>
+        <PackageVersion Include="ClosedXML.Parser">
+            <Version>2.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="ExcelNumberFormat">
+            <Version>1.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="HtmlAgilityPack">
+            <Version>1.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Data.SqlClient.SNI.runtime">
+            <Version>6.0.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.FileSystemGlobbing">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SqlServer.Server">
+            <Version>1.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="PdfPig">
+            <Version>0.1.10</Version>
+        </PackageVersion>
+        <PackageVersion Include="Polly.Core">
+            <Version>8.6.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="RBush.Signed">
+            <Version>4.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="SixLabors.Fonts">
+            <Version>2.1.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Diagnostics.EventLog">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.IO.Hashing">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.IO.Packaging">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="DocumentFormat.OpenXml.Framework">
+            <Version>3.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="DocumentFormat.OpenXml">
+            <Version>3.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="ClosedXML">
+            <Version>0.105</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Linq.Async">
+            <Version>6.0.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Runtime.Caching">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Threading.RateLimiting">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Npgsql">
+            <Version>9.0.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Pgvector">
+            <Version>0.3.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="RabbitMQ.Client">
+            <Version>7.1.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging.EventLog">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Diagnostics">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging.Console">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging.EventSource">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.ML.Tokenizers">
+            <Version>1.0.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.ML.Tokenizers.Data.Cl100kBase">
+            <Version>1.0.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.ML.Tokenizers.Data.O200kBase">
+            <Version>1.0.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.ML.Tokenizers.Data.P50kBase">
+            <Version>1.0.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="OllamaSharp">
+            <Version>5.2.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.AI.Tiktoken">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.Chunkers">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.AI.FormRecognizer">
+            <Version>4.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.Storage.Common">
+            <Version>12.23</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.Storage.Blobs">
+            <Version>12.24.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.Storage.Queues">
+            <Version>12.22</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Data.SqlClient">
+            <Version>6.0.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.AI.OpenAI">
+            <Version>9.6.0-preview.1.25310.2</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Humanizer.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.14.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.CSharp">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.7</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.OpenApi">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.6.24</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Newtonsoft.Json">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">13.0.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Google.Apis.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.70</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Google.Apis">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.70</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Google.Apis.CustomSearchAPI.v1">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.68.0.3520</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="SharpYaml">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.1.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.OpenApi.Readers">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.6.24</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Std.UriTemplate">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.0.5</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.ComponentModel.Annotations">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Numerics.Tensors">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Numerics.Vectors">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.6.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Grpc.Core.Api">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.71</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.FileProviders.Physical">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.FileExtensions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Serialization.Form">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Serialization.Multipart">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Serialization.Text">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Security.Cryptography.ProtectedData">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Configuration.ConfigurationManager">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.IO.FileSystem.AccessControl">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Identity.Client.Extensions.Msal">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.73</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.DependencyInjection">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Threading.Channels">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Bcl.TimeProvider">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging.Debug">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging.Configuration">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Json.More.Net">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.1.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="JsonPointer.Net">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.3.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="JsonSchema.Net">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">7.3.4</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.AI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Http.HttpClientLibrary">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Serialization.Json">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.SemanticKernel.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Memory.Data">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.ClientModel">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.4.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.46.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Kiota.Authentication.Azure">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.19</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Graph.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">3.2.4</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Graph">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.82</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="OpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.2.0-beta.4</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.AI.OpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.2.0-beta.4</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.SemanticKernel.Connectors.OpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57</Version>
+        </PackageReference>
+        <PackageVersion Include="Humanizer.Core">
+            <Version>2.14.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.CSharp">
+            <Version>4.7</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.OpenApi">
+            <Version>1.6.24</Version>
+        </PackageVersion>
+        <PackageVersion Include="Newtonsoft.Json">
+            <Version>13.0.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Google.Apis.Core">
+            <Version>1.70</Version>
+        </PackageVersion>
+        <PackageVersion Include="Google.Apis">
+            <Version>1.70</Version>
+        </PackageVersion>
+        <PackageVersion Include="Google.Apis.CustomSearchAPI.v1">
+            <Version>1.68.0.3520</Version>
+        </PackageVersion>
+        <PackageVersion Include="SharpYaml">
+            <Version>2.1.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.OpenApi.Readers">
+            <Version>1.6.24</Version>
+        </PackageVersion>
+        <PackageVersion Include="Std.UriTemplate">
+            <Version>2.0.5</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.ComponentModel.Annotations">
+            <Version>5.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Numerics.Tensors">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Numerics.Vectors">
+            <Version>4.6.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Grpc.Core.Api">
+            <Version>2.71</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.FileProviders.Physical">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Abstractions">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Serialization.Form">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Serialization.Multipart">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Serialization.Text">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Security.Cryptography.ProtectedData">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Configuration.ConfigurationManager">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.IO.FileSystem.AccessControl">
+            <Version>5.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Identity.Client.Extensions.Msal">
+            <Version>4.73</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Threading.Channels">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Bcl.TimeProvider">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging.Debug">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging.Configuration">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Json.More.Net">
+            <Version>2.1.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="JsonPointer.Net">
+            <Version>5.3.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="JsonSchema.Net">
+            <Version>7.3.4</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.AI">
+            <Version>9.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Http.HttpClientLibrary">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Serialization.Json">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Core">
+            <Version>1.57</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Memory.Data">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.ClientModel">
+            <Version>1.4.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.Core">
+            <Version>1.46.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Kiota.Authentication.Azure">
+            <Version>1.19</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Graph.Core">
+            <Version>3.2.4</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Graph">
+            <Version>5.82</Version>
+        </PackageVersion>
+        <PackageVersion Include="OpenAI">
+            <Version>2.2.0-beta.4</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.AI.OpenAI">
+            <Version>2.2.0-beta.4</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Connectors.OpenAI">
+            <Version>1.57</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI">
+            <Version>1.57</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Bcl.HashCode">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.Logging">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Runtime.CompilerServices.Unsafe">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.1.2</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Memory">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.6.3</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Google.Protobuf">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">3.31.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Primitives">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.Binder">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.EnvironmentVariables">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.FileProviders.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Diagnostics.DiagnosticSource">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Identity.Client">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.73</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Text.Encodings.Web">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Bcl.AsyncInterfaces">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Grpc.Net.Common">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.71</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Caching.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Grpc.Net.Client">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">2.71</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Qdrant.Client">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.14</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.IO.Pipelines">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.ValueTuple">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.6.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Options">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Caching.Memory">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Hosting.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Logging">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Options.ConfigurationExtensions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Http">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Formats.Asn1">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Security.Cryptography.Pkcs">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Text.Json">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.AI.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Configuration.Json">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Hosting">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.VectorData.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.Tokens">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.JsonWebTokens">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.Protocols">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.IdentityModel.Tokens.Jwt">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.Protocols.OpenIdConnect">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.IdentityModel.Validators">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">8.12.1</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.Identity">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.14</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Azure.Search.Documents">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">11.6.1</Version>
+        </PackageReference>
+        <PackageVersion Include="Microsoft.Bcl.HashCode">
+            <Version>6.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.Abstractions">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.Logging">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Runtime.CompilerServices.Unsafe">
+            <Version>6.1.2</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Memory">
+            <Version>4.6.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Google.Protobuf">
+            <Version>3.31.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Primitives">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Binder">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.FileProviders.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Diagnostics.DiagnosticSource">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Identity.Client">
+            <Version>4.73</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Text.Encodings.Web">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Grpc.Net.Common">
+            <Version>2.71</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Grpc.Net.Client">
+            <Version>2.71</Version>
+        </PackageVersion>
+        <PackageVersion Include="Qdrant.Client">
+            <Version>1.14</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.IO.Pipelines">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.ValueTuple">
+            <Version>4.6.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Options">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Caching.Memory">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Logging">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Http">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Formats.Asn1">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Security.Cryptography.Pkcs">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Text.Json">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.AI.Abstractions">
+            <Version>9.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Json">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.Hosting">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Extensions.VectorData.Abstractions">
+            <Version>9.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.Tokens">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.Protocols">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.IdentityModel.Tokens.Jwt">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.IdentityModel.Validators">
+            <Version>8.12.1</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.Identity">
+            <Version>1.14</Version>
+        </PackageVersion>
+        <PackageVersion Include="Azure.Search.Documents">
+            <Version>11.6.1</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'WindowsPhoneApp') Or ($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v7.1' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == 'MonoTouch') Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v1.2' Or $(TargetFrameworkVersion) == 'v1.3' Or $(TargetFrameworkVersion) == 'v1.4' Or $(TargetFrameworkVersion) == 'v1.5' Or $(TargetFrameworkVersion) == 'v1.6' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.tvOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.watchOS'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.NETCore.Platforms">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">7.0.4</Version>
+        </PackageReference>
+        <PackageVersion Include="Microsoft.NETCore.Platforms">
+            <Version>7.0.4</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.3' Or $(TargetFrameworkVersion) == 'v1.4' Or $(TargetFrameworkVersion) == 'v1.5' Or $(TargetFrameworkVersion) == 'v1.6' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Buffers">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.6.1</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Buffers">
+            <Version>4.6.1</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v7.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1')) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.6' Or $(TargetFrameworkVersion) == 'v2.0')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Reflection.Emit.ILGeneration">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.7</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Reflection.Emit.ILGeneration">
+            <Version>4.7</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v7.1' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.6' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Reflection.Emit">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.7</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Reflection.Emit">
+            <Version>4.7</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Net.Http.WinHttpHandler">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Net.Http.WinHttpHandler">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND ($(TargetFrameworkIdentifier) == '.NETCoreApp' And (($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos')))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Runtime.InteropServices.NFloat.Internal">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.0.1</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Runtime.InteropServices.NFloat.Internal">
+            <Version>6.0.1</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Security.Principal.Windows">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.0</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Security.AccessControl">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">6.0.1</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Security.Principal.Windows">
+            <Version>5.0</Version>
+        </PackageVersion>
+        <PackageVersion Include="System.Security.AccessControl">
+            <Version>6.0.1</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.3' Or $(TargetFrameworkVersion) == 'v1.4' Or $(TargetFrameworkVersion) == 'v1.5' Or $(TargetFrameworkVersion) == 'v1.6' Or $(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Threading.Tasks.Extensions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">4.6.3</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Threading.Tasks.Extensions">
+            <Version>4.6.3</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2' Or $(TargetFrameworkVersion) == 'v4.8' Or $(TargetFrameworkVersion) == 'v4.8.1')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'watchos'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Extensions.Diagnostics.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.Bcl.Cryptography">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">9.0.6</Version>
+        </PackageReference>
+        <PackageVersion Include="Microsoft.Extensions.Diagnostics.Abstractions">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.Bcl.Cryptography">
+            <Version>9.0.6</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true) AND (($(TargetFrameworkIdentifier) == 'MonoAndroid' And ($(TargetFrameworkVersion) == 'v10.0' Or $(TargetFrameworkVersion) == 'v11.0' Or $(TargetFrameworkVersion) == 'v12.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v8.1' Or $(TargetFrameworkVersion) == 'v9.0')) Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1' Or $(TargetFrameworkVersion) == 'v2.2' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.1' Or $(TargetFrameworkVersion) == 'v5.0' Or $(TargetFrameworkVersion) == 'v6.0' Or $(TargetFrameworkVersion) == 'v7.0' Or $(TargetFrameworkVersion) == 'v8.0' Or $(TargetFrameworkVersion) == 'v9.0' Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'ios') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'macos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'tvos') Or ($(TargetFrameworkVersion) == 'v5.0' And '$(TargetPlatformIdentifier)' == 'watchos') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v6.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '8.0') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'Windows') Or ($(TargetFrameworkVersion) == 'v7.0' And '$(TargetPlatformIdentifier)' == 'android') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.17763.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.18362.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'Windows' And '$(TargetPlatformVersion)' == '10.0.19041.0') Or ($(TargetFrameworkVersion) == 'v8.0' And '$(TargetPlatformIdentifier)' == 'android'))) Or ($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v2.1')) Or ($(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v5.0') Or ($(TargetFrameworkIdentifier) == 'Xamarin.iOS') Or ($(TargetFrameworkIdentifier) == 'Xamarin.Mac'))">
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="System.Security.Cryptography.Cng">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.0</Version>
+        </PackageReference>
+        <PackageVersion Include="System.Security.Cryptography.Cng">
+            <Version>5.0</Version>
+        </PackageVersion>
+    </ItemGroup>
+    <ItemGroup Condition="($(DesignTimeBuild) == true)">
+        <PackageReference  Include="Microsoft.SemanticKernel.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Connectors.Qdrant">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57.0-preview</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Plugins.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57.0-preview</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Plugins.Memory">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57.0-alpha</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Plugins.OpenApi">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Plugins.Web">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57.0-alpha</Version>
+        </PackageReference>
+        <PackageReference Condition=" '$(ManagePackageVersionsCentrally)' != 'true' " Include="Microsoft.KernelMemory.Abstractions">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.AI.Ollama">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.Core">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.MemoryDb.Postgres">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.MemoryDb.Qdrant">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.Orchestration.RabbitMQ">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.DataFormats.AzureAIDocIntel">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.DocumentStorage.AzureBlobs">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.MemoryDb.AzureAISearch">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.MemoryDb.SQLServer">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.Orchestration.AzureQueues">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Connectors.AzureAISearch">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57.0-preview</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel.Plugins.MsGraph">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57.0-alpha</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.AI.OpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.KernelMemory.AI.AzureOpenAI">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">0.98.250508.3</Version>
+        </PackageReference>
+        <PackageReference  Include="Microsoft.SemanticKernel">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">1.57</Version>
+        </PackageReference>
+        <PackageReference  Include="Tesseract">
+            <Version Condition=" '$(ManagePackageVersionsCentrally)' != 'true' ">5.2</Version>
+        </PackageReference>
+        <PackageVersion Include="Microsoft.SemanticKernel.Abstractions">
+            <Version>1.57</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Qdrant">
+            <Version>1.57.0-preview</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Plugins.Core">
+            <Version>1.57.0-preview</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Plugins.Memory">
+            <Version>1.57.0-alpha</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Plugins.OpenApi">
+            <Version>1.57</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Plugins.Web">
+            <Version>1.57.0-alpha</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.Abstractions">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.AI.Ollama">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.Core">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.Postgres">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.Qdrant">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.Orchestration.RabbitMQ">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.DataFormats.AzureAIDocIntel">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.DocumentStorage.AzureBlobs">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.AzureAISearch">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.SQLServer">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.Orchestration.AzureQueues">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Connectors.AzureAISearch">
+            <Version>1.57.0-preview</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel.Plugins.MsGraph">
+            <Version>1.57.0-alpha</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.AI.OpenAI">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.KernelMemory.AI.AzureOpenAI">
+            <Version>0.98.250508.3</Version>
+        </PackageVersion>
+        <PackageVersion Include="Microsoft.SemanticKernel">
+            <Version>1.57</Version>
+        </PackageVersion>
+        <PackageVersion Include="Tesseract">
+            <Version>5.2</Version>
+        </PackageVersion>
+    </ItemGroup>
+</Project>

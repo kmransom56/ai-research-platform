@@ -1,0 +1,5 @@
+/home/keith/chat-copilot/tools/importdocument/obj/Debug/net6.0/ImportDocument.GeneratedMSBuildEditorConfig.editorconfig
+/home/keith/chat-copilot/tools/importdocument/obj/Debug/net6.0/ImportDocument.AssemblyInfoInputs.cache
+/home/keith/chat-copilot/tools/importdocument/obj/Debug/net6.0/ImportDocument.AssemblyInfo.cs
+/home/keith/chat-copilot/tools/importdocument/obj/Debug/net6.0/ImportDocument.csproj.CoreCompileInputs.cache
+/home/keith/chat-copilot/tools/importdocument/obj/Debug/net6.0/ImportDocument.sourcelink.json

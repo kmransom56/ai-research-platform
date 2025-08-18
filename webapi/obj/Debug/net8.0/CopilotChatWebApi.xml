@@ -1,0 +1,3207 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CopilotChatWebApi</name>
+    </assembly>
+    <members>
+        <member name="T:CopilotChat.WebApi.Auth.AuthInfo">
+            <summary>
+            Class which provides validated security information for use in controllers.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Auth.AuthInfo.UserId">
+            <summary>
+            The authenticated user's unique ID.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Auth.AuthInfo.Name">
+            <summary>
+            The authenticated user's name.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Auth.AuthPolicyName">
+            <summary>
+            Holds the policy names for custom authorization policies.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Auth.ChatParticipantAuthorizationHandler">
+            <summary>
+            Class implementing "authorization" that validates the user has access to a chat.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Auth.ChatParticipantAuthorizationHandler.#ctor(CopilotChat.WebApi.Auth.IAuthInfo,CopilotChat.WebApi.Storage.ChatSessionRepository,CopilotChat.WebApi.Storage.ChatParticipantRepository)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Auth.ChatParticipantRequirement">
+            <summary>
+            Used to require the chat to be owned by the authenticated user.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Auth.IAuthInfo.UserId">
+            <summary>
+            The authenticated user's unique ID.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Auth.IAuthInfo.Name">
+            <summary>
+            The authenticated user's name.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Auth.PassThroughAuthenticationHandler">
+            <summary>
+            Class implementing "authentication" that lets all requests pass through.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Auth.PassThroughAuthenticationHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Auth.PassThroughAuthenticationHandler.IsDefaultUser(System.String)">
+            <summary>
+            Returns true if the given user ID is the default user guest ID.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatArchiveController.#ctor(Microsoft.KernelMemory.IKernelMemory,CopilotChat.WebApi.Storage.ChatSessionRepository,CopilotChat.WebApi.Storage.ChatMessageRepository,CopilotChat.WebApi.Storage.ChatParticipantRepository,CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig,Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.PromptsOptions},Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Controllers.ChatArchiveController})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="memoryClient">Memory client.</param>
+            <param name="chatRepository">The chat session repository.</param>
+            <param name="chatMessageRepository">The chat message repository.</param>
+            <param name="chatParticipantRepository">The chat participant repository.</param>
+            <param name="promptOptions">The document memory options.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatArchiveController.DownloadAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Download a chat archive.
+            </summary>
+            <param name="chatId">The ID of chat to be downloaded.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>The serialized chat archive object of the chat id.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatArchiveController.CreateChatArchiveAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Prepare a chat archive.
+            </summary>
+            <param name="chatId">The chat id of the chat archive</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>A ChatArchive object that represents the chat session.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatArchiveController.GetMemoryRecordsAndAppendToEmbeddingsAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get memory from memory store and append the memory records to a given list.
+            It will update the memory collection name in the new list if the newCollectionName is provided.
+            </summary>
+            <param name="memoryName">The current collection name. Used to query the memory storage.</param>
+            <param name="embeddings">The embeddings list where we will append the fetched memory records.</param>
+            <param name="newCollectionName">
+            The new collection name when appends to the embeddings list. Will use the old collection name if not provided.
+            </param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatArchiveController.GetAllChatMessagesAsync(System.String)">
+            <summary>
+            Get chat messages of a given chat id.
+            </summary>
+            <param name="chatId">The chat id</param>
+            <returns>The list of chat messages in descending order of the timestamp</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.ChatController">
+            <summary>
+            Controller responsible for handling chat messages and responses.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatController.ChatAsync(Microsoft.SemanticKernel.Kernel,Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},CopilotChat.WebApi.Storage.ChatSessionRepository,CopilotChat.WebApi.Storage.ChatParticipantRepository,CopilotChat.WebApi.Auth.IAuthInfo,CopilotChat.WebApi.Models.Request.Ask,System.Guid)">
+            <summary>
+            Invokes the chat function to get a response from the bot.
+            </summary>
+            <param name="kernel">Semantic kernel obtained through dependency injection.</param>
+            <param name="messageRelayHubContext">Message Hub that performs the real time relay service.</param>
+            <param name="chatSessionRepository">Repository of chat sessions.</param>
+            <param name="chatParticipantRepository">Repository of chat participants.</param>
+            <param name="authInfo">Auth info for the current request.</param>
+            <param name="ask">Prompt along with its parameters.</param>
+            <param name="chatId">Chat ID.</param>
+            <returns>Results containing the response from the model.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatController.GetPluginAuthHeaders(Microsoft.AspNetCore.Http.IHeaderDictionary)">
+            <summary>
+            Parse plugin auth values from request headers.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatController.RegisterFunctionsAsync(Microsoft.SemanticKernel.Kernel,System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.SemanticKernel.KernelArguments)">
+            <summary>
+            Register functions with the kernel.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatController.CreateGraphServiceClient(Microsoft.Graph.AuthenticateRequestAsyncDelegate)">
+            <summary>
+            Create a Microsoft Graph service client.
+            </summary>
+            <param name="authenticateRequestAsyncDelegate">The delegate to authenticate the request.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatController.Dispose(System.Boolean)">
+            <summary>
+            Dispose of the object.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatController.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.BasicAuthenticationProvider">
+            <summary>
+            Retrieves authentication content (e.g. username/password, API key) via the provided delegate and
+            applies it to HTTP requests using the "basic" authentication scheme.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.BasicAuthenticationProvider.#ctor(System.Func{System.Threading.Tasks.Task{System.String}})">
+            <summary>
+            Creates an instance of the <see cref="T:CopilotChat.WebApi.Controllers.BasicAuthenticationProvider"/> class.
+            </summary>
+            <param name="credentialsDelegate">Delegate for retrieving credentials.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.BasicAuthenticationProvider.AuthenticateRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Applies the authentication content to the provided HTTP request message.
+            </summary>
+            <param name="request">The HTTP request message.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.BearerAuthenticationProvider">
+            <summary>
+            Retrieves a token via the provided delegate and applies it to HTTP requests using the
+            "bearer" authentication scheme.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.BearerAuthenticationProvider.#ctor(System.Func{System.Threading.Tasks.Task{System.String}})">
+            <summary>
+            Creates an instance of the <see cref="T:CopilotChat.WebApi.Controllers.BearerAuthenticationProvider"/> class.
+            </summary>
+            <param name="bearerTokenDelegate">Delegate to retrieve the bearer token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.BearerAuthenticationProvider.AuthenticateRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Applies the token to the provided HTTP request message.
+            </summary>
+            <param name="request">The HTTP request message.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.BearerAuthenticationProvider.GraphClientAuthenticateRequestAsync(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Applies the token to the provided HTTP request message.
+            </summary>
+            <param name="request">The HTTP request message.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.ChatHistoryController">
+            <summary>
+            Controller for chat history.
+            This controller is responsible for creating new chat sessions, retrieving chat sessions,
+            retrieving chat messages, and editing chat sessions.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.#ctor(Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Controllers.ChatHistoryController},Microsoft.KernelMemory.IKernelMemory,CopilotChat.WebApi.Storage.ChatSessionRepository,CopilotChat.WebApi.Storage.ChatMessageRepository,CopilotChat.WebApi.Storage.ChatParticipantRepository,CopilotChat.WebApi.Storage.ChatMemorySourceRepository,Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.PromptsOptions},CopilotChat.WebApi.Auth.IAuthInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Controllers.ChatHistoryController"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="memoryClient">Memory client.</param>
+            <param name="sessionRepository">The chat session repository.</param>
+            <param name="messageRepository">The chat message repository.</param>
+            <param name="participantRepository">The chat participant repository.</param>
+            <param name="sourceRepository">The chat memory resource repository.</param>
+            <param name="promptsOptions">The prompts options.</param>
+            <param name="authInfo">The auth info for the current request.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.CreateChatSessionAsync(CopilotChat.WebApi.Models.Request.CreateChatParameters)">
+            <summary>
+            Create a new chat session and populate the session with the initial bot message.
+            </summary>
+            <param name="chatParameter">Contains the title of the chat.</param>
+            <returns>The HTTP action result.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.GetChatSessionByIdAsync(System.Guid)">
+            <summary>
+            Get a chat session by id.
+            </summary>
+            <param name="chatId">The chat id.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.GetAllChatSessionsAsync">
+            <summary>
+            Get all chat sessions associated with the logged in user. Return an empty list if no chats are found.
+            </summary>
+            <param name="userId">The user id.</param>
+            <returns>A list of chat sessions. An empty list if the user is not in any chat session.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.GetChatMessagesAsync(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Get chat messages for a chat session.
+            Messages are returned ordered from most recent to oldest.
+            </summary>
+            <param name="chatId">The chat id.</param>
+            <param name="skip">Number of messages to skip before starting to return messages.</param>
+            <param name="count">The number of messages to return. -1 returns all messages.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.EditChatSessionAsync(Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},CopilotChat.WebApi.Models.Request.EditChatParameters,System.Guid)">
+            <summary>
+            Edit a chat session.
+            </summary>
+            <param name="chatParameters">Object that contains the parameters to edit the chat.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.GetSourcesAsync(System.Guid)">
+            <summary>
+            Gets list of imported documents for a given chat.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.DeleteChatSessionAsync(Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Delete a chat session.
+            </summary>
+            <param name="chatId">The chat id.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatHistoryController.DeleteChatResourcesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes all associated resources (messages, memories, participants) associated with a chat session.
+            </summary>
+            <param name="chatId">The chat id.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.ChatMemoryController">
+            <summary>
+            Controller for retrieving kernel memory data of chat sessions.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatMemoryController.#ctor(Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Controllers.ChatMemoryController},Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.PromptsOptions},CopilotChat.WebApi.Storage.ChatSessionRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Controllers.ChatMemoryController"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="promptsOptions">The prompts options.</param>
+            <param name="chatSessionRepository">The chat session repository.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatMemoryController.GetSemanticMemoriesAsync(Microsoft.KernelMemory.IKernelMemory,System.String,System.String)">
+            <summary>
+            Gets the kernel memory for the chat session.
+            </summary>
+            <param name="memoryClient">The kernel memory client.</param>
+            <param name="chatId">The chat id.</param>
+            <param name="type">Type of memory. Must map to a member of <see cref="T:CopilotChat.WebApi.Models.Request.SemanticMemoryType"/>.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.ChatParticipantController">
+            <summary>
+            Controller for managing invitations and participants in a chat session.
+            This controller is responsible for:
+            1. Creating invitation links.
+            2. Accepting/rejecting invitation links.
+            3. Managing participants in a chat session.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatParticipantController.#ctor(Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Controllers.ChatParticipantController},CopilotChat.WebApi.Storage.ChatParticipantRepository,CopilotChat.WebApi.Storage.ChatSessionRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Controllers.ChatParticipantController"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="chatParticipantRepository">The chat participant repository.</param>
+            <param name="chatSessionRepository">The chat session repository.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatParticipantController.JoinChatAsync(Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},CopilotChat.WebApi.Auth.IAuthInfo,System.Guid)">
+            <summary>
+            Join the logged in user to a chat session given a chat ID.
+            </summary>
+            <param name="messageRelayHubContext">Message Hub that performs the real time relay service.</param>
+            <param name="authInfo">The auth info for the current request.</param>
+            <param name="chatId">The ID of the chat to join.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ChatParticipantController.GetAllParticipantsAsync(System.Guid)">
+            <summary>
+            Get a list of chat participants that have the same chat id.
+            </summary>
+            <param name="chatId">The ID of the chat to get all the participants from.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.DocumentController">
+            <summary>
+            Controller for importing documents.
+            </summary>
+            <remarks>
+            This controller is responsible for contracts that are not possible to fulfill by kernel memory components.
+            </remarks>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.#ctor(Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Controllers.DocumentController},CopilotChat.WebApi.Auth.IAuthInfo,Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.DocumentMemoryOptions},Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.PromptsOptions},Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.ContentSafetyOptions},CopilotChat.WebApi.Storage.ChatSessionRepository,CopilotChat.WebApi.Storage.ChatMemorySourceRepository,CopilotChat.WebApi.Storage.ChatMessageRepository,CopilotChat.WebApi.Storage.ChatParticipantRepository,CopilotChat.WebApi.Services.DocumentTypeProvider,CopilotChat.WebApi.Services.IContentSafetyService)">
+            <summary>
+            Initializes a new instance of the <see cref="!:DocumentImportController"/> class.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.DocumentImportAsync(Microsoft.KernelMemory.IKernelMemory,Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},CopilotChat.WebApi.Models.Request.DocumentImportForm)">
+            <summary>
+            Service API for importing a document.
+            Documents imported through this route will be considered as global documents.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.DocumentImportAsync(Microsoft.KernelMemory.IKernelMemory,Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},System.Guid,CopilotChat.WebApi.Models.Request.DocumentImportForm)">
+            <summary>
+            Service API for importing a document.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.DocumentController.ImportResult">
+            <summary>
+            A class to store a document import results.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Controllers.DocumentController.ImportResult.IsSuccessful">
+            <summary>
+            A boolean indicating whether the import is successful.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Controllers.DocumentController.ImportResult.CollectionName">
+            <summary>
+            The name of the collection that the document is inserted to.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.ImportResult.#ctor(System.String)">
+            <summary>
+            Create a new instance of the <see cref="T:CopilotChat.WebApi.Controllers.DocumentController.ImportResult"/> class.
+            </summary>
+            <param name="collectionName">The name of the collection that the document is inserted to.</param>
+        </member>
+        <member name="P:CopilotChat.WebApi.Controllers.DocumentController.ImportResult.Fail">
+            <summary>
+            Create a new instance of the <see cref="T:CopilotChat.WebApi.Controllers.DocumentController.ImportResult"/> class representing a failed import.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.ValidateDocumentImportFormAsync(System.Guid,CopilotChat.WebApi.Models.Request.DocumentScopes,CopilotChat.WebApi.Models.Request.DocumentImportForm)">
+            <summary>
+            Validates the document import form.
+            </summary>
+            <param name="documentImportForm">The document import form.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Throws ArgumentException if validation fails.</exception>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.ValidateDocumentStatusFormAsync(CopilotChat.WebApi.Models.Request.DocumentStatusForm)">
+            <summary>
+            Validates the document import form.
+            </summary>
+            <param name="documentStatusForm">The document import form.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Throws ArgumentException if validation fails.</exception>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.TryUpsertMemorySourceAsync(CopilotChat.WebApi.Models.Storage.MemorySource)">
+            <summary>
+            Try to upsert a memory source.
+            </summary>
+            <param name="memorySource">The memory source to be uploaded</param>
+            <returns>True if upsert is successful. False otherwise.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.TryRemoveMemoryAsync(CopilotChat.WebApi.Models.Storage.MemorySource)">
+            <summary>
+            Try to upsert a memory source.
+            </summary>
+            <param name="memorySource">The memory source to be uploaded</param>
+            <returns>True if upsert is successful. False otherwise.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.TryStoreMemoryAsync(CopilotChat.WebApi.Models.Storage.MemorySource)">
+            <summary>
+            Try to upsert a memory source.
+            </summary>
+            <param name="memorySource">The memory source to be uploaded</param>
+            <returns>True if upsert is successful. False otherwise.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.TryCreateDocumentUploadMessageAsync(System.Guid,CopilotChat.WebApi.Models.Response.DocumentMessageContent)">
+            <summary>
+            Try to create a chat message that represents document upload.
+            </summary>
+            <param name="chatId">The target chat-id</param>
+            <param name="messageContent">The document message content</param>
+            <returns>A ChatMessage object if successful, null otherwise</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.GetReadableByteString(System.Int64)">
+            <summary>
+            Converts a `long` byte count to a human-readable string.
+            </summary>
+            <param name="bytes">Byte count</param>
+            <returns>Human-readable string of bytes</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.DocumentController.UserHasAccessToChatAsync(System.String,System.Guid)">
+            <summary>
+            Check if the user has access to the chat session.
+            </summary>
+            <param name="userId">The user ID.</param>
+            <param name="chatId">The chat session ID.</param>
+            <returns>A boolean indicating whether the user has access to the chat session.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.MaintenanceController">
+            <summary>
+            Controller for reporting the status of chat migration.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.MaintenanceController.#ctor(Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Controllers.MaintenanceController},Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.ServiceOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Controllers.MaintenanceController"/> class.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.MaintenanceController.GetMaintenanceStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Route for reporting the status of site maintenance.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.PluginController">
+            <summary>
+            Controller responsible for returning the service options to the client.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.PluginController.GetPluginManifestAsync(System.Uri)">
+            <summary>
+            Fetches a plugin's manifest.
+            </summary>
+            <param name="manifestDomain">The domain of the manifest.</param>
+            <returns>The plugin's manifest JSON.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.PluginController.SetPluginStateAsync(Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},System.Guid,System.String,System.Boolean)">
+            <summary>
+            Enable or disable a plugin for a chat session.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.ServiceInfoController">
+            <summary>
+            Controller responsible for returning information on the service.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ServiceInfoController.GetServiceInfo">
+            <summary>
+            Return information on running service.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ServiceInfoController.GetAuthConfig">
+            <summary>
+            Return the auth config to be used by the frontend client to access this service.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.ServiceInfoController.SanitizePlugins(System.Collections.Generic.IDictionary{System.String,CopilotChat.WebApi.Options.Plugin})">
+            <summary>
+            Sanitize the plugins to only return the name and url.
+            </summary>
+            <param name="plugins">The plugins to sanitize.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SpeechTokenController.GetAsync">
+            <summary>
+            Get an authorization token and region
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Controllers.SystemControlController">
+            <summary>
+            Controller for system control and AI platform management
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SystemControlController.GetSystemStatus">
+            <summary>
+            Get system status
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SystemControlController.SwitchProvider(CopilotChat.WebApi.Controllers.SwitchProviderRequest)">
+            <summary>
+            Switch AI provider
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SystemControlController.ExecuteDockerCommand(CopilotChat.WebApi.Controllers.DockerCommandRequest)">
+            <summary>
+            Execute Docker commands
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SystemControlController.TestServices">
+            <summary>
+            Test service connectivity
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SystemControlController.GetSystemLogs(System.Int32)">
+            <summary>
+            Get system logs
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Controllers.SystemControlController.CreateBackup">
+            <summary>
+            Execute backup
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Extensions.AsyncEnumerableExtensions">
+            <summary>
+            Extension methods for enabling async LINQ operations on IAsyncEnumerable sequence.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CopilotChat.WebApi.Extensions.AsyncEnumerableExtensions.ToListAsync``1(System.Collections.Generic.IAsyncEnumerable{``0})" -->
+        <member name="M:CopilotChat.WebApi.Extensions.ConfigExtensions.AddConfiguration(Microsoft.Extensions.Hosting.IHostBuilder)">
+            <summary>
+            Build the configuration for the service.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Extensions.KernelMemoryClientExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.KernelMemory.IKernelMemory"/> and service registration.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.KernelMemoryClientExtensions.AddKernelMemoryServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Inject <see cref="T:Microsoft.KernelMemory.IKernelMemory"/>.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Extensions.SemanticKernelExtensions">
+            <summary>
+            Extension methods for registering Semantic Kernel related services.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.RegisterFunctionsWithKernel">
+            <summary>
+            Delegate to register functions with a Semantic Kernel
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.KernelSetupHook">
+            <summary>
+            Delegate for any complimentary setup of the kernel, i.e., registering custom plugins, etc.
+            See webapi/README.md#Add-Custom-Setup-to-Chat-Copilot's-Kernel for more details.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.AddSemanticKernelServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Add Semantic Kernel services
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.AddBotConfig(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Add embedding model
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.AddKernelSetupHook(Microsoft.Extensions.DependencyInjection.IServiceCollection,CopilotChat.WebApi.Extensions.SemanticKernelExtensions.KernelSetupHook)">
+            <summary>
+            Register custom hook for any complimentary setup of the kernel.
+            </summary>
+            <param name="hook">The delegate to perform any additional setup of the kernel.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.RegisterChatPlugin(Microsoft.SemanticKernel.Kernel,System.IServiceProvider)">
+            <summary>
+            Register the chat plugin with the kernel.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.RegisterChatCopilotFunctionsAsync(System.IServiceProvider,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Register functions with the main kernel responsible for handling Chat Copilot requests.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.RegisterPluginsAsync(System.IServiceProvider,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Register plugins with a given kernel.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.AddContentSafety(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Azure Content Safety
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.SemanticKernelExtensions.WithBotConfig(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Get the embedding model from the configuration.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Add options and services for Chat Copilot.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions.AddOptions(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.ConfigurationManager)">
+            <summary>
+            Parse configuration into options.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions.AddCorsPolicy(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add CORS settings.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions.AddPersistentChatStore(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add persistent chat store services.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions.AddChatCopilotAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add authorization services
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions.AddChatCopilotAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add authentication services
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Extensions.CopilotChatServiceExtensions.TrimStringProperties``1(``0)">
+            <summary>
+            Trim all string properties, recursively.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Hubs.MessageRelayHub">
+            <summary>
+            Represents a chat hub for real-time communication.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Hubs.MessageRelayHub.#ctor(Microsoft.Extensions.Logging.ILogger{CopilotChat.WebApi.Hubs.MessageRelayHub})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Hubs.MessageRelayHub"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Hubs.MessageRelayHub.AddClientToGroupAsync(System.String)">
+            <summary>
+            Adds the user to the groups that they are a member of.
+            Groups are identified by the chat ID.
+            TODO: [Issue #50] Retrieve the user ID from the claims and call this method
+            from the OnConnectedAsync method instead of the frontend.
+            </summary>
+            <param name="chatId">The chat ID used as group id for SignalR.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Hubs.MessageRelayHub.SendMessageAsync(System.String,System.String,System.Object)">
+            <summary>
+            Sends a message to all users except the sender.
+            </summary>
+            <param name="chatId">The chat ID used as group id for SignalR.</param>
+            <param name="senderId">The user ID of the user that sent the message.</param>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Hubs.MessageRelayHub.SendUserTypingStateAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            Sends the typing state to all users except the sender.
+            </summary>
+            <param name="chatId">The chat ID used as group id for SignalR.</param>
+            <param name="userId">The user ID of the user who is typing.</param>
+            <param name="isTyping">Whether the user is typing.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.CreateChatParameters">
+            <summary>
+            Parameters for creating a new chat session.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.CreateChatParameters.Title">
+            <summary>
+            Title of the chat.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.CustomPlugin">
+            <summary>
+            Custom plugin imported from ChatGPT Manifest file.
+            Docs: https://platform.openai.com/docs/plugins/introduction.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.CustomPlugin.NameForHuman">
+            <summary>
+            Human-readable name, such as the full company name.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.CustomPlugin.NameForModel">
+            <summary>
+            Name the model will use to target the plugin.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.CustomPlugin.AuthHeaderTag">
+            <summary>
+            Expected request header tag containing auth information.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.CustomPlugin.AuthType">
+            <summary>
+            Auth type. Currently limited to either 'none'
+            or user PAT (https://platform.openai.com/docs/plugins/authentication/user-level)
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.CustomPlugin.ManifestDomain">
+            <summary>
+            Website domain hosting the plugin files.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentData.Name">
+            <summary>
+            Name of the uploaded document.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentData.Size">
+            <summary>
+            Size of the uploaded document in bytes.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentData.IsUploaded">
+            <summary>
+            Status of the uploaded document.
+            If true, the document is successfully uploaded. False otherwise.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.DocumentImportForm">
+            <summary>
+            Form for importing a document from a POST Http request.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentImportForm.FormFiles">
+            <summary>
+            The file to import.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentImportForm.UseContentSafety">
+            <summary>
+            Flag indicating whether user has content safety enabled from the client.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.DocumentScopes">
+            <summary>
+            Scope of the document. This determines the collection name in the document memory.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.DocumentStatusForm">
+            <summary>
+            Form for importing a document from a POST Http request.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentStatusForm.FileReferences">
+            <summary>
+            The file to import.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentStatusForm.DocumentScope">
+            <summary>
+            Scope of the document. This determines the collection name in the document memory.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentStatusForm.ChatId">
+            <summary>
+            The ID of the chat that owns the document.
+            This is used to create a unique collection name for the chat.
+            If the chat ID is not specified or empty, the documents will be stored in a global collection.
+            If the document scope is set to global, this value is ignored.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentStatusForm.UserId">
+            <summary>
+            The ID of the user who is importing the document to a chat session.
+            Will be use to validate if the user has access to the chat session.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.DocumentStatusForm.UserName">
+            <summary>
+            Name of the user who sent this message.
+            Will be used to create the chat message representing the document upload.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.EditChatParameters">
+            <summary>
+            Parameters for editing chat session.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.EditChatParameters.Title">
+            <summary>
+            Title of the chat.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.EditChatParameters.SystemDescription">
+            <summary>
+            System description of the chat that is used to generate responses.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Request.EditChatParameters.MemoryBalance">
+            <summary>
+            The balance between long term memory and working term memory.
+            The higher this value, the more the system will rely on long term memory by lowering
+            the relevance threshold of long term memory and increasing the threshold score of working memory.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Request.SemanticMemoryType">
+            <summary>
+            Types of semantic memories supported by chat-copilot.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.BotResponsePrompt">
+            <summary>
+            The final prompt sent to generate bot response.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.BotResponsePrompt.SystemPersona">
+            <summary>
+            The system persona of the chat, includes SystemDescription and SystemResponse components from PromptsOptions.cs.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.BotResponsePrompt.Audience">
+            <summary>
+            Audience extracted from conversation history.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.BotResponsePrompt.UserIntent">
+            <summary>
+            User intent extracted from input and conversation history.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.BotResponsePrompt.PastMemories">
+            <summary>
+            Chat memories queried from the chat memory store if any, includes long term and working memory.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.BotResponsePrompt.ChatHistory">
+            <summary>
+            Most recent messages from chat history.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.BotResponsePrompt.MetaPromptTemplate">
+            <summary>
+            The collection of context messages associated with this chat completions request.
+            See https://learn.microsoft.com/en-us/dotnet/api/azure.ai.openai.chatcompletionsoptions.messages?view=azure-dotnet-preview#azure-ai-openai-chatcompletionsoptions-messages.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.ChatArchive">
+            <summary>
+            The data model of a chat archive.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.Schema">
+            <summary>
+            Schema information for the chat archive.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.EmbeddingConfigurations">
+            <summary>
+            The embedding configurations.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.ChatTitle">
+            <summary>
+            Chat title.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.SystemDescription">
+            <summary>
+            The system description of the chat that is used to generate responses.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.ChatHistory">
+            <summary>
+            The chat history. It contains all the messages in the conversation with the bot.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.Embeddings">
+            <summary>
+            Chat archive's embeddings.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchive.DocumentEmbeddings">
+            <summary>
+            The embeddings of uploaded documents in Chat Copilot. It represents the document memory which is accessible to all chat sessions of a given user.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig">
+            <summary>
+            Chat archive embedding configuration.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig.AIServiceType">
+            <summary>
+            Supported types of AI services.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig.AIServiceType.AzureOpenAIEmbedding">
+            <summary>
+            Azure OpenAI https://learn.microsoft.com/en-us/azure/cognitive-services/openai/
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig.AIServiceType.OpenAI">
+            <summary>
+            OpenAI https://openai.com/
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig.AIService">
+            <summary>
+            The AI service.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ChatArchiveEmbeddingConfig.DeploymentOrModelId">
+            <summary>
+            The deployment or the model id.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.CreateChatResponse">
+            <summary>
+            Response object definition to the 'chats' POST request.
+            This groups the initial bot message with the chat session
+            to avoid making two requests.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.CreateChatResponse.ChatSession">
+            <summary>
+            The chat session that was created.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.CreateChatResponse.InitialBotMessage">
+            <summary>
+            Initial bot message.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.DocumentMessageContent">
+            <summary>
+            Value of `Content` for a `ChatMessage` of type `ChatMessageType.Document`.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.DocumentMessageContent.Documents">
+            <summary>
+            List of documents contained in the message.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Response.DocumentMessageContent.AddDocument(System.String,System.String,System.Boolean)">
+            <summary>
+            Add a document to the list of documents.
+            </summary>
+            <param name="name">Name of the uploaded document</param>
+            <param name="size">Size of the uploaded document in bytes</param>
+            <param name="isUploaded">Status of the uploaded document</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Response.DocumentMessageContent.ToString">
+            <summary>
+            Serialize the object to a JSON string.
+            </summary>
+            <returns>A serialized JSON string</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Response.DocumentMessageContent.ToFormattedString">
+            <summary>
+            Serialize the object to a formatted string.
+            Only successful uploads will be included in the formatted string.
+            </summary>
+            <returns>A formatted string</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Response.DocumentMessageContent.ToFormattedStringNamesOnly">
+            <summary>
+            Serialize the object to a formatted string that only
+            contains document names separated by comma.
+            </summary>
+            <returns>A formatted string</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Response.DocumentMessageContent.FromString(System.String)">
+            <summary>
+            Deserialize a JSON string to a DocumentMessageContent object.
+            </summary>
+            <param name="json">A JSON string</param>
+            <returns>A DocumentMessageContent object</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.FrontendAuthConfig">
+            <summary>
+            Configuration to be used by the frontend client to this service.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.FrontendAuthConfig.AuthType">
+            <summary>
+            Type of auth to use.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.FrontendAuthConfig.AadAuthority">
+            <summary>
+            Azure Active Directory authority to use.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.FrontendAuthConfig.AadClientId">
+            <summary>
+            Azure Active Directory client ID the frontend is to use.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.FrontendAuthConfig.AadApiScope">
+            <summary>
+            Azure Active Directory scope the frontend should request.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.ImageAnalysisResponse">
+            <summary>
+            Response definition to image content safety analysis requests.
+            endpoint made by the AzureContentSafety.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ImageAnalysisResponse.HateResult">
+            <summary>
+            Gets or sets the AnalysisResult related to hate.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ImageAnalysisResponse.SelfHarmResult">
+            <summary>
+            Gets or sets the AnalysisResult related to self-harm.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ImageAnalysisResponse.SexualResult">
+            <summary>
+            Gets or sets the AnalysisResult related to sexual content.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ImageAnalysisResponse.ViolenceResult">
+            <summary>
+            Gets or sets the AnalysisResult related to violence.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.MaintenanceResult">
+            <summary>
+            Defines optional messaging for maintenance mode.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.MaintenanceResult.Title">
+            <summary>
+            The maintenance notification title.
+            </summary>
+            <remarks>
+            Will utilize default if not defined.
+            </remarks>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.MaintenanceResult.Message">
+            <summary>
+            The maintenance notification message.
+            </summary>
+            <remarks>
+            Will utilize default if not defined.
+            </remarks>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.MaintenanceResult.Note">
+            <summary>
+            The maintenance notification note.
+            </summary>
+            <remarks>
+            Will utilize default if not defined.
+            </remarks>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.ServiceInfoResponse">
+            <summary>
+            Information on running service.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ServiceInfoResponse.MemoryStore">
+            <summary>
+            Configured memory store.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ServiceInfoResponse.AvailablePlugins">
+            <summary>
+            All the available plugins.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ServiceInfoResponse.Version">
+            <summary>
+            Version of this application.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.ServiceInfoResponse.IsContentSafetyEnabled">
+            <summary>
+            True if content safety if enabled, false otherwise.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.MemoryStoreInfoResponse">
+            <summary>
+            Response to memoryStoreType request.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.MemoryStoreInfoResponse.Types">
+            <summary>
+            All the available memory store types.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Response.MemoryStoreInfoResponse.SelectedType">
+            <summary>
+            The selected memory store type.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Response.SpeechTokenResponse">
+            <summary>
+            Token Response is a simple wrapper around the token and region
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.ChatParticipant">
+            <summary>
+            A chat participant is a user that is part of a chat.
+            A user can be part of multiple chats, thus a user can have multiple chat participants.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatParticipant.Id">
+            <summary>
+            Participant ID that is persistent and unique.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatParticipant.UserId">
+            <summary>
+            User ID that is persistent and unique.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatParticipant.ChatId">
+            <summary>
+            Chat ID that this participant belongs to.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatParticipant.Partition">
+            <summary>
+            The partition key for the source.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.ChatSession">
+            <summary>
+            A chat session
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.Id">
+            <summary>
+            Chat ID that is persistent and unique.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.Title">
+            <summary>
+            Title of the chat.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.CreatedOn">
+            <summary>
+            Timestamp of the chat creation.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.SystemDescription">
+            <summary>
+            System description of the chat that is used to generate responses.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.SafeSystemDescription">
+            <summary>
+            Fixed system description with "TimeSkill" replaced by "TimePlugin"
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.MemoryBalance">
+            <summary>
+            The balance between long term memory and working term memory.
+            The higher this value, the more the system will rely on long term memory by lowering
+            the relevance threshold of long term memory and increasing the threshold score of working memory.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.EnabledPlugins">
+            <summary>
+            A list of enabled plugins.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.Version">
+            <summary>
+            Used to determine if the current chat requires upgrade.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.ChatSession.Partition">
+            <summary>
+            The partition key for the session.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.ChatSession.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Models.Storage.ChatSession"/> class.
+            </summary>
+            <param name="title">The title of the chat.</param>
+            <param name="systemDescription">The system description of the chat.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.CitationSource">
+            <summary>
+            Information about a citation source.
+            This is a replica of the <see cref="T:Microsoft.KernelMemory.Citation"/> class in Kernel Memory.
+            Creating a replica here is to avoid taking a direct dependency on Kernel Memory in our data model.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CitationSource.Link">
+            <summary>
+            Link of the citation.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CitationSource.SourceContentType">
+            <summary>
+            Type of source, e.g. PDF, Word, Chat, etc.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CitationSource.SourceName">
+            <summary>
+            Name of the source, e.g. file name.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CitationSource.Snippet">
+            <summary>
+            The snippet of the citation.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CitationSource.RelevanceScore">
+            <summary>
+            Relevance score of the citation against the query.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CitationSource.FromKernelMemoryCitation(Microsoft.KernelMemory.Citation,System.String,System.Double)">
+            <summary>
+            Converts a <see cref="T:Microsoft.KernelMemory.Citation"/> to a <see cref="T:CopilotChat.WebApi.Models.Storage.CitationSource"/>.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.CopilotChatMessage">
+            <summary>
+            Information about a single chat message.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.AuthorRoles">
+            <summary>
+            Role of the author of a chat message.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.AuthorRoles.User">
+            <summary>
+            The current user of the chat.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.AuthorRoles.Bot">
+            <summary>
+            The bot.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ChatMessageType">
+            <summary>
+            Type of the chat message.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ChatMessageType.Message">
+            <summary>
+            A standard message
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ChatMessageType.Plan">
+            <summary>
+            A message for a Plan
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ChatMessageType.Document">
+            <summary>
+            An uploaded document notification
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Timestamp">
+            <summary>
+            Timestamp of the message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.UserId">
+            <summary>
+            Id of the user who sent this message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.UserName">
+            <summary>
+            Name of the user who sent this message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ChatId">
+            <summary>
+            Id of the chat this message belongs to.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Content">
+            <summary>
+            Content of the message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Id">
+            <summary>
+            Id of the message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.AuthorRole">
+            <summary>
+            Role of the author of the message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Prompt">
+            <summary>
+            Prompt used to generate the message.
+            Will be empty if the message is not generated by a prompt.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Citations">
+            <summary>
+            Citations of the message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Type">
+            <summary>
+            Type of the message.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.TokenUsage">
+            <summary>
+            Counts of total token usage used to generate bot response.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.Partition">
+            <summary>
+            The partition key for the source.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Models.Storage.CitationSource},CopilotChat.WebApi.Models.Storage.CopilotChatMessage.AuthorRoles,CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ChatMessageType,System.Collections.Generic.IDictionary{System.String,System.Int32})">
+            <summary>
+            Create a new chat message. Timestamp is automatically generated.
+            </summary>
+            <param name="userId">Id of the user who sent this message</param>
+            <param name="userName">Name of the user who sent this message</param>
+            <param name="chatId">The chat ID that this message belongs to</param>
+            <param name="content">The message</param>
+            <param name="prompt">The prompt used to generate the message</param>
+            <param name="authorRole">Role of the author</param>
+            <param name="type">Type of the message</param>
+            <param name="tokenUsage">Total token usages used to generate bot response</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.CreateBotResponseMessage(System.String,System.String,System.String,System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Models.Storage.CitationSource},System.Collections.Generic.IDictionary{System.String,System.Int32})">
+            <summary>
+            Create a new chat message for the bot response.
+            </summary>
+            <param name="chatId">The chat ID that this message belongs to</param>
+            <param name="content">The message</param>
+            <param name="prompt">The prompt used to generate the message</param>
+            <param name="tokenUsage">Total token usage of response completion</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.CreateDocumentMessage(System.String,System.String,System.String,CopilotChat.WebApi.Models.Response.DocumentMessageContent)">
+            <summary>
+            Create a new chat message for a document upload.
+            </summary>
+            <param name="userId">The user ID that uploaded the document</param>
+            <param name="userName">The user name that uploaded the document</param>
+            <param name="chatId">The chat ID that this message belongs to</param>
+            <param name="documentMessageContent">The document message content</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ToFormattedString">
+            <summary>
+            Serialize the object to a formatted string.
+            </summary>
+            <returns>A formatted string</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.ToString">
+            <summary>
+            Serialize the object to a JSON string.
+            </summary>
+            <returns>A serialized json string</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.CopilotChatMessage.FromString(System.String)">
+            <summary>
+            Deserialize a JSON string to a ChatMessage object.
+            </summary>
+            <param name="json">A json string</param>
+            <returns>A ChatMessage object</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.MemorySourceType">
+            <summary>
+            Type of the memory source.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.MemorySource">
+            <summary>
+            The external memory source.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.Id">
+            <summary>
+            Source ID that is persistent and unique.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.ChatId">
+            <summary>
+            The Chat ID.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.SourceType">
+            <summary>
+            The type of the source.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.Name">
+            <summary>
+            The name of the source.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.HyperLink">
+            <summary>
+            The external link to the source.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.SharedBy">
+            <summary>
+            The user ID of who shared the source.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.CreatedOn">
+            <summary>
+            When the source is created in the bot.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.Size">
+            <summary>
+            The size of the source in bytes.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.Tokens">
+            <summary>
+            The number of tokens in the source.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Models.Storage.MemorySource.Partition">
+            <summary>
+            The partition key for the source.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Models.Storage.MemorySource.#ctor">
+            <summary>
+            Empty constructor for serialization.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Models.Storage.MemoryTags">
+            <summary>
+            Tag names for kernel memory.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.MemoryTags.TagChatId">
+            <summary>
+            Associates memory with a specific chat
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Models.Storage.MemoryTags.TagMemory">
+            <summary>
+            Associates memory with specific type.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.AzureSpeechOptions">
+            <summary>
+            Configuration options for Azure speech recognition.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.AzureSpeechOptions.Region">
+            <summary>
+            Location of the Azure speech service to use (e.g. "South Central US")
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.AzureSpeechOptions.Key">
+            <summary>
+            Key to access the Azure speech service.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ChatArchiveSchemaInfo">
+            <summary>
+            Information on schema used to serialize chat archives.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatArchiveSchemaInfo.Name">
+            <summary>
+            The name of the schema.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatArchiveSchemaInfo.Version">
+            <summary>
+            The version of the schema.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ChatAuthenticationOptions">
+            <summary>
+            Configuration options for authenticating to the service.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.Type">
+            <summary>
+            Type of authentication.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AzureAd">
+            <summary>
+            When <see cref="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.Type"/> is <see cref="F:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AuthenticationType.AzureAd"/>, these are the Azure AD options to use.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AzureAdOptions">
+            <summary>
+            Configuration options for Azure Active Directory (AAD) authorization.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AzureAdOptions.Instance">
+            <summary>
+            AAD instance url, i.e., https://login.microsoftonline.com
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AzureAdOptions.TenantId">
+            <summary>
+            Tenant (directory) ID
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AzureAdOptions.ClientId">
+            <summary>
+            Application (client) ID
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatAuthenticationOptions.AzureAdOptions.Scopes">
+            <summary>
+            Required scopes.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ChatStoreOptions">
+            <summary>
+            Configuration settings for the chat store.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ChatStoreOptions.ChatStoreType">
+            <summary>
+            The type of chat store to use.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.ChatStoreOptions.ChatStoreType.Volatile">
+            <summary>
+            Non-persistent chat store
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.ChatStoreOptions.ChatStoreType.Filesystem">
+            <summary>
+            File-system based persistent chat store.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.ChatStoreOptions.ChatStoreType.Cosmos">
+            <summary>
+            Azure CosmosDB based persistent chat store.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatStoreOptions.Type">
+            <summary>
+            Gets or sets the type of chat store to use.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatStoreOptions.Filesystem">
+            <summary>
+            Gets or sets the configuration for the file system chat store.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ChatStoreOptions.Cosmos">
+            <summary>
+            Gets or sets the configuration for the Azure CosmosDB chat store.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ContentSafetyOptions">
+            <summary>
+            Configuration options for content safety.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ContentSafetyOptions.Enabled">
+            <summary>
+            Whether to enable content safety.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ContentSafetyOptions.Endpoint">
+            <summary>
+            Azure Content Safety endpoints
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ContentSafetyOptions.Key">
+            <summary>
+            Key to access the content safety service.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ContentSafetyOptions.ViolationThreshold">
+            <summary>
+            Set the violation threshold. See https://learn.microsoft.com/en-us/azure/ai-services/content-safety/quickstart-image for details.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.CosmosOptions">
+            <summary>
+            Configuration settings for connecting to Azure CosmosDB.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.CosmosOptions.Database">
+            <summary>
+            Gets or sets the Cosmos database name.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.CosmosOptions.ConnectionString">
+            <summary>
+            Gets or sets the Cosmos connection string.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.CosmosOptions.ChatSessionsContainer">
+            <summary>
+            Gets or sets the Cosmos container for chat sessions.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.CosmosOptions.ChatMessagesContainer">
+            <summary>
+            Gets or sets the Cosmos container for chat messages.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.CosmosOptions.ChatMemorySourcesContainer">
+            <summary>
+            Gets or sets the Cosmos container for chat memory sources.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.CosmosOptions.ChatParticipantsContainer">
+            <summary>
+            Gets or sets the Cosmos container for chat participants.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.DocumentMemoryOptions">
+            <summary>
+            Configuration options for handling memorized documents.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.DocumentMemoryOptions.GlobalDocumentChatId">
+            <summary>
+            Global documents will be tagged by an empty Guid as chat-id ("00000000-0000-0000-0000-000000000000").
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.DocumentMemoryOptions.DocumentLineSplitMaxTokens">
+            <summary>
+            Gets or sets the maximum number of tokens to use when splitting a document into "lines".
+            For more details on tokens and how to count them, see:
+            https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.DocumentMemoryOptions.DocumentChunkMaxTokens">
+            <summary>
+            Gets or sets the maximum number of tokens to use when splitting documents for embeddings.
+            For more details on tokens and how to count them, see:
+            https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.DocumentMemoryOptions.FileSizeLimit">
+            <summary>
+            Maximum size in bytes of a document to be allowed for importing.
+            Prevent large uploads by setting a file size limit (in bytes) as suggested here:
+            https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-6.0
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.DocumentMemoryOptions.FileCountLimit">
+            <summary>
+            Maximum number of files to be allowed for importing in a single request.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.FileSystemOptions">
+            <summary>
+            File system storage configuration.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.FileSystemOptions.FilePath">
+            <summary>
+            Gets or sets the file path for persistent file system storage.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.FrontendOptions">
+            <summary>
+            Configuration options to be relayed to the frontend.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.FrontendOptions.AadClientId">
+            <summary>
+            Client ID for the frontend
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.MemoryStoreType">
+            <summary>
+            The type of memory store to use.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.MemoryStoreType.Volatile">
+            <summary>
+            In-memory volatile memory store.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.MemoryStoreType.TextFile">
+            <summary>
+            File system based persistent memory store.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.MemoryStoreType.Qdrant">
+            <summary>
+            Qdrant based persistent memory store.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Options.MemoryStoreType.AzureAISearch">
+            <summary>
+            Azure AI Search persistent memory store.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Options.MemoryStoreTypeExtensions.GetMemoryStoreType(Microsoft.KernelMemory.KernelMemoryConfig,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Gets the memory store type from the configuration.
+            Volatile and TextFile are storage solutions in SimpleVectorDb.
+            If SimpleVectorDb is configured, then the storage type is determined by the SimpleVectorDb configuration.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <returns>The memory store type.</returns>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.MsGraphOboPluginOptions.Authority">
+            <summary>
+            The authority to use for OBO Auth.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.MsGraphOboPluginOptions.TenantId">
+            <summary>
+            The Tenant Id to use for OBO Auth.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.MsGraphOboPluginOptions.ClientId">
+            <summary>
+            The Client Id to use for OBO Auth.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.MsGraphOboPluginOptions.ClientSecret">
+            <summary>
+            The Client Secret to use for OBO Auth.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.NotEmptyOrWhitespaceAttribute">
+            <summary>
+            If the string is set, it must not be empty or whitespace.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.Plugin">
+            <summary>
+            Option for a single plugin.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.Plugin.Name">
+            <summary>
+            The name of the plugin.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.Plugin.ManifestDomain">
+            <summary>
+            The url of the plugin.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.Plugin.Key">
+            <summary>
+            The key of the plugin.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.PromptsOptions">
+            <summary>
+            Configuration options for the chat
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.CompletionTokenLimit">
+            <summary>
+            Token limit of the chat model.
+            </summary>
+            <remarks>https://platform.openai.com/docs/models/overview for token limits.</remarks>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.ResponseTokenLimit">
+            <summary>
+            The token count left for the model to generate text after the prompt.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.FunctionCallingTokenLimit">
+            <summary>
+            The token count allowed for function calling responses.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.MemoriesResponseContextWeight">
+            <summary>
+            Weight of memories in the contextual part of the final prompt.
+            Contextual prompt excludes all the system commands and user intent.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.KernelMemoryRelevanceUpper">
+            <summary>
+            Upper bound of relevance score of a kernel memory to be included in the final prompt.
+            The actual relevancy score is determined by the memory balance.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.KernelMemoryRelevanceLower">
+            <summary>
+            Lower bound of relevance score of a kernel memory to be included in the final prompt.
+            The actual relevancy score is determined by the memory balance.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.PromptsOptions.DocumentMemoryMinRelevance">
+            <summary>
+            Minimum relevance of a document memory to be included in the final prompt.
+            The higher the value, the answer will be more relevant to the user intent.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Options.PromptsOptions.Copy">
+            <summary>
+            Copy the options in case they need to be modified per chat.
+            </summary>
+            <returns>A shallow copy of the options.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Options.PromptsOptions.TryGetMemoryContainerName(System.String,System.String@)">
+            <summary>
+            Tries to retrieve the memoryContainerName associated with the specified memory type.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.RequiredOnPropertyValueAttribute">
+            <summary>
+            If the other property is set to the expected value, then this property is required.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.RequiredOnPropertyValueAttribute.OtherPropertyName">
+            <summary>
+            Name of the other property.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.RequiredOnPropertyValueAttribute.OtherPropertyValue">
+            <summary>
+            Value of the other property when this property is required.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.RequiredOnPropertyValueAttribute.NotEmptyOrWhitespace">
+            <summary>
+            True to make sure that the value is not empty or whitespace when required.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Options.RequiredOnPropertyValueAttribute.#ctor(System.String,System.Object,System.Boolean)">
+            <summary>
+            If the other property is set to the expected value, then this property is required.
+            </summary>
+            <param name="otherPropertyName">Name of the other property.</param>
+            <param name="otherPropertyValue">Value of the other property when this property is required.</param>
+            <param name="notEmptyOrWhitespace">True to make sure that the value is not empty or whitespace when required.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Options.ServiceOptions">
+            <summary>
+            Configuration options for the Chat Copilot service.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ServiceOptions.TimeoutLimitInS">
+            <summary>
+            Timeout limit on requests to the service in seconds.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ServiceOptions.KeyVault">
+            <summary>
+            Configuration Key Vault URI
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ServiceOptions.SemanticPluginsDirectory">
+            <summary>
+            Local directory from which to load semantic plugins.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ServiceOptions.NativePluginsDirectory">
+            <summary>
+            Local directory from which to load native plugins.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Options.ServiceOptions.InMaintenance">
+            <summary>
+            Setting indicating if the site is undergoing maintenance.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Chat.ChatPlugin">
+            <summary>
+            ChatPlugin offers a more coherent chat experience by using memories
+            to extract conversation history and user intentions.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._kernel">
+            <summary>
+            A kernel instance to create a completion function since each invocation
+            of the <see cref="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.ChatAsync(System.String,System.String,System.String,System.String,System.String,Microsoft.SemanticKernel.KernelArguments,System.Threading.CancellationToken)"/> function will generate a new prompt dynamically.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._memoryClient">
+            <summary>
+            Client for the kernel memory service.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._logger">
+            <summary>
+            A logger instance to log events.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._chatMessageRepository">
+            <summary>
+            A repository to save and retrieve chat messages.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._chatSessionRepository">
+            <summary>
+            A repository to save and retrieve chat sessions.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._messageRelayHubContext">
+            <summary>
+            A SignalR hub context to broadcast updates of the execution.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._promptOptions">
+            <summary>
+            Settings containing prompt texts.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._kernelMemoryRetriever">
+            <summary>
+            A kernel memory retriever instance to query semantic memories.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.ChatPlugin._contentSafety">
+            <summary>
+            Azure content safety moderator.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.#ctor(Microsoft.SemanticKernel.Kernel,Microsoft.KernelMemory.IKernelMemory,CopilotChat.WebApi.Storage.ChatMessageRepository,CopilotChat.WebApi.Storage.ChatSessionRepository,Microsoft.AspNetCore.SignalR.IHubContext{CopilotChat.WebApi.Hubs.MessageRelayHub},Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.PromptsOptions},Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.DocumentMemoryOptions},Microsoft.Extensions.Logging.ILogger,CopilotChat.WebApi.Services.AzureContentSafety)">
+            <summary>
+            Create a new instance of <see cref="T:CopilotChat.WebApi.Plugins.Chat.ChatPlugin"/>.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.ExtractChatHistory(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Method that wraps GetAllowedChatHistoryAsync to get allotted history messages as one string.
+            GetAllowedChatHistoryAsync optionally updates a ChatHistory object with the allotted messages,
+            but the ChatHistory type is not supported when calling from a rendered prompt, so this wrapper bypasses the chatHistory parameter.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.GetAllowedChatHistoryAsync(System.String,System.Int32,Microsoft.SemanticKernel.ChatCompletion.ChatHistory,System.Threading.CancellationToken)">
+            <summary>
+            Extract chat history within token limit as a formatted string and optionally update the ChatHistory object with the allotted messages
+            </summary>
+            <param name="chatId">Chat ID to extract history from.</param>
+            <param name="tokenLimit">Maximum number of tokens.</param>
+            <param name="chatHistory">Optional ChatHistory object tracking allotted messages.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Chat history as a string.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.ChatAsync(System.String,System.String,System.String,System.String,System.String,Microsoft.SemanticKernel.KernelArguments,System.Threading.CancellationToken)">
+            <summary>
+            This is the entry point for getting a chat response. It manages the token limit, saves
+            messages to memory, and fills in the necessary context variables for completing the
+            prompt that will be rendered by the template engine.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.GetChatResponseAsync(System.String,System.String,Microsoft.SemanticKernel.KernelArguments,CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Threading.CancellationToken)">
+            <summary>
+            Generate the necessary chat context to create a prompt then invoke the model to get a response.
+            </summary>
+            <param name="chatId">The chat ID</param>
+            <param name="userId">The user ID</param>
+            <param name="chatContext">The KernelArguments.</param>
+            <param name="userMessage">ChatMessage object representing new user message.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The created chat message containing the model-generated response.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.RenderSystemInstructionsAsync(System.String,Microsoft.SemanticKernel.KernelArguments,System.Threading.CancellationToken)">
+            <summary>
+            Helper function to render system instruction components.
+            </summary>
+            <param name="chatId">The chat ID</param>
+            <param name="context">The KernelArguments.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.HandleBotResponseAsync(System.String,System.String,Microsoft.SemanticKernel.KernelArguments,CopilotChat.WebApi.Models.Response.BotResponsePrompt,System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Models.Storage.CitationSource},System.Threading.CancellationToken)">
+            <summary>
+            Helper function to handle final steps of bot response generation, including streaming to client,
+            generating semantic text memory, calculating final token usages, and saving to chat history.
+            </summary>
+            <param name="chatId">The chat ID</param>
+            <param name="userId">The user ID</param>
+            <param name="chatContext">Chat context.</param>
+            <param name="promptView">The prompt view.</param>
+            <param name="citations">Citation sources.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.GetAudienceAsync(Microsoft.SemanticKernel.KernelArguments,System.Threading.CancellationToken)">
+            <summary>
+            Extract the list of participants from the conversation history.
+            Note that only those who have spoken will be included.
+            </summary>
+            <param name="context">Kernel context variables.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.GetUserIntentAsync(Microsoft.SemanticKernel.KernelArguments,System.Threading.CancellationToken)">
+            <summary>
+            Extract user intent from the conversation history.
+            </summary>
+            <param name="context">Kernel context.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.SaveNewMessageAsync(System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Save a new message to the chat history.
+            </summary>
+            <param name="message">The message</param>
+            <param name="userId">The user ID</param>
+            <param name="userName"></param>
+            <param name="chatId">The chat ID</param>
+            <param name="type">Type of the message</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.SaveNewResponseAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken,System.Collections.Generic.Dictionary{System.String,System.Int32},System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Models.Storage.CitationSource})">
+            <summary>
+            Save a new response to the chat history.
+            </summary>
+            <param name="response">Response from the chat.</param>
+            <param name="prompt">Prompt used to generate the response.</param>
+            <param name="chatId">The chat ID</param>
+            <param name="userId">The user ID</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="tokenUsage">Total token usage of response completion</param>
+            <param name="citations">Citations for the message</param>
+            <returns>The created chat message.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.UpdateChatMessageContentAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Updates previously saved response in the chat history.
+            </summary>
+            <param name="updatedResponse">Updated response from the chat.</param>
+            <param name="messageId">The chat message ID.</param>
+            <param name="chatId">The chat ID that's used as the partition Id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.CreateChatRequestSettings">
+            <summary>
+            Create `OpenAIPromptExecutionSettings` for chat response. Parameters are read from the PromptSettings class.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.CreateIntentCompletionSettings">
+            <summary>
+            Create `OpenAIPromptExecutionSettings` for intent response. Parameters are read from the PromptSettings class.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.GetMaxRequestTokenBudget">
+            <summary>
+            Calculate the maximum number of tokens that can be sent in a request
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.GetTokenUsages(Microsoft.SemanticKernel.KernelArguments,System.String)">
+            <summary>
+            Gets token usage totals for each semantic function if not undefined.
+            </summary>
+            <param name="kernelArguments">Context maintained during response generation.</param>
+            <param name="content">String representing bot response. If null, response is still being generated or was hardcoded.</param>
+            <returns>Dictionary containing function to token usage mapping for each total that's defined.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.StreamResponseToClientAsync(System.String,System.String,CopilotChat.WebApi.Models.Response.BotResponsePrompt,System.Threading.CancellationToken,System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Models.Storage.CitationSource})">
+            <summary>
+            Stream the response to the client.
+            </summary>
+            <param name="chatId">The chat ID</param>
+            <param name="userId">The user ID</param>
+            <param name="prompt">Prompt used to generate the response</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="citations">Citations for the message</param>
+            <returns>The created chat message</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.CreateBotMessageOnClient(System.String,System.String,System.String,System.String,System.Threading.CancellationToken,System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Models.Storage.CitationSource},System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            Create an empty message on the client to begin the response.
+            </summary>
+            <param name="chatId">The chat ID</param>
+            <param name="userId">The user ID</param>
+            <param name="prompt">Prompt used to generate the message</param>
+            <param name="content">Content of the message</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="citations">Citations for the message</param>
+            <param name="tokenUsage">Total token usage of response completion</param>
+            <returns>The created chat message</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.UpdateMessageOnClient(CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Threading.CancellationToken)">
+            <summary>
+            Update the response on the client.
+            </summary>
+            <param name="message">The message</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.UpdateBotResponseStatusOnClientAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Update the status of the response on the client.
+            </summary>
+            <param name="chatId">The chat ID</param>
+            <param name="status">Current status of the response</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.ChatPlugin.SetSystemDescriptionAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Set the system description in the prompt options.
+            </summary>
+            <param name="chatId">Id of the chat session</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentException">Throw if the chat session does not exist.</exception>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Chat.KernelMemoryRetriever">
+            <summary>
+            This class provides the functions to query kernel memory.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Chat.KernelMemoryRetriever._logger">
+            <summary>
+            High level logger.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.KernelMemoryRetriever.#ctor(Microsoft.Extensions.Options.IOptions{CopilotChat.WebApi.Options.PromptsOptions},CopilotChat.WebApi.Storage.ChatSessionRepository,Microsoft.KernelMemory.IKernelMemory,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Create a new instance of KernelMemoryRetriever.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.KernelMemoryRetriever.QueryMemoriesAsync(System.String,System.String,System.Int32)">
+            <summary>
+            Query relevant memories based on the query.
+            </summary>
+            <returns>A string containing the relevant memories.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.KernelMemoryRetriever.CalculateRelevanceThreshold(System.String,System.Single)">
+            <summary>
+            Calculates the relevance threshold for the memory.
+            The relevance threshold is a function of the memory balance.
+            The memory balance is a value between 0 and 1, where 0 means maximum focus on
+            working term memory (by minimizing the relevance threshold for working memory
+            and maximizing the relevance threshold for long term memory), and 1 means
+            maximum focus on long term memory (by minimizing the relevance threshold for
+            long term memory and maximizing the relevance threshold for working memory).
+            The memory balance controls two 1st degree polynomials defined by the lower
+            and upper bounds, one for long term memory and one for working memory.
+            The relevance threshold is the value of the polynomial at the memory balance.
+            </summary>
+            <param name="memoryName">The name of the memory.</param>
+            <param name="memoryBalance">The balance between long term memory and working term memory.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Thrown when the memory name is invalid.</exception>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Chat.MsGraphOboPlugin">
+            <summary>
+            This class is a plugin that calls Graph API using the On-behalf-of flow.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemory">
+            <summary>
+            A collection of semantic chat memory.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemory.Items">
+            <summary>
+            The chat memory items.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemory.AddItem(System.String,System.String)">
+            <summary>
+            Create and add a chat memory item.
+            </summary>
+            <param name="label">Label for the chat memory item.</param>
+            <param name="details">Details for the chat memory item.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemory.ToString">
+            <summary>
+            Serialize the chat memory to a Json string.
+            </summary>
+            <returns>A Json string representing the chat memory.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemory.FromJson(System.String)">
+            <summary>
+            Create a semantic chat memory from a Json string.
+            </summary>
+            <param name="json">Json string to deserialize.</param>
+            <returns>A semantic chat memory.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryExtractor">
+            <summary>
+            Helper class to extract and create kernel memory from chat history.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryExtractor.ExtractSemanticChatMemoryAsync(System.String,Microsoft.KernelMemory.IKernelMemory,Microsoft.SemanticKernel.Kernel,Microsoft.SemanticKernel.KernelArguments,CopilotChat.WebApi.Options.PromptsOptions,Microsoft.Extensions.Logging.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Extract and save kernel memory.
+            </summary>
+            <param name="chatId">The Chat ID.</param>
+            <param name="kernel">The semantic kernel.</param>
+            <param name="kernelArguments">The Semantic Kernel context.</param>
+            <param name="options">The prompts options.</param>
+            <param name="logger">The logger.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryItem">
+            <summary>
+            A single entry in the chat memory.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryItem.Label">
+            <summary>
+            Label for the chat memory item.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryItem.Details">
+            <summary>
+            Details for the chat memory item.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryItem.#ctor(System.String,System.String)">
+            <summary>
+            Create a new chat memory item.
+            </summary>
+            <param name="label">Label of the item.</param>
+            <param name="details">Details of the item.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Chat.SemanticChatMemoryItem.ToFormattedString">
+            <summary>
+            Format the chat memory item as a string.
+            </summary>
+            <returns>A formatted string representing the item.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label">
+            <summary>
+            Represents a pull request label.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label.Id">
+            <summary>
+            Gets or sets the ID of the label.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label.Name">
+            <summary>
+            Gets or sets the name of the label.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label.Description">
+            <summary>
+            Gets or sets the description of the label.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label.#ctor(System.Int64,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label"/> class.
+            </summary>
+            <param name="id">The ID of the label.</param>
+            <param name="name">The name of the label.</param>
+            <param name="description">The description of the label.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest">
+            <summary>
+            Represents a GitHub Pull Request.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.Url">
+            <summary>
+            Gets or sets the URL of the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.Id">
+            <summary>
+            Gets or sets the unique identifier of the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.Number">
+            <summary>
+            Gets or sets the number of the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.State">
+            <summary>
+            Gets or sets the state of the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.Locked">
+            <summary>
+            Whether the pull request is locked
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.Title">
+            <summary>
+            Gets or sets the title of the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.User">
+            <summary>
+            Gets or sets the user who created the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.Labels">
+            <summary>
+            Gets or sets the labels associated with the pull request
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.UpdatedAt">
+            <summary>
+            Gets or sets the date and time when the pull request was last updated
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.ClosedAt">
+            <summary>
+            Gets or sets the date and time when the pull request was closed
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.MergedAt">
+            <summary>
+            Gets or sets the date and time when the pull request was merged
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest.#ctor(System.Uri,System.Int32,System.Int32,System.String,System.Boolean,System.String,CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser,System.Collections.Generic.List{CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Label},System.DateTime,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.PullRequest"/> class, representing a pull request on GitHub.
+            </summary>
+            <param name="url">The URL of the pull request.</param>
+            <param name="id">The unique identifier of the pull request.</param>
+            <param name="number">The number of the pull request within the repository.</param>
+            <param name="state">The state of the pull request, such as "open", "closed", or "merged".</param>
+            <param name="locked">A value indicating whether the pull request is locked for comments or changes.</param>
+            <param name="title">The title of the pull request.</param>
+            <param name="user">The user who created the pull request.</param>
+            <param name="labels">A list of labels assigned to the pull request.</param>
+            <param name="updatedAt">The date and time when the pull request was last updated.</param>
+            <param name="closedAt">The date and time when the pull request was closed, or null if it is not closed.</param>
+            <param name="mergedAt">The date and time when the pull request was merged, or null if it is not merged.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Repo">
+            <summary>
+            Represents a GitHub Repo.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Repo.Name">
+            <summary>
+            Gets or sets the name of the repo
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Repo.FullName">
+            <summary>
+            Gets or sets the full name of the repo
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Repo.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.Repo"/>.
+            </summary>
+            <param name="name">The name of the repository, e.g. "dotnet/runtime".</param>
+            <param name="fullName">The full name of the repository, e.g. "Microsoft/dotnet/runtime".</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser">
+            <summary>
+            Represents a user on GitHub.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser.Name">
+            <summary>
+            The user's name.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser.Email">
+            <summary>
+            The user's email address.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser.Id">
+            <summary>
+            The user's numeric ID.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser.Type">
+            <summary>
+            The user's type, e.g. User or Organization.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser.SiteAdmin">
+            <summary>
+            Whether the user is a site admin.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.GitHubPlugin.Model.GitHubUser.#ctor(System.String,System.String,System.Int32,System.String,System.Boolean)">
+            <summary>
+            Creates a new instance of the User class.
+            </summary>
+            <param name="name">The user's name.</param>
+            <param name="email">The user's email address.</param>
+            <param name="id">The user's numeric ID.</param>
+            <param name="type">The user's type.</param>
+            <param name="siteAdmin">Whether the user is a site admin.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentAuthor">
+            <summary>
+            Represents the Author of a comment.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentAuthor.DisplayName">
+            <summary>
+            Gets or sets the Comment Author's display name.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentAuthor.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentAuthor"/> class.
+            </summary>
+            <param name="displayName">Name of Author</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentResponse">
+            <summary>
+            Represents a the list of comments that make up a CommentResponse.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentResponse.AllComments">
+            <summary>
+            Gets or sets the list of all comments contained in this comment response.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentResponse.#ctor(System.Collections.Generic.IEnumerable{CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IndividualComments})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentResponse"/> class.
+            </summary>
+            <param name="allComments">List of all comments on the Issue.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IndividualComments">
+            <summary>
+            Represents an individual comment on an issue in jira.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IndividualComments.Body">
+            <summary>
+            Gets or sets the body of the comment.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IndividualComments.Author">
+            <summary>
+            Gets or sets the author name.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IndividualComments.#ctor(System.String,CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentAuthor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IndividualComments"/> class.
+            </summary>
+            <param name="body">The actual content of the comment.</param>
+            <param name="author">Author of the comment.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse">
+            <summary>
+            Represents a the trimmed down response for retrieving an issue from jira.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse.Id">
+            <summary>
+            Gets or sets the GUID of the issue.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse.Key">
+            <summary>
+            Gets or sets the issue key, which is a readable id different from the GUID above.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse.Self">
+            <summary>
+            Gets or sets the url of the issue.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse.Fields">
+            <summary>
+            Gets or sets the Fields describing the IssueResponse.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse.#ctor(System.String,System.String,System.String,CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse"/> class.
+            </summary>
+            <param name="id">The GUID of the Issue.</param>
+            <param name="key">The readable id of the Issue.</param>
+            <param name="self">The url of the Issue.</param>
+            <param name="fields">The Fields that make up the response body.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields">
+            <summary>
+            Represents the fields that make up an IssueResponse.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields.StatusCategoryChangeDate">
+            <summary>
+            Gets or sets the ID of the label.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields.Summary">
+            <summary>
+            Gets or sets the name of the label.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields.Parent">
+            <summary>
+            Gets or sets the description of the label.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields.CommentResponse">
+            <summary>
+            Gets or sets the description of the label.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields.#ctor(System.String,System.String,CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponse,CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.CommentResponse)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Plugins.OpenApi.JiraPlugin.Model.IssueResponseFields"/> class.
+            </summary>
+            <param name="statusCategoryChangeDate">The date time the issue was last changed.</param>
+            <param name="summary">The Summary of the issue.</param>
+            <param name="parent">The Parent of the issue.</param>
+            <param name="commentResponse">List of all comments on the issue.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Utils.AsyncUtils">
+            <summary>
+            Utility methods for working with asynchronous operations and callbacks.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.AsyncUtils.SafeInvokeAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.String)">
+            <summary>
+            Invokes an asynchronous callback function and tags any exception that occurs with function name.
+            </summary>
+            <typeparam name="T">The type of the result returned by the callback function.</typeparam>
+            <param name="callback">The asynchronous callback function to invoke.</param>
+            <param name="functionName">The name of the function that calls this method, for logging purposes.</param>
+            <returns>A task that represents the asynchronous operation and contains the result of the callback function.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CopilotChat.WebApi.Plugins.Utils.AsyncUtils.SafeInvokeAsync(System.Func{System.Threading.Tasks.Task},System.String)" -->
+        <member name="T:CopilotChat.WebApi.Plugins.Utils.JsonUtils">
+            <summary>
+            Utility methods for working with asynchronous operations and callbacks.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.JsonUtils.OptimizeOdataResponseJson(System.String,System.Int32)">
+            <summary>
+            Try to optimize json from the planner response
+            based on token limit
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Utils.PromptUtils">
+            <summary>
+            Utility methods for prompt generation.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.PromptUtils.FormatChatHistoryMessage(CopilotChat.WebApi.Models.Storage.CopilotChatMessage.AuthorRoles,System.String)">
+            <summary>
+            Convert a chat message to a string in the format of: "Role: Content".
+            </summary>
+            <param name="role">The role of the author of the message.</param>
+            <param name="content">The content of the message.</param>
+            <returns>A formatted chat message string.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Plugins.Utils.TokenUtils">
+            <summary>
+            Utility methods for token management.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Plugins.Utils.TokenUtils.SemanticFunctions">
+            <summary>
+            Semantic dependencies of ChatPlugin.
+             If you add a new semantic dependency, please add it here.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.TokenUtils.EmptyTokenUsages">
+            <summary>
+            Gets dictionary containing empty token usage totals.
+            Use for responses that are hardcoded and/or do not have semantic (token) dependencies.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.TokenUtils.GetFunctionKey(System.String)">
+            <summary>
+            Gets key used to identify function token usage in context variables.
+            </summary>
+            <param name="functionName">Name of semantic function.</param>
+            <returns>The key corresponding to the semantic function name, or null if the function name is unknown.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CopilotChat.WebApi.Plugins.Utils.TokenUtils.GetFunctionTokenUsage(Microsoft.SemanticKernel.FunctionResult,Microsoft.Extensions.Logging.ILogger)" -->
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.TokenUtils.TokenCount(System.String)">
+            <summary>
+            Calculate the number of tokens in a string using custom SharpToken token counter implementation with cl100k_base encoding.
+            </summary>
+            <param name="text">The string to calculate the number of tokens in.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.TokenUtils.GetContextMessageTokenCount(Microsoft.SemanticKernel.ChatCompletion.AuthorRole,System.String)">
+            <summary>
+            Rough token costing of ChatHistory's message object.
+            Follows the syntax defined by Azure OpenAI's ChatMessage object: https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chatmessage
+            e.g., "message": {"role":"assistant","content":"Yes" }
+            </summary>
+            <param name="authorRole">Author role of the message.</param>
+            <param name="content">Content of the message.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Plugins.Utils.TokenUtils.GetContextMessagesTokenCount(Microsoft.SemanticKernel.ChatCompletion.ChatHistory)">
+            <summary>
+            Rough token costing of ChatHistory object.
+            </summary>
+            <param name="chatHistory">ChatHistory object to calculate the number of tokens of.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Program">
+            <summary>
+            Chat Copilot Service
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Program.Main(System.String[])">
+            <summary>
+            Entry point
+            </summary>
+            <param name="args">Web application command-line arguments.</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.AppInsightsTelemetryService">
+            <summary>
+            Implementation of the telemetry service interface for Azure Application Insights (AppInsights).
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AppInsightsTelemetryService.#ctor(Microsoft.ApplicationInsights.TelemetryClient,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Creates an instance of the app insights telemetry service.
+            This should be injected into the service collection during startup.
+            </summary>
+            <param name="telemetryClient">An AppInsights telemetry client</param>
+            <param name="httpContextAccessor">Accessor for the current request's http context</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AppInsightsTelemetryService.TrackPluginFunction(System.String,System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AppInsightsTelemetryService.GetUserIdFromHttpContext(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Gets the current user's ID from the http context for the current request.
+            </summary>
+            <param name="contextAccessor">The http context accessor</param>
+            <returns></returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AppInsightsTelemetryService.BuildDefaultProperties">
+            <summary>
+            Prepares a list of common properties that all telemetry events should contain.
+            </summary>
+            <returns>Collection of common properties for all telemetry events</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.AppInsightsUserTelemetryInitializerService">
+            <summary>
+            A telemetry initializer used by the TelemetryClient to fill in data for requests.
+            This implementation injects the id of the current authenticated user (if there is one).
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AppInsightsUserTelemetryInitializerService.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.AzureContentSafety">
+            <summary>
+            Moderator service to handle content safety.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AzureContentSafety.#ctor(System.String,System.String,System.Net.Http.HttpClientHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Services.AzureContentSafety"/> class.
+            </summary>
+            <param name="endpoint">Endpoint for service API call.</param>
+            <param name="apiKey">The API key.</param>
+            <param name="httpClientHandler">Instance of <see cref="T:System.Net.Http.HttpClientHandler"/> to setup specific scenarios.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AzureContentSafety.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CopilotChat.WebApi.Services.AzureContentSafety"/> class.
+            </summary>
+            <param name="endpoint">Endpoint for service API call.</param>
+            <param name="apiKey">The API key.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AzureContentSafety.ParseViolatedCategories(CopilotChat.WebApi.Models.Response.ImageAnalysisResponse,System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AzureContentSafety.ImageAnalysisAsync(Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AzureContentSafety.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.AzureContentSafety.ConvertFormFileToBase64Async(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Helper method to convert a form file to a base64 string.
+            </summary>
+            <param name="file">An IFormFile object.</param>
+            <returns>A Base64 string of the content of the image.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.DocumentTypeProvider">
+            <summary>
+            Defines a service that performs content safety analysis on images.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.DocumentTypeProvider.#ctor(System.Boolean)">
+            <summary>
+            Construct provider based on if images are supported, or not.
+            </summary>
+            <param name="allowImageOcr">Flag indicating if image ocr is supported</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.DocumentTypeProvider.IsSupported(System.String,System.Boolean@)">
+            <summary>
+            Returns true if the extension is supported for import.
+            </summary>
+            <param name="extension">The file extension</param>
+            <param name="isSafetyTarget">Is the document a target for content safety, if enabled?</param>
+            <returns></returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.IContentSafetyService">
+            <summary>
+            Defines a service that performs content safety analysis on images.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.IContentSafetyService.ImageAnalysisAsync(Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <summary>
+            Invokes a sync API to perform harmful content analysis on image.
+            </summary>
+            <param name="formFile">Image content file</param>
+            <param name="cancellationToken">A token to cancel the operation.</param>
+            <returns>A task that represents the asynchronous operation. The task result contains the image analysis response.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.IContentSafetyService.ParseViolatedCategories(CopilotChat.WebApi.Models.Response.ImageAnalysisResponse,System.Int16)">
+            <summary>
+            Parse the analysis result and return the violated categories.
+            </summary>
+            <param name="imageAnalysisResponse">The content analysis result.</param>
+            <param name="threshold">Optional violation threshold.</param>
+            <returns>The list of violated category names. Will return an empty list if there is no violation.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.IMaintenanceAction">
+            <summary>
+            Defines discrete maintenance action responsible for both inspecting state
+            and performing maintenance.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.IMaintenanceAction.InvokeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Calling site to initiate maintenance action.
+            </summary>
+            <returns>true if maintenance needed or in progress</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.ITelemetryService">
+            <summary>
+            Interface for common telemetry events to track actions across the semantic kernel.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.ITelemetryService.TrackPluginFunction(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a telemetry event when a function is executed.
+            </summary>
+            <param name="pluginName">Name of the plugin</param>
+            <param name="functionName">Function name</param>
+            <param name="success">If the function executed successfully</param>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.MaintenanceMiddleware">
+            <summary>
+            Middleware for determining if site is undergoing maintenance.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Services.SemanticKernelProvider">
+            <summary>
+            Extension methods for registering Semantic Kernel related services.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Services.SemanticKernelProvider.GetCompletionKernel">
+            <summary>
+            Produce semantic-kernel with only completion services for chat.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.ChatMemorySourceRepository">
+            <summary>
+            A repository for chat messages.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMemorySourceRepository.#ctor(CopilotChat.WebApi.Storage.IStorageContext{CopilotChat.WebApi.Models.Storage.MemorySource})">
+            <summary>
+            Initializes a new instance of the ChatMemorySourceRepository class.
+            </summary>
+            <param name="storageContext">The storage context.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMemorySourceRepository.FindByChatIdAsync(System.String,System.Boolean)">
+            <summary>
+            Finds chat memory sources by chat session id
+            </summary>
+            <param name="chatId">The chat session id.</param>
+            <param name="includeGlobal">Flag specifying if global documents should be included in the response.</param>
+            <returns>A list of memory sources.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMemorySourceRepository.FindByNameAsync(System.String)">
+            <summary>
+            Finds chat memory sources by name
+            </summary>
+            <param name="name">Name</param>
+            <returns>A list of memory sources with the given name.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMemorySourceRepository.GetAllAsync">
+            <summary>
+            Retrieves all memory sources.
+            </summary>
+            <returns>A list of memory sources.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.ChatMessageRepository">
+            <summary>
+            A repository for chat messages.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMessageRepository.#ctor(CopilotChat.WebApi.Storage.ICopilotChatMessageStorageContext)">
+            <summary>
+            Initializes a new instance of the ChatMessageRepository class.
+            </summary>
+            <param name="storageContext">The storage context.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMessageRepository.FindByChatIdAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Finds chat messages by chat id.
+            </summary>
+            <param name="chatId">The chat id.</param>
+            <param name="skip">Number of messages to skip before starting to return messages.</param>
+            <param name="count">The number of messages to return. -1 returns all messages.</param>
+            <returns>A list of ChatMessages matching the given chatId sorted from most recent to oldest.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatMessageRepository.FindLastByChatIdAsync(System.String)">
+            <summary>
+            Finds the most recent chat message by chat id.
+            </summary>
+            <param name="chatId">The chat id.</param>
+            <returns>The most recent ChatMessage matching the given chatId.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.ChatParticipantRepository">
+            <summary>
+            A repository for chat sessions.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatParticipantRepository.#ctor(CopilotChat.WebApi.Storage.IStorageContext{CopilotChat.WebApi.Models.Storage.ChatParticipant})">
+            <summary>
+            Initializes a new instance of the ChatParticipantRepository class.
+            </summary>
+            <param name="storageContext">The storage context.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatParticipantRepository.FindByUserIdAsync(System.String)">
+            <summary>
+            Finds chat participants by user id.
+            A user can be part of multiple chats, thus a user can have multiple chat participants.
+            </summary>
+            <param name="userId">The user id.</param>
+            <returns>A list of chat participants of the same user id in different chat sessions.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatParticipantRepository.FindByChatIdAsync(System.String)">
+            <summary>
+            Finds chat participants by chat id.
+            </summary>
+            <param name="chatId">The chat id.</param>
+            <returns>A list of chat participants in the same chat sessions.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatParticipantRepository.IsUserInChatAsync(System.String,System.String)">
+            <summary>
+            Checks if a user is in a chat session.
+            </summary>
+            <param name="userId">The user id.</param>
+            <param name="chatId">The chat id.</param>
+            <returns>True if the user is in the chat session, false otherwise.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.ChatSessionRepository">
+            <summary>
+            A repository for chat sessions.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatSessionRepository.#ctor(CopilotChat.WebApi.Storage.IStorageContext{CopilotChat.WebApi.Models.Storage.ChatSession})">
+            <summary>
+            Initializes a new instance of the ChatSessionRepository class.
+            </summary>
+            <param name="storageContext">The storage context.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.ChatSessionRepository.GetAllChatsAsync">
+            <summary>
+            Retrieves all chat sessions.
+            </summary>
+            <returns>A list of ChatMessages.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.CosmosDbContext`1">
+            <summary>
+            A storage context that stores entities in a CosmosDB container.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Storage.CosmosDbContext`1._client">
+            <summary>
+            The CosmosDB client.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Storage.CosmosDbContext`1.Container">
+            <summary>
+            CosmosDB container.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbContext`1.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the CosmosDbContext class.
+            </summary>
+            <param name="connectionString">The CosmosDB connection string.</param>
+            <param name="database">The CosmosDB database name.</param>
+            <param name="container">The CosmosDB container name.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbContext`1.QueryEntitiesAsync(System.Func{`0,System.Boolean})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbContext`1.CreateAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbContext`1.DeleteAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbContext`1.ReadAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbContext`1.UpsertAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:CopilotChat.WebApi.Storage.CosmosDbCopilotChatMessageContext" -->
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbCopilotChatMessageContext.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the CosmosDbCopilotChatMessageContext class.
+            </summary>
+            <param name="connectionString">The CosmosDB connection string.</param>
+            <param name="database">The CosmosDB database name.</param>
+            <param name="container">The CosmosDB container name.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.CosmosDbCopilotChatMessageContext.QueryEntitiesAsync(System.Func{CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Boolean},System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.FileSystemContext`1">
+            <summary>
+            A storage context that stores entities on disk.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.#ctor(System.IO.FileInfo)">
+            <summary>
+            Initializes a new instance of the OnDiskContext class and load the entities from disk.
+            </summary>
+            <param name="filePath">The file path to store and read entities on disk.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.QueryEntitiesAsync(System.Func{`0,System.Boolean})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.CreateAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.DeleteAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.ReadAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.UpsertAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.FileSystemContext`1.EntityDictionary">
+            <summary>
+            A concurrent dictionary to store entities in memory.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Storage.FileSystemContext`1.Entities">
+            <summary>
+            Using a concurrent dictionary to store entities in memory.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Storage.FileSystemContext`1._fileStorage">
+            <summary>
+            The file path to store entities on disk.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Storage.FileSystemContext`1._fileStorageLock">
+            <summary>
+            A lock object to prevent concurrent access to the file storage.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.Save(CopilotChat.WebApi.Storage.FileSystemContext{`0}.EntityDictionary,System.IO.FileInfo)">
+            <summary>
+            Save the state of the entities to disk.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemContext`1.Load(System.IO.FileInfo)">
+            <summary>
+            Load the state of entities from disk.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:CopilotChat.WebApi.Storage.FileSystemCopilotChatMessageContext" -->
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemCopilotChatMessageContext.#ctor(System.IO.FileInfo)">
+            <summary>
+            Initializes a new instance of the CosmosDbContext class.
+            </summary>
+            <param name="connectionString">The CosmosDB connection string.</param>
+            <param name="database">The CosmosDB database name.</param>
+            <param name="container">The CosmosDB container name.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.FileSystemCopilotChatMessageContext.QueryEntitiesAsync(System.Func{CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Boolean},System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.IRepository`1">
+            <summary>
+            Defines the basic CRUD operations for a repository.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IRepository`1.CreateAsync(`0)">
+            <summary>
+            Creates a new entity in the repository.
+            </summary>
+            <param name="entity">An entity of type T.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IRepository`1.DeleteAsync(`0)">
+            <summary>
+            Deletes an entity from the repository.
+            </summary>
+            <param name="entity">The entity to delete.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IRepository`1.UpsertAsync(`0)">
+            <summary>
+            Upserts an entity in the repository.
+            </summary>
+            <param name="entity">The entity to be upserted.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IRepository`1.FindByIdAsync(System.String,System.String)">
+            <summary>
+            Finds an entity by its id.
+            </summary>
+            <param name="id">Id of the entity.</param>
+            <param name="partition">Partition key value of the entity.</param>
+            <returns>An entity</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IRepository`1.TryFindByIdAsync(System.String,System.String,System.Action{`0})">
+            <summary>
+            Tries to find an entity by its id.
+            </summary>
+            <param name="id">Id of the entity.</param>
+            <param name="partition">Partition key value of the entity.</param>
+            <param name="callback">The entity delegate. Note async methods don't support ref or out parameters.</param>
+            <returns>True if the entity was found, false otherwise.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.IStorageContext`1">
+            <summary>
+            Defines the basic CRUD operations for a storage context.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IStorageContext`1.QueryEntitiesAsync(System.Func{`0,System.Boolean})">
+            <summary>
+            Query entities in the storage context.
+            <param name="predicate">Predicate that needs to evaluate to true for a particular entryto be returned.</param>
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IStorageContext`1.ReadAsync(System.String,System.String)">
+            <summary>
+            Read an entity from the storage context by id.
+            </summary>
+            <param name="entityId">The entity id.</param>
+            <param name="partitionKey">The entity partition</param>
+            <returns>The entity.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IStorageContext`1.CreateAsync(`0)">
+            <summary>
+            Create an entity in the storage context.
+            </summary>
+            <param name="entity">The entity to be created in the context.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IStorageContext`1.UpsertAsync(`0)">
+            <summary>
+            Upsert an entity in the storage context.
+            </summary>
+            <param name="entity">The entity to be upserted in the context.</param>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.IStorageContext`1.DeleteAsync(`0)">
+            <summary>
+            Delete an entity from the storage context.
+            </summary>
+            <param name="entity">The entity to be deleted from the context.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:CopilotChat.WebApi.Storage.ICopilotChatMessageStorageContext" -->
+        <member name="M:CopilotChat.WebApi.Storage.ICopilotChatMessageStorageContext.QueryEntitiesAsync(System.Func{CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Query entities in the storage context.
+            </summary>
+            <param name="predicate">Predicate that needs to evaluate to true for a particular entryto be returned.</param>
+            <param name="skip">Number of messages to skip before starting to return messages.</param>
+            <param name="count">The number of messages to return. -1 returns all messages.</param>
+            <returns>A list of ChatMessages matching the given chatId sorted from most recent to oldest.</returns>
+        </member>
+        <member name="P:CopilotChat.WebApi.Storage.IStorageEntity.Id">
+            <summary>
+            Unique ID of the entity.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Storage.IStorageEntity.Partition">
+            <summary>
+            Partition key value.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.Repository`1">
+            <summary>
+            Defines the basic CRUD operations for a repository.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.WebApi.Storage.Repository`1.StorageContext">
+            <summary>
+            The storage context.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.Repository`1.#ctor(CopilotChat.WebApi.Storage.IStorageContext{`0})">
+            <summary>
+            Initializes a new instance of the Repository class.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.Repository`1.CreateAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.Repository`1.DeleteAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.Repository`1.FindByIdAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.Repository`1.TryFindByIdAsync(System.String,System.String,System.Action{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.Repository`1.UpsertAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:CopilotChat.WebApi.Storage.CopilotChatMessageRepository" -->
+        <member name="M:CopilotChat.WebApi.Storage.CopilotChatMessageRepository.QueryEntitiesAsync(System.Func{CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Finds chat messages matching a predicate.
+            </summary>
+            <param name="predicate">Predicate that needs to evaluate to true for a particular entryto be returned.</param>
+            <param name="skip">Number of messages to skip before starting to return messages.</param>
+            <param name="count">The number of messages to return. -1 returns all messages.</param>
+            <returns>A list of ChatMessages matching the given chatId sorted from most recent to oldest.</returns>
+        </member>
+        <member name="T:CopilotChat.WebApi.Storage.VolatileContext`1">
+            <summary>
+            A storage context that stores entities in memory.
+            </summary>
+        </member>
+        <member name="F:CopilotChat.WebApi.Storage.VolatileContext`1.Entities">
+            <summary>
+            Using a concurrent dictionary to store entities in memory.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.VolatileContext`1.#ctor">
+            <summary>
+            Initializes a new instance of the InMemoryContext class.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.VolatileContext`1.QueryEntitiesAsync(System.Func{`0,System.Boolean})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.VolatileContext`1.CreateAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.VolatileContext`1.DeleteAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.VolatileContext`1.ReadAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.WebApi.Storage.VolatileContext`1.UpsertAsync(`0)">
+            <inheritdoc/>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:CopilotChat.WebApi.Storage.VolatileCopilotChatMessageContext" -->
+        <member name="M:CopilotChat.WebApi.Storage.VolatileCopilotChatMessageContext.QueryEntitiesAsync(System.Func{CopilotChat.WebApi.Models.Storage.CopilotChatMessage,System.Boolean},System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CopilotChat.WebApi.Utilities.PluginUtils">
+            <summary>
+            Converts <see cref="!:Ask"/> variables to <see cref="!:KernelArguments"/>, inserting some system variables along the way.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.WebApi.Utilities.PluginUtils.GetPluginManifestUri(System.String)">
+            <summary>
+            Gets the plugin manifest URI for the given plugin domain.
+            </summary>
+            <param name="manifestDomain">The plugin domain as a string.</param>
+            <returns>The plugin manifest URI.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Utilities.PluginUtils.GetPluginManifestUri(System.Uri)">
+            <summary>
+            Gets the plugin manifest URI for the given plugin domain.
+            </summary>
+            <param name="manifestDomain">The plugin domain as an Uri object.</param>
+            <returns>The plugin manifest URI.</returns>
+        </member>
+        <member name="M:CopilotChat.WebApi.Utilities.PluginUtils.SanitizePluginName(System.String)">
+            <summary>
+            Sanitizes the plugin name by removing spaces.
+            </summary>
+            <param name="name">The plugin name.</param>
+            <returns>The sanitized plugin name.</returns>
+        </member>
+        <member name="T:System.ExceptionExtensions">
+            <summary>
+            Exception extension methods.
+            </summary>
+        </member>
+        <member name="M:System.ExceptionExtensions.IsCriticalException(System.Exception)">
+            <summary>
+            Check if an exception is of a type that should not be caught by the kernel.
+            </summary>
+            <param name="ex">Exception.</param>
+            <returns>True if <paramref name="ex"/> is a critical exception and should not be caught.</returns>
+        </member>
+    </members>
+</doc>

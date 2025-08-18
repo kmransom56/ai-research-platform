@@ -1,0 +1,7 @@
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.csproj.AssemblyReference.cache
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.GeneratedMSBuildEditorConfig.editorconfig
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.AssemblyInfoInputs.cache
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.AssemblyInfo.cs
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.csproj.CoreCompileInputs.cache
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.MvcApplicationPartsAssemblyInfo.cache
+/home/keith/chat-copilot/memorypipeline/obj/Debug/net8.0/CopilotChatMemoryPipeline.sourcelink.json

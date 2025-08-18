@@ -1,0 +1,85 @@
+{
+  "Files": [
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/Dockerfile",
+      "PackagePath": "staticwebassets"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/applications.html",
+      "PackagePath": "staticwebassets/applications.html"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/asset-manifest.json",
+      "PackagePath": "staticwebassets/asset-manifest.json"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/backup-before-symlinks/applications.html",
+      "PackagePath": "staticwebassets/backup-before-symlinks/applications.html"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/backup-before-symlinks/control-panel.html",
+      "PackagePath": "staticwebassets/backup-before-symlinks/control-panel.html"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/control-panel.html",
+      "PackagePath": "staticwebassets/control-panel.html"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/favicon.ico",
+      "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/css/main.3f026dcf.css",
+      "PackagePath": "staticwebassets/static/css/main.3f026dcf.css"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/css/main.3f026dcf.css.map",
+      "PackagePath": "staticwebassets/static/css/main.3f026dcf.css.map"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/js/main.3d81e85a.js",
+      "PackagePath": "staticwebassets/static/js/main.3d81e85a.js"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/js/main.3d81e85a.js.LICENSE.txt",
+      "PackagePath": "staticwebassets/static/js/main.3d81e85a.js.LICENSE.txt"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/js/main.3d81e85a.js.map",
+      "PackagePath": "staticwebassets/static/js/main.3d81e85a.js.map"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/media/add-plugin.67bd3a863550baa0c309.png",
+      "PackagePath": "staticwebassets/static/media/add-plugin.67bd3a863550baa0c309.png"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/media/ms-symbollockup_signin_light.e2f600a8cb97ce3efe4d3db463e6af48.svg",
+      "PackagePath": "staticwebassets/static/media/ms-symbollockup_signin_light.e2f600a8cb97ce3efe4d3db463e6af48.svg"
+    },
+    {
+      "Id": "/home/keith/chat-copilot/webapi/wwwroot/static/media/typing-balls-light.a859d2fb6345248c0471c6cde7d729fe.svg",
+      "PackagePath": "staticwebassets/static/media/typing-balls-light.a859d2fb6345248c0471c6cde7d729fe.svg"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.CopilotChatWebApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.CopilotChatWebApi.props",
+      "PackagePath": "build\\CopilotChatWebApi.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.CopilotChatWebApi.props",
+      "PackagePath": "buildMultiTargeting\\CopilotChatWebApi.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.CopilotChatWebApi.props",
+      "PackagePath": "buildTransitive\\CopilotChatWebApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

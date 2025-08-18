@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "PYc8o0MSpGDi0yLvtUhlT5inNRCoXgkaaSbmhQNfbznhYdtW1j8udtGXRg9XgGS4jnXrFSsjoLG26O1xqtTmqg==",
+  "success": true,
+  "projectFilePath": "/home/keith/chat-copilot/tools/importdocument/ImportDocument.csproj",
+  "expectedPackageFiles": [
+    "/home/keith/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.4/microsoft.codeanalysis.analyzers.3.3.4.nupkg.sha512",
+    "/home/keith/.nuget/packages/microsoft.codeanalysis.csharp.codestyle/4.8.0/microsoft.codeanalysis.csharp.codestyle.4.8.0.nupkg.sha512",
+    "/home/keith/.nuget/packages/microsoft.codeanalysis.netanalyzers/8.0.0/microsoft.codeanalysis.netanalyzers.8.0.0.nupkg.sha512",
+    "/home/keith/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.8.14/microsoft.visualstudio.threading.analyzers.17.8.14.nupkg.sha512",
+    "/home/keith/.nuget/packages/roslynator.analyzers/4.7.0/roslynator.analyzers.4.7.0.nupkg.sha512",
+    "/home/keith/.nuget/packages/roslynator.codeanalysis.analyzers/4.7.0/roslynator.codeanalysis.analyzers.4.7.0.nupkg.sha512",
+    "/home/keith/.nuget/packages/roslynator.formatting.analyzers/4.7.0/roslynator.formatting.analyzers.4.7.0.nupkg.sha512",
+    "/home/keith/.nuget/packages/microsoft.netcore.app.ref/6.0.36/microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/keith/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.36/microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/keith/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.36/microsoft.netcore.app.host.linux-x64.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}

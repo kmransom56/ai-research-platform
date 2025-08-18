@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CopilotChatShared</name>
+    </assembly>
+    <members>
+        <member name="T:CopilotChat.Shared.KernelMemoryBuilderExtensions">
+            <summary>
+            Kernel Memory builder extensions for apps using settings in appsettings.json
+            and using IConfiguration.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.Shared.KernelMemoryBuilderExtensions.FromAppSettings(Microsoft.KernelMemory.IKernelMemoryBuilder,System.String)">
+            <summary>
+            Configure the builder using settings stored in the specified directory.
+            If directory is empty, use the current assembly folder
+            </summary>
+            <param name="builder">KernelMemory builder instance</param>
+            <param name="settingsDirectory">Directory containing appsettings.json (incl. dev/prod)</param>
+        </member>
+        <member name="M:CopilotChat.Shared.KernelMemoryBuilderExtensions.FromMemoryConfiguration(Microsoft.KernelMemory.IKernelMemoryBuilder,Microsoft.KernelMemory.KernelMemoryConfig,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure the builder using settings from the given KernelMemoryConfig and IConfiguration instances.
+            </summary>
+            <param name="builder">KernelMemory builder instance</param>
+            <param name="memoryConfiguration">KM configuration</param>
+            <param name="servicesConfiguration">Dependencies configuration, e.g. queue, embedding, storage, etc.</param>
+        </member>
+        <member name="T:CopilotChat.Shared.MemoryConfiguration">
+            <summary>
+            Configuration constants for kernel memory.
+            </summary>
+        </member>
+        <member name="T:CopilotChat.Shared.Ocr.Tesseract.TesseractConfig">
+            <summary>
+            Configuration options for Tesseract OCR support.
+            </summary>
+        </member>
+        <member name="P:CopilotChat.Shared.Ocr.Tesseract.TesseractConfig.FilePath">
+            <summary>
+            The file path where the Tesseract language file is stored (e.g. "./data")
+            </summary>
+        </member>
+        <member name="P:CopilotChat.Shared.Ocr.Tesseract.TesseractConfig.Language">
+            <summary>
+            The language file prefix name (e.g. "eng")
+            </summary>
+        </member>
+        <member name="T:CopilotChat.Shared.Ocr.Tesseract.TesseractOcrEngine">
+            <summary>
+            Wrapper for the TesseractEngine within the Tesseract OCR library.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.Shared.Ocr.Tesseract.TesseractOcrEngine.#ctor(CopilotChat.Shared.Ocr.Tesseract.TesseractConfig)">
+            <summary>
+            Creates a new instance of the TesseractEngineWrapper passing in a valid TesseractEngine.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.Shared.Ocr.Tesseract.TesseractOcrEngine.ExtractTextFromImageAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.Shared.Ocr.Tesseract.TesseractOcrEngine.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:CopilotChat.Shared.ServiceConfiguration.MinimumConfigurationIsAvailable(System.Boolean)">
+            <summary>
+            Check the configuration for minimum requirements
+            </summary>
+            <param name="throwOnError">Whether to throw or return false when the config is incomplete</param>
+            <returns>Whether the configuration is valid</returns>
+        </member>
+        <member name="M:CopilotChat.Shared.ServiceConfiguration.SetupForOpenAI">
+            <summary>
+            Rewrite configuration using OpenAI, if possible.
+            </summary>
+        </member>
+        <member name="M:CopilotChat.Shared.ServiceConfiguration.GetServiceInstance``1(Microsoft.KernelMemory.IKernelMemoryBuilder,System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <summary>
+            Get an instance of T, using dependencies available in the builder,
+            except for existing service descriptors for T. Replace/Use the
+            given action to define T's implementation.
+            Return an instance of T built using the definition provided by
+            the action.
+            </summary>
+            <param name="builder">KM builder</param>
+            <param name="addCustomService">Action used to configure the service collection</param>
+            <typeparam name="T">Target type/interface</typeparam>
+        </member>
+        <member name="M:CopilotChat.Shared.ServiceConfiguration.GetServiceConfig``1(System.String)">
+            <summary>
+            Read a dependency configuration from IConfiguration
+            Data is usually retrieved from KernelMemory:Services:{serviceName}, e.g. when using appsettings.json
+            {
+              "KernelMemory": {
+                "Services": {
+                  "{serviceName}": {
+                    ...
+                    ...
+                  }
+                }
+              }
+            }
+            </summary>
+            <param name="serviceName">Name of the dependency</param>
+            <typeparam name="T">Type of configuration to return</typeparam>
+            <returns>Configuration instance, settings for the dependency specified</returns>
+        </member>
+    </members>
+</doc>
