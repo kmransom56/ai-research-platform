@@ -25,3 +25,6 @@ docker>=6.1.0
 
 # Optional: Prometheus metrics
 prometheus-client>=0.17.0
+
+# Multi-agent collaboration
+aiohttp>=3.8.0

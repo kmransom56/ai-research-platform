@@ -1,0 +1,22 @@
+NAMES                      STATUS                         PORTS
+ai-platform-genai-loader   Up 46 minutes (healthy)        0.0.0.0:8502->8502/tcp, [::]:8502->8502/tcp, 0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+grafana                    Up 47 minutes                  0.0.0.0:11004->3000/tcp, [::]:11004->3000/tcp
+ai-platform-genai-pdf      Up 46 minutes (healthy)        0.0.0.0:8503->8503/tcp, [::]:8503->8503/tcp
+ai-platform-genai-bot      Up 46 minutes (healthy)        0.0.0.0:8501->8501/tcp, [::]:8501->8501/tcp
+ai-platform-genai-api      Up 46 minutes (healthy)        0.0.0.0:8504->8504/tcp, [::]:8504->8504/tcp
+ai-platform-meraki         Up 47 minutes (healthy)        0.0.0.0:11030->11025/tcp, [::]:11030->11025/tcp
+ai-platform-chat-backend   Up 47 minutes (unhealthy)      0.0.0.0:11000->8080/tcp, [::]:11000->8080/tcp
+ai-platform-perplexica     Up 47 minutes (unhealthy)      0.0.0.0:11020->3000/tcp, [::]:11020->3000/tcp
+ai-platform-magentic       Up 47 minutes (unhealthy)      0.0.0.0:11003->11003/tcp, [::]:11003->11003/tcp
+ai-platform-portscanner    Up 47 minutes (unhealthy)      10200/tcp, 0.0.0.0:11010->11010/tcp, [::]:11010->11010/tcp
+ai-platform-postgres       Up 47 minutes (healthy)        0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+n8n                        Up 47 minutes (unhealthy)      0.0.0.0:11510->5678/tcp, [::]:11510->5678/tcp
+ai-platform-searxng        Up 47 minutes (unhealthy)      0.0.0.0:11021->8080/tcp, [::]:11021->8080/tcp
+ai-platform-rabbitmq       Up 47 minutes (healthy)        4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp, [::]:5672->5672/tcp, 15671/tcp, 15691-15692/tcp, 25672/tcp, 0.0.0.0:15672->15672/tcp, [::]:15672->15672/tcp
+ai-platform-webhook        Restarting (0) 2 seconds ago   
+ai-platform-autogen        Up 47 minutes (unhealthy)      0.0.0.0:11001->8081/tcp, [::]:11001->8081/tcp
+ai-platform-neo4j          Up 47 minutes (healthy)        0.0.0.0:7474->7474/tcp, [::]:7474->7474/tcp, 7473/tcp, 0.0.0.0:7687->7687/tcp, [::]:7687->7687/tcp
+ai-platform-qdrant         Up 47 minutes (unhealthy)      0.0.0.0:6333-6334->6333-6334/tcp, [::]:6333-6334->6333-6334/tcp
+ai-platform-openwebui      Up 47 minutes (healthy)        0.0.0.0:11880->8080/tcp, [::]:11880->8080/tcp
+prompt-forge               Up 47 minutes (unhealthy)      0.0.0.0:11500->8080/tcp, [::]:11500->8080/tcp
+ai-platform-vscode         Up 47 minutes (healthy)        0.0.0.0:57081->8080/tcp, [::]:57081->8080/tcp

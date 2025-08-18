@@ -1,0 +1,15 @@
+NAME                        ID              SIZE      MODIFIED    
+llama2:latest               78e26419b446    3.8 GB    7 weeks ago    
+qwen2.5-coder:1.5b-base     02e0f2817a89    986 MB    8 weeks ago    
+mxbai-embed-large:latest    468836162de7    669 MB    8 weeks ago    
+nomic-embed-text:latest     0a109f422b47    274 MB    8 weeks ago    
+llava-phi3:latest           c7edd7b87593    2.9 GB    8 weeks ago    
+llava:34b                   3d2d24f46674    20 GB     8 weeks ago    
+starcoder2:15b              21ae152d49e0    9.1 GB    8 weeks ago    
+deepseek-coder:33b          acec7c0b0fd9    18 GB     8 weeks ago    
+mixtral:8x7b                a3b6bef0f836    26 GB     8 weeks ago    
+qwen2.5:72b                 424bad2cc13f    47 GB     8 weeks ago    
+llama3.1:70b                711a9e8463af    42 GB     8 weeks ago    
+codellama:34b               685be00e1532    19 GB     8 weeks ago    
+qwen2.5:14b                 7cdf5a0187d5    9.0 GB    8 weeks ago    
+llama3.1:8b                 46e0c10c039e    4.9 GB    8 weeks ago    
