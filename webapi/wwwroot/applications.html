@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Platform - Application Directory</title>
+    <meta name="AI_APPLICATIONS" content="https://ubuntuaicodeserver-1.tail5137b4.ts.net:10443/applications.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #444;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .app-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .app-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .app-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .app-link:hover {
+            background: #5a6fd8;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.ready {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .quick-access {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .quick-access h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quick-link {
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: #218838;
+        }
+
+        .network-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .ai-category {
+            border-left-color: #ff6b6b;
+        }
+
+        .dev-category {
+            border-left-color: #4ecdc4;
+        }
+
+        .network-category {
+            border-left-color: #45b7d1;
+        }
+
+        .api-category {
+            border-left-color: #96ceb4;
+        }
+
+        /* Advanced AI Stack Styles */
+        .service-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .service-card.featured {
+            border-color: #007bff;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+        }
+
+        .service-links {
+            margin: 10px 0;
+        }
+
+        .service-status {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .service-status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .service-status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .app-card.featured {
+            border-color: #007bff;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌐 AI Research Platform</h1>
+        <p class="subtitle">Distributed Applications on Tailscale Network</p>
+
+        <div class="network-info">
+<strong>Tailscale Domain:</strong> ubuntuaicodeserver-1.tail5137b4.ts.net |
+            <strong>Access:</strong> Available from any device on your Tailscale network |
+            <strong>Last Updated:</strong> June 14, 2025
+        </div>
+
+        <div class="section">
+            <h2>🤖 AI & Research Applications</h2>
+            <div class="app-grid">
+                <div class="app-card ai-category">
+                    <h3>OpenWebUI <span class="status active">✅ Active</span></h3>
+                    <p>Advanced LLM Chat Interface with Multiple Models - Primary AI Platform for research and
+                        development</p>
+                    <a href="/openwebui" class="app-link" target="_blank">Launch
+                        OpenWebUI</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>Chat Copilot <span class="status active">✅ Active</span></h3>
+                    <p>Microsoft Semantic Kernel AI Chat Platform with document processing and memory capabilities</p>
+                    <a href="/copilot" class="app-link" target="_blank">Launch Chat Interface</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>Perplexica <span class="status active">✅ Active</span></h3>
+                    <p>AI Search with Real-time Internet Access - Chat with the web using advanced AI</p>
+                    <a href="/perplexica" class="app-link" target="_blank">Launch AI Search</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>SearchNG <span class="status active">✅ Active</span></h3>
+                    <p>Privacy-focused Search Engine for secure web searches</p>
+                    <a href="/searxng" class="app-link" target="_blank">Launch Search Engine</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>AutoGen Studio <span class="status active">✅ Active</span></h3>
+                    <p>Multi-Agent Conversation Platform - Create and manage AI agent teams with Ollama models</p>
+                    <a href="/autogen" class="app-link" target="_blank">Launch AutoGen Studio</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>Magentic-One Platform <span class="status configured">🟡 Configured</span></h3>
+                    <p>Advanced Multi-Agent Task Solving - Microsoft's flagship multi-agent system for complex workflows
+                    </p>
+                    <a href="/magentic" class="app-link" target="_blank">Launch Magentic-One</a>
+                </div>
+                <div class="app-card ai-category">
+                    <h3>Prompt Forge <span class="status ready">🟡 Ready</span></h3>
+                    <p>Prompt engineering playground with Anthropic Claude support and template library</p>
+                    <a href="/promptforge" class="app-link" target="_blank">Launch Prompt Forge</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🍽️ Restaurant Network Management</h2>
+            <div class="app-grid">
+                <div class="app-card network-category">
+                    <h3>Network Voice Interface <span class="status active">✅ Active</span></h3>
+                    <p>AI Voice Commands for Restaurant Network Management - Query Arby's, BWW, and Sonic devices using natural language</p>
+                    <a href="http://localhost:11030" class="app-link" target="_blank">Launch Voice Interface</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Grafana Monitoring <span class="status active">✅ Active</span></h3>
+                    <p>Restaurant Network Dashboards - Real-time monitoring of 15,000+ Fortinet and 7,000+ Meraki devices</p>
+                    <a href="http://localhost:11002" class="app-link" target="_blank">Launch Grafana</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Prometheus Metrics <span class="status active">✅ Active</span></h3>
+                    <p>Network Metrics Collection - FortiManager connectivity, device health, and performance alerting</p>
+                    <a href="http://localhost:9090" class="app-link" target="_blank">Launch Prometheus</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Neo4j Network Topology <span class="status active">✅ Active</span></h3>
+                    <p>Multi-Vendor Network Visualization - Interactive topology of restaurant network infrastructure</p>
+                    <a href="http://localhost:7474" class="app-link" target="_blank">Launch Neo4j Browser</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>FortiManager Integration <span class="status active">✅ Active</span></h3>
+                    <p>Corporate Network Access - Arby's, BWW, and Sonic FortiManager device management</p>
+                    <a href="/fortinet" class="app-link" target="_blank">Launch Manager</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Multi-Vendor Discovery <span class="status active">✅ Active</span></h3>
+                    <p>Network Discovery Dashboard - Automated detection and classification of restaurant network devices</p>
+                    <a href="/portscanner" class="app-link" target="_blank">Launch Discovery</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Development & Management Tools</h2>
+            <div class="app-grid">
+                <div class="app-card dev-category">
+                    <h3>VS Code Web (Enhanced) <span class="status active">✅ Active</span></h3>
+                    <p>Official VS Code Server with AI Development Workspace, AutoGen integration, and custom snippets
+                    </p>
+                    <a href="/vscode/login" class="app-link" target="_blank">Launch VS Code Web</a>
+                </div>
+
+
+                <div class="app-card network-category">
+                    <h3>Port Scanner Dashboard <span class="status active">✅ Active</span></h3>
+                    <p>Network Discovery & Monitoring tool for service management</p>
+                    <a href="/portscanner" class="app-link" target="_blank">Launch Scanner</a>
+                </div>
+
+
+                <div class="app-card network-category">
+                    <h3>Nginx Gateway <span class="status active">✅ Active</span></h3>
+                    <p>Web Services Proxy and Gateway for application routing</p>
+                    <a href="/nginx" class="app-link" target="_blank">Launch Gateway</a>
+                </div>
+
+                <div class="app-card dev-category">
+                    <h3>n8n Automation <span class="status ready">🟡 Ready</span></h3>
+                    <p>Low-code workflow automation tool to connect and automate apps</p>
+                    <a href="/n8n" class="app-link" target="_blank">Launch n8n</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Backend Services & APIs</h2>
+            <div class="app-grid">
+                <div class="app-card api-category">
+                    <h3>Chat Copilot API <span class="status active">✅ Active</span></h3>
+                    <p>Semantic Kernel REST API for AI chat functionality</p>
+                    <a href="/copilot/healthz" class="app-link" target="_blank">Health Check</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>Fortinet API <span class="status active">✅ Active</span></h3>
+                    <p>Network Management REST API for automation</p>
+                    <a href="/fortinet-api" class="app-link" target="_blank">API Endpoint</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>Ollama (Local LLM) <span class="status ready">🟡 Ready</span></h3>
+                    <p>Local Language Models server with phi3 and nomic-embed models</p>
+                    <a href="/ollama" class="app-link" target="_blank">Local Access</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>Webhook Server <span class="status active">✅ Active</span></h3>
+                    <p>GitHub webhook automation server for deployment automation</p>
+    <a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11025" class="app-link" target="_blank">Webhook API</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Database & Infrastructure</h2>
+            <div class="app-grid">
+                <div class="app-card api-category">
+                    <h3>Neo4j Database <span class="status active">✅ Active</span></h3>
+                    <p>Graph database with knowledge graph capabilities for AI applications</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:7474" class="app-link" target="_blank">Neo4j Browser</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>Qdrant Vector DB <span class="status active">✅ Active</span></h3>
+                    <p>High-performance vector database for embeddings and similarity search</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:6333" class="app-link" target="_blank">Qdrant Dashboard</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>RabbitMQ Management <span class="status active">✅ Active</span></h3>
+                    <p>Message queue management interface for distributed processing</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:15672" class="app-link" target="_blank">RabbitMQ Console</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>PostgreSQL <span class="status active">✅ Active</span></h3>
+                    <p>Relational database for structured data and application state</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:5432" class="app-link" target="_blank">Database Access</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Advanced AI Stack</h2>
+            <div class="app-grid">
+                <div class="app-card ai-category">
+                    <h3>🧠 DeepSeek R1 (Reasoning) <span class="status active">✅ Active</span></h3>
+                    <p>Ultra-high performance reasoning and complex analysis</p>
+                    <div class="service-links">
+                        <a href="http://localhost:8000/docs" class="app-link" target="_blank">API Docs</a>
+                        <a href="http://localhost:8000/v1/models" class="app-link" target="_blank">Models</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:8000/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>⚡ Mistral Small (General) <span class="status active">✅ Active</span></h3>
+                    <p>Fast general-purpose AI for everyday tasks</p>
+                    <div class="service-links">
+                        <a href="http://localhost:8001/docs" class="app-link" target="_blank">API Docs</a>
+                        <a href="http://localhost:8001/v1/models" class="app-link" target="_blank">Models</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:8001/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>💻 DeepSeek Coder <span class="status active">✅ Active</span></h3>
+                    <p>Specialized AI for code generation and debugging</p>
+                    <div class="service-links">
+                        <a href="http://localhost:8002/docs" class="app-link" target="_blank">API Docs</a>
+                        <a href="http://localhost:8002/v1/models" class="app-link" target="_blank">Models</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:8002/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>🎛️ Oobabooga WebUI <span class="status active">✅ Active</span></h3>
+                    <p>Advanced text generation with multimodal support</p>
+                    <div class="service-links">
+                        <a href="http://localhost:7860" class="app-link" target="_blank">Open WebUI</a>
+                        <a href="http://localhost:5000/docs" class="app-link" target="_blank">API Docs</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:5000/health">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category">
+                    <h3>✍️ KoboldCpp <span class="status active">✅ Active</span></h3>
+                    <p>Creative writing and roleplay AI interface</p>
+                    <div class="service-links">
+                        <a href="http://localhost:5001" class="app-link" target="_blank">Open KoboldCpp</a>
+                        <a href="http://localhost:5001/api" class="app-link" target="_blank">API Info</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:5001">Checking...</div>
+                </div>
+                
+                <div class="app-card ai-category featured">
+                    <h3>🌐 AI Stack Gateway <span class="status active">✅ Active</span></h3>
+                    <p>Unified API with intelligent task routing</p>
+                    <div class="service-links">
+                        <a href="http://localhost:9000/health" class="app-link" target="_blank">Health Check</a>
+                        <a href="http://localhost:9000/docs" class="app-link" target="_blank">API Docs</a>
+                    </div>
+                    <div class="service-status" data-url="http://localhost:9000/health">Checking...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧠 GenAI Stack Services</h2>
+            <div class="app-grid">
+                <div class="app-card ai-category">
+                    <h3>GenAI Stack Frontend <span class="status active">✅ Active</span></h3>
+                    <p>Main dashboard for Neo4j GenAI Stack knowledge graph applications</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8505" class="app-link" target="_blank">GenAI Stack</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>Support Bot <span class="status active">✅ Active</span></h3>
+                    <p>AI assistant powered by knowledge graphs and document analysis</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8501" class="app-link" target="_blank">Support Bot</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>Data Loader <span class="status active">✅ Active</span></h3>
+                    <p>Import and process documents into knowledge graph format</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8502" class="app-link" target="_blank">Data Loader</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>PDF Reader <span class="status active">✅ Active</span></h3>
+                    <p>AI-powered PDF analysis with knowledge extraction</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8503" class="app-link" target="_blank">PDF Reader</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>GenAI API Server <span class="status active">✅ Active</span></h3>
+                    <p>REST API for knowledge graph operations and AI services</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8504" class="app-link" target="_blank">API Server</a>
+                </div>
+
+                <div class="app-card ai-category">
+                    <h3>Import Interface <span class="status active">✅ Active</span></h3>
+                    <p>Web interface for importing data from various sources</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8081" class="app-link" target="_blank">Import Interface</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ System Administration</h2>
+            <div class="app-grid">
+                <div class="app-card network-category">
+                    <h3>Gateway Admin <span class="status active">✅ Active</span></h3>
+                    <p>Gateway administration interface for proxy management</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11082" class="app-link" target="_blank">Gateway Admin</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Nginx Config UI <span class="status active">✅ Active</span></h3>
+                    <p>Web interface for nginx configuration management</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11084" class="app-link" target="_blank">Nginx Config</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>Windmill <span class="status active">✅ Active</span></h3>
+                    <p>Workflow automation engine with visual workflow designer</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11006" class="app-link" target="_blank">Windmill</a>
+                </div>
+
+                <div class="app-card network-category">
+                    <h3>ntopng Monitor <span class="status active">✅ Active</span></h3>
+                    <p>Network traffic monitoring and analysis dashboard</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8888" class="app-link" target="_blank">Network Monitor</a>
+                </div>
+
+                <div class="app-card api-category">
+                    <h3>Ollama API <span class="status active">✅ Active</span></h3>
+                    <p>Direct API access to local language model endpoints</p>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:11434" class="app-link" target="_blank">Ollama API</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-access">
+            <h3>🚀 Quick Access Links</h3>
+            <div class="quick-links">
+                <a href="/openwebui" class="quick-link" target="_blank">OpenWebUI</a>
+                <a href="/hub" class="quick-link" target="_blank">🎛️ Control Panel</a>
+                <a href="/copilot" class="quick-link" target="_blank">AI Chat</a>
+                <a href="/perplexica" class="quick-link" target="_blank">AI Search</a>
+                <a href="/vscode" class="quick-link" target="_blank">Code Editor</a>
+                <a href="/promptforge" class="quick-link" target="_blank">Prompt Forge</a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:7474" class="quick-link" target="_blank">Neo4j</a>
+<a href="https://ubuntuaicodeserver-1.tail5137b4.ts.net:8505" class="quick-link" target="_blank">GenAI Stack</a>
+                <a href="/portscanner" class="quick-link" target="_blank">Port Scanner</a>
+                <a href="/grafana" class="quick-link" target="_blank">Grafana</a>
+                <a href="/copilot/healthz" class="quick-link" target="_blank">Health Check</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Available Features</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">AI Capabilities</h4>
+                    <ul style="color: #666; line-height: 1.6;">
+                        <li>✅ OpenAI GPT-4 Integration</li>
+                        <li>✅ Internet-connected AI Search</li>
+                        <li>✅ Document Processing</li>
+                        <li>✅ Multi-modal Chat</li>
+                        <li>🟡 Local LLM Support (Ready)</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Development Tools</h4>
+                    <ul style="color: #666; line-height: 1.6;">
+                        <li>✅ Cloud-based Code Editor</li>
+                        <li>✅ Network Discovery</li>
+                        <li>✅ Container Management</li>
+                        <li>✅ API Development</li>
+                        <li>✅ Real-time Collaboration</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Research Tools</h4>
+                    <ul style="color: #666; line-height: 1.6;">
+                        <li>✅ AI-powered Search</li>
+                        <li>✅ Knowledge Management</li>
+                        <li>✅ Multi-source Research</li>
+                        <li>✅ Real-time Web Access</li>
+                        <li>✅ Privacy-focused Search</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #e9ecef; border-radius: 10px;">
+            <h3>🎉 Your AI Research Platform is Ready!</h3>
+            <p style="color: #666; margin: 10px 0;">All applications are accessible across your Tailscale network from
+                any device.</p>
+            <p style="color: #666; font-size: 0.9em;">For technical support or additional configuration, refer to the
+                APPLICATIONS_DIRECTORY.md file.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript disabled to prevent URL rewriting issues -->
+    <!-- 
+    <script>
+        (function () {
+            const LEGACY_HOSTS = [
+                'ubuntuaicodeserver-1.tail5137b4.ts.net',
+                '100.123.10.72'
+            ];
+
+            const LOCAL_HOSTS = ['localhost', '127.0.0.1'];
+
+            const DEFAULT_PORT = '8443';
+            const CURRENT_HOST = window.location.port
+                ? window.location.host
+                : `${window.location.hostname}:${DEFAULT_PORT}`;
+            const CURRENT_BASE = window.location.protocol === 'https:'
+                ? `https://${CURRENT_HOST}`
+                : `https://${window.location.hostname}:8443`;
+
+            // Mapping of legacy container ports → path prefixes handled by nginx SSL proxy
+            const PORT_TO_PATH = {
+                // Core Platform Services
+                'http://100.123.10.72:11000': '/copilot/',
+                'http://100.123.10.72:11001': '/autogen/',
+                'http://100.123.10.72:11003': '/magentic/',
+                'http://100.123.10.72:11025': '/webhook/',
+                'http://100.123.10.72:11007': '/grafana/',
+                'http://100.123.10.72:11500': '/promptforge/',
+                'http://100.123.10.72:11510': '/n8n/',
+                'http://100.123.10.72:11010': '/portscanner/',
+                'http://100.123.10.72:11880': '/openwebui/',
+                'http://100.123.10.72:57081': '/vscode/',
+
+                // Search & Knowledge Services  
+                'http://100.123.10.72:11020': '/perplexica/',
+                'http://100.123.10.72:11021': '/searxng/',
+                'http://100.123.10.72:7474': '/neo4j/',
+                'http://100.123.10.72:6333': '/qdrant/',
+
+                // GenAI Stack Services
+                'http://100.123.10.72:8505': '/genai-stack/',
+                'http://100.123.10.72:8502': '/genai-stack/loader/',
+                'http://100.123.10.72:8081': '/genai-stack/import/',
+                'http://100.123.10.72:8501': '/genai-stack/bot/',
+                'http://100.123.10.72:8503': '/genai-stack/pdf/',
+                'http://100.123.10.72:8504': '/genai-stack/api/',
+
+                // Infrastructure & Admin
+                'http://100.123.10.72:11082': '/gateway-admin/',
+                'http://100.123.10.72:11084': '/nginx-config/',
+                'http://100.123.10.72:11434': '/ollama-api/',
+                'http://100.123.10.72:11006': '/windmill/',
+                'http://100.123.10.72:8888': '/ntopng/',
+                'http://100.123.10.72:8080': '/nginx/',
+                'http://100.123.10.72:15672': '/rabbitmq/',
+                'http://100.123.10.72:5432': '/postgresql/',
+
+                // Legacy/Compatibility
+                'http://100.123.10.72:3000': '/copilot/',
+                'http://100.123.10.72:3080': '/copilot/',
+                'http://100.123.10.72:3999': '/perplexica/',
+                'http://100.123.10.72:4000': '/searxng/',
+                'http://100.123.10.72:3001': '/fortinet/',
+                'http://100.123.10.72:5000': '/fortinet-api/'
+            };
+
+            function rewriteAnchors() {
+                document.querySelectorAll('a[href]').forEach(a => {
+                    try {
+                        const url = new URL(a.getAttribute('href'), window.location.href);
+
+                        // Only rewrite legacy Tailscale domain links, not localhost/127.0.0.1 
+                        if (LEGACY_HOSTS.includes(url.hostname)) {
+                            let newHref = CURRENT_BASE;
+
+                            // Create full URL key for mapping lookup
+                            const fullUrlKey = `http://${url.hostname}:${url.port}`;
+                            
+                            // Replace based on full URL mapping if available
+                            if (PORT_TO_PATH[fullUrlKey]) {
+                                newHref += PORT_TO_PATH[fullUrlKey];
+                                // Preserve extra path segments if the original path is not root
+                                const extra = url.pathname.replace(/^\/?/, '');
+                                if (extra && extra !== PORT_TO_PATH[fullUrlKey].replace(/\//g, '')) {
+                                    newHref += extra;
+                                }
+                            } else if (url.port && PORT_TO_PATH[url.port]) {
+                                // Fallback to old port-only mapping for compatibility
+                                newHref += PORT_TO_PATH[url.port];
+                                const extra = url.pathname.replace(/^\/?/, '');
+                                if (extra && extra !== PORT_TO_PATH[url.port].replace(/\//g, '')) {
+                                    newHref += extra;
+                                }
+                            } else {
+                                newHref += url.pathname;
+                            }
+
+                            newHref += url.search + url.hash;
+                            a.setAttribute('href', newHref);
+                        }
+                        // For localhost/127.0.0.1, replace with current IP but preserve port for direct access
+                        else if (['localhost', '127.0.0.1'].includes(url.hostname)) {
+                            a.setAttribute('href', `http://${window.location.hostname}:${url.port}${url.pathname}${url.search}${url.hash}`);
+                        }
+                    } catch (_) {/* ignore malformed URLs */ }
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', rewriteAnchors);
+            } else {
+                rewriteAnchors();
+            }
+        })();
+    </script>
+    -->
+</body>
+
+</html>
