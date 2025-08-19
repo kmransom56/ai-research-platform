@@ -1,0 +1,52 @@
+[Unit]
+Description=AI Research Platform - 24GB VRAM Optimized
+Documentation=https://github.com/kmransom56/ai-research-platform
+After=network-online.target docker.service nvidia-persistenced.service
+Wants=network-online.target docker.service
+Requires=network.target
+
+[Service]
+Type=forking
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=PATH=/usr/local/bin:/usr/bin:/bin:/home/keith/.local/bin
+Environment=CUDA_VISIBLE_DEVICES=0
+Environment=PYTHONPATH=/home/keith/chat-copilot/python/ai-stack:/home/keith/chat-copilot/python
+Environment=CUDA_LAUNCH_BLOCKING=1
+Environment=PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:1024
+ExecStartPre=/bin/sleep 30
+ExecStartPre=/usr/bin/nvidia-smi
+ExecStart=/home/keith/chat-copilot/scripts/platform-management/startup-all-services-24gb.sh start
+ExecStop=/home/keith/chat-copilot/scripts/platform-management/startup-all-services-24gb.sh stop
+ExecReload=/home/keith/chat-copilot/scripts/platform-management/startup-all-services-24gb.sh restart
+TimeoutStartSec=900
+TimeoutStopSec=180
+Restart=on-failure
+RestartSec=45
+KillMode=mixed
+KillSignal=SIGTERM
+
+# Memory and resource optimization for 24GB system
+MemoryAccounting=true
+MemoryLimit=28G
+CPUAccounting=true
+CPUQuota=800%
+
+# Security settings optimized for AI workloads
+PrivateTmp=false
+NoNewPrivileges=false
+ProtectSystem=false
+ProtectHome=false
+RestrictRealtime=false
+
+# GPU access requirements
+SupplementaryGroups=video render
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-research-platform-24gb
+
+[Install]
+WantedBy=multi-user.target

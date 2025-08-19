@@ -1,0 +1,101 @@
+{
+  "hardware_profile": "24GB_VRAM_System",
+  "description": "Optimized configuration for systems with 24GB VRAM",
+  "target_repository": "kmransom56/ai-research-platform",
+  "gpu_config": {
+    "total_vram": "24GB",
+    "available_gpus": 1,
+    "gpu_memory_utilization": {
+      "reasoning": 0.4,
+      "general": 0.3,
+      "coding": 0.3,
+      "creative": "cpu_fallback"
+    },
+    "concurrent_models": 2,
+    "model_allocation": {
+      "primary_gpu": 0,
+      "memory_per_model": "8-12GB",
+      "fallback_to_cpu": ["creative", "advanced"]
+    }
+  },
+  "optimized_services": {
+    "vllm_services": {
+      "reasoning": {
+        "port": 8000,
+        "model": "microsoft/DialoGPT-small",
+        "gpu_memory_utilization": 0.4,
+        "max_model_len": 1024,
+        "gpu_id": 0,
+        "priority": "high"
+      },
+      "general": {
+        "port": 8001,
+        "model": "distilgpt2",
+        "gpu_memory_utilization": 0.3,
+        "max_model_len": 512,
+        "gpu_id": 0,
+        "priority": "medium"
+      },
+      "coding": {
+        "port": 8002,
+        "model": "microsoft/DialoGPT-small",
+        "gpu_memory_utilization": 0.3,
+        "max_model_len": 1024,
+        "gpu_id": 0,
+        "priority": "medium"
+      }
+    },
+    "cpu_services": {
+      "creative": {
+        "port": 5001,
+        "service": "koboldcpp",
+        "model": "ggml-gpt4all-j-v1.3-groovy",
+        "threads": 8,
+        "priority": "low"
+      },
+      "advanced": {
+        "port": 5000,
+        "service": "oobabooga",
+        "model": "gpt4all-falcon-newbpe-q4_0",
+        "cpu_only": true,
+        "priority": "low"
+      }
+    },
+    "platform_services": {
+      "ollama": {
+        "enabled": true,
+        "models": ["llama3.2:1b", "codellama:7b-code"],
+        "memory_limit": "4GB"
+      },
+      "autogen_studio": {
+        "enabled": true,
+        "max_agents": 3,
+        "memory_limit": "2GB"
+      },
+      "chat_copilot": {
+        "enabled": true,
+        "memory_limit": "4GB"
+      }
+    }
+  },
+  "startup_sequence": {
+    "phase_1": ["webhook-server", "chat-copilot-backend"],
+    "phase_2": ["ai-gateway", "port-scanner"],
+    "phase_3": ["reasoning", "general"],
+    "phase_4": ["coding"],
+    "phase_5": ["ollama", "autogen-studio"],
+    "phase_6": ["creative", "advanced"],
+    "phase_7": ["docker-services"]
+  },
+  "resource_limits": {
+    "max_gpu_memory": "22GB",
+    "max_system_memory": "32GB",
+    "max_concurrent_inference": 3,
+    "cpu_intensive_services": 2
+  },
+  "fallback_strategy": {
+    "gpu_oom": "fallback_to_cpu",
+    "service_failure": "use_ollama",
+    "memory_pressure": "reduce_model_size"
+  }
+}
