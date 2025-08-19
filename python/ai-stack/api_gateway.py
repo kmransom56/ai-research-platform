@@ -17,6 +17,7 @@ from collaboration_orchestrator import orchestrator, TaskType
 from workflow_templates import workflow_manager
 from mcp_server_registry import mcp_registry
 from enhanced_router import intelligent_router
+from platform_aware_router import platform_router
 
 app = Flask(__name__)
 
@@ -772,6 +773,54 @@ def gateway_info():
             "brand_coverage": "Arby's, Buffalo Wild Wings, Sonic Drive-In networks"
         }
     })
+
+@app.route('/platform/services', methods=['GET'])
+def get_platform_services():
+    """Get all platform services and their health status"""
+    try:
+        health_data = platform_router.get_service_health()
+        return jsonify(health_data)
+    except Exception as e:
+        logger.error(f"Error getting platform services: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/platform/route', methods=['POST'])
+def platform_route_request():
+    """Route request to optimal platform service"""
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), 400
+            
+        prompt = data.get('prompt', '')
+        task_type = data.get('task_type')
+        budget_factor = data.get('budget_factor', 1.0)
+        
+        if not prompt:
+            return jsonify({"error": "No prompt provided"}), 400
+        
+        optimal_service, routing_info = platform_router.get_optimal_service(
+            prompt, task_type, budget_factor
+        )
+        
+        return jsonify({
+            "optimal_service": optimal_service,
+            "routing_info": routing_info
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in platform routing: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/platform/analytics', methods=['GET'])
+def get_platform_analytics():
+    """Get comprehensive platform analytics"""
+    try:
+        analytics = platform_router.get_analytics()
+        return jsonify(analytics)
+    except Exception as e:
+        logger.error(f"Error getting platform analytics: {e}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     logger.info("Starting Advanced AI Stack Gateway on port 9000")

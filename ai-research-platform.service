@@ -1,0 +1,40 @@
+[Unit]
+Description=AI Research Platform - Comprehensive Service Manager
+Documentation=https://github.com/kmransom56/chat-copilot
+After=network-online.target docker.service nvidia-persistenced.service
+Wants=network-online.target docker.service
+Requires=network.target
+
+[Service]
+Type=forking
+User=keith
+Group=keith
+WorkingDirectory=/home/keith/chat-copilot
+Environment=PATH=/usr/local/bin:/usr/bin:/bin:/home/keith/.local/bin
+Environment=CUDA_VISIBLE_DEVICES=0,1
+Environment=PYTHONPATH=/home/keith/chat-copilot/python/ai-stack:/home/keith/chat-copilot/python
+ExecStartPre=/bin/sleep 30
+ExecStart=/home/keith/chat-copilot/scripts/platform-management/startup-all-services.sh start
+ExecStop=/home/keith/chat-copilot/scripts/platform-management/startup-all-services.sh stop
+ExecReload=/home/keith/chat-copilot/scripts/platform-management/startup-all-services.sh restart
+TimeoutStartSec=600
+TimeoutStopSec=120
+Restart=on-failure
+RestartSec=30
+KillMode=mixed
+KillSignal=SIGTERM
+
+# Security and resource settings
+PrivateTmp=false
+NoNewPrivileges=false
+ProtectSystem=false
+ProtectHome=false
+RestrictRealtime=false
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-research-platform
+
+[Install]
+WantedBy=multi-user.target
