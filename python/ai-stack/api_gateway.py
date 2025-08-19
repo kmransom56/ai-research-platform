@@ -11,10 +11,12 @@ import json
 import logging
 import os
 import asyncio
+import time
 from typing import Dict, Any
 from collaboration_orchestrator import orchestrator, TaskType
 from workflow_templates import workflow_manager
 from mcp_server_registry import mcp_registry
+from enhanced_router import intelligent_router
 
 app = Flask(__name__)
 
@@ -35,10 +37,19 @@ BACKENDS = {
 }
 
 def route_request(task_type: str, prompt: str, **kwargs) -> Dict[str, Any]:
-    """Route request to appropriate backend based on task type"""
+    """Route request to appropriate backend using intelligent routing"""
     
-    backend_url = BACKENDS.get(task_type, BACKENDS['general'])
-    logger.info(f"Routing {task_type} request to {backend_url}")
+    # Use intelligent router to get optimal model
+    budget_factor = kwargs.get('budget_factor', 1.0)
+    start_time = time.time()
+    
+    optimal_model, routing_info = intelligent_router.get_optimal_model(
+        prompt, task_type, budget_factor
+    )
+    
+    backend_url = BACKENDS.get(optimal_model, BACKENDS['general'])
+    logger.info(f"Intelligent routing: {task_type} -> {optimal_model} ({backend_url})")
+    logger.info(f"Routing reason: {routing_info['routing_reason']}")
     
     try:
         if task_type == 'creative':
@@ -60,11 +71,64 @@ def route_request(task_type: str, prompt: str, **kwargs) -> Dict[str, Any]:
             response = requests.post(f"{backend_url}/v1/chat/completions", json=payload, timeout=30)
         
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        
+        # Update performance metrics
+        latency = time.time() - start_time
+        intelligent_router.update_performance_metrics(optimal_model, latency, True)
+        
+        # Add routing info to response
+        if isinstance(result, dict):
+            result['routing_info'] = routing_info
+        
+        return result
         
     except requests.exceptions.RequestException as e:
         logger.error(f"Error routing request to {backend_url}: {e}")
-        return {"error": f"Backend {task_type} unavailable: {str(e)}"}
+        
+        # Update performance metrics for failure
+        latency = time.time() - start_time
+        intelligent_router.update_performance_metrics(optimal_model, latency, False)
+        
+        # Try fallback models
+        fallback_models = routing_info.get('fallback_models', [])
+        for fallback_model in fallback_models:
+            if fallback_model in BACKENDS:
+                logger.info(f"Trying fallback model: {fallback_model}")
+                try:
+                    fallback_url = BACKENDS[fallback_model]
+                    if fallback_model == 'creative':
+                        payload = {
+                            "prompt": prompt,
+                            "max_length": kwargs.get('max_tokens', 512),
+                            "temperature": kwargs.get('temperature', 0.8)
+                        }
+                        response = requests.post(f"{fallback_url}/api/v1/generate", json=payload, timeout=30)
+                    else:
+                        payload = {
+                            "model": "auto",
+                            "messages": [{"role": "user", "content": prompt}],
+                            "max_tokens": kwargs.get('max_tokens', 512),
+                            "temperature": kwargs.get('temperature', 0.7)
+                        }
+                        response = requests.post(f"{fallback_url}/v1/chat/completions", json=payload, timeout=30)
+                    
+                    response.raise_for_status()
+                    result = response.json()
+                    
+                    # Add fallback info
+                    if isinstance(result, dict):
+                        routing_info['used_fallback'] = fallback_model
+                        result['routing_info'] = routing_info
+                    
+                    logger.info(f"Fallback to {fallback_model} successful")
+                    return result
+                    
+                except Exception as fallback_error:
+                    logger.error(f"Fallback to {fallback_model} also failed: {fallback_error}")
+                    continue
+        
+        return {"error": f"All backends unavailable. Primary: {str(e)}", "routing_info": routing_info}
 
 @app.route('/v1/completions', methods=['POST'])
 def completions():
@@ -197,9 +261,48 @@ def collaborate():
             return jsonify(result)
         finally:
             loop.close()
-        
+            
     except Exception as e:
         logger.error(f"Error in collaboration endpoint: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/router/analytics', methods=['GET'])
+def get_routing_analytics():
+    """Get intelligent routing analytics"""
+    try:
+        analytics = intelligent_router.get_analytics()
+        return jsonify(analytics)
+    except Exception as e:
+        logger.error(f"Error getting analytics: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/router/optimal-model', methods=['POST'])
+def get_optimal_model():
+    """Get optimal model recommendation without executing"""
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), 400
+            
+        prompt = data.get('prompt', '')
+        task_type = data.get('task_type')
+        budget_factor = data.get('budget_factor', 1.0)
+        
+        if not prompt:
+            return jsonify({"error": "No prompt provided"}), 400
+        
+        optimal_model, routing_info = intelligent_router.get_optimal_model(
+            prompt, task_type, budget_factor
+        )
+        
+        return jsonify({
+            "optimal_model": optimal_model,
+            "routing_info": routing_info,
+            "backend_url": BACKENDS.get(optimal_model)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting optimal model: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/v1/plan', methods=['POST'])
