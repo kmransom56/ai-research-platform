@@ -1,0 +1,24 @@
+# SearXNG Rate Limiter Configuration
+# This file configures rate limiting for SearXNG to prevent abuse
+
+[botdetection]
+# Enable bot detection
+enabled = true
+
+[botdetection.ip_limit]
+# Maximum requests per IP per minute
+max_requests = 60
+window_size = 60
+
+[botdetection.user_agent]
+# Block known bot user agents
+enabled = true
+
+[real_ip]
+# Real IP detection for reverse proxy setups
+enabled = true
+proxy_count = 1
+
+[link_token]
+# Enable link token for additional security
+enabled = false

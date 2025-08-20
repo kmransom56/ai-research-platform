@@ -137,7 +137,7 @@ services:
       ai-platform:
         ipv4_address: 172.20.0.22
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8081/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -151,9 +151,10 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - WEBHOOK_PORT=11002
+      - WEBHOOK_PORT=11025
       - REPOSITORY_PATH=/app/repo
     entrypoint: ["/entrypoint-export-secrets.sh"]
+    command: ["node", "webhook-server.js"]
     volumes:
       - webhook_logs:/app/logs
       - .:/app/repo:rw  # Mount repo for git operations
@@ -162,12 +163,12 @@ services:
     secrets:
       - GITHUB_WEBHOOK_SECRET
     ports:
-      - "11002:11002"
+      - "11025:11025"
     networks:
       ai-platform:
         ipv4_address: 172.20.0.23
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11002/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:11025/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -205,7 +206,7 @@ services:
       ai-platform:
         ipv4_address: 172.20.0.24
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11003/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:11003/api/status"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -229,7 +230,7 @@ services:
       ai-platform:
         ipv4_address: 172.20.0.25
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11010"]
+      test: ["CMD", "curl", "-f", "http://localhost:11010/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -326,8 +327,9 @@ services:
       - SETUID
     environment:
       - SEARXNG_SECRET=ai-research-platform-secret-key-12345
+    volumes:
+      - ../../configs/searxng/limiter.toml:/etc/searxng/limiter.toml:ro
     tmpfs:
-      - /etc/searxng:rw,noexec,nosuid,size=1M
       - /var/log/searxng:rw,noexec,nosuid,size=1M
     ports:
       - "11021:8080"
@@ -381,7 +383,7 @@ services:
       ai-platform:
         ipv4_address: 172.20.0.40
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:6333/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -707,6 +709,10 @@ services:
       - "11510:5678"
     environment:
       - GENERIC_TIMEZONE=UTC
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_SECURE_COOKIE=false
+      - WEBHOOK_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/n8n/
+      - N8N_EDITOR_BASE_URL=https://ubuntuaicodeserver-1.tail5137b4.ts.net:8443/n8n/
     networks:
       ai-platform:
         ipv4_address: 172.20.0.89

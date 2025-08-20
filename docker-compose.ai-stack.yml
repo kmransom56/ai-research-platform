@@ -240,25 +240,25 @@ services:
       - koboldcpp
       - oobabooga
 
-  # Oobabooga Text Generation WebUI (Tesla K80 optimized)
+  # Oobabooga Text Generation WebUI (RTX 3060 optimized)
   oobabooga:
-    image: ghcr.io/oobabooga/text-generation-webui:latest
+    image: atinoda/text-generation-webui:default
     container_name: ai-platform-oobabooga
     restart: unless-stopped
     ports:
       - "7860:7860"  # Web UI
-      - "5000:5000"  # API
+      - "5001:5000"  # API (changed to avoid conflict)
     environment:
-      - CLI_ARGS=--listen --listen-port 7860 --api --api-port 5000 --loader llamacpp --gpu-memory 10 --n-gpu-layers 20
-      - CUDA_VISIBLE_DEVICES=0
-      - TORCH_CUDA_ARCH_LIST=3.7  # Tesla K80 compute capability
-      - PUID=1000
-      - PGID=1000
+      - CLI_ARGS=--listen --listen-port 7860 --api --api-port 5000 --loader transformers --gpu-memory 8 --n-gpu-layers 35
+      - CUDA_VISIBLE_DEVICES=1
+      - TORCH_CUDA_ARCH_LIST=8.6  # RTX 3060 compute capability
+      - PUID=0
+      - PGID=0
     volumes:
       - oobabooga-models:/app/models
-      - ./python/ai-stack/oobabooga-config:/app/characters
-      - ./python/ai-stack/tesla_k80_config.py:/app/tesla_k80_config.py
-    user: "1000:1000"
+      - ./tmp/oobabooga-cache:/app/user_data/cache
+      - ./tmp/oobabooga-logs:/app/logs
+    user: "0:0"
     networks:
       - ai-platform
     deploy:
