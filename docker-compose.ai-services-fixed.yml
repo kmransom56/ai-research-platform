@@ -1,0 +1,136 @@
+version: '3.8'
+
+services:
+  # Lightweight AI Gateway (Python/FastAPI based)
+  ai-gateway-lite:
+    build:
+      context: ./python/ai-stack
+      dockerfile: Dockerfile.gateway
+    container_name: ai-gateway-lite
+    ports:
+      - "9001:9001"
+    environment:
+      - PORT=9001
+      - WORKERS=2
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./python/ai-stack:/app
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Ollama for local LLM serving (lightweight alternative to vLLM)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-platform-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Text Generation WebUI (lighter alternative to Oobabooga)
+  text-generation-webui:
+    image: ghcr.io/oobabooga/text-generation-webui:latest
+    container_name: ai-platform-textgen
+    ports:
+      - "7860:7860"
+      - "5000:5000"
+    environment:
+      - WEBUI_PORT=7860
+      - API_PORT=5000
+    volumes:
+      - textgen_data:/app
+      - ./logs:/app/logs
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Simple model serving using transformers (CPU fallback)
+  transformers-api:
+    build:
+      context: ./python/ai-stack
+      dockerfile: Dockerfile.transformers
+    container_name: ai-transformers-api
+    ports:
+      - "8000:8000"
+      - "8001:8001" 
+      - "8002:8002"
+    environment:
+      - REASONING_PORT=8000
+      - GENERAL_PORT=8001
+      - CODING_PORT=8002
+      - MODEL_REASONING=microsoft/DialoGPT-small
+      - MODEL_GENERAL=distilgpt2
+      - MODEL_CODING=microsoft/DialoGPT-small
+    volumes:
+      - transformer_cache:/root/.cache
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # GenAI Stack services (Neo4j based)
+  genai-stack-api:
+    build:
+      context: ./genai-stack
+      dockerfile: api.Dockerfile
+    container_name: genai-stack-api
+    ports:
+      - "8504:8504"
+    environment:
+      - NEO4J_URI=bolt://ai-platform-neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=${NEO4J_PASSWORD:-password}
+    depends_on:
+      - ai-platform-neo4j
+    restart: unless-stopped
+
+  genai-stack-frontend:
+    build:
+      context: ./genai-stack
+      dockerfile: frontend.Dockerfile
+    container_name: genai-stack-frontend
+    ports:
+      - "8505:8505"
+    environment:
+      - API_URL=http://genai-stack-api:8504
+    depends_on:
+      - genai-stack-api
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+    driver: local
+  textgen_data:
+    driver: local
+  transformer_cache:
+    driver: local
+
+networks:
+  default:
+    driver: bridge

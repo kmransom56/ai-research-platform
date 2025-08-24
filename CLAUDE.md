@@ -578,6 +578,116 @@ cp configs/.env.template .env
 - **Subdomain certificates missing**: Ensure subdomains are configured in Tailscale admin console
 - **Certificate expiration**: Use `./scripts/infrastructure/verify-ssl-setup.sh` to check certificate status
 
+### NVIDIA Driver Issues
+
+**Common NVIDIA Driver Installation Problems:**
+- **Conflicting package files error**: `trying to overwrite shared '/etc/environment.d/nvidia-gtk-workaround.conf'`
+- **DKMS compilation failures**: nvidia-dkms-470 and nvidia-driver-470 package errors
+- **Initramfs generation errors**: Processing triggers during kernel module updates
+
+**NVIDIA Driver Troubleshooting Commands:**
+```bash
+# Fix broken package installation
+sudo dpkg --configure -a
+sudo apt --fix-broken install
+
+# Force overwrite conflicting files
+sudo dpkg --force-overwrite -i /var/cache/apt/archives/libnvidia-gl-470_*.deb
+
+# Complete NVIDIA driver removal and reinstall
+sudo apt purge nvidia-* libnvidia-*
+sudo apt autoremove
+sudo apt update
+sudo apt install nvidia-driver-470
+
+# DKMS troubleshooting
+sudo dkms status
+sudo dkms remove nvidia/470.256.02 --all
+sudo apt reinstall nvidia-dkms-470
+
+# Alternative: Use ubuntu-drivers for automatic detection
+sudo ubuntu-drivers list
+sudo ubuntu-drivers autoinstall
+
+# Verify NVIDIA installation
+nvidia-smi
+lsmod | grep nvidia
+```
+
+**Recovery from Failed Installation:**
+```bash
+# Remove broken packages
+sudo apt remove --purge nvidia-driver-470 nvidia-dkms-470
+sudo apt autoremove
+sudo apt autoclean
+
+# Clean package cache
+sudo apt clean
+sudo dpkg --configure -a
+
+# Fresh installation
+sudo apt update
+sudo apt install nvidia-driver-470
+```
+
+**CUDA Driver Installation (Recommended for AI Workloads):**
+```bash
+# Complete cleanup of all NVIDIA components
+sudo apt purge nvidia-* libnvidia-* cuda-* libcuda*
+sudo apt autoremove --purge
+sudo apt autoclean
+
+# Remove any existing NVIDIA configurations
+sudo rm -rf /etc/modprobe.d/nvidia*
+sudo rm -rf /etc/modprobe.d/blacklist-nvidia*
+
+# Update initramfs to remove NVIDIA modules
+sudo update-initramfs -u
+
+# Download and install CUDA Toolkit (includes drivers)
+wget https://developer.download.nvidia.com/compute/cuda/12.6.0/local_installers/cuda_12.6.0_560.28.03_linux.run
+sudo sh cuda_12.6.0_560.28.03_linux.run --silent --driver --toolkit
+
+# If installer fails, try without driver (install driver separately)
+sudo sh cuda_12.6.0_560.28.03_linux.run --silent --toolkit --no-driver-installation
+
+# Add to PATH (add to ~/.bashrc for permanent)
+export PATH=/usr/local/cuda-12.6/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64:$LD_LIBRARY_PATH
+
+# Verify CUDA installation
+nvidia-smi
+nvcc --version
+```
+
+**CUDA Installation Troubleshooting:**
+```bash
+# Check installer logs
+sudo cat /var/log/cuda-installer.log
+sudo cat /var/log/nvidia-installer.log
+
+# If driver installation fails, install driver separately
+sudo apt install nvidia-driver-560
+sudo reboot
+
+# Then install CUDA toolkit only
+sudo sh cuda_12.6.0_560.28.03_linux.run --silent --toolkit --no-driver-installation
+```
+
+**Alternative: Install CUDA via Repository**
+```bash
+# Add NVIDIA CUDA repository
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt update
+
+# Install CUDA Toolkit
+sudo apt install cuda-toolkit-12-6 cuda-drivers
+
+# Reboot required
+sudo reboot
+```
+
 ### Package Dependency Issues
 **Azure.AI.OpenAI Version Compatibility (As of June 2025):**
 - Issue: KernelMemory 0.98.x expects Azure.AI.OpenAI version 2.2.0.0 but only 2.2.0-beta.4 is available
@@ -725,3 +835,5 @@ docker-compose -f docker-compose.ai-stack.yml up -d --scale ai-gateway=3
 4. **Monitoring**: Integrated with Grafana and Prometheus
 5. **Management**: Platform scripts in `scripts/platform-management/`
 Last backup: Sun Aug 17 07:16:19 PM EDT 2025
+
+- update CLAUDE.md fie
